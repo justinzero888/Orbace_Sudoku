@@ -14,7 +14,9 @@ import 'sudoku_number_pad.dart';
 import 'sudoku_replay_screen.dart';
 
 class SudokuGameScreen extends StatefulWidget {
-  const SudokuGameScreen({super.key});
+  const SudokuGameScreen({super.key, this.repository});
+
+  final SudokuRepository? repository;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -31,8 +33,12 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   @override
   void initState() {
     super.initState();
-    _database = AppDatabase();
-    _repository = SudokuRepository(_database);
+    if (widget.repository case final repository?) {
+      _repository = repository;
+    } else {
+      _database = AppDatabase();
+      _repository = SudokuRepository(_database);
+    }
     _controller = GameSessionController(
       givens: FixturePuzzles.teaMomentGivens(),
       solution: FixturePuzzles.teaMomentSolution(),
@@ -50,7 +56,9 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
     _controller
       ..removeListener(_handleControllerChanged)
       ..dispose();
-    unawaited(_database.close());
+    if (widget.repository == null) {
+      unawaited(_database.close());
+    }
     super.dispose();
   }
 

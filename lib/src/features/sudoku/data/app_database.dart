@@ -109,6 +109,30 @@ class AppDatabase extends _$AppDatabase {
           ..limit(1))
         .getSingleOrNull();
   }
+
+  Future<List<AttemptRow>> allAttempts() {
+    return (select(attemptRows)..orderBy([
+          (row) =>
+              OrderingTerm(expression: row.startedAt, mode: OrderingMode.desc),
+        ]))
+        .get();
+  }
+
+  Future<List<AttemptRow>> rankedAttempts({int limit = 10}) {
+    return (select(attemptRows)
+          ..where(
+            (row) =>
+                row.rankedEligible.equals(true) & row.completed.equals(true),
+          )
+          ..orderBy([
+            (row) => OrderingTerm(
+              expression: row.scoreTotal,
+              mode: OrderingMode.desc,
+            ),
+          ])
+          ..limit(limit))
+        .get();
+  }
 }
 
 LazyDatabase _openConnection() {

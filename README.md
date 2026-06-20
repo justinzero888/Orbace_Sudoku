@@ -70,6 +70,18 @@ Established:
 - In-memory persistence tests for repository behavior.
 - Replay widget smoke test.
 
+## Phase 4 Status
+
+Established:
+
+- Scholar's Path award model, award engine, and progress screen.
+- Daily Tea Moment selector with stable day-based puzzle assignment.
+- Extreme Challenge domain service with unlock and ranked eligibility rules.
+- Locked Extreme hub with Daily Extreme preview and local bests.
+- Repository queries for all attempts and ranked attempts.
+- Phase 4 unit tests for awards, daily selection, and Extreme eligibility.
+- Home navigation smoke test for Scholar's Path and Extreme Challenge.
+
 ## Project Docs
 
 - [PRD V3](Docs/Orbace%20Sudoku%20%E2%80%94%20PRD%20V3.md)
@@ -91,10 +103,4 @@ This runs:
 
 ## Next Phase
 
-Phase 4 should start with awards, daily puzzle state, and local Extreme:
-
-1. Scholar's Path award engine and stage progress.
-2. Daily Tea Moment selection and days-present streak.
-3. Local Extreme locked hub and unlock requirements.
-4. Local Extreme bests board.
-5. Accessibility pass on the expanded game flow.
+Phase 5 should focus on tutorial depth, accessibility polish, expanded content, and release readiness.

@@ -79,6 +79,16 @@ class SudokuRepository {
     return row == null ? null : _attemptFromRow(row);
   }
 
+  Future<List<SudokuAttempt>> allAttempts() async {
+    final rows = await database.allAttempts();
+    return rows.map(_attemptFromRow).toList(growable: false);
+  }
+
+  Future<List<SudokuAttempt>> rankedAttempts({int limit = 10}) async {
+    final rows = await database.rankedAttempts(limit: limit);
+    return rows.map(_attemptFromRow).toList(growable: false);
+  }
+
   SudokuAttempt _attemptFromRow(AttemptRow row) {
     final score = row.scoreTotal == null
         ? null

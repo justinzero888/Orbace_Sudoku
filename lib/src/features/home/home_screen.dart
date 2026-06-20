@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 
 import '../../app/orbace_theme.dart';
+import '../sudoku/data/sudoku_repository.dart';
+import '../sudoku/domain/daily_tea_moment.dart';
+import '../sudoku/presentation/extreme_hub_screen.dart';
+import '../sudoku/presentation/scholar_path_screen.dart';
 import '../sudoku/presentation/sudoku_game_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.repository});
+
+  final SudokuRepository? repository;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final daily = const DailyTeaMomentSelector().forDate(
+      DateTime.now(),
+      const <String>['tea_moment_fixture'],
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Orbace Sudoku')),
@@ -19,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             Text('一局一茶', style: textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
-              'A playable Tea Moment is ready. Solve calmly, use notes, undo moves, and ask the lantern for help.',
+              'Today\'s Tea Moment is ${daily.dayKey}. Solve calmly, use notes, undo moves, and ask the lantern for help.',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
@@ -30,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (_) => const SudokuGameScreen(),
+                    builder: (_) => SudokuGameScreen(repository: repository),
                   ),
                 );
               },
@@ -42,10 +52,30 @@ class HomeScreen extends StatelessWidget {
               seal: '局',
             ),
             const SizedBox(height: 12),
-            const _PhaseCard(
+            _PhaseCard(
               title: 'Scholar\'s Path',
               subtitle: 'Awards, replay, and local Extreme unlocks',
               seal: '學',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => ScholarPathScreen(repository: repository),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 12),
+            _PhaseCard(
+              title: 'Extreme Challenge',
+              subtitle: 'Locked local no-assist challenge hub',
+              seal: '極',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => ExtremeHubScreen(repository: repository),
+                  ),
+                );
+              },
             ),
           ],
         ),
