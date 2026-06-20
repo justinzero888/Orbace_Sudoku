@@ -23,19 +23,21 @@ This document captures the concrete app information needed to configure Orbace S
 
 | Field | Value |
 | --- | --- |
-| Apple Developer Team ID | Z2GMF897Z7 |
+| Apple Developer Team Name | Orbace Technologies LLC |
+| Apple Developer Team ID | 4Q4LMBRDM3 |
 | Xcode signing style | Automatic |
-| Required Xcode account state | Apple ID signed in under Xcode > Settings > Accounts with access to team Z2GMF897Z7 |
+| Required Xcode account state | Apple ID signed in under Xcode > Settings > Accounts with access to Orbace Technologies LLC / 4Q4LMBRDM3 |
 | Current signing blocker | Local Xcode currently reported no Apple account/provisioning profile during `flutter build ipa --release` |
+| Repo note | The current Xcode project may still contain the previous local team value. Switch Runner signing to Orbace Technologies LLC / 4Q4LMBRDM3 before building the TestFlight IPA. |
 
 Action required:
 
 1. Open Xcode.
 2. Go to Xcode > Settings > Accounts.
-3. Add/sign in with the Apple ID that has access to team `Z2GMF897Z7`.
+3. Add/sign in with the Apple ID that has access to `Orbace Technologies LLC - 4Q4LMBRDM3`.
 4. Reopen `ios/Runner.xcworkspace`.
 5. Select Runner target > Signing & Capabilities.
-6. Confirm Team is `Z2GMF897Z7` and automatic signing resolves without errors.
+6. Confirm Team is `Orbace Technologies LLC - 4Q4LMBRDM3` and automatic signing resolves without errors.
 
 ## 3. Bundle IDs
 
@@ -107,7 +109,7 @@ Set or verify Runner target > General:
 | Bundle Identifier | com.orbace.orbaceSudoku |
 | Version | 1.0.0 |
 | Build | 1 |
-| Team | Z2GMF897Z7 |
+| Team | Orbace Technologies LLC - 4Q4LMBRDM3 |
 | Signing | Automatically manage signing |
 | App icon asset | AppIcon |
 | Launch screen | LaunchScreen |
@@ -117,7 +119,7 @@ Set or verify Runner target > Signing & Capabilities:
 | Setting | Value |
 | --- | --- |
 | Automatically manage signing | Enabled |
-| Team | Z2GMF897Z7 |
+| Team | Orbace Technologies LLC - 4Q4LMBRDM3 |
 | Bundle Identifier | com.orbace.orbaceSudoku |
 | Provisioning profile | Xcode Managed Profile, once account/team access is available |
 
@@ -126,7 +128,7 @@ Set or verify Runner target > Build Settings:
 | Build Setting | Value |
 | --- | --- |
 | Product Bundle Identifier | com.orbace.orbaceSudoku |
-| Development Team | Z2GMF897Z7 |
+| Development Team | 4Q4LMBRDM3 |
 | Current Project Version | `$(FLUTTER_BUILD_NUMBER)` |
 | Marketing Version | from Flutter build name |
 
@@ -329,7 +331,7 @@ Xcode has no Apple account/provisioning profile available for com.orbace.orbaceS
 Resolution:
 
 1. Add the Apple ID in Xcode.
-2. Confirm access to Team ID `Z2GMF897Z7`.
+2. Confirm access to `Orbace Technologies LLC - 4Q4LMBRDM3`.
 3. Confirm App ID `com.orbace.orbaceSudoku` exists in Apple Developer.
 4. Confirm the App Store Connect app record uses the same Bundle ID.
 5. Re-run `flutter build ipa --release --build-name 1.0.0 --build-number 1`.
@@ -380,4 +382,3 @@ Before final TestFlight rollout, decide:
 - Whether crash reporting should be added before external beta.
 - Final app icon and launch screen artwork.
 - App privacy answers after any analytics/backend decisions.
-
