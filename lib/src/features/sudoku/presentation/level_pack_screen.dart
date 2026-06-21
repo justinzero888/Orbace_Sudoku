@@ -1,68 +1,137 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/orbace_theme.dart';
+import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
-import '../domain/sudoku_difficulty.dart';
 import 'fixture_puzzles.dart';
 import 'sudoku_game_screen.dart';
 
-class LevelPackScreen extends StatelessWidget {
+class LevelPackScreen extends StatefulWidget {
   const LevelPackScreen({super.key, this.repository});
 
   final SudokuRepository? repository;
 
   @override
-  Widget build(BuildContext context) {
-    final grouped = <SudokuDifficulty, List<FixturePuzzleDefinition>>{
-      for (final difficulty in SudokuDifficulty.values)
-        difficulty: FixturePuzzles.catalog
-            .where((puzzle) => puzzle.difficulty == difficulty)
-            .toList(growable: false),
-    }..removeWhere((_, puzzles) => puzzles.isEmpty);
+  State<LevelPackScreen> createState() => _LevelPackScreenState();
+}
 
+class _LevelPackScreenState extends State<LevelPackScreen> {
+  late final Future<PuzzlePackCatalog> _catalogFuture = PuzzlePackLoader()
+      .load();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Level Packs')),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
-          children: [
-            Text(
-              '${FixturePuzzles.catalog.length} test puzzles loaded',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: 12),
-            for (final entry in grouped.entries) ...[
-              _DifficultyHeader(difficulty: entry.key),
-              const SizedBox(height: 8),
-              for (final puzzle in entry.value) ...[
-                _PuzzleCard(repository: repository, puzzle: puzzle),
-                const SizedBox(height: 10),
-              ],
-              const SizedBox(height: 8),
-            ],
-          ],
+        child: FutureBuilder<PuzzlePackCatalog>(
+          future: _catalogFuture,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return _PackBrowser(
+              repository: widget.repository,
+              catalog: snapshot.requireData,
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class _DifficultyHeader extends StatelessWidget {
-  const _DifficultyHeader({required this.difficulty});
+class _PackBrowser extends StatelessWidget {
+  const _PackBrowser({required this.repository, required this.catalog});
 
-  final SudokuDifficulty difficulty;
+  final SudokuRepository? repository;
+  final PuzzlePackCatalog catalog;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '${difficulty.chineseLabel} ${difficulty.label}',
-      style: Theme.of(context).textTheme.titleLarge,
+    final textTheme = Theme.of(context).textTheme;
+    final advancedCount = catalog.puzzles
+        .where((puzzle) => _hasAdvancedTechnique(puzzle))
+        .length;
+
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
+      children: [
+        Text(
+          '${catalog.puzzles.length} UAT puzzles loaded',
+          style: textTheme.bodyLarge,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '$advancedCount puzzles require pair or pointing techniques',
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 14),
+        for (final pack in catalog.packs) ...[
+          _PackSection(repository: repository, pack: pack),
+          const SizedBox(height: 12),
+        ],
+      ],
     );
   }
 }
 
-class _PuzzleCard extends StatelessWidget {
-  const _PuzzleCard({required this.repository, required this.puzzle});
+class _PackSection extends StatelessWidget {
+  const _PackSection({required this.repository, required this.pack});
+
+  final SudokuRepository? repository;
+  final PuzzlePackDefinition pack;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Card(
+      child: ExpansionTile(
+        initiallyExpanded: pack.id == 'tea_moments' || pack.id == 'mastery',
+        tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+        leading: Container(
+          width: 44,
+          height: 44,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: OrbaceTheme.vermilion,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            pack.seal,
+            style: textTheme.titleLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        title: Text(pack.title, style: textTheme.titleLarge),
+        subtitle: Text(
+          '${pack.puzzles.length} puzzles  |  '
+          '${pack.advancedPuzzleCount} advanced',
+        ),
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
+              child: Text(pack.description, style: textTheme.bodyMedium),
+            ),
+          ),
+          for (final puzzle in pack.puzzles) ...[
+            _PuzzleTile(repository: repository, puzzle: puzzle),
+            const SizedBox(height: 8),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _PuzzleTile extends StatelessWidget {
+  const _PuzzleTile({required this.repository, required this.puzzle});
 
   final SudokuRepository? repository;
   final FixturePuzzleDefinition puzzle;
@@ -70,8 +139,10 @@ class _PuzzleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final advanced = _hasAdvancedTechnique(puzzle);
 
-    return Card(
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
@@ -83,33 +154,29 @@ class _PuzzleCard extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           child: Row(
             children: [
-              Container(
-                width: 44,
-                height: 44,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: OrbaceTheme.vermilion,
-                  borderRadius: BorderRadius.circular(6),
-                ),
+              SizedBox(
+                width: 38,
                 child: Text(
                   puzzle.seal,
+                  textAlign: TextAlign.center,
                   style: textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
+                    color: OrbaceTheme.vermilion,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(puzzle.title, style: textTheme.titleLarge),
-                    const SizedBox(height: 4),
+                    Text(puzzle.title, style: textTheme.titleMedium),
+                    const SizedBox(height: 2),
                     Text(
+                      '${puzzle.difficulty.label}  |  '
                       '${puzzle.clueCount} givens  |  '
                       'Target ${_formatMinutes(puzzle.targetTimeSeconds)}',
                       style: textTheme.bodyMedium,
@@ -117,6 +184,11 @@ class _PuzzleCard extends StatelessWidget {
                   ],
                 ),
               ),
+              if (advanced)
+                Tooltip(
+                  message: puzzle.requiredTechniques.join(', '),
+                  child: const Icon(Icons.auto_awesome, size: 20),
+                ),
               const Icon(Icons.chevron_right),
             ],
           ),
@@ -124,6 +196,15 @@ class _PuzzleCard extends StatelessWidget {
       ),
     );
   }
+}
+
+bool _hasAdvancedTechnique(FixturePuzzleDefinition puzzle) {
+  return puzzle.requiredTechniques.any(
+    (technique) =>
+        technique == 'naked_pair' ||
+        technique == 'hidden_pair' ||
+        technique == 'pointing_pair',
+  );
 }
 
 String _formatMinutes(int seconds) {

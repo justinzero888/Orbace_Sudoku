@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-20",
+  "packs": [
+    {
+      "id": "tea_moments",
+      "title": "Tea Moments",
+      "subtitle": "Daily calm practice",
+      "seal": "茶",
+      "description": "Short warm-up puzzles for daily play and UAT smoke tests.",
+      "asset": "assets/puzzles/tea_moments.json",
+      "order": 0
+    },
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "subtitle": "Steady classic play",
+      "seal": "基",
+      "description": "Approachable puzzles for testing normal game flow.",
+      "asset": "assets/puzzles/foundation.json",
+      "order": 1
+    },
+    {
+      "id": "discipline",
+      "title": "Discipline",
+      "subtitle": "Medium technique practice",
+      "seal": "習",
+      "description": "Longer puzzles that begin to require candidate management.",
+      "asset": "assets/puzzles/discipline.json",
+      "order": 2
+    },
+    {
+      "id": "insight",
+      "title": "Insight",
+      "subtitle": "Hard pattern solving",
+      "seal": "悟",
+      "description": "Hard UAT puzzles focused on pair and pointing eliminations.",
+      "asset": "assets/puzzles/insight.json",
+      "order": 3
+    },
+    {
+      "id": "mastery",
+      "title": "Mastery",
+      "subtitle": "Expert-level UAT checks",
+      "seal": "極",
+      "description": "The hardest bundled training pack before ranked Extreme play.",
+      "asset": "assets/puzzles/mastery.json",
+      "order": 4
+    },
+    {
+      "id": "extreme",
+      "title": "Extreme Challenge",
+      "subtitle": "Ranked challenge seeds",
+      "seal": "榜",
+      "description": "Candidate ranked puzzles for future leaderboard validation.",
+      "asset": "assets/puzzles/extreme.json",
+      "order": 5
+    }
+  ]
+}

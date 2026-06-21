@@ -1,21 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:orbace_sudoku/src/features/sudoku/data/puzzle_pack_loader.dart';
 import 'package:orbace_sudoku/src/features/sudoku/engine/human_ranked_solver.dart';
 import 'package:orbace_sudoku/src/features/sudoku/engine/sudoku_solver.dart';
-import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 
 void main() {
-  test('fixture catalog provides multiple playable puzzles', () {
-    expect(FixturePuzzles.catalog.length, greaterThanOrEqualTo(6));
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('asset catalog provides expanded UAT puzzle packs', () async {
+    final catalog = await PuzzlePackLoader().load();
+
+    expect(catalog.packs.length, greaterThanOrEqualTo(6));
+    expect(catalog.puzzles.length, greaterThanOrEqualTo(100));
     expect(
-      FixturePuzzles.catalog.map((puzzle) => puzzle.id).toSet().length,
-      FixturePuzzles.catalog.length,
+      catalog.puzzles.map((puzzle) => puzzle.id).toSet().length,
+      catalog.puzzles.length,
     );
   });
 
-  test('fixture catalog has matching unique solutions', () {
+  test('asset catalog has matching unique solutions', () async {
+    final catalog = await PuzzlePackLoader().load();
     final solver = SudokuSolver();
 
-    for (final puzzle in FixturePuzzles.catalog) {
+    for (final puzzle in catalog.puzzles) {
       expect(
         solver.countSolutions(puzzle.givens, limit: 2),
         1,
@@ -29,10 +35,11 @@ void main() {
     }
   });
 
-  test('fixture catalog is compatible with hint solve path', () {
+  test('asset catalog is compatible with hint solve path', () async {
+    final catalog = await PuzzlePackLoader().load();
     final humanSolver = HumanRankedSolver();
 
-    for (final puzzle in FixturePuzzles.catalog) {
+    for (final puzzle in catalog.puzzles) {
       final result = humanSolver.solve(puzzle.givens);
       expect(
         result.solved,

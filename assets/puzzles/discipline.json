@@ -1,0 +1,940 @@
+{
+  "id": "discipline",
+  "generatedAt": "2026-06-20",
+  "puzzles": [
+    {
+      "id": "discipline_001",
+      "title": "Discipline 01",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "001050074",
+        "304002095",
+        "090740200",
+        "700528046",
+        "052000700",
+        "000000000",
+        "008090027",
+        "020605009",
+        "430000500"
+      ],
+      "solutionRows": [
+        "281956374",
+        "374812695",
+        "695743281",
+        "713528946",
+        "852469713",
+        "946137852",
+        "568394127",
+        "127685439",
+        "439271568"
+      ]
+    },
+    {
+      "id": "discipline_002",
+      "title": "Discipline 02",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "060002000",
+        "080043006",
+        "304690000",
+        "410069003",
+        "008074062",
+        "000000001",
+        "052000010",
+        "700000004",
+        "803017020"
+      ],
+      "solutionRows": [
+        "169852347",
+        "285743196",
+        "374691258",
+        "417269583",
+        "538174962",
+        "926385471",
+        "652438719",
+        "791526834",
+        "843917625"
+      ]
+    },
+    {
+      "id": "discipline_003",
+      "title": "Discipline 03",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 141,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "580079000",
+        "600080740",
+        "009023800",
+        "000000305",
+        "000235080",
+        "005804900",
+        "100062500",
+        "000300000",
+        "058100092"
+      ],
+      "solutionRows": [
+        "581479263",
+        "623581749",
+        "479623851",
+        "814796325",
+        "796235184",
+        "235814976",
+        "147962538",
+        "962358417",
+        "358147692"
+      ]
+    },
+    {
+      "id": "discipline_004",
+      "title": "Discipline 04",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "090001203",
+        "003000000",
+        "460020090",
+        "048209500",
+        "070010009",
+        "309706108",
+        "650000030",
+        "002397000",
+        "000000002"
+      ],
+      "solutionRows": [
+        "795641283",
+        "283975461",
+        "461823795",
+        "148239576",
+        "576418329",
+        "329756148",
+        "654182937",
+        "812397654",
+        "937564812"
+      ]
+    },
+    {
+      "id": "discipline_005",
+      "title": "Discipline 05",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "571002003",
+        "030000000",
+        "602090007",
+        "000047010",
+        "050000049",
+        "407008306",
+        "300405000",
+        "005080900",
+        "010039570"
+      ],
+      "solutionRows": [
+        "571862493",
+        "934751268",
+        "682394157",
+        "263947815",
+        "158623749",
+        "497518326",
+        "329475681",
+        "745186932",
+        "816239574"
+      ]
+    },
+    {
+      "id": "discipline_006",
+      "title": "Discipline 06",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "200056000",
+        "300010705",
+        "000800001",
+        "000038002",
+        "810520070",
+        "052060103",
+        "120600000",
+        "930000004",
+        "000070018"
+      ],
+      "solutionRows": [
+        "241756839",
+        "389412765",
+        "675893421",
+        "796138542",
+        "813524976",
+        "452967183",
+        "128645397",
+        "937281654",
+        "564379218"
+      ]
+    },
+    {
+      "id": "discipline_007",
+      "title": "Discipline 07",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 137,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000010",
+        "098056004",
+        "600230000",
+        "000023008",
+        "069005000",
+        "070090045",
+        "130870609",
+        "906300000",
+        "007560000"
+      ],
+      "solutionRows": [
+        "423987516",
+        "798156324",
+        "615234897",
+        "541723968",
+        "869415273",
+        "372698145",
+        "134872659",
+        "956341782",
+        "287569431"
+      ]
+    },
+    {
+      "id": "discipline_008",
+      "title": "Discipline 08",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "402000538",
+        "100500000",
+        "000020710",
+        "590046271",
+        "000035800",
+        "004000053",
+        "910000427",
+        "000472000",
+        "000050000"
+      ],
+      "solutionRows": [
+        "462791538",
+        "179583642",
+        "358624719",
+        "593846271",
+        "721935864",
+        "684217953",
+        "915368427",
+        "836472195",
+        "247159386"
+      ]
+    },
+    {
+      "id": "discipline_009",
+      "title": "Discipline 09",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "300008000",
+        "260030805",
+        "000601409",
+        "000060094",
+        "000000700",
+        "607402008",
+        "000200980",
+        "426080007",
+        "030005642"
+      ],
+      "solutionRows": [
+        "394578126",
+        "261934875",
+        "758621439",
+        "583167294",
+        "942853761",
+        "617492358",
+        "175246983",
+        "426389517",
+        "839715642"
+      ]
+    },
+    {
+      "id": "discipline_010",
+      "title": "Discipline 10",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000800",
+        "300940000",
+        "070010549",
+        "700060030",
+        "010500290",
+        "540092100",
+        "067000902",
+        "090000080",
+        "430059600"
+      ],
+      "solutionRows": [
+        "954627813",
+        "381945726",
+        "672318549",
+        "729861435",
+        "816534297",
+        "543792168",
+        "167483952",
+        "295176384",
+        "438259671"
+      ]
+    },
+    {
+      "id": "discipline_011",
+      "title": "Discipline 11",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000009081",
+        "310000009",
+        "000800745",
+        "500002008",
+        "027018530",
+        "000300900",
+        "431007800",
+        "000000057",
+        "000900410"
+      ],
+      "solutionRows": [
+        "754269381",
+        "318475629",
+        "692831745",
+        "543792168",
+        "927618534",
+        "186354972",
+        "431527896",
+        "869143257",
+        "275986413"
+      ]
+    },
+    {
+      "id": "discipline_012",
+      "title": "Discipline 12",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 139,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "203870000",
+        "009000007",
+        "080109050",
+        "628001000",
+        "045260109",
+        "001005006",
+        "002600000",
+        "094082000",
+        "000050208"
+      ],
+      "solutionRows": [
+        "253876914",
+        "419523687",
+        "786149352",
+        "628791543",
+        "345268179",
+        "971435826",
+        "832617495",
+        "594382761",
+        "167954238"
+      ]
+    },
+    {
+      "id": "discipline_013",
+      "title": "Discipline 13",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "048030900",
+        "900001536",
+        "500000000",
+        "000103005",
+        "000060000",
+        "206070341",
+        "600057408",
+        "000306700",
+        "705000610"
+      ],
+      "solutionRows": [
+        "148635927",
+        "972481536",
+        "563729184",
+        "897143265",
+        "314562879",
+        "256978341",
+        "631257498",
+        "489316752",
+        "725894613"
+      ]
+    },
+    {
+      "id": "discipline_014",
+      "title": "Discipline 14",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "100000000",
+        "305008000",
+        "084000365",
+        "673090040",
+        "809210600",
+        "041000809",
+        "000060008",
+        "700080490",
+        "030000700"
+      ],
+      "solutionRows": [
+        "127356984",
+        "365948127",
+        "984172365",
+        "673895241",
+        "859214673",
+        "241637859",
+        "492761538",
+        "716583492",
+        "538429716"
+      ]
+    },
+    {
+      "id": "discipline_015",
+      "title": "Discipline 15",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "001300040",
+        "408056300",
+        "070000000",
+        "000000530",
+        "100063080",
+        "300728004",
+        "010030208",
+        "706289050",
+        "002405003"
+      ],
+      "solutionRows": [
+        "651372849",
+        "498156327",
+        "273894165",
+        "827941536",
+        "149563782",
+        "365728914",
+        "514637298",
+        "736289451",
+        "982415673"
+      ]
+    },
+    {
+      "id": "discipline_016",
+      "title": "Discipline 16",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "400600709",
+        "070040106",
+        "500000803",
+        "804000070",
+        "030406005",
+        "195003000",
+        "000060091",
+        "000190407",
+        "921000000"
+      ],
+      "solutionRows": [
+        "483651729",
+        "279348156",
+        "516927843",
+        "864519372",
+        "732486915",
+        "195273684",
+        "347865291",
+        "658192437",
+        "921734568"
+      ]
+    },
+    {
+      "id": "discipline_017",
+      "title": "Discipline 17",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000285",
+        "500000409",
+        "907020600",
+        "200085104",
+        "010000050",
+        "080400092",
+        "730000560",
+        "000700928",
+        "802000000"
+      ],
+      "solutionRows": [
+        "361947285",
+        "528361479",
+        "947528613",
+        "279685134",
+        "413279856",
+        "685413792",
+        "734892561",
+        "156734928",
+        "892156347"
+      ]
+    },
+    {
+      "id": "discipline_018",
+      "title": "Discipline 18",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "500000127",
+        "003170508",
+        "000000030",
+        "835400706",
+        "400000050",
+        "060000092",
+        "000300040",
+        "000050080",
+        "300214605"
+      ],
+      "solutionRows": [
+        "586943127",
+        "943172568",
+        "172586934",
+        "835429716",
+        "429761853",
+        "761835492",
+        "657398241",
+        "214657389",
+        "398214675"
+      ]
+    },
+    {
+      "id": "discipline_019",
+      "title": "Discipline 19",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000850400",
+        "030600007",
+        "057000001",
+        "000008010",
+        "300214006",
+        "200506090",
+        "762085040",
+        "043060905",
+        "000000000"
+      ],
+      "solutionRows": [
+        "621857439",
+        "439621857",
+        "857439621",
+        "576398214",
+        "398214576",
+        "214576398",
+        "762985143",
+        "143762985",
+        "985143762"
+      ]
+    },
+    {
+      "id": "discipline_020",
+      "title": "Discipline 20",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "050000006",
+        "490000270",
+        "801000040",
+        "004052093",
+        "030060002",
+        "520700061",
+        "040008530",
+        "305904000",
+        "200000000"
+      ],
+      "solutionRows": [
+        "752349186",
+        "493186275",
+        "861275349",
+        "614852793",
+        "937461852",
+        "528793461",
+        "149628537",
+        "375914628",
+        "286537914"
+      ]
+    },
+    {
+      "id": "discipline_021",
+      "title": "Discipline 21",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "610000020",
+        "004691300",
+        "000000169",
+        "340060010",
+        "005304000",
+        "090158000",
+        "003000000",
+        "407000280",
+        "000032640"
+      ],
+      "solutionRows": [
+        "619583724",
+        "274691358",
+        "538247169",
+        "342769815",
+        "185324976",
+        "796158432",
+        "823476591",
+        "467915283",
+        "951832647"
+      ]
+    },
+    {
+      "id": "discipline_022",
+      "title": "Discipline 22",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000570000",
+        "000643750",
+        "500008063",
+        "006400071",
+        "080200945",
+        "000700300",
+        "002004000",
+        "910062530",
+        "050000080"
+      ],
+      "solutionRows": [
+        "643579218",
+        "128643759",
+        "579128463",
+        "236495871",
+        "781236945",
+        "495781326",
+        "862354197",
+        "917862534",
+        "354917682"
+      ]
+    },
+    {
+      "id": "discipline_023",
+      "title": "Discipline 23",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "700390000",
+        "856000039",
+        "200000700",
+        "962000070",
+        "437200000",
+        "500034006",
+        "170000008",
+        "009001040",
+        "300980100"
+      ],
+      "solutionRows": [
+        "741392865",
+        "856147239",
+        "293658714",
+        "962815473",
+        "437269581",
+        "518734926",
+        "175423698",
+        "689571342",
+        "324986157"
+      ]
+    },
+    {
+      "id": "discipline_024",
+      "title": "Discipline 24",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "006021908",
+        "000000007",
+        "850740120",
+        "100032000",
+        "080174230",
+        "930000400",
+        "590060000",
+        "000093004",
+        "408010300"
+      ],
+      "solutionRows": [
+        "746321958",
+        "321859647",
+        "859746123",
+        "174932586",
+        "685174239",
+        "932685471",
+        "593468712",
+        "217593864",
+        "468217395"
+      ]
+    },
+    {
+      "id": "discipline_025",
+      "title": "Discipline 25",
+      "seal": "習",
+      "difficulty": "medium",
+      "difficultyScore": 135,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "500000000",
+        "013500609",
+        "496000000",
+        "100207000",
+        "000053007",
+        "204980503",
+        "350704100",
+        "601300004",
+        "009010030"
+      ],
+      "solutionRows": [
+        "527469381",
+        "813572649",
+        "496831752",
+        "135247896",
+        "968153427",
+        "274986513",
+        "352794168",
+        "681325974",
+        "749618235"
+      ]
+    }
+  ]
+}

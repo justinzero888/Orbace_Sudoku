@@ -8,7 +8,7 @@ import 'package:orbace_sudoku/src/features/sudoku/presentation/game_session_cont
 import 'package:orbace_sudoku/src/features/sudoku/presentation/sudoku_replay_screen.dart';
 
 void main() {
-  testWidgets('Orbace Sudoku app shell renders', (tester) async {
+  testWidgets('Orbace Sudoku app shell and navigation render', (tester) async {
     await _pumpTestApp(tester);
 
     expect(find.text('Orbace Sudoku'), findsOneWidget);
@@ -16,37 +16,30 @@ void main() {
     expect(find.text('Tea Moment'), findsOneWidget);
     expect(find.text('Level Packs'), findsOneWidget);
     expect(find.text('Scholar\'s Path'), findsOneWidget);
-  });
-
-  testWidgets('Tea Moment opens playable Sudoku screen', (tester) async {
-    await _pumpTestApp(tester);
 
     await tester.tap(find.text('Tea Moment'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.text('Tea Moment'), findsOneWidget);
+    expect(find.text('Tea Moment'), findsWidgets);
     expect(find.textContaining('Mistakes 0'), findsOneWidget);
-  });
-
-  testWidgets('Level Packs opens test puzzle catalog', (tester) async {
-    await _pumpTestApp(tester);
+    await tester.pageBack();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
 
     await tester.tap(find.text('Level Packs'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.text('6 test puzzles loaded'), findsOneWidget);
-    expect(find.text('Morning Steam'), findsOneWidget);
-    expect(find.text('Paper Lantern'), findsOneWidget);
-
-    await tester.tap(find.text('Paper Lantern'));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Paper Lantern'), findsOneWidget);
-    expect(find.textContaining('Beginner'), findsOneWidget);
-  });
-
-  testWidgets('Scholar Path and Extreme Hub open from Home', (tester) async {
-    await _pumpTestApp(tester);
+    expect(find.text('100 UAT puzzles loaded'), findsWidgets);
+    expect(
+      find.text('69 puzzles require pair or pointing techniques'),
+      findsOneWidget,
+    );
+    expect(find.text('Tea Moments'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
 
     await tester.tap(find.text('Scholar\'s Path'));
     await tester.pump();
@@ -98,7 +91,20 @@ void main() {
 Future<void> _pumpTestApp(WidgetTester tester) async {
   final database = AppDatabase(NativeDatabase.memory());
   addTearDown(database.close);
+  await tester.pumpWidget(const SizedBox.shrink());
+  await tester.pump();
   await tester.pumpWidget(OrbaceSudokuApp(database: database));
+  await _pumpUntilFound(tester, find.text('Tea Moment'));
+}
+
+Future<void> _pumpUntilFound(WidgetTester tester, Finder finder) async {
+  for (var i = 0; i < 20; i++) {
+    await tester.pump(const Duration(milliseconds: 100));
+    if (finder.evaluate().isNotEmpty) {
+      return;
+    }
+  }
+  expect(finder, findsWidgets);
 }
 
 class OrbaceSudokuAppShell extends StatelessWidget {

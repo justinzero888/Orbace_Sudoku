@@ -10,41 +10,25 @@ class FixturePuzzles {
           id: 'tea_moment_001',
           title: 'Morning Steam',
           seal: '茶',
+          packId: 'tea_moments',
           difficulty: SudokuDifficulty.beginner,
           difficultyScore: 80,
           targetTimeSeconds: 360,
           medianTimeSeconds: 480,
-          givensRows: _transformRows(_baseGivensRows, <int, int>{
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 4,
-            5: 5,
-            6: 6,
-            7: 7,
-            8: 8,
-            9: 9,
-          }),
-          solutionRows: _transformRows(_baseSolutionRows, <int, int>{
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 4,
-            5: 5,
-            6: 6,
-            7: 7,
-            8: 8,
-            9: 9,
-          }),
+          requiredTechniques: const <String>['hidden_single', 'naked_single'],
+          givensRows: _transformRows(_baseGivensRows, _identityDigitMap),
+          solutionRows: _transformRows(_baseSolutionRows, _identityDigitMap),
         ),
         FixturePuzzleDefinition(
           id: 'tea_moment_002',
           title: 'Paper Lantern',
           seal: '燈',
+          packId: 'tea_moments',
           difficulty: SudokuDifficulty.beginner,
           difficultyScore: 90,
           targetTimeSeconds: 360,
           medianTimeSeconds: 500,
+          requiredTechniques: const <String>['hidden_single', 'naked_single'],
           givensRows: _transformRows(_baseGivensRows, <int, int>{
             1: 2,
             2: 3,
@@ -67,146 +51,6 @@ class FixturePuzzles {
             8: 9,
             9: 1,
           }),
-        ),
-        FixturePuzzleDefinition(
-          id: 'level_easy_001',
-          title: 'Quiet Courtyard',
-          seal: '庭',
-          difficulty: SudokuDifficulty.easy,
-          difficultyScore: 140,
-          targetTimeSeconds: 480,
-          medianTimeSeconds: 660,
-          givensRows: _transformRows(_baseGivensRows, <int, int>{
-            1: 9,
-            2: 8,
-            3: 7,
-            4: 6,
-            5: 5,
-            6: 4,
-            7: 3,
-            8: 2,
-            9: 1,
-          }),
-          solutionRows: _transformRows(_baseSolutionRows, <int, int>{
-            1: 9,
-            2: 8,
-            3: 7,
-            4: 6,
-            5: 5,
-            6: 4,
-            7: 3,
-            8: 2,
-            9: 1,
-          }),
-        ),
-        FixturePuzzleDefinition(
-          id: 'level_easy_002',
-          title: 'Ink Stone',
-          seal: '墨',
-          difficulty: SudokuDifficulty.easy,
-          difficultyScore: 160,
-          targetTimeSeconds: 500,
-          medianTimeSeconds: 690,
-          givensRows: _swapRowBands(
-            _transformRows(_baseGivensRows, <int, int>{
-              1: 4,
-              2: 6,
-              3: 8,
-              4: 1,
-              5: 3,
-              6: 5,
-              7: 7,
-              8: 9,
-              9: 2,
-            }),
-          ),
-          solutionRows: _swapRowBands(
-            _transformRows(_baseSolutionRows, <int, int>{
-              1: 4,
-              2: 6,
-              3: 8,
-              4: 1,
-              5: 3,
-              6: 5,
-              7: 7,
-              8: 9,
-              9: 2,
-            }),
-          ),
-        ),
-        FixturePuzzleDefinition(
-          id: 'level_medium_001',
-          title: 'Scholar Desk',
-          seal: '學',
-          difficulty: SudokuDifficulty.medium,
-          difficultyScore: 240,
-          targetTimeSeconds: 720,
-          medianTimeSeconds: 960,
-          givensRows: _swapStackColumns(
-            _transformRows(_baseGivensRows, <int, int>{
-              1: 3,
-              2: 1,
-              3: 9,
-              4: 7,
-              5: 2,
-              6: 8,
-              7: 5,
-              8: 4,
-              9: 6,
-            }),
-          ),
-          solutionRows: _swapStackColumns(
-            _transformRows(_baseSolutionRows, <int, int>{
-              1: 3,
-              2: 1,
-              3: 9,
-              4: 7,
-              5: 2,
-              6: 8,
-              7: 5,
-              8: 4,
-              9: 6,
-            }),
-          ),
-        ),
-        FixturePuzzleDefinition(
-          id: 'level_hard_001',
-          title: 'Red Seal',
-          seal: '印',
-          difficulty: SudokuDifficulty.hard,
-          difficultyScore: 360,
-          targetTimeSeconds: 900,
-          medianTimeSeconds: 1200,
-          givensRows: _swapRowBands(
-            _swapStackColumns(
-              _transformRows(_baseGivensRows, <int, int>{
-                1: 6,
-                2: 9,
-                3: 2,
-                4: 8,
-                5: 1,
-                6: 3,
-                7: 4,
-                8: 7,
-                9: 5,
-              }),
-            ),
-          ),
-          solutionRows: _swapRowBands(
-            _swapStackColumns(
-              _transformRows(_baseSolutionRows, <int, int>{
-                1: 6,
-                2: 9,
-                3: 2,
-                4: 8,
-                5: 1,
-                6: 3,
-                7: 4,
-                8: 7,
-                9: 5,
-              }),
-            ),
-          ),
         ),
       ];
 
@@ -227,12 +71,24 @@ class FixturePuzzles {
     return defaultTeaMoment.solution;
   }
 
-  static SudokuBoard _boardFromRows(List<String> rows) {
+  static SudokuBoard boardFromRows(List<String> rows) {
     return SudokuBoard.fromCells(<int?>[
       for (final row in rows)
         for (final char in row.split('')) char == '0' ? null : int.parse(char),
     ]);
   }
+
+  static const Map<int, int> _identityDigitMap = <int, int>{
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+  };
 
   static const List<String> _baseGivensRows = <String>[
     '530070000',
@@ -272,21 +128,6 @@ class FixturePuzzles {
         }).join(),
     ];
   }
-
-  static List<String> _swapRowBands(List<String> rows) {
-    return <String>[
-      ...rows.sublist(3, 6),
-      ...rows.sublist(0, 3),
-      ...rows.sublist(6, 9),
-    ];
-  }
-
-  static List<String> _swapStackColumns(List<String> rows) {
-    return <String>[
-      for (final row in rows)
-        row.substring(3, 6) + row.substring(0, 3) + row.substring(6, 9),
-    ];
-  }
 }
 
 class FixturePuzzleDefinition {
@@ -300,21 +141,64 @@ class FixturePuzzleDefinition {
     required this.medianTimeSeconds,
     required this.givensRows,
     required this.solutionRows,
+    this.packId,
+    this.requiredTechniques = const <String>[],
+    this.rankedEligible = false,
   });
+
+  factory FixturePuzzleDefinition.fromJson(
+    Map<String, Object?> json, {
+    required String packId,
+  }) {
+    return FixturePuzzleDefinition(
+      id: json['id']! as String,
+      title: json['title']! as String,
+      seal: json['seal']! as String,
+      packId: packId,
+      difficulty: SudokuDifficulty.values.byName(json['difficulty']! as String),
+      difficultyScore: json['difficultyScore']! as int,
+      targetTimeSeconds: json['targetTimeSeconds']! as int,
+      medianTimeSeconds: json['medianTimeSeconds']! as int,
+      requiredTechniques: (json['requiredTechniques']! as List<Object?>)
+          .cast<String>(),
+      rankedEligible: json['rankedEligible'] as bool? ?? false,
+      givensRows: (json['givensRows']! as List<Object?>).cast<String>(),
+      solutionRows: (json['solutionRows']! as List<Object?>).cast<String>(),
+    );
+  }
+
+  Map<String, Object?> toJson() {
+    return <String, Object?>{
+      'id': id,
+      'title': title,
+      'seal': seal,
+      'difficulty': difficulty.name,
+      'difficultyScore': difficultyScore,
+      'targetTimeSeconds': targetTimeSeconds,
+      'medianTimeSeconds': medianTimeSeconds,
+      'requiredTechniques': requiredTechniques,
+      'rankedEligible': rankedEligible,
+      'givensRows': givensRows,
+      'solutionRows': solutionRows,
+    };
+  }
 
   final String id;
   final String title;
   final String seal;
+  final String? packId;
   final SudokuDifficulty difficulty;
   final int difficultyScore;
   final int targetTimeSeconds;
   final int medianTimeSeconds;
+  final List<String> requiredTechniques;
+  final bool rankedEligible;
   final List<String> givensRows;
   final List<String> solutionRows;
 
-  SudokuBoard get givens => FixturePuzzles._boardFromRows(givensRows);
+  SudokuBoard get givens => FixturePuzzles.boardFromRows(givensRows);
 
-  SudokuBoard get solution => FixturePuzzles._boardFromRows(solutionRows);
+  SudokuBoard get solution => FixturePuzzles.boardFromRows(solutionRows);
 
   int get clueCount {
     return givensRows.join().split('').where((char) => char != '0').length;

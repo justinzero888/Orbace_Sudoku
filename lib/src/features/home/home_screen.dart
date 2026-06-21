@@ -1,30 +1,64 @@
 import 'package:flutter/material.dart';
 
 import '../../app/orbace_theme.dart';
+import '../sudoku/data/puzzle_pack_loader.dart';
 import '../sudoku/data/sudoku_repository.dart';
 import '../sudoku/domain/daily_tea_moment.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
-import '../sudoku/presentation/scholar_path_screen.dart';
-import '../sudoku/presentation/fixture_puzzles.dart';
 import '../sudoku/presentation/level_pack_screen.dart';
+import '../sudoku/presentation/scholar_path_screen.dart';
 import '../sudoku/presentation/sudoku_game_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.repository});
 
   final SudokuRepository? repository;
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final Future<PuzzlePackCatalog> _catalogFuture = PuzzlePackLoader()
+      .load();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PuzzlePackCatalog>(
+      future: _catalogFuture,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Orbace Sudoku')),
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        }
+        return _HomeContent(
+          repository: widget.repository,
+          catalog: snapshot.requireData,
+        );
+      },
+    );
+  }
+}
+
+class _HomeContent extends StatelessWidget {
+  const _HomeContent({required this.repository, required this.catalog});
+
+  final SudokuRepository? repository;
+  final PuzzlePackCatalog catalog;
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final puzzleIds = FixturePuzzles.catalog
+    final puzzleIds = catalog.teaMomentPuzzles
         .map((puzzle) => puzzle.id)
         .toList(growable: false);
     final daily = const DailyTeaMomentSelector().forDate(
       DateTime.now(),
       puzzleIds,
     );
-    final dailyPuzzle = FixturePuzzles.byId(daily.puzzleId);
+    final dailyPuzzle = catalog.byId(daily.puzzleId);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Orbace Sudoku')),
@@ -57,7 +91,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 12),
             _PhaseCard(
               title: 'Level Packs',
-              subtitle: '${FixturePuzzles.catalog.length} loaded test puzzles',
+              subtitle: '${catalog.puzzles.length} UAT puzzles loaded',
               seal: '局',
               onTap: () {
                 Navigator.of(context).push(
