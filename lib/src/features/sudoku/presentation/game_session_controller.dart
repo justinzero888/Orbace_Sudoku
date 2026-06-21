@@ -1,9 +1,13 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../domain/sudoku_board.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_difficulty.dart';
 import '../domain/sudoku_move.dart';
+import '../domain/sudoku_score_class.dart';
 import '../domain/solving_step.dart';
 import '../engine/human_ranked_solver.dart';
 import '../engine/score_calculator.dart';
@@ -358,6 +362,7 @@ class GameSessionController extends ChangeNotifier {
 
   SudokuAttempt buildAttempt({bool isRetry = false, int attemptNumber = 1}) {
     final cleanSolve = _mistakeCount == 0 && _hintCount == 0;
+    final scoreClass = _scoreClassFor(isRetry: isRetry);
     final score = scoreCalculator.calculate(
       ScoreInput(
         difficulty: difficulty,
@@ -390,11 +395,64 @@ class GameSessionController extends ChangeNotifier {
       completed: _completed,
       cleanSolve: cleanSolve,
       rankedEligible: false,
+      scoreClass: scoreClass,
       score: score,
       moveHistory: moveHistory,
       startedAt: _startedAt,
       completedAt: _completed ? DateTime.now() : null,
+      replayHash: _replayHash(),
+      puzzleChecksum: _puzzleChecksum(),
     );
+  }
+
+  SudokuScoreClass _scoreClassFor({required bool isRetry}) {
+    if (isRetry) {
+      return SudokuScoreClass.retry;
+    }
+    if (_hintNudgeCount > 0 ||
+        _hintExplanationCount > 0 ||
+        _hintRevealCount > 0 ||
+        _mistakeChecking) {
+      return SudokuScoreClass.assisted;
+    }
+    return SudokuScoreClass.official;
+  }
+
+  String _puzzleChecksum() {
+    return sha256
+        .convert(
+          utf8.encode(
+            jsonEncode(<String, Object?>{
+              'givens': _givens.cells,
+              'solution': solution.cells,
+            }),
+          ),
+        )
+        .toString();
+  }
+
+  String _replayHash() {
+    return sha256
+        .convert(
+          utf8.encode(
+            jsonEncode(<String, Object?>{
+              'puzzleId': puzzleId,
+              'puzzleChecksum': _puzzleChecksum(),
+              'moves': [
+                for (final move in _moveHistory)
+                  <String, Object?>{
+                    'cellIndex': move.cellIndex,
+                    'previousValue': move.previousValue,
+                    'nextValue': move.nextValue,
+                    'elapsedSeconds': move.elapsedSeconds,
+                    'type': move.type.name,
+                    'noteValue': move.noteValue,
+                  },
+              ],
+            }),
+          ),
+        )
+        .toString();
   }
 
   void resetForRetry() {

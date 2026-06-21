@@ -436,6 +436,8 @@ Future settings:
 
 ### Phase 1: Data Model and Migration
 
+Status: **Complete - 2026-06-21**
+
 Tasks:
 
 - Add schema version 2.
@@ -456,7 +458,18 @@ Validation:
 - New attempts save with score class and replay hash.
 - Rating persists and reloads.
 
+Implementation notes:
+
+- Drift schema is now version 2.
+- Completed attempts can be queried for Replay Library in favorite-first, newest-first order.
+- Attempt rows now support score class, player difficulty rating, replay favorite, replay title/notes, replay hash, puzzle checksum, content version, and generated score-card image path.
+- New attempts save puzzle checksum and replay hash for later replay/card integrity work.
+- Existing migrated rows map missing `scoreClass` as `Legacy`.
+- Local validation passed with formatter clean, 1,800-puzzle validator, analyzer, and test suite.
+
 ### Phase 2: Score Fairness Classification
+
+Status: **Partially complete - model and attempt classification added in Phase 1**
 
 Tasks:
 

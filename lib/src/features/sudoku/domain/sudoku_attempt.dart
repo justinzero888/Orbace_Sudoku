@@ -1,5 +1,6 @@
 import 'sudoku_move.dart';
 import 'sudoku_score.dart';
+import 'sudoku_score_class.dart';
 
 class SudokuAttempt {
   const SudokuAttempt({
@@ -21,6 +22,17 @@ class SudokuAttempt {
     required this.startedAt,
     this.completedAt,
     this.score,
+    this.scoreClass = SudokuScoreClass.legacy,
+    this.playerDifficultyRating,
+    this.playerDifficultyRatedAt,
+    this.replayFavorite = false,
+    this.replayTitle,
+    this.replayNotes,
+    this.replayHash,
+    this.puzzleChecksum,
+    this.contentVersion,
+    this.scoreCardImagePath,
+    this.scoreCardGeneratedAt,
   });
 
   final String id;
@@ -38,7 +50,18 @@ class SudokuAttempt {
   final bool cleanSolve;
   final bool rankedEligible;
   final SudokuScore? score;
+  final SudokuScoreClass scoreClass;
   final List<SudokuMove> moveHistory;
   final DateTime startedAt;
   final DateTime? completedAt;
+  final double? playerDifficultyRating;
+  final DateTime? playerDifficultyRatedAt;
+  final bool replayFavorite;
+  final String? replayTitle;
+  final String? replayNotes;
+  final String? replayHash;
+  final String? puzzleChecksum;
+  final String? contentVersion;
+  final String? scoreCardImagePath;
+  final DateTime? scoreCardGeneratedAt;
 }

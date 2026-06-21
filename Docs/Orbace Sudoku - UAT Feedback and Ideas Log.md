@@ -42,7 +42,7 @@ The current iOS UAT candidate is build `1.0.0 (13)`. The current Android closed-
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
-| IDEA-006 | Replay / Scoring | Replay Library, score certificate, player difficulty rating, and ranking-ready storage | Planned | New feature plan created. Next step: schema v2 migration, score class, Replay Library, branded score certificate, and save/share card implementation. |
+| IDEA-006 | Replay / Scoring | Replay Library, score certificate, player difficulty rating, and ranking-ready storage | Phase 1 complete | Schema v2 migration, attempt metadata, score class, replay hash, puzzle checksum, rating/favorite/score-card path repository methods, and persistence tests are complete. Next step: completion flow score-class presentation and branded score certificate UX. |
 
 ## Action Workflow
 

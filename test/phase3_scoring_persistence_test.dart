@@ -2,7 +2,10 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/app_database.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/sudoku_repository.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_attempt.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_difficulty.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_move.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_score_class.dart';
 import 'package:orbace_sudoku/src/features/sudoku/engine/human_ranked_solver.dart';
 import 'package:orbace_sudoku/src/features/sudoku/engine/score_calculator.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
@@ -109,11 +112,106 @@ void main() {
 
         expect(attempts, hasLength(1));
         expect(attempts.single.score, isNotNull);
+        expect(attempts.single.scoreClass, SudokuScoreClass.assisted);
+        expect(attempts.single.replayHash, hasLength(64));
+        expect(attempts.single.puzzleChecksum, hasLength(64));
+        expect(attempts.single.replayFavorite, isFalse);
+        expect(attempts.single.playerDifficultyRating, isNull);
         expect(attempts.single.moveHistory, hasLength(1));
         expect(attempts.single.moveHistory.single.nextValue, 4);
 
         controller.dispose();
       },
     );
+
+    test('updates replay library metadata and sorts favorites first', () async {
+      final earlierCompletedAt = DateTime(2026, 1, 1, 10);
+      final laterCompletedAt = DateTime(2026, 1, 2, 10);
+      final ratedAt = DateTime(2026, 1, 3, 10);
+      final generatedAt = DateTime(2026, 1, 4, 10);
+
+      await repository.saveAttempt(
+        _attempt(
+          id: 'attempt_a',
+          completedAt: earlierCompletedAt,
+          startedAt: earlierCompletedAt.subtract(const Duration(minutes: 10)),
+        ),
+      );
+      await repository.saveAttempt(
+        _attempt(
+          id: 'attempt_b',
+          completedAt: laterCompletedAt,
+          startedAt: laterCompletedAt.subtract(const Duration(minutes: 8)),
+        ),
+      );
+
+      await repository.updatePlayerDifficultyRating(
+        'attempt_a',
+        4.26,
+        ratedAt: ratedAt,
+      );
+      await repository.toggleReplayFavorite('attempt_a', true);
+      await repository.updateScoreCardImagePath(
+        'attempt_a',
+        '/tmp/orbace-score-card.png',
+        generatedAt: generatedAt,
+      );
+
+      final library = await repository.completedAttemptsForReplayLibrary();
+
+      expect(library.map((attempt) => attempt.id), ['attempt_a', 'attempt_b']);
+      expect(library.first.playerDifficultyRating, 4.3);
+      expect(library.first.playerDifficultyRatedAt, ratedAt);
+      expect(library.first.replayFavorite, isTrue);
+      expect(library.first.scoreCardImagePath, '/tmp/orbace-score-card.png');
+      expect(library.first.scoreCardGeneratedAt, generatedAt);
+    });
+
+    test('rejects player difficulty ratings outside the 1 to 5 scale', () {
+      expect(
+        () => repository.updatePlayerDifficultyRating('attempt_a', 5.1),
+        throwsArgumentError,
+      );
+      expect(
+        () => repository.updatePlayerDifficultyRating('attempt_a', 0.9),
+        throwsArgumentError,
+      );
+    });
   });
+}
+
+SudokuAttempt _attempt({
+  required String id,
+  required DateTime startedAt,
+  required DateTime completedAt,
+}) {
+  return SudokuAttempt(
+    id: id,
+    puzzleId: 'tea_moment_fixture',
+    isRetry: false,
+    attemptNumber: 1,
+    elapsedSeconds: 480,
+    errorCount: 0,
+    hintNudgeCount: 0,
+    hintExplanationCount: 0,
+    hintRevealCount: 0,
+    autoCheckEnabled: false,
+    mistakeRevealEnabled: false,
+    completed: true,
+    cleanSolve: true,
+    rankedEligible: false,
+    scoreClass: SudokuScoreClass.official,
+    moveHistory: const [
+      SudokuMove(
+        cellIndex: 0,
+        previousValue: null,
+        nextValue: 7,
+        elapsedSeconds: 5,
+      ),
+    ],
+    startedAt: startedAt,
+    completedAt: completedAt,
+    replayHash: 'a' * 64,
+    puzzleChecksum: 'b' * 64,
+  );
 }

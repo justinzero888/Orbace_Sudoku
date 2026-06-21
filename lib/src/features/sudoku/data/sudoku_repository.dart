@@ -9,6 +9,7 @@ import '../domain/sudoku_difficulty.dart';
 import '../domain/sudoku_move.dart';
 import '../domain/sudoku_puzzle.dart';
 import '../domain/sudoku_score.dart';
+import '../domain/sudoku_score_class.dart';
 import 'app_database.dart';
 
 class SudokuRepository {
@@ -65,6 +66,17 @@ class SudokuRepository {
         moveHistoryJson: Value(_encodeMoves(attempt.moveHistory)),
         startedAt: Value(attempt.startedAt),
         completedAt: Value(attempt.completedAt),
+        scoreClass: Value(attempt.scoreClass.name),
+        playerDifficultyRating: Value(attempt.playerDifficultyRating),
+        playerDifficultyRatedAt: Value(attempt.playerDifficultyRatedAt),
+        replayFavorite: Value(attempt.replayFavorite),
+        replayTitle: Value(attempt.replayTitle),
+        replayNotes: Value(attempt.replayNotes),
+        replayHash: Value(attempt.replayHash),
+        puzzleChecksum: Value(attempt.puzzleChecksum),
+        contentVersion: Value(attempt.contentVersion),
+        scoreCardImagePath: Value(attempt.scoreCardImagePath),
+        scoreCardGeneratedAt: Value(attempt.scoreCardGeneratedAt),
       ),
     );
   }
@@ -87,6 +99,46 @@ class SudokuRepository {
   Future<List<SudokuAttempt>> rankedAttempts({int limit = 10}) async {
     final rows = await database.rankedAttempts(limit: limit);
     return rows.map(_attemptFromRow).toList(growable: false);
+  }
+
+  Future<List<SudokuAttempt>> completedAttemptsForReplayLibrary() async {
+    final rows = await database.completedAttemptsForReplayLibrary();
+    return rows.map(_attemptFromRow).toList(growable: false);
+  }
+
+  Future<void> updatePlayerDifficultyRating(
+    String attemptId,
+    double rating, {
+    DateTime? ratedAt,
+  }) {
+    if (rating < 1 || rating > 5) {
+      throw ArgumentError.value(
+        rating,
+        'rating',
+        'Player difficulty rating must be between 1.0 and 5.0.',
+      );
+    }
+    return database.updatePlayerDifficultyRating(
+      attemptId,
+      double.parse(rating.toStringAsFixed(1)),
+      ratedAt ?? DateTime.now(),
+    );
+  }
+
+  Future<void> toggleReplayFavorite(String attemptId, bool favorite) {
+    return database.updateReplayFavorite(attemptId, favorite);
+  }
+
+  Future<void> updateScoreCardImagePath(
+    String attemptId,
+    String imagePath, {
+    DateTime? generatedAt,
+  }) {
+    return database.updateScoreCardImagePath(
+      attemptId,
+      imagePath,
+      generatedAt ?? DateTime.now(),
+    );
   }
 
   SudokuAttempt _attemptFromRow(AttemptRow row) {
@@ -118,10 +170,23 @@ class SudokuRepository {
       completed: row.completed,
       cleanSolve: row.cleanSolve,
       rankedEligible: row.rankedEligible,
+      scoreClass: row.scoreClass == null
+          ? SudokuScoreClass.legacy
+          : SudokuScoreClass.values.byName(row.scoreClass!),
       score: score,
       moveHistory: _decodeMoves(row.moveHistoryJson),
       startedAt: row.startedAt,
       completedAt: row.completedAt,
+      playerDifficultyRating: row.playerDifficultyRating,
+      playerDifficultyRatedAt: row.playerDifficultyRatedAt,
+      replayFavorite: row.replayFavorite,
+      replayTitle: row.replayTitle,
+      replayNotes: row.replayNotes,
+      replayHash: row.replayHash,
+      puzzleChecksum: row.puzzleChecksum,
+      contentVersion: row.contentVersion,
+      scoreCardImagePath: row.scoreCardImagePath,
+      scoreCardGeneratedAt: row.scoreCardGeneratedAt,
     );
   }
 

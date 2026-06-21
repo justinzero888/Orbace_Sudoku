@@ -1010,6 +1010,131 @@ class $AttemptRowsTable extends AttemptRows
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _scoreClassMeta = const VerificationMeta(
+    'scoreClass',
+  );
+  @override
+  late final GeneratedColumn<String> scoreClass = GeneratedColumn<String>(
+    'score_class',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _playerDifficultyRatingMeta =
+      const VerificationMeta('playerDifficultyRating');
+  @override
+  late final GeneratedColumn<double> playerDifficultyRating =
+      GeneratedColumn<double>(
+        'player_difficulty_rating',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _playerDifficultyRatedAtMeta =
+      const VerificationMeta('playerDifficultyRatedAt');
+  @override
+  late final GeneratedColumn<DateTime> playerDifficultyRatedAt =
+      GeneratedColumn<DateTime>(
+        'player_difficulty_rated_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _replayFavoriteMeta = const VerificationMeta(
+    'replayFavorite',
+  );
+  @override
+  late final GeneratedColumn<bool> replayFavorite = GeneratedColumn<bool>(
+    'replay_favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("replay_favorite" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _replayTitleMeta = const VerificationMeta(
+    'replayTitle',
+  );
+  @override
+  late final GeneratedColumn<String> replayTitle = GeneratedColumn<String>(
+    'replay_title',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _replayNotesMeta = const VerificationMeta(
+    'replayNotes',
+  );
+  @override
+  late final GeneratedColumn<String> replayNotes = GeneratedColumn<String>(
+    'replay_notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _replayHashMeta = const VerificationMeta(
+    'replayHash',
+  );
+  @override
+  late final GeneratedColumn<String> replayHash = GeneratedColumn<String>(
+    'replay_hash',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _puzzleChecksumMeta = const VerificationMeta(
+    'puzzleChecksum',
+  );
+  @override
+  late final GeneratedColumn<String> puzzleChecksum = GeneratedColumn<String>(
+    'puzzle_checksum',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _contentVersionMeta = const VerificationMeta(
+    'contentVersion',
+  );
+  @override
+  late final GeneratedColumn<String> contentVersion = GeneratedColumn<String>(
+    'content_version',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _scoreCardImagePathMeta =
+      const VerificationMeta('scoreCardImagePath');
+  @override
+  late final GeneratedColumn<String> scoreCardImagePath =
+      GeneratedColumn<String>(
+        'score_card_image_path',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _scoreCardGeneratedAtMeta =
+      const VerificationMeta('scoreCardGeneratedAt');
+  @override
+  late final GeneratedColumn<DateTime> scoreCardGeneratedAt =
+      GeneratedColumn<DateTime>(
+        'score_card_generated_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -1037,6 +1162,17 @@ class $AttemptRowsTable extends AttemptRows
     moveHistoryJson,
     startedAt,
     completedAt,
+    scoreClass,
+    playerDifficultyRating,
+    playerDifficultyRatedAt,
+    replayFavorite,
+    replayTitle,
+    replayNotes,
+    replayHash,
+    puzzleChecksum,
+    contentVersion,
+    scoreCardImagePath,
+    scoreCardGeneratedAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1272,6 +1408,99 @@ class $AttemptRowsTable extends AttemptRows
         ),
       );
     }
+    if (data.containsKey('score_class')) {
+      context.handle(
+        _scoreClassMeta,
+        scoreClass.isAcceptableOrUnknown(data['score_class']!, _scoreClassMeta),
+      );
+    }
+    if (data.containsKey('player_difficulty_rating')) {
+      context.handle(
+        _playerDifficultyRatingMeta,
+        playerDifficultyRating.isAcceptableOrUnknown(
+          data['player_difficulty_rating']!,
+          _playerDifficultyRatingMeta,
+        ),
+      );
+    }
+    if (data.containsKey('player_difficulty_rated_at')) {
+      context.handle(
+        _playerDifficultyRatedAtMeta,
+        playerDifficultyRatedAt.isAcceptableOrUnknown(
+          data['player_difficulty_rated_at']!,
+          _playerDifficultyRatedAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('replay_favorite')) {
+      context.handle(
+        _replayFavoriteMeta,
+        replayFavorite.isAcceptableOrUnknown(
+          data['replay_favorite']!,
+          _replayFavoriteMeta,
+        ),
+      );
+    }
+    if (data.containsKey('replay_title')) {
+      context.handle(
+        _replayTitleMeta,
+        replayTitle.isAcceptableOrUnknown(
+          data['replay_title']!,
+          _replayTitleMeta,
+        ),
+      );
+    }
+    if (data.containsKey('replay_notes')) {
+      context.handle(
+        _replayNotesMeta,
+        replayNotes.isAcceptableOrUnknown(
+          data['replay_notes']!,
+          _replayNotesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('replay_hash')) {
+      context.handle(
+        _replayHashMeta,
+        replayHash.isAcceptableOrUnknown(data['replay_hash']!, _replayHashMeta),
+      );
+    }
+    if (data.containsKey('puzzle_checksum')) {
+      context.handle(
+        _puzzleChecksumMeta,
+        puzzleChecksum.isAcceptableOrUnknown(
+          data['puzzle_checksum']!,
+          _puzzleChecksumMeta,
+        ),
+      );
+    }
+    if (data.containsKey('content_version')) {
+      context.handle(
+        _contentVersionMeta,
+        contentVersion.isAcceptableOrUnknown(
+          data['content_version']!,
+          _contentVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('score_card_image_path')) {
+      context.handle(
+        _scoreCardImagePathMeta,
+        scoreCardImagePath.isAcceptableOrUnknown(
+          data['score_card_image_path']!,
+          _scoreCardImagePathMeta,
+        ),
+      );
+    }
+    if (data.containsKey('score_card_generated_at')) {
+      context.handle(
+        _scoreCardGeneratedAtMeta,
+        scoreCardGeneratedAt.isAcceptableOrUnknown(
+          data['score_card_generated_at']!,
+          _scoreCardGeneratedAtMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -1381,6 +1610,50 @@ class $AttemptRowsTable extends AttemptRows
         DriftSqlType.dateTime,
         data['${effectivePrefix}completed_at'],
       ),
+      scoreClass: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}score_class'],
+      ),
+      playerDifficultyRating: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}player_difficulty_rating'],
+      ),
+      playerDifficultyRatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}player_difficulty_rated_at'],
+      ),
+      replayFavorite: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}replay_favorite'],
+      )!,
+      replayTitle: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}replay_title'],
+      ),
+      replayNotes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}replay_notes'],
+      ),
+      replayHash: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}replay_hash'],
+      ),
+      puzzleChecksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}puzzle_checksum'],
+      ),
+      contentVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content_version'],
+      ),
+      scoreCardImagePath: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}score_card_image_path'],
+      ),
+      scoreCardGeneratedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}score_card_generated_at'],
+      ),
     );
   }
 
@@ -1416,6 +1689,17 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
   final String moveHistoryJson;
   final DateTime startedAt;
   final DateTime? completedAt;
+  final String? scoreClass;
+  final double? playerDifficultyRating;
+  final DateTime? playerDifficultyRatedAt;
+  final bool replayFavorite;
+  final String? replayTitle;
+  final String? replayNotes;
+  final String? replayHash;
+  final String? puzzleChecksum;
+  final String? contentVersion;
+  final String? scoreCardImagePath;
+  final DateTime? scoreCardGeneratedAt;
   const AttemptRow({
     required this.id,
     required this.puzzleId,
@@ -1442,6 +1726,17 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
     required this.moveHistoryJson,
     required this.startedAt,
     this.completedAt,
+    this.scoreClass,
+    this.playerDifficultyRating,
+    this.playerDifficultyRatedAt,
+    required this.replayFavorite,
+    this.replayTitle,
+    this.replayNotes,
+    this.replayHash,
+    this.puzzleChecksum,
+    this.contentVersion,
+    this.scoreCardImagePath,
+    this.scoreCardGeneratedAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1488,6 +1783,41 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
     map['started_at'] = Variable<DateTime>(startedAt);
     if (!nullToAbsent || completedAt != null) {
       map['completed_at'] = Variable<DateTime>(completedAt);
+    }
+    if (!nullToAbsent || scoreClass != null) {
+      map['score_class'] = Variable<String>(scoreClass);
+    }
+    if (!nullToAbsent || playerDifficultyRating != null) {
+      map['player_difficulty_rating'] = Variable<double>(
+        playerDifficultyRating,
+      );
+    }
+    if (!nullToAbsent || playerDifficultyRatedAt != null) {
+      map['player_difficulty_rated_at'] = Variable<DateTime>(
+        playerDifficultyRatedAt,
+      );
+    }
+    map['replay_favorite'] = Variable<bool>(replayFavorite);
+    if (!nullToAbsent || replayTitle != null) {
+      map['replay_title'] = Variable<String>(replayTitle);
+    }
+    if (!nullToAbsent || replayNotes != null) {
+      map['replay_notes'] = Variable<String>(replayNotes);
+    }
+    if (!nullToAbsent || replayHash != null) {
+      map['replay_hash'] = Variable<String>(replayHash);
+    }
+    if (!nullToAbsent || puzzleChecksum != null) {
+      map['puzzle_checksum'] = Variable<String>(puzzleChecksum);
+    }
+    if (!nullToAbsent || contentVersion != null) {
+      map['content_version'] = Variable<String>(contentVersion);
+    }
+    if (!nullToAbsent || scoreCardImagePath != null) {
+      map['score_card_image_path'] = Variable<String>(scoreCardImagePath);
+    }
+    if (!nullToAbsent || scoreCardGeneratedAt != null) {
+      map['score_card_generated_at'] = Variable<DateTime>(scoreCardGeneratedAt);
     }
     return map;
   }
@@ -1537,6 +1867,37 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
       completedAt: completedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(completedAt),
+      scoreClass: scoreClass == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scoreClass),
+      playerDifficultyRating: playerDifficultyRating == null && nullToAbsent
+          ? const Value.absent()
+          : Value(playerDifficultyRating),
+      playerDifficultyRatedAt: playerDifficultyRatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(playerDifficultyRatedAt),
+      replayFavorite: Value(replayFavorite),
+      replayTitle: replayTitle == null && nullToAbsent
+          ? const Value.absent()
+          : Value(replayTitle),
+      replayNotes: replayNotes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(replayNotes),
+      replayHash: replayHash == null && nullToAbsent
+          ? const Value.absent()
+          : Value(replayHash),
+      puzzleChecksum: puzzleChecksum == null && nullToAbsent
+          ? const Value.absent()
+          : Value(puzzleChecksum),
+      contentVersion: contentVersion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(contentVersion),
+      scoreCardImagePath: scoreCardImagePath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scoreCardImagePath),
+      scoreCardGeneratedAt: scoreCardGeneratedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(scoreCardGeneratedAt),
     );
   }
 
@@ -1579,6 +1940,25 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
       moveHistoryJson: serializer.fromJson<String>(json['moveHistoryJson']),
       startedAt: serializer.fromJson<DateTime>(json['startedAt']),
       completedAt: serializer.fromJson<DateTime?>(json['completedAt']),
+      scoreClass: serializer.fromJson<String?>(json['scoreClass']),
+      playerDifficultyRating: serializer.fromJson<double?>(
+        json['playerDifficultyRating'],
+      ),
+      playerDifficultyRatedAt: serializer.fromJson<DateTime?>(
+        json['playerDifficultyRatedAt'],
+      ),
+      replayFavorite: serializer.fromJson<bool>(json['replayFavorite']),
+      replayTitle: serializer.fromJson<String?>(json['replayTitle']),
+      replayNotes: serializer.fromJson<String?>(json['replayNotes']),
+      replayHash: serializer.fromJson<String?>(json['replayHash']),
+      puzzleChecksum: serializer.fromJson<String?>(json['puzzleChecksum']),
+      contentVersion: serializer.fromJson<String?>(json['contentVersion']),
+      scoreCardImagePath: serializer.fromJson<String?>(
+        json['scoreCardImagePath'],
+      ),
+      scoreCardGeneratedAt: serializer.fromJson<DateTime?>(
+        json['scoreCardGeneratedAt'],
+      ),
     );
   }
   @override
@@ -1610,6 +1990,23 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
       'moveHistoryJson': serializer.toJson<String>(moveHistoryJson),
       'startedAt': serializer.toJson<DateTime>(startedAt),
       'completedAt': serializer.toJson<DateTime?>(completedAt),
+      'scoreClass': serializer.toJson<String?>(scoreClass),
+      'playerDifficultyRating': serializer.toJson<double?>(
+        playerDifficultyRating,
+      ),
+      'playerDifficultyRatedAt': serializer.toJson<DateTime?>(
+        playerDifficultyRatedAt,
+      ),
+      'replayFavorite': serializer.toJson<bool>(replayFavorite),
+      'replayTitle': serializer.toJson<String?>(replayTitle),
+      'replayNotes': serializer.toJson<String?>(replayNotes),
+      'replayHash': serializer.toJson<String?>(replayHash),
+      'puzzleChecksum': serializer.toJson<String?>(puzzleChecksum),
+      'contentVersion': serializer.toJson<String?>(contentVersion),
+      'scoreCardImagePath': serializer.toJson<String?>(scoreCardImagePath),
+      'scoreCardGeneratedAt': serializer.toJson<DateTime?>(
+        scoreCardGeneratedAt,
+      ),
     };
   }
 
@@ -1639,6 +2036,17 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
     String? moveHistoryJson,
     DateTime? startedAt,
     Value<DateTime?> completedAt = const Value.absent(),
+    Value<String?> scoreClass = const Value.absent(),
+    Value<double?> playerDifficultyRating = const Value.absent(),
+    Value<DateTime?> playerDifficultyRatedAt = const Value.absent(),
+    bool? replayFavorite,
+    Value<String?> replayTitle = const Value.absent(),
+    Value<String?> replayNotes = const Value.absent(),
+    Value<String?> replayHash = const Value.absent(),
+    Value<String?> puzzleChecksum = const Value.absent(),
+    Value<String?> contentVersion = const Value.absent(),
+    Value<String?> scoreCardImagePath = const Value.absent(),
+    Value<DateTime?> scoreCardGeneratedAt = const Value.absent(),
   }) => AttemptRow(
     id: id ?? this.id,
     puzzleId: puzzleId ?? this.puzzleId,
@@ -1675,6 +2083,29 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
     moveHistoryJson: moveHistoryJson ?? this.moveHistoryJson,
     startedAt: startedAt ?? this.startedAt,
     completedAt: completedAt.present ? completedAt.value : this.completedAt,
+    scoreClass: scoreClass.present ? scoreClass.value : this.scoreClass,
+    playerDifficultyRating: playerDifficultyRating.present
+        ? playerDifficultyRating.value
+        : this.playerDifficultyRating,
+    playerDifficultyRatedAt: playerDifficultyRatedAt.present
+        ? playerDifficultyRatedAt.value
+        : this.playerDifficultyRatedAt,
+    replayFavorite: replayFavorite ?? this.replayFavorite,
+    replayTitle: replayTitle.present ? replayTitle.value : this.replayTitle,
+    replayNotes: replayNotes.present ? replayNotes.value : this.replayNotes,
+    replayHash: replayHash.present ? replayHash.value : this.replayHash,
+    puzzleChecksum: puzzleChecksum.present
+        ? puzzleChecksum.value
+        : this.puzzleChecksum,
+    contentVersion: contentVersion.present
+        ? contentVersion.value
+        : this.contentVersion,
+    scoreCardImagePath: scoreCardImagePath.present
+        ? scoreCardImagePath.value
+        : this.scoreCardImagePath,
+    scoreCardGeneratedAt: scoreCardGeneratedAt.present
+        ? scoreCardGeneratedAt.value
+        : this.scoreCardGeneratedAt,
   );
   AttemptRow copyWithCompanion(AttemptRowsCompanion data) {
     return AttemptRow(
@@ -1739,6 +2170,39 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
       completedAt: data.completedAt.present
           ? data.completedAt.value
           : this.completedAt,
+      scoreClass: data.scoreClass.present
+          ? data.scoreClass.value
+          : this.scoreClass,
+      playerDifficultyRating: data.playerDifficultyRating.present
+          ? data.playerDifficultyRating.value
+          : this.playerDifficultyRating,
+      playerDifficultyRatedAt: data.playerDifficultyRatedAt.present
+          ? data.playerDifficultyRatedAt.value
+          : this.playerDifficultyRatedAt,
+      replayFavorite: data.replayFavorite.present
+          ? data.replayFavorite.value
+          : this.replayFavorite,
+      replayTitle: data.replayTitle.present
+          ? data.replayTitle.value
+          : this.replayTitle,
+      replayNotes: data.replayNotes.present
+          ? data.replayNotes.value
+          : this.replayNotes,
+      replayHash: data.replayHash.present
+          ? data.replayHash.value
+          : this.replayHash,
+      puzzleChecksum: data.puzzleChecksum.present
+          ? data.puzzleChecksum.value
+          : this.puzzleChecksum,
+      contentVersion: data.contentVersion.present
+          ? data.contentVersion.value
+          : this.contentVersion,
+      scoreCardImagePath: data.scoreCardImagePath.present
+          ? data.scoreCardImagePath.value
+          : this.scoreCardImagePath,
+      scoreCardGeneratedAt: data.scoreCardGeneratedAt.present
+          ? data.scoreCardGeneratedAt.value
+          : this.scoreCardGeneratedAt,
     );
   }
 
@@ -1769,7 +2233,18 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
           ..write('accuracyFactorsJson: $accuracyFactorsJson, ')
           ..write('moveHistoryJson: $moveHistoryJson, ')
           ..write('startedAt: $startedAt, ')
-          ..write('completedAt: $completedAt')
+          ..write('completedAt: $completedAt, ')
+          ..write('scoreClass: $scoreClass, ')
+          ..write('playerDifficultyRating: $playerDifficultyRating, ')
+          ..write('playerDifficultyRatedAt: $playerDifficultyRatedAt, ')
+          ..write('replayFavorite: $replayFavorite, ')
+          ..write('replayTitle: $replayTitle, ')
+          ..write('replayNotes: $replayNotes, ')
+          ..write('replayHash: $replayHash, ')
+          ..write('puzzleChecksum: $puzzleChecksum, ')
+          ..write('contentVersion: $contentVersion, ')
+          ..write('scoreCardImagePath: $scoreCardImagePath, ')
+          ..write('scoreCardGeneratedAt: $scoreCardGeneratedAt')
           ..write(')'))
         .toString();
   }
@@ -1801,6 +2276,17 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
     moveHistoryJson,
     startedAt,
     completedAt,
+    scoreClass,
+    playerDifficultyRating,
+    playerDifficultyRatedAt,
+    replayFavorite,
+    replayTitle,
+    replayNotes,
+    replayHash,
+    puzzleChecksum,
+    contentVersion,
+    scoreCardImagePath,
+    scoreCardGeneratedAt,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -1830,7 +2316,18 @@ class AttemptRow extends DataClass implements Insertable<AttemptRow> {
           other.accuracyFactorsJson == this.accuracyFactorsJson &&
           other.moveHistoryJson == this.moveHistoryJson &&
           other.startedAt == this.startedAt &&
-          other.completedAt == this.completedAt);
+          other.completedAt == this.completedAt &&
+          other.scoreClass == this.scoreClass &&
+          other.playerDifficultyRating == this.playerDifficultyRating &&
+          other.playerDifficultyRatedAt == this.playerDifficultyRatedAt &&
+          other.replayFavorite == this.replayFavorite &&
+          other.replayTitle == this.replayTitle &&
+          other.replayNotes == this.replayNotes &&
+          other.replayHash == this.replayHash &&
+          other.puzzleChecksum == this.puzzleChecksum &&
+          other.contentVersion == this.contentVersion &&
+          other.scoreCardImagePath == this.scoreCardImagePath &&
+          other.scoreCardGeneratedAt == this.scoreCardGeneratedAt);
 }
 
 class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
@@ -1859,6 +2356,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
   final Value<String> moveHistoryJson;
   final Value<DateTime> startedAt;
   final Value<DateTime?> completedAt;
+  final Value<String?> scoreClass;
+  final Value<double?> playerDifficultyRating;
+  final Value<DateTime?> playerDifficultyRatedAt;
+  final Value<bool> replayFavorite;
+  final Value<String?> replayTitle;
+  final Value<String?> replayNotes;
+  final Value<String?> replayHash;
+  final Value<String?> puzzleChecksum;
+  final Value<String?> contentVersion;
+  final Value<String?> scoreCardImagePath;
+  final Value<DateTime?> scoreCardGeneratedAt;
   final Value<int> rowid;
   const AttemptRowsCompanion({
     this.id = const Value.absent(),
@@ -1886,6 +2394,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
     this.moveHistoryJson = const Value.absent(),
     this.startedAt = const Value.absent(),
     this.completedAt = const Value.absent(),
+    this.scoreClass = const Value.absent(),
+    this.playerDifficultyRating = const Value.absent(),
+    this.playerDifficultyRatedAt = const Value.absent(),
+    this.replayFavorite = const Value.absent(),
+    this.replayTitle = const Value.absent(),
+    this.replayNotes = const Value.absent(),
+    this.replayHash = const Value.absent(),
+    this.puzzleChecksum = const Value.absent(),
+    this.contentVersion = const Value.absent(),
+    this.scoreCardImagePath = const Value.absent(),
+    this.scoreCardGeneratedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AttemptRowsCompanion.insert({
@@ -1914,6 +2433,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
     required String moveHistoryJson,
     required DateTime startedAt,
     this.completedAt = const Value.absent(),
+    this.scoreClass = const Value.absent(),
+    this.playerDifficultyRating = const Value.absent(),
+    this.playerDifficultyRatedAt = const Value.absent(),
+    this.replayFavorite = const Value.absent(),
+    this.replayTitle = const Value.absent(),
+    this.replayNotes = const Value.absent(),
+    this.replayHash = const Value.absent(),
+    this.puzzleChecksum = const Value.absent(),
+    this.contentVersion = const Value.absent(),
+    this.scoreCardImagePath = const Value.absent(),
+    this.scoreCardGeneratedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        puzzleId = Value(puzzleId),
@@ -1956,6 +2486,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
     Expression<String>? moveHistoryJson,
     Expression<DateTime>? startedAt,
     Expression<DateTime>? completedAt,
+    Expression<String>? scoreClass,
+    Expression<double>? playerDifficultyRating,
+    Expression<DateTime>? playerDifficultyRatedAt,
+    Expression<bool>? replayFavorite,
+    Expression<String>? replayTitle,
+    Expression<String>? replayNotes,
+    Expression<String>? replayHash,
+    Expression<String>? puzzleChecksum,
+    Expression<String>? contentVersion,
+    Expression<String>? scoreCardImagePath,
+    Expression<DateTime>? scoreCardGeneratedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1987,6 +2528,21 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
       if (moveHistoryJson != null) 'move_history_json': moveHistoryJson,
       if (startedAt != null) 'started_at': startedAt,
       if (completedAt != null) 'completed_at': completedAt,
+      if (scoreClass != null) 'score_class': scoreClass,
+      if (playerDifficultyRating != null)
+        'player_difficulty_rating': playerDifficultyRating,
+      if (playerDifficultyRatedAt != null)
+        'player_difficulty_rated_at': playerDifficultyRatedAt,
+      if (replayFavorite != null) 'replay_favorite': replayFavorite,
+      if (replayTitle != null) 'replay_title': replayTitle,
+      if (replayNotes != null) 'replay_notes': replayNotes,
+      if (replayHash != null) 'replay_hash': replayHash,
+      if (puzzleChecksum != null) 'puzzle_checksum': puzzleChecksum,
+      if (contentVersion != null) 'content_version': contentVersion,
+      if (scoreCardImagePath != null)
+        'score_card_image_path': scoreCardImagePath,
+      if (scoreCardGeneratedAt != null)
+        'score_card_generated_at': scoreCardGeneratedAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -2017,6 +2573,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
     Value<String>? moveHistoryJson,
     Value<DateTime>? startedAt,
     Value<DateTime?>? completedAt,
+    Value<String?>? scoreClass,
+    Value<double?>? playerDifficultyRating,
+    Value<DateTime?>? playerDifficultyRatedAt,
+    Value<bool>? replayFavorite,
+    Value<String?>? replayTitle,
+    Value<String?>? replayNotes,
+    Value<String?>? replayHash,
+    Value<String?>? puzzleChecksum,
+    Value<String?>? contentVersion,
+    Value<String?>? scoreCardImagePath,
+    Value<DateTime?>? scoreCardGeneratedAt,
     Value<int>? rowid,
   }) {
     return AttemptRowsCompanion(
@@ -2045,6 +2612,19 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
       moveHistoryJson: moveHistoryJson ?? this.moveHistoryJson,
       startedAt: startedAt ?? this.startedAt,
       completedAt: completedAt ?? this.completedAt,
+      scoreClass: scoreClass ?? this.scoreClass,
+      playerDifficultyRating:
+          playerDifficultyRating ?? this.playerDifficultyRating,
+      playerDifficultyRatedAt:
+          playerDifficultyRatedAt ?? this.playerDifficultyRatedAt,
+      replayFavorite: replayFavorite ?? this.replayFavorite,
+      replayTitle: replayTitle ?? this.replayTitle,
+      replayNotes: replayNotes ?? this.replayNotes,
+      replayHash: replayHash ?? this.replayHash,
+      puzzleChecksum: puzzleChecksum ?? this.puzzleChecksum,
+      contentVersion: contentVersion ?? this.contentVersion,
+      scoreCardImagePath: scoreCardImagePath ?? this.scoreCardImagePath,
+      scoreCardGeneratedAt: scoreCardGeneratedAt ?? this.scoreCardGeneratedAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2131,6 +2711,45 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
     if (completedAt.present) {
       map['completed_at'] = Variable<DateTime>(completedAt.value);
     }
+    if (scoreClass.present) {
+      map['score_class'] = Variable<String>(scoreClass.value);
+    }
+    if (playerDifficultyRating.present) {
+      map['player_difficulty_rating'] = Variable<double>(
+        playerDifficultyRating.value,
+      );
+    }
+    if (playerDifficultyRatedAt.present) {
+      map['player_difficulty_rated_at'] = Variable<DateTime>(
+        playerDifficultyRatedAt.value,
+      );
+    }
+    if (replayFavorite.present) {
+      map['replay_favorite'] = Variable<bool>(replayFavorite.value);
+    }
+    if (replayTitle.present) {
+      map['replay_title'] = Variable<String>(replayTitle.value);
+    }
+    if (replayNotes.present) {
+      map['replay_notes'] = Variable<String>(replayNotes.value);
+    }
+    if (replayHash.present) {
+      map['replay_hash'] = Variable<String>(replayHash.value);
+    }
+    if (puzzleChecksum.present) {
+      map['puzzle_checksum'] = Variable<String>(puzzleChecksum.value);
+    }
+    if (contentVersion.present) {
+      map['content_version'] = Variable<String>(contentVersion.value);
+    }
+    if (scoreCardImagePath.present) {
+      map['score_card_image_path'] = Variable<String>(scoreCardImagePath.value);
+    }
+    if (scoreCardGeneratedAt.present) {
+      map['score_card_generated_at'] = Variable<DateTime>(
+        scoreCardGeneratedAt.value,
+      );
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2165,6 +2784,17 @@ class AttemptRowsCompanion extends UpdateCompanion<AttemptRow> {
           ..write('moveHistoryJson: $moveHistoryJson, ')
           ..write('startedAt: $startedAt, ')
           ..write('completedAt: $completedAt, ')
+          ..write('scoreClass: $scoreClass, ')
+          ..write('playerDifficultyRating: $playerDifficultyRating, ')
+          ..write('playerDifficultyRatedAt: $playerDifficultyRatedAt, ')
+          ..write('replayFavorite: $replayFavorite, ')
+          ..write('replayTitle: $replayTitle, ')
+          ..write('replayNotes: $replayNotes, ')
+          ..write('replayHash: $replayHash, ')
+          ..write('puzzleChecksum: $puzzleChecksum, ')
+          ..write('contentVersion: $contentVersion, ')
+          ..write('scoreCardImagePath: $scoreCardImagePath, ')
+          ..write('scoreCardGeneratedAt: $scoreCardGeneratedAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2923,6 +3553,17 @@ typedef $$AttemptRowsTableCreateCompanionBuilder =
       required String moveHistoryJson,
       required DateTime startedAt,
       Value<DateTime?> completedAt,
+      Value<String?> scoreClass,
+      Value<double?> playerDifficultyRating,
+      Value<DateTime?> playerDifficultyRatedAt,
+      Value<bool> replayFavorite,
+      Value<String?> replayTitle,
+      Value<String?> replayNotes,
+      Value<String?> replayHash,
+      Value<String?> puzzleChecksum,
+      Value<String?> contentVersion,
+      Value<String?> scoreCardImagePath,
+      Value<DateTime?> scoreCardGeneratedAt,
       Value<int> rowid,
     });
 typedef $$AttemptRowsTableUpdateCompanionBuilder =
@@ -2952,6 +3593,17 @@ typedef $$AttemptRowsTableUpdateCompanionBuilder =
       Value<String> moveHistoryJson,
       Value<DateTime> startedAt,
       Value<DateTime?> completedAt,
+      Value<String?> scoreClass,
+      Value<double?> playerDifficultyRating,
+      Value<DateTime?> playerDifficultyRatedAt,
+      Value<bool> replayFavorite,
+      Value<String?> replayTitle,
+      Value<String?> replayNotes,
+      Value<String?> replayHash,
+      Value<String?> puzzleChecksum,
+      Value<String?> contentVersion,
+      Value<String?> scoreCardImagePath,
+      Value<DateTime?> scoreCardGeneratedAt,
       Value<int> rowid,
     });
 
@@ -3086,6 +3738,61 @@ class $$AttemptRowsTableFilterComposer
 
   ColumnFilters<DateTime> get completedAt => $composableBuilder(
     column: $table.completedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get scoreClass => $composableBuilder(
+    column: $table.scoreClass,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get playerDifficultyRating => $composableBuilder(
+    column: $table.playerDifficultyRating,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get playerDifficultyRatedAt => $composableBuilder(
+    column: $table.playerDifficultyRatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get replayFavorite => $composableBuilder(
+    column: $table.replayFavorite,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get replayTitle => $composableBuilder(
+    column: $table.replayTitle,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get replayNotes => $composableBuilder(
+    column: $table.replayNotes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get replayHash => $composableBuilder(
+    column: $table.replayHash,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get scoreCardImagePath => $composableBuilder(
+    column: $table.scoreCardImagePath,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get scoreCardGeneratedAt => $composableBuilder(
+    column: $table.scoreCardGeneratedAt,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3223,6 +3930,61 @@ class $$AttemptRowsTableOrderingComposer
     column: $table.completedAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get scoreClass => $composableBuilder(
+    column: $table.scoreClass,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get playerDifficultyRating => $composableBuilder(
+    column: $table.playerDifficultyRating,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get playerDifficultyRatedAt => $composableBuilder(
+    column: $table.playerDifficultyRatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get replayFavorite => $composableBuilder(
+    column: $table.replayFavorite,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get replayTitle => $composableBuilder(
+    column: $table.replayTitle,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get replayNotes => $composableBuilder(
+    column: $table.replayNotes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get replayHash => $composableBuilder(
+    column: $table.replayHash,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get scoreCardImagePath => $composableBuilder(
+    column: $table.scoreCardImagePath,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get scoreCardGeneratedAt => $composableBuilder(
+    column: $table.scoreCardGeneratedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AttemptRowsTableAnnotationComposer
@@ -3344,6 +4106,61 @@ class $$AttemptRowsTableAnnotationComposer
     column: $table.completedAt,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get scoreClass => $composableBuilder(
+    column: $table.scoreClass,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get playerDifficultyRating => $composableBuilder(
+    column: $table.playerDifficultyRating,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get playerDifficultyRatedAt => $composableBuilder(
+    column: $table.playerDifficultyRatedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get replayFavorite => $composableBuilder(
+    column: $table.replayFavorite,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get replayTitle => $composableBuilder(
+    column: $table.replayTitle,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get replayNotes => $composableBuilder(
+    column: $table.replayNotes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get replayHash => $composableBuilder(
+    column: $table.replayHash,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get scoreCardImagePath => $composableBuilder(
+    column: $table.scoreCardImagePath,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get scoreCardGeneratedAt => $composableBuilder(
+    column: $table.scoreCardGeneratedAt,
+    builder: (column) => column,
+  );
 }
 
 class $$AttemptRowsTableTableManager
@@ -3402,6 +4219,17 @@ class $$AttemptRowsTableTableManager
                 Value<String> moveHistoryJson = const Value.absent(),
                 Value<DateTime> startedAt = const Value.absent(),
                 Value<DateTime?> completedAt = const Value.absent(),
+                Value<String?> scoreClass = const Value.absent(),
+                Value<double?> playerDifficultyRating = const Value.absent(),
+                Value<DateTime?> playerDifficultyRatedAt = const Value.absent(),
+                Value<bool> replayFavorite = const Value.absent(),
+                Value<String?> replayTitle = const Value.absent(),
+                Value<String?> replayNotes = const Value.absent(),
+                Value<String?> replayHash = const Value.absent(),
+                Value<String?> puzzleChecksum = const Value.absent(),
+                Value<String?> contentVersion = const Value.absent(),
+                Value<String?> scoreCardImagePath = const Value.absent(),
+                Value<DateTime?> scoreCardGeneratedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AttemptRowsCompanion(
                 id: id,
@@ -3429,6 +4257,17 @@ class $$AttemptRowsTableTableManager
                 moveHistoryJson: moveHistoryJson,
                 startedAt: startedAt,
                 completedAt: completedAt,
+                scoreClass: scoreClass,
+                playerDifficultyRating: playerDifficultyRating,
+                playerDifficultyRatedAt: playerDifficultyRatedAt,
+                replayFavorite: replayFavorite,
+                replayTitle: replayTitle,
+                replayNotes: replayNotes,
+                replayHash: replayHash,
+                puzzleChecksum: puzzleChecksum,
+                contentVersion: contentVersion,
+                scoreCardImagePath: scoreCardImagePath,
+                scoreCardGeneratedAt: scoreCardGeneratedAt,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -3458,6 +4297,17 @@ class $$AttemptRowsTableTableManager
                 required String moveHistoryJson,
                 required DateTime startedAt,
                 Value<DateTime?> completedAt = const Value.absent(),
+                Value<String?> scoreClass = const Value.absent(),
+                Value<double?> playerDifficultyRating = const Value.absent(),
+                Value<DateTime?> playerDifficultyRatedAt = const Value.absent(),
+                Value<bool> replayFavorite = const Value.absent(),
+                Value<String?> replayTitle = const Value.absent(),
+                Value<String?> replayNotes = const Value.absent(),
+                Value<String?> replayHash = const Value.absent(),
+                Value<String?> puzzleChecksum = const Value.absent(),
+                Value<String?> contentVersion = const Value.absent(),
+                Value<String?> scoreCardImagePath = const Value.absent(),
+                Value<DateTime?> scoreCardGeneratedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AttemptRowsCompanion.insert(
                 id: id,
@@ -3485,6 +4335,17 @@ class $$AttemptRowsTableTableManager
                 moveHistoryJson: moveHistoryJson,
                 startedAt: startedAt,
                 completedAt: completedAt,
+                scoreClass: scoreClass,
+                playerDifficultyRating: playerDifficultyRating,
+                playerDifficultyRatedAt: playerDifficultyRatedAt,
+                replayFavorite: replayFavorite,
+                replayTitle: replayTitle,
+                replayNotes: replayNotes,
+                replayHash: replayHash,
+                puzzleChecksum: puzzleChecksum,
+                contentVersion: contentVersion,
+                scoreCardImagePath: scoreCardImagePath,
+                scoreCardGeneratedAt: scoreCardGeneratedAt,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
