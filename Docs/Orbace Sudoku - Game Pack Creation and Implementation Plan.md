@@ -1,8 +1,39 @@
 # Orbace Sudoku - Game Pack Creation and Implementation Plan
 
-**Version**: 1.0  
-**Date**: 2026-06-20  
+**Version**: 1.1  
+**Date**: 2026-06-21  
 **Purpose**: Define how Orbace Sudoku creates, validates, ships, expands, and maintains puzzle packs from initial UAT content through the first 1,800 puzzles and beyond.
+
+## Current Status - 2026-06-21
+
+The current TestFlight/UAT build is **not** the 1,800-puzzle production catalog.
+
+Current implemented content state:
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Bundled JSON pack assets | Complete for UAT | App loads puzzle content from `assets/puzzles/` instead of hardcoded fixtures. |
+| UAT puzzle count | Complete for current UAT | 100 bundled puzzles are loaded. |
+| Advanced UAT coverage | Complete for current UAT | 69 puzzles require pair or pointing techniques supported by the current human solver. |
+| Duplicate scan | Complete for current UAT | Exact, digit-remap, structural-signature, and shared-solution checks run in validator. Current warning count: 0. |
+| Curated ordering | Complete for current UAT | Current 100-puzzle set is sorted easier-to-harder with stronger milestone placement. |
+| Content version metadata | Complete for current UAT | Current content version: `2026.06.001`. |
+| 1,800-puzzle production library | Not started | This is the next major content milestone, separate from current UAT readiness. |
+| Remote content readiness | Not started | Planned after bundled production content is stable. |
+
+Recent build checkpoints:
+
+| Build | Platform | Purpose | Content Count | Status |
+| --- | --- | --- | ---: | --- |
+| `1.0.0 (8)` | iOS IPA | 100-puzzle UAT pack with harder content | 100 | Built |
+| `1.0.0 (8)` | Android AAB | Android release bundle for current UAT content | 100 | Built |
+| `1.0.0 (9)` | iOS IPA | Stronger selected-cell highlight plus curated/versioned UAT content | 100 | Built |
+
+Terminology note:
+
+- **Pipeline Step 6: Curate Pack Ordering** means ordering whatever content set currently exists.
+- **Pipeline Step 7: Assign Content Version** means versioning whatever content set currently exists.
+- Completing Pipeline Steps 6 and 7 for the 100-puzzle UAT pack does **not** mean the 1,800-puzzle production library is complete.
 
 ## 1. Goals
 
@@ -208,7 +239,15 @@ Recommended for 1,800 launch puzzles:
 - Compute solve path during first local import and persist to Drift.
 - For Extreme and daily challenge packs, consider precomputing solve paths in the content pipeline for deterministic integrity.
 
-## 5. Creation Pipeline
+## 5. Repeatable Content Creation Pipeline
+
+This pipeline is repeated for every content set:
+
+- Current 100-puzzle UAT pack.
+- Future 1,800-puzzle production launch library.
+- Future remote seasonal/event packs.
+
+Completing a pipeline step means the step has been applied to the currently scoped content set, not that all future content volume has been created.
 
 ### Step 1: Generate Candidate Puzzles
 
@@ -287,7 +326,7 @@ Rating output:
 - `targetTimeSeconds`: scoring target.
 - `medianTimeSeconds`: expected typical player time.
 
-### Step 5: De-Duplicate
+### Pipeline Step 5: De-Duplicate
 
 Detect duplicates across all packs:
 
@@ -296,9 +335,15 @@ Detect duplicates across all packs:
 - Same puzzle after row/column/band/stack transformations.
 - Same solution grid with only small clue differences, if near-duplicate detection is available.
 
-For initial launch, exact duplicate detection is required. Isomorphic duplicate detection is recommended before reaching 1,800.
+Current UAT status:
 
-### Step 6: Curate Pack Ordering
+- Implemented for the 100-puzzle pack.
+- Current report: 0 duplicate-scan warnings.
+- This must be rerun when the 1,800-puzzle library is generated.
+
+For production launch, exact duplicate detection is required. Isomorphic/structural duplicate detection is required before approving 1,800 puzzles.
+
+### Pipeline Step 6: Curate Pack Ordering
 
 Ordering should not be random.
 
@@ -310,7 +355,13 @@ Pack sequence should:
 - Mix clue layouts so the pack feels varied.
 - Place satisfying milestone puzzles at every 10th or 20th position.
 
-### Step 7: Assign Content Version
+Current UAT status:
+
+- Implemented for the 100-puzzle pack.
+- Current ordering uses easier-to-harder sorting with stronger milestone puzzles.
+- This must be repeated and manually spot-checked for the 1,800-puzzle production library.
+
+### Pipeline Step 7: Assign Content Version
 
 Every pack release must have:
 
@@ -328,9 +379,17 @@ validatorVersion = sudoku-pack-validator-1.0.0
 solverVersion = human-solver-1.0.0
 ```
 
-## 6. Implementation Plan
+Current UAT status:
+
+- Implemented for the 100-puzzle pack.
+- Current content version: `2026.06.001`.
+- The 1,800-puzzle production library must receive a new content version after its own generation, duplicate scan, ordering, and validation pass.
+
+## 6. Implementation Plan and Validation Checkpoints
 
 ### GP-1: Move Current Fixtures Into Pack Assets
+
+Status: **Complete for UAT**
 
 Goal:
 
@@ -353,7 +412,14 @@ Acceptance criteria:
 - Tea Moment selector uses loaded Tea Moment pool.
 - Existing gameplay still works.
 
+Validation checkpoint:
+
+- Local validation required.
+- TestFlight checkpoint completed through builds `1.0.0 (8)` and `1.0.0 (9)`.
+
 ### GP-2: Build Real Pack Browser UI
+
+Status: **Complete for UAT foundation, partial for full product**
 
 Goal:
 
@@ -378,7 +444,20 @@ Acceptance criteria:
 - Completed puzzles show progress.
 - Locked packs are visible but not playable.
 
+Current implemented scope:
+
+- Pack browser loads 100 bundled UAT puzzles.
+- Pack browser displays content version/date and advanced-puzzle count.
+- Per-pack progress, best score, and continue/next-unsolved actions are still pending.
+
+Validation checkpoint:
+
+- TestFlight checkpoint completed for basic pack browsing.
+- Another TestFlight checkpoint is required after pack progress and continue/resume behavior are added.
+
 ### GP-3: Add Pack Progress Persistence
+
+Status: **Not started**
 
 Goal:
 
@@ -400,7 +479,15 @@ Acceptance criteria:
 - Continue action resumes or starts the correct puzzle.
 - Replay remains available from completed puzzle history.
 
+Validation checkpoint:
+
+- Local persistence tests required.
+- Simulator smoke test required.
+- TestFlight checkpoint recommended because this affects normal user navigation and replay access.
+
 ### GP-4: Create 100-Puzzle UAT Content Set
+
+Status: **Complete**
 
 Goal:
 
@@ -417,12 +504,36 @@ Recommended distribution:
 | Extreme | 10 |
 | Total | 100 |
 
+Actual current distribution:
+
+| Pack | Count | Advanced |
+| --- | ---: | ---: |
+| Tea Moments | 10 | 0 |
+| Foundation | 25 | 4 |
+| Discipline | 25 | 25 |
+| Insight | 20 | 20 |
+| Mastery | 10 | 10 |
+| Extreme | 10 | 10 |
+| Total | 100 | 69 |
+
 Acceptance criteria:
 
 - All 100 puzzles pass automated validation.
 - UAT can test pack browsing, scoring, replay, awards, and Extreme lock behavior.
 
-### GP-5: Build 1,800-Puzzle Production Library
+Validation checkpoint:
+
+- Local validation complete.
+- TestFlight checkpoint complete with build `1.0.0 (9)`.
+- UAT should specifically test harder packs, selected-cell highlight, and content version visibility.
+
+### GP-5: Production Content Readiness for 1,800 Puzzles
+
+Status: **Next major phase, not started**
+
+Important clarification:
+
+GP-5 is the phase that creates the 1,800-puzzle production catalog. It is separate from Pipeline Step 5, which is duplicate detection.
 
 Goal:
 
@@ -449,7 +560,59 @@ Acceptance criteria:
 - No exact duplicate givens.
 - App startup/import remains acceptable on older iPhones.
 
-### GP-6: Remote Content Readiness
+Validation checkpoint:
+
+- Local validation required before any TestFlight:
+  - schema validation
+  - unique solution
+  - human-solver compatibility
+  - duplicate/isomorphic scan
+  - difficulty and technique distribution report
+  - curated ordering report
+- Simulator performance smoke test required:
+  - app launch
+  - pack browser load
+  - first puzzle launch
+  - memory and startup time on older-device simulator profile
+- TestFlight checkpoint required after local validation passes.
+- UAT focus:
+  - content volume feels manageable
+  - difficulty ramp is credible
+  - no obvious repeated layouts
+  - hard/expert content satisfies expert-player expectations
+
+### GP-6: Launch Candidate Content Integration
+
+Status: **Planned after GP-5**
+
+Goal:
+
+Integrate the 1,800-puzzle library into app flows without hurting app performance or user clarity.
+
+Deliverables:
+
+- Content import/version tracking in local persistence.
+- Pack progress queries against full production content.
+- Continue / next unsolved / recently played behavior.
+- Optional lazy import or compact in-memory manifest strategy if startup slows.
+- Updated UAT cases for 1,800-puzzle browsing.
+
+Acceptance criteria:
+
+- App opens quickly with 1,800 bundled puzzles.
+- Pack browser remains responsive.
+- Existing attempts/replays survive content-version changes.
+- Daily Tea Moment selection uses the correct pool.
+
+Validation checkpoint:
+
+- Local validation required.
+- Simulator smoke and performance test required.
+- TestFlight checkpoint required.
+
+### GP-7: Remote Content Readiness
+
+Status: **Future phase, not started**
 
 Goal:
 
@@ -469,6 +632,12 @@ Acceptance criteria:
 - App can display bundled content offline.
 - App can later discover newer packs remotely.
 - Remote pack cannot break older app versions.
+
+Validation checkpoint:
+
+- Design review first.
+- Local mocked remote-catalog tests.
+- TestFlight checkpoint only after app behavior changes are visible, such as download/cache/offline fallback.
 
 ## 7. Technical Architecture
 
@@ -748,15 +917,99 @@ dart run scripts/validate_puzzle_packs.dart
 | Shipped puzzle has defect | Trust loss | Retire puzzle, keep attempts, release replacement ID |
 | Huge library overwhelms players | Low engagement | Pack curation, next unsolved, recommendations |
 
-## 15. Recommended Next Steps
+## 15. Recommended Next Phases
 
-1. Implement GP-1: move the current test catalog into JSON assets.
-2. Implement GP-2: real pack browser UI.
-3. Create validation script and report format.
-4. Generate/curate a 100-puzzle UAT content set.
-5. Connect pack progress to Scholar's Path and Extreme unlocks.
-6. Build the 1,800-puzzle production content library.
-7. Design remote content catalog for post-launch expansion.
+### Next Phase A: UAT Feedback Polish
+
+Status: **In progress**
+
+Scope:
+
+- Continue addressing visual/gameplay feedback from TestFlight.
+- Current example completed: selected-cell highlight strengthened in build `1.0.0 (9)`.
+- Keep content count at 100 unless UAT specifically needs more near-term coverage.
+
+Validation:
+
+- Local validation for every code/content change.
+- TestFlight checkpoint when visual/gameplay changes need tester confirmation.
+
+### Next Phase B: Pack Progress and Resume
+
+Status: **Recommended next implementation phase**
+
+Scope:
+
+- Completed count per pack.
+- Best score per puzzle.
+- Continue / next unsolved.
+- Resume in-progress puzzle from pack browser.
+- Replay access from completed puzzle rows.
+
+Validation:
+
+- Unit tests for repository progress queries.
+- Widget tests for pack browser progress states.
+- Simulator smoke test.
+- TestFlight checkpoint required.
+
+### Next Phase C: 1,800-Puzzle Production Library
+
+Status: **Not started**
+
+Scope:
+
+- Generate the full 1,800-puzzle library.
+- Apply the repeatable content pipeline:
+  - generate
+  - validate correctness
+  - validate human logic
+  - rate difficulty
+  - de-duplicate
+  - curate ordering
+  - assign new content version
+- Produce a content report for review.
+
+Validation:
+
+- Full local content validation required before app build.
+- Performance/import smoke test required.
+- TestFlight checkpoint required after the 1,800 catalog is integrated.
+
+### Next Phase D: Launch Candidate Integration
+
+Status: **Planned after 1,800 content exists**
+
+Scope:
+
+- Ensure app startup and pack browsing remain fast with production content volume.
+- Add content import/version tracking if needed.
+- Tune daily Tea Moment pool and pack unlock pacing.
+- Update UAT test cases for the full catalog.
+
+Validation:
+
+- Local tests.
+- Simulator performance validation.
+- TestFlight checkpoint required.
+
+### Next Phase E: Remote Content Readiness
+
+Status: **Future**
+
+Scope:
+
+- Remote manifest schema.
+- Download/cache behavior.
+- Checksums/signing.
+- Offline fallback.
+- Content retirement/deprecation.
+
+Validation:
+
+- Design review first.
+- Mocked local remote-catalog tests.
+- TestFlight checkpoint only after user-visible remote content behavior exists.
 
 ## 16. Decision Log
 
@@ -769,4 +1022,3 @@ dart run scripts/validate_puzzle_packs.dart
 | Extreme content | Stricter validation, ranked eligibility, no-assist rules |
 | Existing puzzle edits | Avoid; retire and replace instead |
 | Explanation copy | Generate in app from technique templates |
-
