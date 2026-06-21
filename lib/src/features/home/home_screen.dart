@@ -5,6 +5,8 @@ import '../sudoku/data/sudoku_repository.dart';
 import '../sudoku/domain/daily_tea_moment.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
 import '../sudoku/presentation/scholar_path_screen.dart';
+import '../sudoku/presentation/fixture_puzzles.dart';
+import '../sudoku/presentation/level_pack_screen.dart';
 import '../sudoku/presentation/sudoku_game_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,10 +17,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final puzzleIds = FixturePuzzles.catalog
+        .map((puzzle) => puzzle.id)
+        .toList(growable: false);
     final daily = const DailyTeaMomentSelector().forDate(
       DateTime.now(),
-      const <String>['tea_moment_fixture'],
+      puzzleIds,
     );
+    final dailyPuzzle = FixturePuzzles.byId(daily.puzzleId);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Orbace Sudoku')),
@@ -29,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             Text('一局一茶', style: textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
-              'Today\'s Tea Moment is ${daily.dayKey}. Solve calmly, use notes, undo moves, and ask the lantern for help.',
+              'Today\'s Tea Moment is ${dailyPuzzle.title} (${daily.dayKey}). Solve calmly, use notes, undo moves, and ask the lantern for help.',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
@@ -40,16 +46,26 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (_) => SudokuGameScreen(repository: repository),
+                    builder: (_) => SudokuGameScreen(
+                      repository: repository,
+                      puzzle: dailyPuzzle,
+                    ),
                   ),
                 );
               },
             ),
             const SizedBox(height: 12),
-            const _PhaseCard(
+            _PhaseCard(
               title: 'Level Packs',
-              subtitle: '入門, 小成, 貫通, 精深, 入神',
+              subtitle: '${FixturePuzzles.catalog.length} loaded test puzzles',
               seal: '局',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => LevelPackScreen(repository: repository),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 12),
             _PhaseCard(

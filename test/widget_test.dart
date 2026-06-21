@@ -24,8 +24,25 @@ void main() {
     await tester.tap(find.text('Tea Moment'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Beginner Tea Moment'), findsOneWidget);
+    expect(find.text('Tea Moment'), findsOneWidget);
     expect(find.textContaining('Mistakes 0'), findsOneWidget);
+  });
+
+  testWidgets('Level Packs opens test puzzle catalog', (tester) async {
+    await _pumpTestApp(tester);
+
+    await tester.tap(find.text('Level Packs'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('6 test puzzles loaded'), findsOneWidget);
+    expect(find.text('Morning Steam'), findsOneWidget);
+    expect(find.text('Paper Lantern'), findsOneWidget);
+
+    await tester.tap(find.text('Paper Lantern'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Paper Lantern'), findsOneWidget);
+    expect(find.textContaining('Beginner'), findsOneWidget);
   });
 
   testWidgets('Scholar Path and Extreme Hub open from Home', (tester) async {

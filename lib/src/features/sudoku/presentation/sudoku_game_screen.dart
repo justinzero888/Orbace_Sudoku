@@ -14,9 +14,10 @@ import 'sudoku_number_pad.dart';
 import 'sudoku_replay_screen.dart';
 
 class SudokuGameScreen extends StatefulWidget {
-  const SudokuGameScreen({super.key, this.repository});
+  const SudokuGameScreen({super.key, this.repository, this.puzzle});
 
   final SudokuRepository? repository;
+  final FixturePuzzleDefinition? puzzle;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -26,6 +27,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   late final GameSessionController _controller;
   late final AppDatabase _database;
   late final SudokuRepository _repository;
+  late final FixturePuzzleDefinition _puzzle;
   Timer? _timer;
   bool _completionShown = false;
   SudokuAttempt? _lastAttempt;
@@ -39,11 +41,15 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       _database = AppDatabase();
       _repository = SudokuRepository(_database);
     }
+    _puzzle = widget.puzzle ?? FixturePuzzles.defaultTeaMoment;
     _controller = GameSessionController(
-      givens: FixturePuzzles.teaMomentGivens(),
-      solution: FixturePuzzles.teaMomentSolution(),
+      givens: _puzzle.givens,
+      solution: _puzzle.solution,
+      puzzleId: _puzzle.id,
+      difficulty: _puzzle.difficulty,
+      targetTimeSeconds: _puzzle.targetTimeSeconds,
     )..addListener(_handleControllerChanged);
-    unawaited(_seedFixturePuzzle());
+    unawaited(_seedPuzzle());
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (_) => _controller.tick(),
@@ -89,7 +95,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
                 ListView(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   children: [
-                    _SessionHeader(controller: _controller),
+                    _SessionHeader(controller: _controller, puzzle: _puzzle),
                     const SizedBox(height: 12),
                     SudokuBoardWidget(controller: _controller),
                     const SizedBox(height: 18),
@@ -144,16 +150,18 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
     }
   }
 
-  Future<void> _seedFixturePuzzle() async {
-    final solvePath = HumanRankedSolver()
-        .solve(FixturePuzzles.teaMomentGivens())
-        .steps;
+  Future<void> _seedPuzzle() async {
+    final solvePath = HumanRankedSolver().solve(_puzzle.givens).steps;
     await _repository.upsertPuzzle(
       fixturePuzzleRecord(
         id: _controller.puzzleId,
-        givens: FixturePuzzles.teaMomentGivens(),
-        solution: FixturePuzzles.teaMomentSolution(),
+        givens: _puzzle.givens,
+        solution: _puzzle.solution,
         solvePath: solvePath,
+        difficulty: _puzzle.difficulty,
+        difficultyScore: _puzzle.difficultyScore,
+        targetTimeSeconds: _puzzle.targetTimeSeconds,
+        medianTimeSeconds: _puzzle.medianTimeSeconds,
       ),
     );
   }
@@ -255,9 +263,10 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
 }
 
 class _SessionHeader extends StatelessWidget {
-  const _SessionHeader({required this.controller});
+  const _SessionHeader({required this.controller, required this.puzzle});
 
   final GameSessionController controller;
+  final FixturePuzzleDefinition puzzle;
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +283,7 @@ class _SessionHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(
-            '入',
+            puzzle.seal,
             style: textTheme.titleLarge?.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
@@ -286,9 +295,10 @@ class _SessionHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Beginner Tea Moment', style: textTheme.titleLarge),
+              Text(puzzle.title, style: textTheme.titleLarge),
               const SizedBox(height: 2),
               Text(
+                '${puzzle.difficulty.label}  |  '
                 '${_formatTime(controller.elapsedSeconds)}  |  '
                 'Mistakes ${controller.mistakeCount}  |  '
                 'Hints ${controller.hintCount}',

@@ -185,18 +185,23 @@ SudokuPuzzle fixturePuzzleRecord({
   required SudokuBoard givens,
   required SudokuBoard solution,
   required List<StoredSolvingStep> solvePath,
+  SudokuDifficulty difficulty = SudokuDifficulty.beginner,
+  int difficultyScore = 80,
+  int targetTimeSeconds = 360,
+  int medianTimeSeconds = 480,
+  bool rankedEligible = false,
 }) {
   return SudokuPuzzle(
     id: id,
     givens: givens,
     solution: solution,
-    difficulty: SudokuDifficulty.beginner,
-    difficultyScore: 80,
-    targetTimeSeconds: 360,
-    medianTimeSeconds: 480,
+    difficulty: difficulty,
+    difficultyScore: difficultyScore,
+    targetTimeSeconds: targetTimeSeconds,
+    medianTimeSeconds: medianTimeSeconds,
     requiredTechniques:
         solvePath.map((step) => step.techniqueId).toSet().toList()..sort(),
     solvePath: solvePath,
-    rankedEligible: false,
+    rankedEligible: rankedEligible,
   );
 }
