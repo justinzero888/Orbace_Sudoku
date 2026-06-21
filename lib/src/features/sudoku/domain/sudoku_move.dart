@@ -1,4 +1,11 @@
-enum SudokuMoveType { valueEntry, noteToggle, erase, hintReveal }
+enum SudokuMoveType {
+  valueEntry,
+  noteToggle,
+  erase,
+  hintReveal,
+  valueBack,
+  noteBack,
+}
 
 class SudokuMove {
   const SudokuMove({

@@ -153,7 +153,6 @@ class _NotesGrid extends StatelessWidget {
               style: const TextStyle(
                 color: Color(0xFF006FE6),
                 fontSize: 9,
-                fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0,
               ),

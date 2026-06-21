@@ -255,6 +255,7 @@ class GameSessionController extends ChangeNotifier {
     final move = _undoStack.removeLast();
     _applyUndo(move);
     _redoStack.add(move);
+    _moveHistory.add(_backMoveFor(move));
     _completed = false;
     notifyListeners();
   }
@@ -428,9 +429,23 @@ class GameSessionController extends ChangeNotifier {
     _redoStack.clear();
   }
 
+  SudokuMove _backMoveFor(SudokuMove move) {
+    return SudokuMove(
+      cellIndex: move.cellIndex,
+      previousValue: move.nextValue,
+      nextValue: move.previousValue,
+      elapsedSeconds: _elapsedSeconds,
+      type: move.type == SudokuMoveType.noteToggle
+          ? SudokuMoveType.noteBack
+          : SudokuMoveType.valueBack,
+      noteValue: move.noteValue,
+    );
+  }
+
   void _applyUndo(SudokuMove move) {
     switch (move.type) {
       case SudokuMoveType.noteToggle:
+      case SudokuMoveType.noteBack:
         final noteValue = move.noteValue;
         if (noteValue != null) {
           if (_notes[move.cellIndex].contains(noteValue)) {
@@ -443,6 +458,7 @@ class GameSessionController extends ChangeNotifier {
       case SudokuMoveType.valueEntry:
       case SudokuMoveType.erase:
       case SudokuMoveType.hintReveal:
+      case SudokuMoveType.valueBack:
         _values[move.cellIndex] = move.previousValue;
         break;
     }
@@ -451,6 +467,7 @@ class GameSessionController extends ChangeNotifier {
   void _applyRedo(SudokuMove move) {
     switch (move.type) {
       case SudokuMoveType.noteToggle:
+      case SudokuMoveType.noteBack:
         final noteValue = move.noteValue;
         if (noteValue != null) {
           if (_notes[move.cellIndex].contains(noteValue)) {
@@ -463,6 +480,7 @@ class GameSessionController extends ChangeNotifier {
       case SudokuMoveType.valueEntry:
       case SudokuMoveType.erase:
       case SudokuMoveType.hintReveal:
+      case SudokuMoveType.valueBack:
         _values[move.cellIndex] = move.nextValue;
         break;
     }

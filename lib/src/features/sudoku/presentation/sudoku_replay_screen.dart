@@ -85,12 +85,23 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
         case SudokuMoveType.valueEntry:
         case SudokuMoveType.erase:
         case SudokuMoveType.hintReveal:
+        case SudokuMoveType.valueBack:
           values[move.cellIndex] = move.nextValue;
           if (move.nextValue != null) {
             notes[move.cellIndex].clear();
           }
           break;
         case SudokuMoveType.noteToggle:
+          final noteValue = move.noteValue;
+          if (noteValue != null) {
+            if (notes[move.cellIndex].contains(noteValue)) {
+              notes[move.cellIndex].remove(noteValue);
+            } else {
+              notes[move.cellIndex].add(noteValue);
+            }
+          }
+          break;
+        case SudokuMoveType.noteBack:
           final noteValue = move.noteValue;
           if (noteValue != null) {
             if (notes[move.cellIndex].contains(noteValue)) {
@@ -197,7 +208,6 @@ class _ReplayNotesGrid extends StatelessWidget {
               style: const TextStyle(
                 color: Color(0xFF006FE6),
                 fontSize: 9,
-                fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0,
               ),
@@ -258,6 +268,11 @@ class _MoveRow extends StatelessWidget {
       SudokuMoveType.hintReveal =>
         'Hint reveal R$row C$col = ${move.nextValue}',
       SudokuMoveType.noteToggle => 'Note ${move.noteValue} at R$row C$col',
+      SudokuMoveType.valueBack =>
+        move.nextValue == null
+            ? 'Back R$row C$col'
+            : 'Back R$row C$col = ${move.nextValue}',
+      SudokuMoveType.noteBack => 'Back note ${move.noteValue} at R$row C$col',
     };
 
     return Container(

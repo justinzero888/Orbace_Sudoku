@@ -62,7 +62,11 @@ void main() {
     );
     controller
       ..selectCell(2)
-      ..enterNumber(4);
+      ..enterNumber(4)
+      ..undo()
+      ..toggleNotesMode()
+      ..enterNumber(4)
+      ..undo();
     final attempt = controller.buildAttempt();
 
     await tester.pumpWidget(
@@ -75,7 +79,7 @@ void main() {
     );
 
     expect(find.text('Replay'), findsOneWidget);
-    expect(find.text('Step 0 of 1'), findsOneWidget);
+    expect(find.text('Step 0 of 4'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('Move History'),
       300,
@@ -83,6 +87,9 @@ void main() {
     );
     expect(find.text('Move History'), findsOneWidget);
     expect(find.textContaining('R1 C3 = 4'), findsOneWidget);
+    expect(find.textContaining('Back R1 C3'), findsOneWidget);
+    expect(find.textContaining('Note 4 at R1 C3'), findsOneWidget);
+    expect(find.textContaining('Back note 4 at R1 C3'), findsOneWidget);
 
     controller.dispose();
   });

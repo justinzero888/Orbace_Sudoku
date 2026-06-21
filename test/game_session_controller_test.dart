@@ -63,6 +63,33 @@ void main() {
     expect(controller.valueAt(index), 4);
   });
 
+  test('undo appends value back action to replay history', () {
+    final index = SudokuBoard.index(0, 2);
+
+    controller.selectCell(index);
+    controller.enterNumber(4);
+    controller.undo();
+
+    expect(controller.moveHistory, hasLength(2));
+    expect(controller.moveHistory.last.type.name, 'valueBack');
+    expect(controller.moveHistory.last.cellIndex, index);
+    expect(controller.moveHistory.last.nextValue, isNull);
+  });
+
+  test('undo appends note back action to replay history', () {
+    final index = SudokuBoard.index(0, 2);
+
+    controller.selectCell(index);
+    controller.toggleNotesMode();
+    controller.enterNumber(4);
+    controller.undo();
+
+    expect(controller.moveHistory, hasLength(2));
+    expect(controller.moveHistory.last.type.name, 'noteBack');
+    expect(controller.moveHistory.last.cellIndex, index);
+    expect(controller.moveHistory.last.noteValue, 4);
+  });
+
   test('hint escalates and selects target cell', () {
     final first = controller.requestHint();
     final second = controller.requestHint();
