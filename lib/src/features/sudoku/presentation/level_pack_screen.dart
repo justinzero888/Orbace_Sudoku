@@ -63,6 +63,11 @@ class _PackBrowser extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
+          'Content ${catalog.contentVersion}  |  Curated ${catalog.generatedAt}',
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 4),
+        Text(
           '$advancedCount puzzles require pair or pointing techniques',
           style: textTheme.bodyMedium,
         ),

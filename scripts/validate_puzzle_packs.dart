@@ -14,6 +14,9 @@ void main() {
 
   final manifest =
       jsonDecode(manifestFile.readAsStringSync()) as Map<String, Object?>;
+  final failures = <String>[];
+  final warnings = <String>[];
+  _validateContentMetadata(manifest, 'assets/puzzles/packs.json', failures);
   final packs = (manifest['packs']! as List<Object?>)
       .cast<Map<String, Object?>>();
   final solver = SudokuSolver();
@@ -24,18 +27,27 @@ void main() {
   final seenSymmetrySignature = <String, String>{};
   final seenSolutions = <String, List<String>>{};
   final results = <Map<String, Object?>>[];
-  final failures = <String>[];
-  final warnings = <String>[];
 
   for (final pack in packs) {
+    for (final field in <String>[
+      'difficultyBand',
+      'curationStrategy',
+      'milestoneEvery',
+    ]) {
+      if (pack[field] == null) {
+        failures.add('Pack ${pack['id']} missing manifest field: $field');
+      }
+    }
     final packId = pack['id']! as String;
     final assetPath = pack['asset']! as String;
     final payload =
         jsonDecode(File(assetPath).readAsStringSync()) as Map<String, Object?>;
+    _validateContentMetadata(payload, assetPath, failures);
     final puzzles = (payload['puzzles']! as List<Object?>)
         .cast<Map<String, Object?>>()
         .map((json) => FixturePuzzleDefinition.fromJson(json, packId: packId))
         .toList(growable: false);
+    _validateCuratedOrdering(packId, puzzles, warnings);
 
     var advancedCount = 0;
     for (final puzzle in puzzles) {
@@ -121,6 +133,50 @@ void main() {
   if (failures.isNotEmpty) {
     stderr.writeln(failures.join('\n'));
     exit(1);
+  }
+}
+
+void _validateContentMetadata(
+  Map<String, Object?> payload,
+  String source,
+  List<String> failures,
+) {
+  final requiredFields = <String>[
+    'schemaVersion',
+    'contentVersion',
+    'generatedAt',
+    'generatorVersion',
+    'validatorVersion',
+    'solverVersion',
+    'contentSource',
+  ];
+  for (final field in requiredFields) {
+    if (payload[field] == null) {
+      failures.add('$source missing content metadata: $field');
+    }
+  }
+}
+
+void _validateCuratedOrdering(
+  String packId,
+  List<FixturePuzzleDefinition> puzzles,
+  List<String> warnings,
+) {
+  for (var index = 1; index < puzzles.length; index++) {
+    final previous = puzzles[index - 1];
+    final current = puzzles[index];
+    final scoreDrop = previous.difficultyScore - current.difficultyScore;
+    final scoreSpike = current.difficultyScore - previous.difficultyScore;
+    if (scoreDrop > 35) {
+      warnings.add(
+        '$packId ordering drop near ${current.id}: score falls by $scoreDrop',
+      );
+    }
+    if (scoreSpike > 90) {
+      warnings.add(
+        '$packId ordering spike near ${current.id}: score rises by $scoreSpike',
+      );
+    }
   }
 }
 

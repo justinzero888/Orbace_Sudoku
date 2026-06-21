@@ -9,6 +9,12 @@ import 'package:orbace_sudoku/src/features/sudoku/engine/sudoku_difficulty_rater
 import 'package:orbace_sudoku/src/features/sudoku/engine/sudoku_generator.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 
+const String _contentVersion = '2026.06.001';
+const String _generatedAt = '2026-06-21';
+const String _generatorVersion = 'sudoku-pack-generator-1.1.0';
+const String _validatorVersion = 'sudoku-pack-validator-1.1.0';
+const String _solverVersion = 'human-solver-1.0.0';
+
 void main() {
   final outputDir = Directory('assets/puzzles')..createSync(recursive: true);
   final random = Random(20260620);
@@ -161,9 +167,10 @@ void main() {
       return;
     }
 
+    final curatedPuzzles = _curatePuzzles(plan, puzzles);
     final asset = 'assets/puzzles/${plan.id}.json';
     File(asset).writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'id': plan.id, 'generatedAt': '2026-06-20', 'puzzles': puzzles.map((puzzle) => puzzle.toJson()).toList()})}\n',
+      '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'contentVersion': _contentVersion, 'generatedAt': _generatedAt, 'generatorVersion': _generatorVersion, 'validatorVersion': _validatorVersion, 'solverVersion': _solverVersion, 'contentSource': 'deterministic local generator seed 20260620', 'curationStrategy': plan.curationStrategy, 'milestoneEvery': plan.milestoneEvery, 'id': plan.id, 'puzzles': curatedPuzzles.map((puzzle) => puzzle.toJson()).toList()})}\n',
     );
     manifestPacks.add(<String, Object?>{
       'id': plan.id,
@@ -173,6 +180,9 @@ void main() {
       'description': plan.description,
       'asset': asset,
       'order': manifestPacks.length,
+      'difficultyBand': plan.targetDifficulty.name,
+      'curationStrategy': plan.curationStrategy,
+      'milestoneEvery': plan.milestoneEvery,
     });
     stdout.writeln(
       '${plan.id}: ${puzzles.length} puzzles, $advancedCount advanced',
@@ -180,7 +190,7 @@ void main() {
   }
 
   File('${outputDir.path}/packs.json').writeAsStringSync(
-    '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'generatedAt': '2026-06-20', 'packs': manifestPacks})}\n',
+    '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'contentVersion': _contentVersion, 'generatedAt': _generatedAt, 'generatorVersion': _generatorVersion, 'validatorVersion': _validatorVersion, 'solverVersion': _solverVersion, 'contentSource': 'deterministic local generator seed 20260620', 'packs': manifestPacks})}\n',
   );
 }
 
@@ -197,6 +207,7 @@ class PackPlan {
     required this.targetDifficulty,
     required this.requiredAdvancedRatio,
     this.rankedEligible = false,
+    this.milestoneEvery = 10,
   });
 
   final String id;
@@ -210,6 +221,76 @@ class PackPlan {
   final SudokuDifficulty targetDifficulty;
   final double requiredAdvancedRatio;
   final bool rankedEligible;
+  final int milestoneEvery;
+
+  String get curationStrategy {
+    return 'ascending difficulty with stronger milestone puzzles every '
+        '$milestoneEvery levels';
+  }
+}
+
+List<FixturePuzzleDefinition> _curatePuzzles(
+  PackPlan plan,
+  List<FixturePuzzleDefinition> puzzles,
+) {
+  final sorted = puzzles.toList()
+    ..sort((a, b) {
+      final scoreCompare = a.difficultyScore.compareTo(b.difficultyScore);
+      if (scoreCompare != 0) {
+        return scoreCompare;
+      }
+      return b.clueCount.compareTo(a.clueCount);
+    });
+
+  for (
+    var milestoneIndex = plan.milestoneEvery - 1;
+    milestoneIndex < sorted.length;
+    milestoneIndex += plan.milestoneEvery
+  ) {
+    final groupStart = milestoneIndex - plan.milestoneEvery + 1;
+    final groupEnd = min(milestoneIndex + 1, sorted.length);
+    var hardestIndex = groupStart;
+    for (var index = groupStart + 1; index < groupEnd; index++) {
+      if (_curationWeight(sorted[index]) >
+          _curationWeight(sorted[hardestIndex])) {
+        hardestIndex = index;
+      }
+    }
+    final milestonePuzzle = sorted.removeAt(hardestIndex);
+    sorted.insert(milestoneIndex, milestonePuzzle);
+  }
+
+  return <FixturePuzzleDefinition>[
+    for (var index = 0; index < sorted.length; index++)
+      _relabelPuzzle(plan, sorted[index], index + 1),
+  ];
+}
+
+int _curationWeight(FixturePuzzleDefinition puzzle) {
+  return puzzle.difficultyScore * 10 -
+      puzzle.clueCount +
+      (_hasAdvancedTechnique(puzzle.requiredTechniques) ? 1000 : 0);
+}
+
+FixturePuzzleDefinition _relabelPuzzle(
+  PackPlan plan,
+  FixturePuzzleDefinition puzzle,
+  int number,
+) {
+  return FixturePuzzleDefinition(
+    id: '${plan.id}_${number.toString().padLeft(3, '0')}',
+    title: '${plan.title} ${number.toString().padLeft(2, '0')}',
+    seal: puzzle.seal,
+    packId: plan.id,
+    difficulty: puzzle.difficulty,
+    difficultyScore: puzzle.difficultyScore,
+    targetTimeSeconds: puzzle.targetTimeSeconds,
+    medianTimeSeconds: puzzle.medianTimeSeconds,
+    requiredTechniques: puzzle.requiredTechniques,
+    rankedEligible: puzzle.rankedEligible,
+    givensRows: puzzle.givensRows,
+    solutionRows: puzzle.solutionRows,
+  );
 }
 
 List<String> _rowsFromBoard(SudokuBoard board) {

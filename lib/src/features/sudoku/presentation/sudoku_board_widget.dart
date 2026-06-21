@@ -116,7 +116,7 @@ class _SudokuCell extends StatelessWidget {
       return const Color(0xFFFFE2A8);
     }
     if (selected) {
-      return const Color(0xFFE1E9DD);
+      return const Color(0xFFFFD166);
     }
     if (sameValue) {
       return const Color(0xFFE9EFE5);

@@ -5,8 +5,22 @@ import 'package:flutter/services.dart';
 import '../presentation/fixture_puzzles.dart';
 
 class PuzzlePackCatalog {
-  const PuzzlePackCatalog({required this.packs});
+  const PuzzlePackCatalog({
+    required this.schemaVersion,
+    required this.contentVersion,
+    required this.generatedAt,
+    required this.generatorVersion,
+    required this.validatorVersion,
+    required this.solverVersion,
+    required this.packs,
+  });
 
+  final int schemaVersion;
+  final String contentVersion;
+  final String generatedAt;
+  final String generatorVersion;
+  final String validatorVersion;
+  final String solverVersion;
   final List<PuzzlePackDefinition> packs;
 
   List<FixturePuzzleDefinition> get puzzles {
@@ -35,6 +49,9 @@ class PuzzlePackDefinition {
     required this.description,
     required this.asset,
     required this.order,
+    required this.difficultyBand,
+    required this.curationStrategy,
+    required this.milestoneEvery,
     required this.puzzles,
   });
 
@@ -50,6 +67,9 @@ class PuzzlePackDefinition {
       description: json['description']! as String,
       asset: json['asset']! as String,
       order: json['order']! as int,
+      difficultyBand: json['difficultyBand']! as String,
+      curationStrategy: json['curationStrategy']! as String,
+      milestoneEvery: json['milestoneEvery']! as int,
       puzzles: puzzles,
     );
   }
@@ -61,6 +81,9 @@ class PuzzlePackDefinition {
   final String description;
   final String asset;
   final int order;
+  final String difficultyBand;
+  final String curationStrategy;
+  final int milestoneEvery;
   final List<FixturePuzzleDefinition> puzzles;
 
   int get advancedPuzzleCount {
@@ -111,6 +134,12 @@ class PuzzlePackLoader {
 
     packs.sort((a, b) => a.order.compareTo(b.order));
     return PuzzlePackCatalog(
+      schemaVersion: manifest['schemaVersion']! as int,
+      contentVersion: manifest['contentVersion']! as String,
+      generatedAt: manifest['generatedAt']! as String,
+      generatorVersion: manifest['generatorVersion']! as String,
+      validatorVersion: manifest['validatorVersion']! as String,
+      solverVersion: manifest['solverVersion']! as String,
       packs: List<PuzzlePackDefinition>.unmodifiable(packs),
     );
   }

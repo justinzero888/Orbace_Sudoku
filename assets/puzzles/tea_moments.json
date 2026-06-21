@@ -1,81 +1,18 @@
 {
+  "schemaVersion": 1,
+  "contentVersion": "2026.06.001",
+  "generatedAt": "2026-06-21",
+  "generatorVersion": "sudoku-pack-generator-1.1.0",
+  "validatorVersion": "sudoku-pack-validator-1.1.0",
+  "solverVersion": "human-solver-1.0.0",
+  "contentSource": "deterministic local generator seed 20260620",
+  "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+  "milestoneEvery": 10,
   "id": "tea_moments",
-  "generatedAt": "2026-06-20",
   "puzzles": [
     {
       "id": "tea_moments_001",
       "title": "Tea Moments 01",
-      "seal": "茶",
-      "difficulty": "beginner",
-      "difficultyScore": 88,
-      "targetTimeSeconds": 360,
-      "medianTimeSeconds": 540,
-      "requiredTechniques": [
-        "hidden_single",
-        "naked_single"
-      ],
-      "rankedEligible": false,
-      "givensRows": [
-        "300400169",
-        "001207000",
-        "000090700",
-        "096000481",
-        "530800600",
-        "104070030",
-        "009540816",
-        "053000000",
-        "610709354"
-      ],
-      "solutionRows": [
-        "327485169",
-        "961237548",
-        "845691723",
-        "796352481",
-        "532814697",
-        "184976235",
-        "279543816",
-        "453168972",
-        "618729354"
-      ]
-    },
-    {
-      "id": "tea_moments_002",
-      "title": "Tea Moments 02",
-      "seal": "茶",
-      "difficulty": "beginner",
-      "difficultyScore": 86,
-      "targetTimeSeconds": 360,
-      "medianTimeSeconds": 540,
-      "requiredTechniques": [
-        "naked_single"
-      ],
-      "rankedEligible": false,
-      "givensRows": [
-        "900607002",
-        "000549007",
-        "068002509",
-        "820003704",
-        "400200050",
-        "305704210",
-        "047006001",
-        "002390400",
-        "000475000"
-      ],
-      "solutionRows": [
-        "954687132",
-        "213549687",
-        "768132549",
-        "821953764",
-        "476218953",
-        "395764218",
-        "547826391",
-        "682391475",
-        "139475826"
-      ]
-    },
-    {
-      "id": "tea_moments_003",
-      "title": "Tea Moments 03",
       "seal": "茶",
       "difficulty": "beginner",
       "difficultyScore": 82,
@@ -109,8 +46,8 @@
       ]
     },
     {
-      "id": "tea_moments_004",
-      "title": "Tea Moments 04",
+      "id": "tea_moments_002",
+      "title": "Tea Moments 02",
       "seal": "茶",
       "difficulty": "beginner",
       "difficultyScore": 82,
@@ -144,8 +81,8 @@
       ]
     },
     {
-      "id": "tea_moments_005",
-      "title": "Tea Moments 05",
+      "id": "tea_moments_003",
+      "title": "Tea Moments 03",
       "seal": "茶",
       "difficulty": "beginner",
       "difficultyScore": 84,
@@ -179,8 +116,113 @@
       ]
     },
     {
+      "id": "tea_moments_004",
+      "title": "Tea Moments 04",
+      "seal": "茶",
+      "difficulty": "beginner",
+      "difficultyScore": 84,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "027008006",
+        "048009023",
+        "000307000",
+        "064901050",
+        "930002468",
+        "002864000",
+        "005490000",
+        "173285000",
+        "006073500"
+      ],
+      "solutionRows": [
+        "327548916",
+        "548619723",
+        "619327845",
+        "864931257",
+        "931752468",
+        "752864139",
+        "285496371",
+        "173285694",
+        "496173582"
+      ]
+    },
+    {
+      "id": "tea_moments_005",
+      "title": "Tea Moments 05",
+      "seal": "茶",
+      "difficulty": "beginner",
+      "difficultyScore": 84,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008020307",
+        "900317400",
+        "730080600",
+        "004008900",
+        "056930701",
+        "093700000",
+        "410000203",
+        "009273050",
+        "300150806"
+      ],
+      "solutionRows": [
+        "548629317",
+        "962317485",
+        "731485629",
+        "174568932",
+        "856932741",
+        "293741568",
+        "415896273",
+        "689273154",
+        "327154896"
+      ]
+    },
+    {
       "id": "tea_moments_006",
       "title": "Tea Moments 06",
+      "seal": "茶",
+      "difficulty": "beginner",
+      "difficultyScore": 86,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "900607002",
+        "000549007",
+        "068002509",
+        "820003704",
+        "400200050",
+        "305704210",
+        "047006001",
+        "002390400",
+        "000475000"
+      ],
+      "solutionRows": [
+        "954687132",
+        "213549687",
+        "768132549",
+        "821953764",
+        "476218953",
+        "395764218",
+        "547826391",
+        "682391475",
+        "139475826"
+      ]
+    },
+    {
+      "id": "tea_moments_007",
+      "title": "Tea Moments 07",
       "seal": "茶",
       "difficulty": "beginner",
       "difficultyScore": 86,
@@ -214,8 +256,8 @@
       ]
     },
     {
-      "id": "tea_moments_007",
-      "title": "Tea Moments 07",
+      "id": "tea_moments_008",
+      "title": "Tea Moments 08",
       "seal": "茶",
       "difficulty": "beginner",
       "difficultyScore": 86,
@@ -246,41 +288,6 @@
         "284953671",
         "935716824",
         "761248395"
-      ]
-    },
-    {
-      "id": "tea_moments_008",
-      "title": "Tea Moments 08",
-      "seal": "茶",
-      "difficulty": "beginner",
-      "difficultyScore": 84,
-      "targetTimeSeconds": 360,
-      "medianTimeSeconds": 540,
-      "requiredTechniques": [
-        "naked_single"
-      ],
-      "rankedEligible": false,
-      "givensRows": [
-        "027008006",
-        "048009023",
-        "000307000",
-        "064901050",
-        "930002468",
-        "002864000",
-        "005490000",
-        "173285000",
-        "006073500"
-      ],
-      "solutionRows": [
-        "327548916",
-        "548619723",
-        "619327845",
-        "864931257",
-        "931752468",
-        "752864139",
-        "285496371",
-        "173285694",
-        "496173582"
       ]
     },
     {
@@ -323,34 +330,35 @@
       "title": "Tea Moments 10",
       "seal": "茶",
       "difficulty": "beginner",
-      "difficultyScore": 84,
+      "difficultyScore": 88,
       "targetTimeSeconds": 360,
       "medianTimeSeconds": 540,
       "requiredTechniques": [
+        "hidden_single",
         "naked_single"
       ],
       "rankedEligible": false,
       "givensRows": [
-        "008020307",
-        "900317400",
-        "730080600",
-        "004008900",
-        "056930701",
-        "093700000",
-        "410000203",
-        "009273050",
-        "300150806"
+        "300400169",
+        "001207000",
+        "000090700",
+        "096000481",
+        "530800600",
+        "104070030",
+        "009540816",
+        "053000000",
+        "610709354"
       ],
       "solutionRows": [
-        "548629317",
-        "962317485",
-        "731485629",
-        "174568932",
-        "856932741",
-        "293741568",
-        "415896273",
-        "689273154",
-        "327154896"
+        "327485169",
+        "961237548",
+        "845691723",
+        "796352481",
+        "532814697",
+        "184976235",
+        "279543816",
+        "453168972",
+        "618729354"
       ]
     }
   ]
