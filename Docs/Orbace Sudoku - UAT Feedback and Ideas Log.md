@@ -10,9 +10,9 @@
 | --- | --- | --- | --- |
 | `1.0.0 (9)` | iOS TestFlight IPA | 100 UAT puzzles | Stronger selected-cell highlight, curated/versioned content `2026.06.001`. |
 | `1.0.0 (8)` | Android AAB | 100 UAT puzzles | First Android release bundle for current UAT content. |
-| Unbuilt local candidate | Local assets | 1,800 production-candidate puzzles | GP-5/IDEA-003 started with content `2026.06.002`; content is split into 31 batch files; 38 duplicate-scan warnings remain before TestFlight. |
+| Unbuilt local candidate | Local assets | 1,800 production-candidate puzzles | GP-5/IDEA-003 content `2026.06.003`; content is split into 31 batch files; duplicate-scan warnings resolved to 0 before the next TestFlight/UAT build. |
 
-The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle catalog exists locally as a candidate asset set only and should not be treated as production-approved until duplicate-scan warnings are resolved.
+The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle catalog is now locally validated and ready for the next IPA/AAB UAT build checkpoint.
 
 ## Feedback Log
 
@@ -28,6 +28,8 @@ The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle cata
 | UAT-008 | Gameplay UAT | Highlighted selected-cell color is too weak. | Medium | Complete | Changed selected cell to stronger amber highlight. | IPA `1.0.0 (9)`. |
 | UAT-009 | GP-4 UAT | In note-key format, keypad numbers should be italic, but board notes should not be italic because small italic numbers are hard to read. | Medium | Complete | Kept keypad note-mode italic; removed italic from small board note numbers in live board and replay board. | Local validation passed; included in next IPA/AAB build. |
 | UAT-010 | GP-4 UAT | Replay should add "Back" actions to replay history for both big game numbers and small note numbers. | High | Complete | Added value-back and note-back replay events when Undo is pressed. Replay history now shows both big-number and note-number back actions. | Local validation passed; included in next IPA/AAB build. |
+| UAT-011 | UAT | Board numbers should be 75% of the cell and scale consistently across phone and iPad instead of using fixed font sizes. | High | Complete | Live board and replay board now calculate filled-number font size as 75% of the rendered cell size; note numbers also scale proportionally. | Local validation pending in next full build checkpoint. |
+| UAT-012 | Content QA | Root-cause and resolve the 38 duplicate-scan warnings before the next UAT build. | High | Complete | Root cause: the generator starts from one canonical solved Sudoku pattern and shuffles digit labels plus row/column bands, creating occasional repeated normalized solution patterns at 1,800-puzzle scale. Added a repair script and replaced the 38 later duplicate-pattern puzzles. | Validator passes 1,800 puzzles with 0 duplicate-scan warnings. |
 
 ## New Requirements and Ideas Backlog
 
@@ -35,7 +37,7 @@ The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle cata
 | --- | --- | --- | --- | --- |
 | IDEA-001 | Monetization | AdMob setup | Not started | Define ad policy first: banner vs interstitial vs rewarded hints. Avoid disrupting calm gameplay. Need app IDs, privacy disclosures, consent flow, and store listing impact. |
 | IDEA-002 | Content / Education | Create a Sudoku solution guide book | Not started | Could become an in-app guide, downloadable PDF, website lead magnet, or App Store marketing asset. Should align with Orbace teaching tone and named techniques supported by the engine. |
-| IDEA-003 | Content | 1,800-puzzle production library | In progress | GP-5 started. Candidate content version `2026.06.002` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness/human-solver gates; 38 shared normalized solution-grid warnings remain for curation before production approval. |
+| IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 
@@ -54,3 +56,5 @@ The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle cata
 | --- | --- | --- | --- | --- |
 | `1.0.0 (10)` | iOS IPA | UAT-009, UAT-010 | Local validation passed | Built for continuous UAT. |
 | `1.0.0 (10)` | Android AAB | UAT-009, UAT-010 | Local validation passed | Built for continuous UAT. |
+| `1.0.0 (11)` | iOS IPA | UAT-011, UAT-012, IDEA-003 | Local validation passed; 1,800 puzzles; 0 duplicate warnings | Built for next TestFlight/UAT checkpoint. |
+| `1.0.0 (11)` | Android AAB | UAT-011, UAT-012, IDEA-003 | Local validation passed; 1,800 puzzles; 0 duplicate warnings | Built for next Android UAT checkpoint. |

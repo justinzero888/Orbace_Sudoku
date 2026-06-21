@@ -42,6 +42,10 @@ class SudokuBoardWidget extends StatelessWidget {
 class _SudokuCell extends StatelessWidget {
   const _SudokuCell({required this.controller, required this.index});
 
+  static const double _valueFontScale = 0.75;
+  static const double _noteFontScale = 0.26;
+  static const double _notePaddingScale = 0.08;
+
   final GameSessionController controller;
   final int index;
 
@@ -82,21 +86,31 @@ class _SudokuCell extends StatelessWidget {
               bottom: BorderSide(color: OrbaceTheme.ink, width: bottomBorder),
             ),
           ),
-          child: value == null
-              ? _NotesGrid(notes: controller.notesAt(index))
-              : Text(
-                  '$value',
-                  style: TextStyle(
-                    color: incorrect
-                        ? OrbaceTheme.vermilion
-                        : isGiven
-                        ? OrbaceTheme.ink
-                        : const Color(0xFF006FE6),
-                    fontSize: 22,
-                    fontWeight: isGiven ? FontWeight.w700 : FontWeight.w600,
-                    letterSpacing: 0,
-                  ),
-                ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final cellSize = constraints.biggest.shortestSide;
+              return value == null
+                  ? _NotesGrid(
+                      notes: controller.notesAt(index),
+                      fontSize: cellSize * _noteFontScale,
+                      padding: cellSize * _notePaddingScale,
+                    )
+                  : Text(
+                      '$value',
+                      style: TextStyle(
+                        color: incorrect
+                            ? OrbaceTheme.vermilion
+                            : isGiven
+                            ? OrbaceTheme.ink
+                            : const Color(0xFF006FE6),
+                        fontSize: cellSize * _valueFontScale,
+                        fontWeight: isGiven ? FontWeight.w700 : FontWeight.w600,
+                        height: 1,
+                        letterSpacing: 0,
+                      ),
+                    );
+            },
+          ),
         ),
       ),
     );
@@ -135,25 +149,32 @@ class _SudokuCell extends StatelessWidget {
 }
 
 class _NotesGrid extends StatelessWidget {
-  const _NotesGrid({required this.notes});
+  const _NotesGrid({
+    required this.notes,
+    required this.fontSize,
+    required this.padding,
+  });
 
   final Set<int> notes;
+  final double fontSize;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(3),
+      padding: EdgeInsets.all(padding),
       crossAxisCount: 3,
       children: [
         for (var value = 1; value <= 9; value++)
           Center(
             child: Text(
               notes.contains(value) ? '$value' : '',
-              style: const TextStyle(
-                color: Color(0xFF006FE6),
-                fontSize: 9,
+              style: TextStyle(
+                color: const Color(0xFF006FE6),
+                fontSize: fontSize,
                 fontWeight: FontWeight.w600,
+                height: 1,
                 letterSpacing: 0,
               ),
             ),

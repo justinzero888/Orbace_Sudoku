@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "discipline",
@@ -197,7 +197,7 @@
       "title": "Discipline 246",
       "seal": "習",
       "difficulty": "easy",
-      "difficultyScore": 114,
+      "difficultyScore": 110,
       "targetTimeSeconds": 540,
       "medianTimeSeconds": 720,
       "requiredTechniques": [
@@ -206,26 +206,26 @@
       ],
       "rankedEligible": false,
       "givensRows": [
-        "001309057",
-        "000026394",
-        "090800162",
-        "000008410",
-        "000090280",
-        "002060009",
-        "826014000",
-        "300000900",
-        "049000008"
+        "073045000",
+        "000370504",
+        "542000937",
+        "405000002",
+        "130000050",
+        "009500103",
+        "007008310",
+        "004093005",
+        "090002000"
       ],
       "solutionRows": [
-        "261349857",
-        "758126394",
-        "493875162",
-        "937258416",
-        "614793285",
-        "582461739",
-        "826914573",
-        "375682941",
-        "149537628"
+        "973245681",
+        "618379524",
+        "542816937",
+        "485631792",
+        "136927458",
+        "729584163",
+        "257468319",
+        "864193275",
+        "391752846"
       ]
     },
     {
@@ -1587,37 +1587,36 @@
       "title": "Discipline 284",
       "seal": "習",
       "difficulty": "easy",
-      "difficultyScore": 117,
+      "difficultyScore": 124,
       "targetTimeSeconds": 540,
       "medianTimeSeconds": 720,
       "requiredTechniques": [
         "hidden_single",
         "naked_pair",
-        "naked_single",
-        "pointing_pair"
+        "naked_single"
       ],
       "rankedEligible": false,
       "givensRows": [
-        "083106007",
-        "000000050",
-        "010027003",
-        "058201900",
-        "794038200",
-        "620004038",
-        "000000049",
-        "039080700",
-        "000300085"
+        "000000031",
+        "000060840",
+        "580001907",
+        "240010070",
+        "807450009",
+        "000670050",
+        "070500090",
+        "302096780",
+        "610000020"
       ],
       "solutionRows": [
-        "983156427",
-        "247893156",
-        "516427893",
-        "358261974",
-        "794538261",
-        "621974538",
-        "865712349",
-        "439685712",
-        "172349685"
+        "796845231",
+        "123967845",
+        "584231967",
+        "245319678",
+        "867452319",
+        "931678452",
+        "478523196",
+        "352196784",
+        "619784523"
       ]
     },
     {
@@ -2180,36 +2179,36 @@
       "title": "Discipline 300",
       "seal": "習",
       "difficulty": "easy",
-      "difficultyScore": 118,
+      "difficultyScore": 110,
       "targetTimeSeconds": 540,
       "medianTimeSeconds": 720,
       "requiredTechniques": [
+        "hidden_pair",
         "hidden_single",
-        "naked_single",
-        "pointing_pair"
+        "naked_single"
       ],
       "rankedEligible": false,
       "givensRows": [
-        "300750008",
-        "072060030",
-        "018009052",
-        "006003900",
-        "100940006",
-        "000276800",
-        "900021000",
-        "001384000",
-        "000507600"
+        "800004300",
+        "000700000",
+        "317080954",
+        "000200040",
+        "500009003",
+        "090060020",
+        "000005107",
+        "408007006",
+        "170326485"
       ],
       "solutionRows": [
-        "349752168",
-        "572168439",
-        "618439752",
-        "726813945",
-        "183945276",
-        "495276813",
-        "957621384",
-        "261384597",
-        "834597621"
+        "826594371",
+        "945731862",
+        "317682954",
+        "631258749",
+        "582479613",
+        "794163528",
+        "263845197",
+        "458917236",
+        "179326485"
       ]
     }
   ],

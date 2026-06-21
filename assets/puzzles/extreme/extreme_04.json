@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "extreme",
@@ -473,26 +473,26 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "507308001",
-        "630000050",
-        "000000800",
-        "000003000",
-        "040092076",
-        "063000090",
-        "190020400",
-        "006800019",
-        "000000000"
+        "028000090",
+        "000205007",
+        "000004500",
+        "000026831",
+        "650310000",
+        "000000000",
+        "000659000",
+        "080040005",
+        "900030100"
       ],
       "solutionRows": [
-        "527368941",
-        "638149752",
-        "419257863",
-        "952673184",
-        "841592376",
-        "763481295",
-        "195726438",
-        "276834519",
-        "384915627"
+        "528173496",
+        "496285317",
+        "317964528",
+        "749526831",
+        "652318749",
+        "831497652",
+        "174659283",
+        "283741965",
+        "965832174"
       ]
     },
     {
@@ -1739,30 +1739,31 @@
       "requiredTechniques": [
         "hidden_single",
         "naked_pair",
-        "naked_single"
+        "naked_single",
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "060000070",
-        "782006000",
-        "000000190",
-        "000007009",
-        "400020305",
-        "006010007",
-        "015000002",
-        "007980061",
-        "000000030"
+        "050360000",
+        "100400800",
+        "000050103",
+        "729003000",
+        "000900005",
+        "005010700",
+        "570000040",
+        "001000000",
+        "630109502"
       ],
       "solutionRows": [
-        "961453278",
-        "782196453",
-        "534278196",
-        "153847629",
-        "478629315",
-        "296315847",
-        "615734982",
-        "347982561",
-        "829561734"
+        "857361294",
+        "163492857",
+        "294758163",
+        "729583416",
+        "416927385",
+        "385614729",
+        "572836941",
+        "941275638",
+        "638149572"
       ]
     },
     {

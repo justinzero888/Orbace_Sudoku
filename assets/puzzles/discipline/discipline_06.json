@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "discipline",
@@ -423,7 +423,7 @@
       "title": "Discipline 312",
       "seal": "習",
       "difficulty": "easy",
-      "difficultyScore": 119,
+      "difficultyScore": 110,
       "targetTimeSeconds": 540,
       "medianTimeSeconds": 720,
       "requiredTechniques": [
@@ -433,26 +433,26 @@
       ],
       "rankedEligible": false,
       "givensRows": [
-        "100980070",
-        "000070006",
-        "370001080",
-        "038000024",
-        "600400500",
-        "900030017",
-        "000067091",
-        "401200760",
-        "760004050"
+        "650407390",
+        "003105427",
+        "074000100",
+        "730001050",
+        "819000200",
+        "046000000",
+        "000700016",
+        "390006500",
+        "068500700"
       ],
       "solutionRows": [
-        "146982375",
-        "289573146",
-        "375641289",
-        "538716924",
-        "617429538",
-        "924835617",
-        "852367491",
-        "491258763",
-        "763194852"
+        "651427398",
+        "983165427",
+        "274398165",
+        "732981654",
+        "819654273",
+        "546273981",
+        "425739816",
+        "397816542",
+        "168542739"
       ]
     },
     {

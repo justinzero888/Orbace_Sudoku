@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "extreme",
@@ -658,32 +658,33 @@
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
-        "hidden_pair",
         "hidden_single",
-        "naked_single"
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000324005",
-        "090000000",
-        "002009806",
-        "200040900",
-        "030000002",
-        "000006407",
-        "080402300",
-        "006037001",
-        "003008020"
+        "008200700",
+        "000010500",
+        "470000900",
+        "030192480",
+        "000000005",
+        "040600000",
+        "003000804",
+        "002540600",
+        "080000072"
       ],
       "solutionRows": [
-        "618324795",
-        "597681243",
-        "342579816",
-        "261743958",
-        "734895162",
-        "859216437",
-        "185462379",
-        "426937581",
-        "973158624"
+        "358269741",
+        "296417538",
+        "471385926",
+        "635192487",
+        "129874365",
+        "847653219",
+        "963721854",
+        "712548693",
+        "584936172"
       ]
     },
     {

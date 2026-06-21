@@ -18,7 +18,7 @@ Current implemented content state:
 | Duplicate scan | Complete for current UAT | Exact, digit-remap, structural-signature, and shared-solution checks run in validator. Current warning count: 0. |
 | Curated ordering | Complete for current UAT | Current 100-puzzle set is sorted easier-to-harder with stronger milestone placement. |
 | Content version metadata | Complete for current UAT | Current content version: `2026.06.001`. |
-| 1,800-puzzle production library | Batched candidate generated | GP-5 started. Candidate content version `2026.06.002` contains 1,800 puzzles split into 31 batch files and passes correctness/human-solver validation. 38 shared normalized solution-grid warnings remain before production approval. |
+| 1,800-puzzle production library | Ready for UAT build | GP-5/IDEA-003 content version `2026.06.003` contains 1,800 puzzles split into 31 batch files and passes correctness, human-solver, uniqueness, and duplicate-scan validation with 0 warnings. |
 | Remote content readiness | Not started | Planned after bundled production content is stable. |
 
 Recent build checkpoints:
@@ -28,13 +28,21 @@ Recent build checkpoints:
 | `1.0.0 (8)` | iOS IPA | 100-puzzle UAT pack with harder content | 100 | Built |
 | `1.0.0 (8)` | Android AAB | Android release bundle for current UAT content | 100 | Built |
 | `1.0.0 (9)` | iOS IPA | Stronger selected-cell highlight plus curated/versioned UAT content | 100 | Built |
-| Unbuilt candidate | Local assets | GP-5 production catalog candidate | 1,800 | Generated in 31 batches; needs duplicate-warning curation before TestFlight |
+| Unbuilt candidate | Local assets | GP-5 production catalog candidate | 1,800 | Generated in 31 batches; duplicate-warning curation complete; ready for next IPA/AAB UAT build |
 
 Terminology note:
 
 - **Pipeline Step 6: Curate Pack Ordering** means ordering whatever content set currently exists.
 - **Pipeline Step 7: Assign Content Version** means versioning whatever content set currently exists.
 - Completing Pipeline Steps 6 and 7 for the 100-puzzle UAT pack does **not** mean the 1,800-puzzle production library is complete.
+
+Duplicate-warning root cause and resolution:
+
+- The production generator creates solved boards from one canonical Sudoku pattern, then randomizes digit labels plus valid row/column band permutations.
+- At 1,800-puzzle scale, this can create different clue layouts that still share the same normalized solved-grid pattern after digit relabeling.
+- The validator flagged 38 later puzzles with shared normalized solution grids in content version `2026.06.002`.
+- Content version `2026.06.003` replaces those later duplicate-pattern puzzles using the same pack rules while rejecting already-used givens and normalized solution patterns.
+- Current validation result: 1,800 puzzles, 0 duplicate-scan warnings.
 
 ## 1. Goals
 

@@ -127,6 +127,10 @@ class _ReplaySnapshot {
 class _ReplayBoard extends StatelessWidget {
   const _ReplayBoard({required this.snapshot, required this.givens});
 
+  static const double _valueFontScale = 0.75;
+  static const double _noteFontScale = 0.26;
+  static const double _notePaddingScale = 0.08;
+
   final _ReplaySnapshot snapshot;
   final SudokuBoard givens;
 
@@ -168,19 +172,31 @@ class _ReplayBoard extends StatelessWidget {
                   ),
                 ),
               ),
-              child: value == null
-                  ? _ReplayNotesGrid(notes: snapshot.notes[index])
-                  : Text(
-                      '$value',
-                      style: TextStyle(
-                        color: isGiven
-                            ? OrbaceTheme.ink
-                            : const Color(0xFF006FE6),
-                        fontWeight: isGiven ? FontWeight.w700 : FontWeight.w600,
-                        fontSize: 22,
-                        letterSpacing: 0,
-                      ),
-                    ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final cellSize = constraints.biggest.shortestSide;
+                  return value == null
+                      ? _ReplayNotesGrid(
+                          notes: snapshot.notes[index],
+                          fontSize: cellSize * _noteFontScale,
+                          padding: cellSize * _notePaddingScale,
+                        )
+                      : Text(
+                          '$value',
+                          style: TextStyle(
+                            color: isGiven
+                                ? OrbaceTheme.ink
+                                : const Color(0xFF006FE6),
+                            fontWeight: isGiven
+                                ? FontWeight.w700
+                                : FontWeight.w600,
+                            fontSize: cellSize * _valueFontScale,
+                            height: 1,
+                            letterSpacing: 0,
+                          ),
+                        );
+                },
+              ),
             );
           },
         ),
@@ -190,25 +206,32 @@ class _ReplayBoard extends StatelessWidget {
 }
 
 class _ReplayNotesGrid extends StatelessWidget {
-  const _ReplayNotesGrid({required this.notes});
+  const _ReplayNotesGrid({
+    required this.notes,
+    required this.fontSize,
+    required this.padding,
+  });
 
   final Set<int> notes;
+  final double fontSize;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(3),
+      padding: EdgeInsets.all(padding),
       crossAxisCount: 3,
       children: [
         for (var value = 1; value <= 9; value++)
           Center(
             child: Text(
               notes.contains(value) ? '$value' : '',
-              style: const TextStyle(
-                color: Color(0xFF006FE6),
-                fontSize: 9,
+              style: TextStyle(
+                color: const Color(0xFF006FE6),
+                fontSize: fontSize,
                 fontWeight: FontWeight.w600,
+                height: 1,
                 letterSpacing: 0,
               ),
             ),

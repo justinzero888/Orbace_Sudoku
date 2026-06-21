@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "discipline",
@@ -974,36 +974,36 @@
       "title": "Discipline 27",
       "seal": "習",
       "difficulty": "easy",
-      "difficultyScore": 110,
+      "difficultyScore": 121,
       "targetTimeSeconds": 540,
       "medianTimeSeconds": 720,
       "requiredTechniques": [
         "hidden_single",
-        "naked_pair",
-        "naked_single"
+        "naked_single",
+        "pointing_pair"
       ],
       "rankedEligible": false,
       "givensRows": [
-        "420053900",
-        "000420000",
-        "850060421",
-        "002095000",
-        "740080300",
-        "005040102",
-        "610030000",
-        "009014200",
-        "230079600"
+        "000095741",
+        "070000005",
+        "500400360",
+        "001200600",
+        "040569010",
+        "960007423",
+        "009050004",
+        "400000070",
+        "857014000"
       ],
       "solutionRows": [
-        "421853967",
-        "967421853",
-        "853967421",
-        "182395746",
-        "746182395",
-        "395746182",
-        "614238579",
-        "579614238",
-        "238579614"
+        "236895741",
+        "174632985",
+        "598471362",
+        "781243659",
+        "342569817",
+        "965187423",
+        "629758134",
+        "413926578",
+        "857314296"
       ]
     },
     {

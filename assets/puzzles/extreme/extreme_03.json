@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.002",
+  "contentVersion": "2026.06.003",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621",
+  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "extreme",
@@ -132,32 +132,32 @@
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
+        "hidden_pair",
         "hidden_single",
-        "naked_pair",
         "naked_single"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000500900",
-        "000020000",
-        "289000760",
-        "800000609",
-        "073000004",
-        "096000010",
-        "920008100",
-        "400601500",
-        "060000040"
+        "040600150",
+        "600000000",
+        "300009870",
+        "560000207",
+        "728001300",
+        "000008000",
+        "100000908",
+        "000002000",
+        "000076034"
       ],
       "solutionRows": [
-        "314567928",
-        "657829431",
-        "289134765",
-        "842713659",
-        "173956284",
-        "596482317",
-        "925348176",
-        "438671592",
-        "761295843"
+        "249687153",
+        "687315492",
+        "315249876",
+        "561934287",
+        "728561349",
+        "934728615",
+        "176453928",
+        "453892761",
+        "892176534"
       ]
     },
     {
@@ -317,33 +317,33 @@
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
-        "hidden_pair",
         "hidden_single",
         "naked_pair",
-        "naked_single"
+        "naked_single",
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000324100",
-        "000619050",
-        "060000034",
-        "004895000",
-        "000040000",
-        "500000016",
-        "000050000",
-        "043900502",
-        "070001000"
+        "093700010",
+        "016400000",
+        "700000390",
+        "002610050",
+        "070000000",
+        "300000100",
+        "100000002",
+        "000008569",
+        "065003700"
       ],
       "solutionRows": [
-        "758324169",
-        "432619857",
-        "961587234",
-        "614895723",
-        "327146985",
-        "589273416",
-        "896752341",
-        "143968572",
-        "275431698"
+        "493782615",
+        "516439827",
+        "728561394",
+        "842617953",
+        "671395248",
+        "359824176",
+        "187956432",
+        "234178569",
+        "965243781"
       ]
     },
     {
@@ -1219,33 +1219,32 @@
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
-        "hidden_pair",
         "hidden_single",
-        "naked_pair",
-        "naked_single"
+        "naked_single",
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "009000020",
-        "451200000",
-        "000063504",
-        "000095000",
-        "500007080",
-        "014800000",
-        "200680350",
-        "100040000",
-        "000500002"
+        "024080030",
+        "300040068",
+        "010970204",
+        "000001090",
+        "040869000",
+        "000700005",
+        "009004500",
+        "000600002",
+        "000000079"
       ],
       "solutionRows": [
-        "369154728",
-        "451278693",
-        "872963514",
-        "628395147",
-        "593417286",
-        "714826935",
-        "247689351",
-        "135742869",
-        "986531472"
+        "524186937",
+        "397245168",
+        "618973254",
+        "273451896",
+        "145869723",
+        "986732415",
+        "769324581",
+        "851697342",
+        "432518679"
       ]
     },
     {
