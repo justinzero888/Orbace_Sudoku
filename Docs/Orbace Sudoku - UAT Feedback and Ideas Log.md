@@ -11,9 +11,10 @@
 | `1.0.0 (9)` | iOS TestFlight IPA | 100 UAT puzzles | Stronger selected-cell highlight, curated/versioned content `2026.06.001`. |
 | `1.0.0 (8)` | Android AAB | 100 UAT puzzles | First Android release bundle for current UAT content. |
 | `1.0.0 (11)` | iOS TestFlight IPA | 1,800 production-candidate puzzles | GP-5/IDEA-003 content `2026.06.003`; content is split into 31 batch files; duplicate-scan warnings resolved to 0. |
+| `1.0.0 (13)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + iOS Home banner | AdMob iOS app ID and bottom banner integrated; no ads during active gameplay. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
 
-The current iOS UAT baseline is build `1.0.0 (11)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (13)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
 ## Feedback Log
 
@@ -36,7 +37,7 @@ The current iOS UAT baseline is build `1.0.0 (11)`. The current Android closed-t
 
 | ID | Type | Idea / Requirement | Status | Notes / Next Step |
 | --- | --- | --- | --- | --- |
-| IDEA-001 | Monetization | AdMob setup | In setup planning | Recommended policy: no ads during active play. Prepare AdMob app IDs, ad unit IDs, app-ads.txt, privacy disclosures, and consent flow before code integration. |
+| IDEA-001 | Monetization | AdMob setup | iOS integrated for UAT | iOS AdMob app ID and bottom banner unit added. Banner placement is Home screen only; no ads during active play. Android AdMob remains pending Android app/ad unit IDs. App privacy, data safety, consent, and app-ads.txt still need store/account work. |
 | IDEA-002 | Content / Education | Create a Sudoku solution guide book | Not started | Could become an in-app guide, downloadable PDF, website lead magnet, or App Store marketing asset. Should align with Orbace teaching tone and named techniques supported by the engine. |
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
@@ -60,3 +61,4 @@ The current iOS UAT baseline is build `1.0.0 (11)`. The current Android closed-t
 | `1.0.0 (11)` | iOS IPA | UAT-011, UAT-012, IDEA-003 | Local validation passed; 1,800 puzzles; 0 duplicate warnings | Built for next TestFlight/UAT checkpoint. |
 | `1.0.0 (11)` | Android AAB | UAT-011, UAT-012, IDEA-003 | Local validation passed; 1,800 puzzles; 0 duplicate warnings | Built for next Android UAT checkpoint. |
 | `1.0.0 (12)` | Android AAB | Google Play closed testing setup | Signed AAB built and signature verified | Android label fixed to `Orbace Sudoku`; release signing now uses local upload keystore. |
+| `1.0.0 (13)` | iOS IPA | IDEA-001 iOS AdMob banner | Local validation passed; IPA built | Home screen bottom banner integrated with Orbace iOS AdMob unit; game board remains ad-free. |

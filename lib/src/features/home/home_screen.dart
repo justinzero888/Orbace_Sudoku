@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app/ad_mob_bottom_banner.dart';
 import '../../app/orbace_theme.dart';
 import '../sudoku/data/puzzle_pack_loader.dart';
 import '../sudoku/data/sudoku_repository.dart';
@@ -62,6 +63,7 @@ class _HomeContent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Orbace Sudoku')),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),

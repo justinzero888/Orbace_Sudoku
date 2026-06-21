@@ -10,6 +10,7 @@
 | --- | --- |
 | App name | Orbace Sudoku |
 | Android package name | `com.orbace.orbace_sudoku` |
+| iOS bundle ID | `com.orbace.orbaceSudoku` |
 | Current AAB version | `1.0.0 (12)` |
 | Current AAB path | `build/app/outputs/bundle/release/app-release.aab` |
 | Content version | `2026.06.003` |
@@ -134,7 +135,7 @@ Required account steps:
    - App name: Orbace Sudoku
    - Platform: Android
    - Package: `com.orbace.orbace_sudoku`
-3. Add iOS app later:
+3. Add iOS app:
    - App name: Orbace Sudoku
    - Bundle ID: `com.orbace.orbaceSudoku`
 4. Create initial ad units:
@@ -143,33 +144,44 @@ Required account steps:
    - Do not create interstitial/rewarded until the UX policy is approved.
 5. Record these IDs in a private place:
    - Android AdMob app ID: `ca-app-pub-...~...`
-   - iOS AdMob app ID: `ca-app-pub-...~...`
+   - iOS AdMob app ID: `ca-app-pub-7497527413129091~4050935967`
    - Android banner ad unit ID: `ca-app-pub-.../...`
-   - iOS banner ad unit ID: `ca-app-pub-.../...`
+   - iOS banner ad unit ID: `ca-app-pub-7497527413129091/7584766530`
 6. Publish `app-ads.txt` at the root of the developer website listed in the app store listing.
 
-AdMob integration cannot be completed safely in code until the app IDs and ad unit IDs are available. The Google Mobile Ads Flutter plugin requires the AdMob app ID in AndroidManifest.xml and Info.plist, and initializes the SDK early in Dart.
+Android AdMob integration cannot be completed safely in code until the Android app ID and Android ad unit ID are available. The Google Mobile Ads Flutter plugin requires the Android AdMob app ID in `AndroidManifest.xml` before Android SDK initialization.
 
 ## 7. Code Integration Plan After IDs Are Available
 
-Implementation sequence:
+Current iOS implementation:
 
-1. Add `google_mobile_ads` to `pubspec.yaml`.
-2. Add Android AdMob app ID to `android/app/src/main/AndroidManifest.xml`.
-3. Add iOS AdMob app ID to `ios/Runner/Info.plist`.
-4. Initialize Mobile Ads in app startup.
-5. Add an `AdConfig` layer with:
-   - test IDs for debug builds.
-   - production IDs for release builds.
-   - remote kill switch planned for later.
-6. Build a reusable banner widget.
-7. Place banner only on approved non-play surfaces.
-8. Add consent/privacy work:
+- `google_mobile_ads` Flutter plugin is installed.
+- `GADApplicationIdentifier` is set in `ios/Runner/Info.plist`.
+- Mobile Ads initializes on iOS at app startup.
+- Bottom banner is placed on the Home screen only.
+- Active Sudoku gameplay screens remain ad-free.
+- Debug builds use Google's iOS test banner ad unit.
+- Release builds use Orbace's iOS banner ad unit.
+
+UAT policy note:
+
+- Do not ask testers to click ads.
+- Treat ad click behavior as out of scope for UAT.
+- Validate only that the Home screen can load/display the banner area and that gameplay screens remain ad-free.
+- Before broader external testing, confirm App Store privacy details, consent requirements, and app-ads.txt.
+
+Remaining Android implementation sequence after Android IDs are available:
+
+1. Add Android AdMob app ID to `android/app/src/main/AndroidManifest.xml`.
+2. Add Android banner ad unit ID to the ad config.
+3. Enable Android support in the ad config.
+4. Validate with Google's Android test banner ad unit in debug builds.
+5. Build a new Android AAB checkpoint.
+6. Add consent/privacy work:
    - Data safety update.
    - App privacy update.
    - Consent flow if required by distribution countries.
-9. Validate with test ad unit IDs before production ad IDs.
-10. Build new IPA/AAB checkpoint after ad integration.
+7. Publish `app-ads.txt`.
 
 ## 8. Current Status
 
@@ -180,5 +192,8 @@ Implementation sequence:
 | Local upload keystore | Complete, ignored by git |
 | Signed Android AAB for closed test | Complete: `1.0.0 (12)` |
 | Google Play closed-test process | Documented |
-| AdMob account setup | Pending account action |
-| AdMob code integration | Pending AdMob IDs and ad policy approval |
+| iOS AdMob app setup | Complete |
+| iOS AdMob code integration | Complete for Home-screen bottom banner |
+| Android AdMob setup | Pending Android app ID and ad unit ID |
+| App privacy / data safety updates for ads | Pending store metadata update |
+| app-ads.txt | Pending developer website setup |
