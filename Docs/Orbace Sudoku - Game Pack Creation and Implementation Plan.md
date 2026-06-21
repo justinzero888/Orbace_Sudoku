@@ -18,7 +18,7 @@ Current implemented content state:
 | Duplicate scan | Complete for current UAT | Exact, digit-remap, structural-signature, and shared-solution checks run in validator. Current warning count: 0. |
 | Curated ordering | Complete for current UAT | Current 100-puzzle set is sorted easier-to-harder with stronger milestone placement. |
 | Content version metadata | Complete for current UAT | Current content version: `2026.06.001`. |
-| 1,800-puzzle production library | Not started | This is the next major content milestone, separate from current UAT readiness. |
+| 1,800-puzzle production library | Batched candidate generated | GP-5 started. Candidate content version `2026.06.002` contains 1,800 puzzles split into 31 batch files and passes correctness/human-solver validation. 38 shared normalized solution-grid warnings remain before production approval. |
 | Remote content readiness | Not started | Planned after bundled production content is stable. |
 
 Recent build checkpoints:
@@ -28,6 +28,7 @@ Recent build checkpoints:
 | `1.0.0 (8)` | iOS IPA | 100-puzzle UAT pack with harder content | 100 | Built |
 | `1.0.0 (8)` | Android AAB | Android release bundle for current UAT content | 100 | Built |
 | `1.0.0 (9)` | iOS IPA | Stronger selected-cell highlight plus curated/versioned UAT content | 100 | Built |
+| Unbuilt candidate | Local assets | GP-5 production catalog candidate | 1,800 | Generated in 31 batches; needs duplicate-warning curation before TestFlight |
 
 Terminology note:
 
@@ -529,7 +530,7 @@ Validation checkpoint:
 
 ### GP-5: Production Content Readiness for 1,800 Puzzles
 
-Status: **Next major phase, not started**
+Status: **In progress - candidate generated**
 
 Important clarification:
 
@@ -559,6 +560,22 @@ Acceptance criteria:
 - All IDs unique.
 - No exact duplicate givens.
 - App startup/import remains acceptable on older iPhones.
+
+Current candidate status:
+
+- Content version: `2026.06.002`.
+- Candidate count: 1,800 puzzles.
+- Asset layout: 31 batch files referenced by `assets/puzzles/packs.json`.
+- Pack distribution:
+  - Tea Moments: 180
+  - Foundation: 360
+  - Discipline: 360
+  - Insight: 360
+  - Mastery: 270
+  - Extreme: 270
+- Validator status: PASS for schema, unique solution, stored solution, and human-solver compatibility.
+- Duplicate-scan status: 38 shared normalized solution-grid warnings remain.
+- Production approval status: not approved until duplicate warnings are reviewed or replaced.
 
 Validation checkpoint:
 

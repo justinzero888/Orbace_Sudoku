@@ -58,7 +58,7 @@ class _PackBrowser extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
       children: [
         Text(
-          '${catalog.puzzles.length} UAT puzzles loaded',
+          '${catalog.puzzles.length} puzzles loaded',
           style: textTheme.bodyLarge,
         ),
         const SizedBox(height: 4),

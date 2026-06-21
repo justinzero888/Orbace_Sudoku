@@ -9,105 +9,39 @@ import 'package:orbace_sudoku/src/features/sudoku/engine/sudoku_difficulty_rater
 import 'package:orbace_sudoku/src/features/sudoku/engine/sudoku_generator.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 
-const String _contentVersion = '2026.06.001';
+const String _uatContentVersion = '2026.06.001';
+const String _productionContentVersion = '2026.06.002';
 const String _generatedAt = '2026-06-21';
-const String _generatorVersion = 'sudoku-pack-generator-1.1.0';
+const String _generatorVersion = 'sudoku-pack-generator-1.2.0';
 const String _validatorVersion = 'sudoku-pack-validator-1.1.0';
 const String _solverVersion = 'human-solver-1.0.0';
+const int _productionBatchSize = 60;
 
-void main() {
+void main(List<String> args) {
+  final productionMode = args.contains('--production');
+  final contentVersion = productionMode
+      ? _productionContentVersion
+      : _uatContentVersion;
+  final contentSource = productionMode
+      ? 'deterministic production generator seed 20260621'
+      : 'deterministic UAT generator seed 20260620';
   final outputDir = Directory('assets/puzzles')..createSync(recursive: true);
-  final random = Random(20260620);
+  final random = Random(productionMode ? 20260621 : 20260620);
   final generator = SudokuGenerator(random: random);
   final rater = const SudokuDifficultyRater();
   final solver = HumanRankedSolver();
 
-  final packs = <PackPlan>[
-    PackPlan(
-      id: 'tea_moments',
-      title: 'Tea Moments',
-      subtitle: 'Daily calm practice',
-      seal: '茶',
-      description: 'Short warm-up puzzles for daily play and UAT smoke tests.',
-      count: 10,
-      minimumScore: 70,
-      cellsToRemove: 42,
-      targetDifficulty: SudokuDifficulty.beginner,
-      requiredAdvancedRatio: 0,
-    ),
-    PackPlan(
-      id: 'foundation',
-      title: 'Foundation',
-      subtitle: 'Steady classic play',
-      seal: '基',
-      description: 'Approachable puzzles for testing normal game flow.',
-      count: 25,
-      minimumScore: 95,
-      cellsToRemove: 46,
-      targetDifficulty: SudokuDifficulty.easy,
-      requiredAdvancedRatio: 0.15,
-    ),
-    PackPlan(
-      id: 'discipline',
-      title: 'Discipline',
-      subtitle: 'Medium technique practice',
-      seal: '習',
-      description: 'Longer puzzles that begin to require candidate management.',
-      count: 25,
-      minimumScore: 135,
-      cellsToRemove: 49,
-      targetDifficulty: SudokuDifficulty.medium,
-      requiredAdvancedRatio: 0.35,
-    ),
-    PackPlan(
-      id: 'insight',
-      title: 'Insight',
-      subtitle: 'Hard pattern solving',
-      seal: '悟',
-      description:
-          'Hard UAT puzzles focused on pair and pointing eliminations.',
-      count: 20,
-      minimumScore: 185,
-      cellsToRemove: 52,
-      targetDifficulty: SudokuDifficulty.hard,
-      requiredAdvancedRatio: 0.7,
-    ),
-    PackPlan(
-      id: 'mastery',
-      title: 'Mastery',
-      subtitle: 'Expert-level UAT checks',
-      seal: '極',
-      description:
-          'The hardest bundled training pack before ranked Extreme play.',
-      count: 10,
-      minimumScore: 230,
-      cellsToRemove: 54,
-      targetDifficulty: SudokuDifficulty.expert,
-      requiredAdvancedRatio: 0.9,
-    ),
-    PackPlan(
-      id: 'extreme',
-      title: 'Extreme Challenge',
-      subtitle: 'Ranked challenge seeds',
-      seal: '榜',
-      description:
-          'Candidate ranked puzzles for future leaderboard validation.',
-      count: 10,
-      minimumScore: 240,
-      cellsToRemove: 55,
-      targetDifficulty: SudokuDifficulty.expert,
-      requiredAdvancedRatio: 1,
-      rankedEligible: true,
-    ),
-  ];
+  final packs = productionMode ? _productionPacks : _uatPacks;
 
   final manifestPacks = <Map<String, Object?>>[];
   final usedPuzzleRows = <String>{};
+  final usedSolutionKeys = <String>{};
   for (final plan in packs) {
     final puzzles = <FixturePuzzleDefinition>[];
     var advancedCount = 0;
     var attempts = 0;
-    while (puzzles.length < plan.count && attempts < plan.count * 220) {
+    final maxOuterAttempts = plan.count * plan.maxAttemptMultiplier;
+    while (puzzles.length < plan.count && attempts < maxOuterAttempts) {
       attempts++;
       final puzzle = generator.generatePuzzle(
         id: '${plan.id}_${(puzzles.length + 1).toString().padLeft(3, '0')}',
@@ -120,11 +54,19 @@ void main() {
       }
       final rating = rater.rate(result.steps);
       final givensRows = _rowsFromBoard(puzzle.givens);
+      final solutionRows = _rowsFromBoard(puzzle.solution);
       final rowKey = givensRows.join();
       if (usedPuzzleRows.contains(rowKey)) {
         continue;
       }
+      final solutionKey = _normalizedDigitKey(solutionRows);
+      if (usedSolutionKeys.contains(solutionKey)) {
+        continue;
+      }
       final advanced = _hasAdvancedTechnique(rating.requiredTechniques);
+      if (advanced && !plan.allowAdvanced) {
+        continue;
+      }
       final neededAdvanced = (plan.count * plan.requiredAdvancedRatio).ceil();
       final canAcceptBasic =
           advancedCount >= neededAdvanced ||
@@ -137,14 +79,15 @@ void main() {
         continue;
       }
       usedPuzzleRows.add(rowKey);
+      usedSolutionKeys.add(solutionKey);
       if (advanced) {
         advancedCount++;
       }
+      final nextNumber = puzzles.length + 1;
       puzzles.add(
         FixturePuzzleDefinition(
-          id: '${plan.id}_${(puzzles.length + 1).toString().padLeft(3, '0')}',
-          title:
-              '${plan.title} ${(puzzles.length + 1).toString().padLeft(2, '0')}',
+          id: '${plan.id}_${nextNumber.toString().padLeft(3, '0')}',
+          title: '${plan.title} ${nextNumber.toString().padLeft(3, '0')}',
           seal: plan.seal,
           packId: plan.id,
           difficulty: _bestDifficulty(plan.targetDifficulty, rating.difficulty),
@@ -154,7 +97,7 @@ void main() {
           requiredTechniques: rating.requiredTechniques,
           rankedEligible: plan.rankedEligible,
           givensRows: givensRows,
-          solutionRows: _rowsFromBoard(puzzle.solution),
+          solutionRows: solutionRows,
         ),
       );
     }
@@ -168,9 +111,12 @@ void main() {
     }
 
     final curatedPuzzles = _curatePuzzles(plan, puzzles);
-    final asset = 'assets/puzzles/${plan.id}.json';
-    File(asset).writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'contentVersion': _contentVersion, 'generatedAt': _generatedAt, 'generatorVersion': _generatorVersion, 'validatorVersion': _validatorVersion, 'solverVersion': _solverVersion, 'contentSource': 'deterministic local generator seed 20260620', 'curationStrategy': plan.curationStrategy, 'milestoneEvery': plan.milestoneEvery, 'id': plan.id, 'puzzles': curatedPuzzles.map((puzzle) => puzzle.toJson()).toList()})}\n',
+    final assets = _writePackAssets(
+      plan: plan,
+      puzzles: curatedPuzzles,
+      contentVersion: contentVersion,
+      contentSource: contentSource,
+      batched: productionMode,
     );
     manifestPacks.add(<String, Object?>{
       'id': plan.id,
@@ -178,7 +124,8 @@ void main() {
       'subtitle': plan.subtitle,
       'seal': plan.seal,
       'description': plan.description,
-      'asset': asset,
+      'asset': assets.first,
+      'assets': assets,
       'order': manifestPacks.length,
       'difficultyBand': plan.targetDifficulty.name,
       'curationStrategy': plan.curationStrategy,
@@ -190,9 +137,245 @@ void main() {
   }
 
   File('${outputDir.path}/packs.json').writeAsStringSync(
-    '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'contentVersion': _contentVersion, 'generatedAt': _generatedAt, 'generatorVersion': _generatorVersion, 'validatorVersion': _validatorVersion, 'solverVersion': _solverVersion, 'contentSource': 'deterministic local generator seed 20260620', 'packs': manifestPacks})}\n',
+    '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{'schemaVersion': 1, 'contentVersion': contentVersion, 'generatedAt': _generatedAt, 'generatorVersion': _generatorVersion, 'validatorVersion': _validatorVersion, 'solverVersion': _solverVersion, 'contentSource': contentSource, 'packs': manifestPacks})}\n',
   );
 }
+
+List<String> _writePackAssets({
+  required PackPlan plan,
+  required List<FixturePuzzleDefinition> puzzles,
+  required String contentVersion,
+  required String contentSource,
+  required bool batched,
+}) {
+  if (!batched) {
+    final asset = 'assets/puzzles/${plan.id}.json';
+    File(asset).writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(_packPayload(plan: plan, contentVersion: contentVersion, contentSource: contentSource, batchIndex: null, batchCount: null, puzzles: puzzles))}\n',
+    );
+    return <String>[asset];
+  }
+
+  final batchDir = Directory('assets/puzzles/${plan.id}')
+    ..createSync(recursive: true);
+  final batchCount = (puzzles.length / _productionBatchSize).ceil();
+  final assets = <String>[];
+  for (var batchIndex = 0; batchIndex < batchCount; batchIndex++) {
+    final start = batchIndex * _productionBatchSize;
+    final end = min(start + _productionBatchSize, puzzles.length);
+    final asset =
+        '${batchDir.path}/${plan.id}_${(batchIndex + 1).toString().padLeft(2, '0')}.json';
+    File(asset).writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(_packPayload(plan: plan, contentVersion: contentVersion, contentSource: contentSource, batchIndex: batchIndex + 1, batchCount: batchCount, puzzles: puzzles.sublist(start, end)))}\n',
+    );
+    assets.add(asset);
+  }
+
+  File('assets/puzzles/${plan.id}.json').writeAsStringSync(
+    '${const JsonEncoder.withIndent('  ').convert(<String, Object?>{..._packMetadata(plan: plan, contentVersion: contentVersion, contentSource: contentSource), 'batchCount': batchCount, 'assets': assets, 'puzzles': const <Object?>[]})}\n',
+  );
+  return assets;
+}
+
+Map<String, Object?> _packPayload({
+  required PackPlan plan,
+  required String contentVersion,
+  required String contentSource,
+  required int? batchIndex,
+  required int? batchCount,
+  required List<FixturePuzzleDefinition> puzzles,
+}) {
+  final payload = <String, Object?>{
+    ..._packMetadata(
+      plan: plan,
+      contentVersion: contentVersion,
+      contentSource: contentSource,
+    ),
+    'puzzles': puzzles.map((puzzle) => puzzle.toJson()).toList(),
+  };
+  if (batchIndex case final value?) {
+    payload['batchIndex'] = value;
+  }
+  if (batchCount case final value?) {
+    payload['batchCount'] = value;
+  }
+  return payload;
+}
+
+Map<String, Object?> _packMetadata({
+  required PackPlan plan,
+  required String contentVersion,
+  required String contentSource,
+}) {
+  return <String, Object?>{
+    'schemaVersion': 1,
+    'contentVersion': contentVersion,
+    'generatedAt': _generatedAt,
+    'generatorVersion': _generatorVersion,
+    'validatorVersion': _validatorVersion,
+    'solverVersion': _solverVersion,
+    'contentSource': contentSource,
+    'curationStrategy': plan.curationStrategy,
+    'milestoneEvery': plan.milestoneEvery,
+    'id': plan.id,
+  };
+}
+
+final List<PackPlan> _uatPacks = <PackPlan>[
+  PackPlan(
+    id: 'tea_moments',
+    title: 'Tea Moments',
+    subtitle: 'Daily calm practice',
+    seal: '茶',
+    description: 'Short warm-up puzzles for daily play and UAT smoke tests.',
+    count: 10,
+    minimumScore: 70,
+    cellsToRemove: 42,
+    targetDifficulty: SudokuDifficulty.beginner,
+    requiredAdvancedRatio: 0,
+  ),
+  PackPlan(
+    id: 'foundation',
+    title: 'Foundation',
+    subtitle: 'Steady classic play',
+    seal: '基',
+    description: 'Approachable puzzles for testing normal game flow.',
+    count: 25,
+    minimumScore: 95,
+    cellsToRemove: 46,
+    targetDifficulty: SudokuDifficulty.easy,
+    requiredAdvancedRatio: 0.15,
+  ),
+  PackPlan(
+    id: 'discipline',
+    title: 'Discipline',
+    subtitle: 'Medium technique practice',
+    seal: '習',
+    description: 'Longer puzzles that begin to require candidate management.',
+    count: 25,
+    minimumScore: 135,
+    cellsToRemove: 49,
+    targetDifficulty: SudokuDifficulty.medium,
+    requiredAdvancedRatio: 0.35,
+  ),
+  PackPlan(
+    id: 'insight',
+    title: 'Insight',
+    subtitle: 'Hard pattern solving',
+    seal: '悟',
+    description: 'Hard UAT puzzles focused on pair and pointing eliminations.',
+    count: 20,
+    minimumScore: 185,
+    cellsToRemove: 52,
+    targetDifficulty: SudokuDifficulty.hard,
+    requiredAdvancedRatio: 0.7,
+  ),
+  PackPlan(
+    id: 'mastery',
+    title: 'Mastery',
+    subtitle: 'Expert-level UAT checks',
+    seal: '極',
+    description:
+        'The hardest bundled training pack before ranked Extreme play.',
+    count: 10,
+    minimumScore: 230,
+    cellsToRemove: 54,
+    targetDifficulty: SudokuDifficulty.expert,
+    requiredAdvancedRatio: 0.9,
+  ),
+  PackPlan(
+    id: 'extreme',
+    title: 'Extreme Challenge',
+    subtitle: 'Ranked challenge seeds',
+    seal: '榜',
+    description: 'Candidate ranked puzzles for future leaderboard validation.',
+    count: 10,
+    minimumScore: 240,
+    cellsToRemove: 55,
+    targetDifficulty: SudokuDifficulty.expert,
+    requiredAdvancedRatio: 1,
+    rankedEligible: true,
+  ),
+];
+
+final List<PackPlan> _productionPacks = <PackPlan>[
+  PackPlan(
+    id: 'tea_moments',
+    title: 'Tea Moments',
+    subtitle: 'Daily calm practice',
+    seal: '茶',
+    description: 'Daily warmups and low-friction calm solves.',
+    count: 180,
+    minimumScore: 70,
+    cellsToRemove: 40,
+    targetDifficulty: SudokuDifficulty.beginner,
+    requiredAdvancedRatio: 0,
+    allowAdvanced: false,
+  ),
+  PackPlan(
+    id: 'foundation',
+    title: 'Foundation',
+    subtitle: 'Build scanning confidence',
+    seal: '基',
+    description: 'Core beginner puzzles focused on singles and clean solves.',
+    count: 360,
+    minimumScore: 80,
+    cellsToRemove: 43,
+    targetDifficulty: SudokuDifficulty.beginner,
+    requiredAdvancedRatio: 0,
+    allowAdvanced: false,
+  ),
+  PackPlan(
+    id: 'discipline',
+    title: 'Discipline',
+    subtitle: 'Steady note discipline',
+    seal: '習',
+    description: 'Easy puzzles that train consistency and light candidates.',
+    count: 360,
+    minimumScore: 110,
+    cellsToRemove: 46,
+    targetDifficulty: SudokuDifficulty.easy,
+    requiredAdvancedRatio: 0.1,
+  ),
+  PackPlan(
+    id: 'insight',
+    title: 'Insight',
+    subtitle: 'Pattern recognition',
+    seal: '悟',
+    description: 'Medium puzzles focused on pairs and pointing eliminations.',
+    count: 360,
+    minimumScore: 145,
+    cellsToRemove: 49,
+    targetDifficulty: SudokuDifficulty.medium,
+    requiredAdvancedRatio: 0.35,
+  ),
+  PackPlan(
+    id: 'mastery',
+    title: 'Mastery',
+    subtitle: 'Hard technique practice',
+    seal: '極',
+    description: 'Hard puzzles for advanced human-logic practice.',
+    count: 270,
+    minimumScore: 185,
+    cellsToRemove: 52,
+    targetDifficulty: SudokuDifficulty.hard,
+    requiredAdvancedRatio: 0.7,
+  ),
+  PackPlan(
+    id: 'extreme',
+    title: 'Extreme Challenge',
+    subtitle: 'Ranked challenge seeds',
+    seal: '榜',
+    description: 'Expert challenge candidates for no-assist ranked play.',
+    count: 270,
+    minimumScore: 220,
+    cellsToRemove: 54,
+    targetDifficulty: SudokuDifficulty.expert,
+    requiredAdvancedRatio: 0.9,
+    rankedEligible: true,
+    maxAttemptMultiplier: 520,
+  ),
+];
 
 class PackPlan {
   const PackPlan({
@@ -208,6 +391,8 @@ class PackPlan {
     required this.requiredAdvancedRatio,
     this.rankedEligible = false,
     this.milestoneEvery = 10,
+    this.allowAdvanced = true,
+    this.maxAttemptMultiplier = 220,
   });
 
   final String id;
@@ -222,6 +407,8 @@ class PackPlan {
   final double requiredAdvancedRatio;
   final bool rankedEligible;
   final int milestoneEvery;
+  final bool allowAdvanced;
+  final int maxAttemptMultiplier;
 
   String get curationStrategy {
     return 'ascending difficulty with stronger milestone puzzles every '
@@ -310,6 +497,19 @@ bool _hasAdvancedTechnique(List<String> techniques) {
         technique == 'hidden_pair' ||
         technique == 'pointing_pair',
   );
+}
+
+String _normalizedDigitKey(List<String> rows) {
+  var nextDigit = 1;
+  final remap = <String, String>{'0': '0'};
+  final buffer = StringBuffer();
+  for (final row in rows) {
+    for (final char in row.split('')) {
+      remap.putIfAbsent(char, () => (nextDigit++).toString());
+      buffer.write(remap[char]);
+    }
+  }
+  return buffer.toString();
 }
 
 SudokuDifficulty _bestDifficulty(

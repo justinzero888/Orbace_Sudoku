@@ -3,12 +3,25 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/native.dart';
 import 'package:orbace_sudoku/src/app/orbace_sudoku_app.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/app_database.dart';
+import 'package:orbace_sudoku/src/features/sudoku/data/puzzle_pack_loader.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/game_session_controller.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/sudoku_replay_screen.dart';
 
 void main() {
   testWidgets('Orbace Sudoku app shell and navigation render', (tester) async {
+    final catalog = await PuzzlePackLoader().load();
+    final advancedCount = catalog.puzzles
+        .where(
+          (puzzle) => puzzle.requiredTechniques.any(
+            (technique) =>
+                technique == 'naked_pair' ||
+                technique == 'hidden_pair' ||
+                technique == 'pointing_pair',
+          ),
+        )
+        .length;
+
     await _pumpTestApp(tester);
 
     expect(find.text('Orbace Sudoku'), findsOneWidget);
@@ -31,9 +44,9 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    expect(find.text('100 UAT puzzles loaded'), findsWidgets);
+    expect(find.text('${catalog.puzzles.length} puzzles loaded'), findsWidgets);
     expect(
-      find.text('69 puzzles require pair or pointing techniques'),
+      find.text('$advancedCount puzzles require pair or pointing techniques'),
       findsOneWidget,
     );
     expect(find.text('Tea Moments'), findsOneWidget);

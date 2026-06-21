@@ -10,8 +10,9 @@
 | --- | --- | --- | --- |
 | `1.0.0 (9)` | iOS TestFlight IPA | 100 UAT puzzles | Stronger selected-cell highlight, curated/versioned content `2026.06.001`. |
 | `1.0.0 (8)` | Android AAB | 100 UAT puzzles | First Android release bundle for current UAT content. |
+| Unbuilt local candidate | Local assets | 1,800 production-candidate puzzles | GP-5/IDEA-003 started with content `2026.06.002`; content is split into 31 batch files; 38 duplicate-scan warnings remain before TestFlight. |
 
-The current UAT content set has 100 puzzles, not the 1,800-puzzle production catalog.
+The current distributed UAT builds still have 100 puzzles. The 1,800-puzzle catalog exists locally as a candidate asset set only and should not be treated as production-approved until duplicate-scan warnings are resolved.
 
 ## Feedback Log
 
@@ -34,7 +35,7 @@ The current UAT content set has 100 puzzles, not the 1,800-puzzle production cat
 | --- | --- | --- | --- | --- |
 | IDEA-001 | Monetization | AdMob setup | Not started | Define ad policy first: banner vs interstitial vs rewarded hints. Avoid disrupting calm gameplay. Need app IDs, privacy disclosures, consent flow, and store listing impact. |
 | IDEA-002 | Content / Education | Create a Sudoku solution guide book | Not started | Could become an in-app guide, downloadable PDF, website lead magnet, or App Store marketing asset. Should align with Orbace teaching tone and named techniques supported by the engine. |
-| IDEA-003 | Content | 1,800-puzzle production library | Planned | This is GP-5 in the game pack plan. Current UAT has 100 puzzles only. |
+| IDEA-003 | Content | 1,800-puzzle production library | In progress | GP-5 started. Candidate content version `2026.06.002` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness/human-solver gates; 38 shared normalized solution-grid warnings remain for curation before production approval. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 

@@ -47,7 +47,7 @@ class PuzzlePackDefinition {
     required this.subtitle,
     required this.seal,
     required this.description,
-    required this.asset,
+    required this.assets,
     required this.order,
     required this.difficultyBand,
     required this.curationStrategy,
@@ -65,7 +65,7 @@ class PuzzlePackDefinition {
       subtitle: json['subtitle']! as String,
       seal: json['seal']! as String,
       description: json['description']! as String,
-      asset: json['asset']! as String,
+      assets: _assetsFromJson(json),
       order: json['order']! as int,
       difficultyBand: json['difficultyBand']! as String,
       curationStrategy: json['curationStrategy']! as String,
@@ -79,12 +79,14 @@ class PuzzlePackDefinition {
   final String subtitle;
   final String seal;
   final String description;
-  final String asset;
+  final List<String> assets;
   final int order;
   final String difficultyBand;
   final String curationStrategy;
   final int milestoneEvery;
   final List<FixturePuzzleDefinition> puzzles;
+
+  String get asset => assets.first;
 
   int get advancedPuzzleCount {
     return puzzles
@@ -117,18 +119,21 @@ class PuzzlePackLoader {
 
     final packs = <PuzzlePackDefinition>[];
     for (final packItem in packItems) {
-      final asset = packItem['asset']! as String;
-      final packJson = await _bundle.loadString(asset);
-      final packPayload = jsonDecode(packJson) as Map<String, Object?>;
-      final puzzles = (packPayload['puzzles']! as List<Object?>)
-          .cast<Map<String, Object?>>()
-          .map(
-            (json) => FixturePuzzleDefinition.fromJson(
-              json,
-              packId: packItem['id']! as String,
-            ),
-          )
-          .toList(growable: false);
+      final packId = packItem['id']! as String;
+      final assets = _assetsFromJson(packItem);
+      final puzzles = <FixturePuzzleDefinition>[];
+      for (final asset in assets) {
+        final packJson = await _bundle.loadString(asset);
+        final packPayload = jsonDecode(packJson) as Map<String, Object?>;
+        puzzles.addAll(
+          (packPayload['puzzles']! as List<Object?>)
+              .cast<Map<String, Object?>>()
+              .map(
+                (json) =>
+                    FixturePuzzleDefinition.fromJson(json, packId: packId),
+              ),
+        );
+      }
       packs.add(PuzzlePackDefinition.fromJson(packItem, puzzles: puzzles));
     }
 
@@ -143,4 +148,12 @@ class PuzzlePackLoader {
       packs: List<PuzzlePackDefinition>.unmodifiable(packs),
     );
   }
+}
+
+List<String> _assetsFromJson(Map<String, Object?> json) {
+  final assets = json['assets'];
+  if (assets != null) {
+    return List<String>.unmodifiable((assets as List<Object?>).cast<String>());
+  }
+  return <String>[json['asset']! as String];
 }

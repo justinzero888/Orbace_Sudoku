@@ -39,14 +39,19 @@ void main() {
       }
     }
     final packId = pack['id']! as String;
-    final assetPath = pack['asset']! as String;
-    final payload =
-        jsonDecode(File(assetPath).readAsStringSync()) as Map<String, Object?>;
-    _validateContentMetadata(payload, assetPath, failures);
-    final puzzles = (payload['puzzles']! as List<Object?>)
-        .cast<Map<String, Object?>>()
-        .map((json) => FixturePuzzleDefinition.fromJson(json, packId: packId))
-        .toList(growable: false);
+    final assetPaths = _assetPathsForPack(pack);
+    final puzzles = <FixturePuzzleDefinition>[];
+    for (final assetPath in assetPaths) {
+      final payload =
+          jsonDecode(File(assetPath).readAsStringSync())
+              as Map<String, Object?>;
+      _validateContentMetadata(payload, assetPath, failures);
+      puzzles.addAll(
+        (payload['puzzles']! as List<Object?>).cast<Map<String, Object?>>().map(
+          (json) => FixturePuzzleDefinition.fromJson(json, packId: packId),
+        ),
+      );
+    }
     _validateCuratedOrdering(packId, puzzles, warnings);
 
     var advancedCount = 0;
@@ -134,6 +139,14 @@ void main() {
     stderr.writeln(failures.join('\n'));
     exit(1);
   }
+}
+
+List<String> _assetPathsForPack(Map<String, Object?> pack) {
+  final assets = pack['assets'];
+  if (assets != null) {
+    return (assets as List<Object?>).cast<String>();
+  }
+  return <String>[pack['asset']! as String];
 }
 
 void _validateContentMetadata(

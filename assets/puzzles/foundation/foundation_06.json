@@ -1,0 +1,2129 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.06.002",
+  "generatedAt": "2026-06-21",
+  "generatorVersion": "sudoku-pack-generator-1.2.0",
+  "validatorVersion": "sudoku-pack-validator-1.1.0",
+  "solverVersion": "human-solver-1.0.0",
+  "contentSource": "deterministic production generator seed 20260621",
+  "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+  "milestoneEvery": 10,
+  "id": "foundation",
+  "puzzles": [
+    {
+      "id": "foundation_301",
+      "title": "Foundation 301",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000080002",
+        "060050947",
+        "512004060",
+        "301400796",
+        "054670000",
+        "090030000",
+        "005040070",
+        "678010029",
+        "020060035"
+      ],
+      "solutionRows": [
+        "947386512",
+        "863251947",
+        "512794863",
+        "381425796",
+        "254679381",
+        "796138254",
+        "135942678",
+        "678513429",
+        "429867135"
+      ]
+    },
+    {
+      "id": "foundation_302",
+      "title": "Foundation 302",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008200365",
+        "910000004",
+        "600800291",
+        "007935040",
+        "500080700",
+        "480021050",
+        "000093000",
+        "060402000",
+        "301068407"
+      ],
+      "solutionRows": [
+        "748219365",
+        "912356874",
+        "653847291",
+        "127935648",
+        "539684712",
+        "486721953",
+        "274193586",
+        "865472139",
+        "391568427"
+      ]
+    },
+    {
+      "id": "foundation_303",
+      "title": "Foundation 303",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "002406901",
+        "081003600",
+        "005000372",
+        "000068009",
+        "006200003",
+        "729500806",
+        "100902530",
+        "208005004",
+        "030040090"
+      ],
+      "solutionRows": [
+        "372456981",
+        "981723645",
+        "645819372",
+        "453168729",
+        "816297453",
+        "729534816",
+        "164982537",
+        "298375164",
+        "537641298"
+      ]
+    },
+    {
+      "id": "foundation_304",
+      "title": "Foundation 304",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "063005012",
+        "000364508",
+        "008010403",
+        "005000000",
+        "020409180",
+        "000081607",
+        "000102300",
+        "370040051",
+        "251600009"
+      ],
+      "solutionRows": [
+        "463895712",
+        "712364598",
+        "598217463",
+        "185726934",
+        "627439185",
+        "934581627",
+        "849152376",
+        "376948251",
+        "251673849"
+      ]
+    },
+    {
+      "id": "foundation_305",
+      "title": "Foundation 305",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "057010304",
+        "040009680",
+        "010002705",
+        "000000206",
+        "578060040",
+        "000030057",
+        "701400530",
+        "305080462",
+        "000593000"
+      ],
+      "solutionRows": [
+        "957618324",
+        "243759681",
+        "816342795",
+        "439875216",
+        "578261943",
+        "162934857",
+        "781426539",
+        "395187462",
+        "624593178"
+      ]
+    },
+    {
+      "id": "foundation_306",
+      "title": "Foundation 306",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "723060015",
+        "460510020",
+        "010720960",
+        "906000040",
+        "800042009",
+        "300000078",
+        "005000490",
+        "007000006",
+        "290605730"
+      ],
+      "solutionRows": [
+        "723469815",
+        "469518327",
+        "518723964",
+        "956871243",
+        "871342659",
+        "342956178",
+        "685137492",
+        "137294586",
+        "294685731"
+      ]
+    },
+    {
+      "id": "foundation_307",
+      "title": "Foundation 307",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "503000089",
+        "780300200",
+        "214087003",
+        "000004000",
+        "908003070",
+        "400050026",
+        "090530000",
+        "805040197",
+        "640701030"
+      ],
+      "solutionRows": [
+        "563412789",
+        "789365214",
+        "214987563",
+        "326174958",
+        "958623471",
+        "471859326",
+        "197538642",
+        "835246197",
+        "642791835"
+      ]
+    },
+    {
+      "id": "foundation_308",
+      "title": "Foundation 308",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "130000426",
+        "240010007",
+        "507020018",
+        "014000000",
+        "720000503",
+        "850070100",
+        "080000690",
+        "062148000",
+        "075200801"
+      ],
+      "solutionRows": [
+        "138759426",
+        "246813957",
+        "597624318",
+        "614385279",
+        "729461583",
+        "853972164",
+        "481537692",
+        "962148735",
+        "375296841"
+      ]
+    },
+    {
+      "id": "foundation_309",
+      "title": "Foundation 309",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "340000070",
+        "620079803",
+        "070008000",
+        "004002705",
+        "010900060",
+        "062010009",
+        "793006002",
+        "051703680",
+        "080001390"
+      ],
+      "solutionRows": [
+        "348625971",
+        "625179843",
+        "179348526",
+        "934862715",
+        "517934268",
+        "862517439",
+        "793486152",
+        "251793684",
+        "486251397"
+      ]
+    },
+    {
+      "id": "foundation_310",
+      "title": "Foundation 310",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "950821704",
+        "002076000",
+        "000930000",
+        "240059000",
+        "700310002",
+        "081060007",
+        "030100906",
+        "070003000",
+        "020697835"
+      ],
+      "solutionRows": [
+        "953821764",
+        "812476359",
+        "467935218",
+        "246759183",
+        "795318642",
+        "381264597",
+        "538142976",
+        "679583421",
+        "124697835"
+      ]
+    },
+    {
+      "id": "foundation_311",
+      "title": "Foundation 311",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "100320600",
+        "060087039",
+        "009000800",
+        "030000100",
+        "000002046",
+        "900400508",
+        "840000060",
+        "603045701",
+        "201693485"
+      ],
+      "solutionRows": [
+        "187329654",
+        "564187239",
+        "329564817",
+        "436758192",
+        "758912346",
+        "912436578",
+        "845271963",
+        "693845721",
+        "271693485"
+      ]
+    },
+    {
+      "id": "foundation_312",
+      "title": "Foundation 312",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "003009476",
+        "640030000",
+        "085470000",
+        "030012008",
+        "870364000",
+        "201008064",
+        "008003900",
+        "304000607",
+        "092007040"
+      ],
+      "solutionRows": [
+        "123859476",
+        "647231859",
+        "985476231",
+        "436512798",
+        "879364512",
+        "251798364",
+        "768143925",
+        "314925687",
+        "592687143"
+      ]
+    },
+    {
+      "id": "foundation_313",
+      "title": "Foundation 313",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "370100200",
+        "064000000",
+        "001006308",
+        "026700400",
+        "400600030",
+        "137900826",
+        "000004002",
+        "702091600",
+        "040208913"
+      ],
+      "solutionRows": [
+        "378159264",
+        "264837591",
+        "591426378",
+        "826713459",
+        "459682137",
+        "137945826",
+        "913564782",
+        "782391645",
+        "645278913"
+      ]
+    },
+    {
+      "id": "foundation_314",
+      "title": "Foundation 314",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "400009005",
+        "657100980",
+        "900000012",
+        "579012340",
+        "004970000",
+        "010400500",
+        "840397106",
+        "003000800",
+        "000200709"
+      ],
+      "solutionRows": [
+        "421839675",
+        "657124983",
+        "938756412",
+        "579612348",
+        "384975261",
+        "216483597",
+        "842397156",
+        "793561824",
+        "165248739"
+      ]
+    },
+    {
+      "id": "foundation_315",
+      "title": "Foundation 315",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600070520",
+        "925000041",
+        "007200000",
+        "380060152",
+        "001003600",
+        "006000080",
+        "892607010",
+        "514028000",
+        "763100000"
+      ],
+      "solutionRows": [
+        "638471529",
+        "925386741",
+        "147259836",
+        "389764152",
+        "251893674",
+        "476512983",
+        "892637415",
+        "514928367",
+        "763145298"
+      ]
+    },
+    {
+      "id": "foundation_316",
+      "title": "Foundation 316",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "341780005",
+        "000431000",
+        "000052000",
+        "760000014",
+        "003048007",
+        "010075000",
+        "230010906",
+        "100069402",
+        "000024781"
+      ],
+      "solutionRows": [
+        "341786295",
+        "592431678",
+        "876952143",
+        "765293814",
+        "923148567",
+        "418675329",
+        "234817956",
+        "187569432",
+        "659324781"
+      ]
+    },
+    {
+      "id": "foundation_317",
+      "title": "Foundation 317",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "058003000",
+        "401062007",
+        "920080004",
+        "504000602",
+        "009076800",
+        "260508100",
+        "675034001",
+        "000050000",
+        "803029050"
+      ],
+      "solutionRows": [
+        "758413269",
+        "431962587",
+        "926785314",
+        "584391672",
+        "319276845",
+        "267548193",
+        "675834921",
+        "192657438",
+        "843129756"
+      ]
+    },
+    {
+      "id": "foundation_318",
+      "title": "Foundation 318",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "040000053",
+        "700480206",
+        "000000904",
+        "004268137",
+        "100000800",
+        "820030500",
+        "607590408",
+        "000824000",
+        "482006300"
+      ],
+      "solutionRows": [
+        "948612753",
+        "735489216",
+        "261357984",
+        "594268137",
+        "173945862",
+        "826731549",
+        "617593428",
+        "359824671",
+        "482176395"
+      ]
+    },
+    {
+      "id": "foundation_319",
+      "title": "Foundation 319",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "400007000",
+        "009080507",
+        "050609000",
+        "001320700",
+        "800000030",
+        "306000901",
+        "018965403",
+        "965003178",
+        "043008005"
+      ],
+      "solutionRows": [
+        "482157369",
+        "639482517",
+        "157639842",
+        "591326784",
+        "874591236",
+        "326874951",
+        "718965423",
+        "965243178",
+        "243718695"
+      ]
+    },
+    {
+      "id": "foundation_320",
+      "title": "Foundation 320",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "140000005",
+        "003070108",
+        "900041000",
+        "000090006",
+        "306000804",
+        "094003527",
+        "702954000",
+        "059180730",
+        "000207409"
+      ],
+      "solutionRows": [
+        "148362975",
+        "263579148",
+        "975841263",
+        "527498316",
+        "316725894",
+        "894613527",
+        "732954681",
+        "459186732",
+        "681237459"
+      ]
+    },
+    {
+      "id": "foundation_321",
+      "title": "Foundation 321",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "419308600",
+        "030200004",
+        "000140807",
+        "000037580",
+        "080610703",
+        "307800060",
+        "002000340",
+        "903002006",
+        "051090008"
+      ],
+      "solutionRows": [
+        "419378625",
+        "738256914",
+        "526149837",
+        "164937582",
+        "285614793",
+        "397825461",
+        "872561349",
+        "943782156",
+        "651493278"
+      ]
+    },
+    {
+      "id": "foundation_322",
+      "title": "Foundation 322",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "058030020",
+        "000261570",
+        "201700090",
+        "500340067",
+        "302010050",
+        "007009430",
+        "000000983",
+        "803006005",
+        "000090246"
+      ],
+      "solutionRows": [
+        "758934621",
+        "934261578",
+        "261758394",
+        "589342167",
+        "342617859",
+        "617589432",
+        "426175983",
+        "893426715",
+        "175893246"
+      ]
+    },
+    {
+      "id": "foundation_323",
+      "title": "Foundation 323",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600027000",
+        "405003009",
+        "970450800",
+        "056000020",
+        "009000651",
+        "700060903",
+        "890200005",
+        "040536790",
+        "060870040"
+      ],
+      "solutionRows": [
+        "638927514",
+        "415683279",
+        "972451836",
+        "156398427",
+        "389742651",
+        "724165983",
+        "897214365",
+        "241536798",
+        "563879142"
+      ]
+    },
+    {
+      "id": "foundation_324",
+      "title": "Foundation 324",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000034020",
+        "409050816",
+        "000008090",
+        "200580064",
+        "946000058",
+        "180640230",
+        "500006002",
+        "000700600",
+        "608023001"
+      ],
+      "solutionRows": [
+        "861934725",
+        "439257816",
+        "752168493",
+        "273581964",
+        "946372158",
+        "185649237",
+        "517896342",
+        "324715689",
+        "698423571"
+      ]
+    },
+    {
+      "id": "foundation_325",
+      "title": "Foundation 325",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "100350004",
+        "002900080",
+        "046000000",
+        "215034809",
+        "007015600",
+        "004800050",
+        "500000006",
+        "709001430",
+        "420760518"
+      ],
+      "solutionRows": [
+        "178352964",
+        "352946187",
+        "946178325",
+        "215634879",
+        "897215643",
+        "634897251",
+        "581423796",
+        "769581432",
+        "423769518"
+      ]
+    },
+    {
+      "id": "foundation_326",
+      "title": "Foundation 326",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000902005",
+        "000000200",
+        "420058630",
+        "050297001",
+        "070814003",
+        "048005700",
+        "237000106",
+        "800000072",
+        "605003908"
+      ],
+      "solutionRows": [
+        "763942815",
+        "581376294",
+        "429158637",
+        "356297481",
+        "972814563",
+        "148635729",
+        "237489156",
+        "894561372",
+        "615723948"
+      ]
+    },
+    {
+      "id": "foundation_327",
+      "title": "Foundation 327",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070089643",
+        "436005000",
+        "902030000",
+        "004560001",
+        "000008006",
+        "360910480",
+        "100000705",
+        "650801004",
+        "203700010"
+      ],
+      "solutionRows": [
+        "571289643",
+        "436175298",
+        "982634157",
+        "824563971",
+        "719428536",
+        "365917482",
+        "198342765",
+        "657891324",
+        "243756819"
+      ]
+    },
+    {
+      "id": "foundation_328",
+      "title": "Foundation 328",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "308006400",
+        "100472305",
+        "402300109",
+        "000000003",
+        "030815090",
+        "640200050",
+        "083501040",
+        "560004708",
+        "000700010"
+      ],
+      "solutionRows": [
+        "358196427",
+        "196472385",
+        "472358169",
+        "815649273",
+        "237815694",
+        "649237851",
+        "783561942",
+        "561924738",
+        "924783516"
+      ]
+    },
+    {
+      "id": "foundation_329",
+      "title": "Foundation 329",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "200090000",
+        "350080914",
+        "491006070",
+        "010000729",
+        "900514600",
+        "003002105",
+        "020605387",
+        "040008000",
+        "030020006"
+      ],
+      "solutionRows": [
+        "287491563",
+        "356287914",
+        "491356872",
+        "514863729",
+        "972514638",
+        "863972145",
+        "129645387",
+        "645738291",
+        "738129456"
+      ]
+    },
+    {
+      "id": "foundation_330",
+      "title": "Foundation 330",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "007621900",
+        "260503007",
+        "900047200",
+        "398400020",
+        "740010300",
+        "005008740",
+        "804700500",
+        "002059034",
+        "010000000"
+      ],
+      "solutionRows": [
+        "487621953",
+        "261593487",
+        "953847261",
+        "398476125",
+        "746215398",
+        "125938746",
+        "834762519",
+        "672159834",
+        "519384672"
+      ]
+    },
+    {
+      "id": "foundation_331",
+      "title": "Foundation 331",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "058701264",
+        "000004890",
+        "000000000",
+        "000249000",
+        "800016420",
+        "094007036",
+        "530102908",
+        "026008703",
+        "080500002"
+      ],
+      "solutionRows": [
+        "958731264",
+        "713624895",
+        "642985371",
+        "361249587",
+        "875316429",
+        "294857136",
+        "537162948",
+        "126498753",
+        "489573612"
+      ]
+    },
+    {
+      "id": "foundation_332",
+      "title": "Foundation 332",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "005007698",
+        "000014030",
+        "000800400",
+        "210000050",
+        "800450100",
+        "590021306",
+        "050362009",
+        "620008000",
+        "489170003"
+      ],
+      "solutionRows": [
+        "145237698",
+        "968514732",
+        "372896415",
+        "217683954",
+        "836459127",
+        "594721386",
+        "751362849",
+        "623948571",
+        "489175263"
+      ]
+    },
+    {
+      "id": "foundation_333",
+      "title": "Foundation 333",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "004307056",
+        "702000184",
+        "006048002",
+        "009712560",
+        "000800020",
+        "270000809",
+        "000281600",
+        "020670090",
+        "007000210"
+      ],
+      "solutionRows": [
+        "814327956",
+        "732965184",
+        "596148372",
+        "489712563",
+        "653894721",
+        "271536849",
+        "945281637",
+        "128673495",
+        "367459218"
+      ]
+    },
+    {
+      "id": "foundation_334",
+      "title": "Foundation 334",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "740800320",
+        "000040960",
+        "069100540",
+        "006980403",
+        "900000600",
+        "314070080",
+        "091030850",
+        "050091004",
+        "007608000"
+      ],
+      "solutionRows": [
+        "745869321",
+        "123745968",
+        "869123547",
+        "576982413",
+        "982314675",
+        "314576289",
+        "291437856",
+        "658291734",
+        "437658192"
+      ]
+    },
+    {
+      "id": "foundation_335",
+      "title": "Foundation 335",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "428000007",
+        "390570000",
+        "700040090",
+        "064305701",
+        "000400000",
+        "003010062",
+        "600900140",
+        "841203000",
+        "509084206"
+      ],
+      "solutionRows": [
+        "428639517",
+        "396571824",
+        "715842693",
+        "264395781",
+        "187426359",
+        "953718462",
+        "632957148",
+        "841263975",
+        "579184236"
+      ]
+    },
+    {
+      "id": "foundation_336",
+      "title": "Foundation 336",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "034050006",
+        "000000520",
+        "250910304",
+        "000082630",
+        "182360007",
+        "000007000",
+        "620090005",
+        "075001900",
+        "490870201"
+      ],
+      "solutionRows": [
+        "734258196",
+        "916734528",
+        "258916374",
+        "547182639",
+        "182369457",
+        "369547812",
+        "621493785",
+        "875621943",
+        "493875261"
+      ]
+    },
+    {
+      "id": "foundation_337",
+      "title": "Foundation 337",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "907001004",
+        "000254090",
+        "050907301",
+        "802309400",
+        "000870130",
+        "010006002",
+        "008400070",
+        "025000603",
+        "060705908"
+      ],
+      "solutionRows": [
+        "987631524",
+        "631254897",
+        "254987361",
+        "872319456",
+        "546872139",
+        "319546782",
+        "198463275",
+        "725198643",
+        "463725918"
+      ]
+    },
+    {
+      "id": "foundation_338",
+      "title": "Foundation 338",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "958400312",
+        "000003900",
+        "021580764",
+        "074020000",
+        "000001000",
+        "800900147",
+        "580600000",
+        "207030090",
+        "469002500"
+      ],
+      "solutionRows": [
+        "958467312",
+        "746213985",
+        "321589764",
+        "174328659",
+        "695741823",
+        "832956147",
+        "583694271",
+        "217835496",
+        "469172538"
+      ]
+    },
+    {
+      "id": "foundation_339",
+      "title": "Foundation 339",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "010520376",
+        "763400000",
+        "800000000",
+        "002603000",
+        "306080007",
+        "400000639",
+        "100030964",
+        "037006815",
+        "640001700"
+      ],
+      "solutionRows": [
+        "914528376",
+        "763419582",
+        "825367491",
+        "572693148",
+        "396184257",
+        "481275639",
+        "158732964",
+        "237946815",
+        "649851723"
+      ]
+    },
+    {
+      "id": "foundation_340",
+      "title": "Foundation 340",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000600471",
+        "070090003",
+        "060001080",
+        "795000046",
+        "600907028",
+        "023400507",
+        "000570800",
+        "057009612",
+        "000062050"
+      ],
+      "solutionRows": [
+        "589623471",
+        "174895263",
+        "362741985",
+        "795238146",
+        "641957328",
+        "823416597",
+        "216574839",
+        "457389612",
+        "938162754"
+      ]
+    },
+    {
+      "id": "foundation_341",
+      "title": "Foundation 341",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "300702018",
+        "814309007",
+        "700810053",
+        "027608000",
+        "000190725",
+        "000500046",
+        "970000030",
+        "031000002",
+        "000430500"
+      ],
+      "solutionRows": [
+        "359762418",
+        "814359267",
+        "762814953",
+        "527648391",
+        "648193725",
+        "193527846",
+        "975286134",
+        "431975682",
+        "286431579"
+      ]
+    },
+    {
+      "id": "foundation_342",
+      "title": "Foundation 342",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "071002049",
+        "825090030",
+        "009300005",
+        "000103006",
+        "032508000",
+        "500904010",
+        "000700108",
+        "793000560",
+        "208640003"
+      ],
+      "solutionRows": [
+        "371852649",
+        "825496731",
+        "469317285",
+        "947123856",
+        "132568497",
+        "586974312",
+        "654739128",
+        "793281564",
+        "218645973"
+      ]
+    },
+    {
+      "id": "foundation_343",
+      "title": "Foundation 343",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "450020080",
+        "630014709",
+        "090386015",
+        "060058097",
+        "000001206",
+        "000030800",
+        "000069000",
+        "084170062",
+        "020003500"
+      ],
+      "solutionRows": [
+        "451927683",
+        "638514729",
+        "792386415",
+        "263458197",
+        "845791236",
+        "179632854",
+        "517269348",
+        "384175962",
+        "926843571"
+      ]
+    },
+    {
+      "id": "foundation_344",
+      "title": "Foundation 344",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "182650000",
+        "605039010",
+        "090000700",
+        "020010000",
+        "030840071",
+        "001063080",
+        "360004158",
+        "049000607",
+        "500300029"
+      ],
+      "solutionRows": [
+        "182657943",
+        "675439812",
+        "493128765",
+        "824715396",
+        "936842571",
+        "751963284",
+        "367294158",
+        "249581637",
+        "518376429"
+      ]
+    },
+    {
+      "id": "foundation_345",
+      "title": "Foundation 345",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "095000080",
+        "710003920",
+        "003920076",
+        "002097018",
+        "108002597",
+        "900600302",
+        "000000030",
+        "684000050",
+        "000701804"
+      ],
+      "solutionRows": [
+        "295176483",
+        "716483925",
+        "843925176",
+        "432597618",
+        "168342597",
+        "957618342",
+        "571864239",
+        "684239751",
+        "329751864"
+      ]
+    },
+    {
+      "id": "foundation_346",
+      "title": "Foundation 346",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000700040",
+        "708469001",
+        "006301000",
+        "005093180",
+        "070054000",
+        "230807060",
+        "180000402",
+        "067902010",
+        "900100750"
+      ],
+      "solutionRows": [
+        "312785649",
+        "758469231",
+        "496321875",
+        "645293187",
+        "871654923",
+        "239817564",
+        "183576492",
+        "567942318",
+        "924138756"
+      ]
+    },
+    {
+      "id": "foundation_347",
+      "title": "Foundation 347",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 88,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "376021084",
+        "804000000",
+        "002500736",
+        "230000800",
+        "000092045",
+        "015800009",
+        "063215400",
+        "000009001",
+        "001407090"
+      ],
+      "solutionRows": [
+        "376921584",
+        "854763912",
+        "192548736",
+        "239154867",
+        "687392145",
+        "415876329",
+        "963215478",
+        "748639251",
+        "521487693"
+      ]
+    },
+    {
+      "id": "foundation_348",
+      "title": "Foundation 348",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 89,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "060030410",
+        "837104090",
+        "000002070",
+        "610090587",
+        "002875641",
+        "578000020",
+        "723080000",
+        "900027050",
+        "000000700"
+      ],
+      "solutionRows": [
+        "269738415",
+        "837154296",
+        "451962873",
+        "614293587",
+        "392875641",
+        "578416329",
+        "723581964",
+        "946327158",
+        "185649732"
+      ]
+    },
+    {
+      "id": "foundation_349",
+      "title": "Foundation 349",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 89,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "039000015",
+        "060100809",
+        "710090000",
+        "000700003",
+        "203005070",
+        "000832006",
+        "100903628",
+        "620501007",
+        "307280050"
+      ],
+      "solutionRows": [
+        "839624715",
+        "462157839",
+        "715398462",
+        "546719283",
+        "283465971",
+        "971832546",
+        "154973628",
+        "628541397",
+        "397286154"
+      ]
+    },
+    {
+      "id": "foundation_350",
+      "title": "Foundation 350",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 89,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000085040",
+        "409210005",
+        "035009206",
+        "000030901",
+        "050000000",
+        "790028030",
+        "047192860",
+        "080050002",
+        "902063007"
+      ],
+      "solutionRows": [
+        "126385749",
+        "479216385",
+        "835749216",
+        "268534971",
+        "354971628",
+        "791628534",
+        "547192863",
+        "683457192",
+        "912863457"
+      ]
+    },
+    {
+      "id": "foundation_351",
+      "title": "Foundation 351",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 90,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "367012945",
+        "102500006",
+        "900000100",
+        "501000800",
+        "873000094",
+        "040780002",
+        "090008001",
+        "415070203",
+        "038140000"
+      ],
+      "solutionRows": [
+        "367812945",
+        "182594376",
+        "954637128",
+        "521469837",
+        "873251694",
+        "649783512",
+        "796328451",
+        "415976283",
+        "238145769"
+      ]
+    },
+    {
+      "id": "foundation_352",
+      "title": "Foundation 352",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 90,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "009000060",
+        "030419850",
+        "020036401",
+        "001502604",
+        "043001000",
+        "000040908",
+        "100207040",
+        "094050206",
+        "260390180"
+      ],
+      "solutionRows": [
+        "419825763",
+        "736419852",
+        "825736491",
+        "981572634",
+        "643981527",
+        "572643918",
+        "158267349",
+        "394158276",
+        "267394185"
+      ]
+    },
+    {
+      "id": "foundation_353",
+      "title": "Foundation 353",
+      "seal": "基",
+      "difficulty": "beginner",
+      "difficultyScore": 90,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "006100024",
+        "030000760",
+        "800000510",
+        "927063001",
+        "400729300",
+        "060800902",
+        "073400200",
+        "280306045",
+        "000000037"
+      ],
+      "solutionRows": [
+        "796135824",
+        "531248769",
+        "842697513",
+        "927563481",
+        "418729356",
+        "365814972",
+        "673451298",
+        "289376145",
+        "154982637"
+      ]
+    },
+    {
+      "id": "foundation_354",
+      "title": "Foundation 354",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 91,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "006097000",
+        "100040090",
+        "702001506",
+        "000010804",
+        "000906013",
+        "010050600",
+        "021500467",
+        "067120385",
+        "005064900"
+      ],
+      "solutionRows": [
+        "546297138",
+        "138645792",
+        "792831546",
+        "679312854",
+        "854976213",
+        "213458679",
+        "921583467",
+        "467129385",
+        "385764921"
+      ]
+    },
+    {
+      "id": "foundation_355",
+      "title": "Foundation 355",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 91,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "290000000",
+        "003000050",
+        "560873429",
+        "070039040",
+        "050700900",
+        "009540800",
+        "000382590",
+        "830000761",
+        "040160003"
+      ],
+      "solutionRows": [
+        "294651378",
+        "783924156",
+        "561873429",
+        "178239645",
+        "456718932",
+        "329546817",
+        "617382594",
+        "832495761",
+        "945167283"
+      ]
+    },
+    {
+      "id": "foundation_356",
+      "title": "Foundation 356",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 92,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "107090384",
+        "902084600",
+        "800607092",
+        "008001009",
+        "500200400",
+        "001059230",
+        "715900806",
+        "200800005",
+        "006000020"
+      ],
+      "solutionRows": [
+        "167592384",
+        "952384617",
+        "834617592",
+        "328461759",
+        "579238461",
+        "641759238",
+        "715923846",
+        "293846175",
+        "486175923"
+      ]
+    },
+    {
+      "id": "foundation_357",
+      "title": "Foundation 357",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 92,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "200000000",
+        "400000510",
+        "003152804",
+        "007236105",
+        "002010978",
+        "514000320",
+        "148009050",
+        "005841009",
+        "070003000"
+      ],
+      "solutionRows": [
+        "251984637",
+        "489367512",
+        "763152894",
+        "897236145",
+        "632415978",
+        "514798326",
+        "148679253",
+        "325841769",
+        "976523481"
+      ]
+    },
+    {
+      "id": "foundation_358",
+      "title": "Foundation 358",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 93,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000100820",
+        "051200004",
+        "902000013",
+        "609451208",
+        "010382700",
+        "823907040",
+        "000500007",
+        "090010302",
+        "035800001"
+      ],
+      "solutionRows": [
+        "467135829",
+        "351298674",
+        "982746513",
+        "679451238",
+        "514382796",
+        "823967145",
+        "146523987",
+        "798614352",
+        "235879461"
+      ]
+    },
+    {
+      "id": "foundation_359",
+      "title": "Foundation 359",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 94,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "006100090",
+        "040065781",
+        "000400653",
+        "165000000",
+        "320001840",
+        "400203510",
+        "001002309",
+        "204900005",
+        "690010020"
+      ],
+      "solutionRows": [
+        "536178294",
+        "942365781",
+        "817429653",
+        "165784932",
+        "329651847",
+        "478293516",
+        "751842369",
+        "284936175",
+        "693517428"
+      ]
+    },
+    {
+      "id": "foundation_360",
+      "title": "Foundation 360",
+      "seal": "基",
+      "difficulty": "easy",
+      "difficultyScore": 97,
+      "targetTimeSeconds": 360,
+      "medianTimeSeconds": 540,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "060002100",
+        "901600027",
+        "200000500",
+        "086075309",
+        "500034600",
+        "090860050",
+        "052090000",
+        "008526900",
+        "709100260"
+      ],
+      "solutionRows": [
+        "865742193",
+        "931658427",
+        "274319586",
+        "186275349",
+        "527934618",
+        "493861752",
+        "652497831",
+        "318526974",
+        "749183265"
+      ]
+    }
+  ],
+  "batchIndex": 6,
+  "batchCount": 6
+}

@@ -91,7 +91,7 @@ class _HomeContent extends StatelessWidget {
             const SizedBox(height: 12),
             _PhaseCard(
               title: 'Level Packs',
-              subtitle: '${catalog.puzzles.length} UAT puzzles loaded',
+              subtitle: '${catalog.puzzles.length} puzzles loaded',
               seal: '局',
               onTap: () {
                 Navigator.of(context).push(

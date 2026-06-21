@@ -1,83 +1,126 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.001",
+  "contentVersion": "2026.06.002",
   "generatedAt": "2026-06-21",
-  "generatorVersion": "sudoku-pack-generator-1.1.0",
+  "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic local generator seed 20260620",
+  "contentSource": "deterministic production generator seed 20260621",
   "packs": [
     {
       "id": "tea_moments",
       "title": "Tea Moments",
       "subtitle": "Daily calm practice",
       "seal": "茶",
-      "description": "Short warm-up puzzles for daily play and UAT smoke tests.",
-      "asset": "assets/puzzles/tea_moments.json",
+      "description": "Daily warmups and low-friction calm solves.",
+      "asset": "assets/puzzles/tea_moments/tea_moments_01.json",
       "order": 0,
       "difficultyBand": "beginner",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/tea_moments/tea_moments_01.json",
+        "assets/puzzles/tea_moments/tea_moments_02.json",
+        "assets/puzzles/tea_moments/tea_moments_03.json"
+      ]
     },
     {
       "id": "foundation",
       "title": "Foundation",
-      "subtitle": "Steady classic play",
+      "subtitle": "Build scanning confidence",
       "seal": "基",
-      "description": "Approachable puzzles for testing normal game flow.",
-      "asset": "assets/puzzles/foundation.json",
+      "description": "Core beginner puzzles focused on singles and clean solves.",
+      "asset": "assets/puzzles/foundation/foundation_01.json",
       "order": 1,
-      "difficultyBand": "easy",
+      "difficultyBand": "beginner",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/foundation/foundation_01.json",
+        "assets/puzzles/foundation/foundation_02.json",
+        "assets/puzzles/foundation/foundation_03.json",
+        "assets/puzzles/foundation/foundation_04.json",
+        "assets/puzzles/foundation/foundation_05.json",
+        "assets/puzzles/foundation/foundation_06.json"
+      ]
     },
     {
       "id": "discipline",
       "title": "Discipline",
-      "subtitle": "Medium technique practice",
+      "subtitle": "Steady note discipline",
       "seal": "習",
-      "description": "Longer puzzles that begin to require candidate management.",
-      "asset": "assets/puzzles/discipline.json",
+      "description": "Easy puzzles that train consistency and light candidates.",
+      "asset": "assets/puzzles/discipline/discipline_01.json",
       "order": 2,
-      "difficultyBand": "medium",
+      "difficultyBand": "easy",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/discipline/discipline_01.json",
+        "assets/puzzles/discipline/discipline_02.json",
+        "assets/puzzles/discipline/discipline_03.json",
+        "assets/puzzles/discipline/discipline_04.json",
+        "assets/puzzles/discipline/discipline_05.json",
+        "assets/puzzles/discipline/discipline_06.json"
+      ]
     },
     {
       "id": "insight",
       "title": "Insight",
-      "subtitle": "Hard pattern solving",
+      "subtitle": "Pattern recognition",
       "seal": "悟",
-      "description": "Hard UAT puzzles focused on pair and pointing eliminations.",
-      "asset": "assets/puzzles/insight.json",
+      "description": "Medium puzzles focused on pairs and pointing eliminations.",
+      "asset": "assets/puzzles/insight/insight_01.json",
       "order": 3,
-      "difficultyBand": "hard",
+      "difficultyBand": "medium",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/insight/insight_01.json",
+        "assets/puzzles/insight/insight_02.json",
+        "assets/puzzles/insight/insight_03.json",
+        "assets/puzzles/insight/insight_04.json",
+        "assets/puzzles/insight/insight_05.json",
+        "assets/puzzles/insight/insight_06.json"
+      ]
     },
     {
       "id": "mastery",
       "title": "Mastery",
-      "subtitle": "Expert-level UAT checks",
+      "subtitle": "Hard technique practice",
       "seal": "極",
-      "description": "The hardest bundled training pack before ranked Extreme play.",
-      "asset": "assets/puzzles/mastery.json",
+      "description": "Hard puzzles for advanced human-logic practice.",
+      "asset": "assets/puzzles/mastery/mastery_01.json",
       "order": 4,
-      "difficultyBand": "expert",
+      "difficultyBand": "hard",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/mastery/mastery_01.json",
+        "assets/puzzles/mastery/mastery_02.json",
+        "assets/puzzles/mastery/mastery_03.json",
+        "assets/puzzles/mastery/mastery_04.json",
+        "assets/puzzles/mastery/mastery_05.json"
+      ]
     },
     {
       "id": "extreme",
       "title": "Extreme Challenge",
       "subtitle": "Ranked challenge seeds",
       "seal": "榜",
-      "description": "Candidate ranked puzzles for future leaderboard validation.",
-      "asset": "assets/puzzles/extreme.json",
+      "description": "Expert challenge candidates for no-assist ranked play.",
+      "asset": "assets/puzzles/extreme/extreme_01.json",
       "order": 5,
       "difficultyBand": "expert",
       "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10
+      "milestoneEvery": 10,
+      "assets": [
+        "assets/puzzles/extreme/extreme_01.json",
+        "assets/puzzles/extreme/extreme_02.json",
+        "assets/puzzles/extreme/extreme_03.json",
+        "assets/puzzles/extreme/extreme_04.json",
+        "assets/puzzles/extreme/extreme_05.json"
+      ]
     }
   ]
 }

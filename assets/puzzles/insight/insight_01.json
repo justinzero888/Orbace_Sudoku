@@ -1,0 +1,2244 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.06.002",
+  "generatedAt": "2026-06-21",
+  "generatorVersion": "sudoku-pack-generator-1.2.0",
+  "validatorVersion": "sudoku-pack-validator-1.1.0",
+  "solverVersion": "human-solver-1.0.0",
+  "contentSource": "deterministic production generator seed 20260621",
+  "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+  "milestoneEvery": 10,
+  "id": "insight",
+  "puzzles": [
+    {
+      "id": "insight_001",
+      "title": "Insight 01",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600783590",
+        "050046080",
+        "078590100",
+        "090400801",
+        "183000460",
+        "540000920",
+        "001070659",
+        "000300200",
+        "800000010"
+      ],
+      "solutionRows": [
+        "614783592",
+        "259146783",
+        "378592146",
+        "792465831",
+        "183927465",
+        "546831927",
+        "431278659",
+        "965314278",
+        "827659314"
+      ]
+    },
+    {
+      "id": "insight_002",
+      "title": "Insight 02",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "140000920",
+        "387052000",
+        "950146078",
+        "820000010",
+        "560001002",
+        "001803090",
+        "730000051",
+        "008010040",
+        "000004209"
+      ],
+      "solutionRows": [
+        "146387925",
+        "387952164",
+        "952146378",
+        "823569417",
+        "569471832",
+        "471823596",
+        "734298651",
+        "298615743",
+        "615734289"
+      ]
+    },
+    {
+      "id": "insight_003",
+      "title": "Insight 03",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "900000000",
+        "087040600",
+        "004901758",
+        "602709840",
+        "090080200",
+        "008603109",
+        "000800000",
+        "205036087",
+        "009200006"
+      ],
+      "solutionRows": [
+        "916578432",
+        "587342691",
+        "324961758",
+        "632719845",
+        "791485263",
+        "458623179",
+        "163897524",
+        "245136987",
+        "879254316"
+      ]
+    },
+    {
+      "id": "insight_004",
+      "title": "Insight 04",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008050963",
+        "000107000",
+        "045306071",
+        "010800030",
+        "000000408",
+        "000560010",
+        "091708354",
+        "000005106",
+        "003610080"
+      ],
+      "solutionRows": [
+        "178254963",
+        "369187542",
+        "245396871",
+        "917842635",
+        "536971428",
+        "824563719",
+        "691728354",
+        "782435196",
+        "453619287"
+      ]
+    },
+    {
+      "id": "insight_005",
+      "title": "Insight 05",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "370859010",
+        "201000950",
+        "000000060",
+        "702036000",
+        "000400100",
+        "400000630",
+        "000002395",
+        "607090800",
+        "509048276"
+      ],
+      "solutionRows": [
+        "376859412",
+        "241367958",
+        "895214763",
+        "712936584",
+        "963485127",
+        "458721639",
+        "184672395",
+        "627593841",
+        "539148276"
+      ]
+    },
+    {
+      "id": "insight_006",
+      "title": "Insight 06",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000452693",
+        "000800025",
+        "020000000",
+        "030080004",
+        "208945000",
+        "004103200",
+        "061508009",
+        "009000502",
+        "002304701"
+      ],
+      "solutionRows": [
+        "817452693",
+        "693871425",
+        "425639817",
+        "136287954",
+        "278945136",
+        "954163278",
+        "761528349",
+        "349716582",
+        "582394761"
+      ]
+    },
+    {
+      "id": "insight_007",
+      "title": "Insight 07",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "175009260",
+        "800000000",
+        "006710400",
+        "682057100",
+        "010000000",
+        "000194800",
+        "290603510",
+        "000501002",
+        "000920037"
+      ],
+      "solutionRows": [
+        "175489263",
+        "849236751",
+        "326715498",
+        "682357149",
+        "914862375",
+        "537194826",
+        "298673514",
+        "763541982",
+        "451928637"
+      ]
+    },
+    {
+      "id": "insight_008",
+      "title": "Insight 08",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "020000000",
+        "809067204",
+        "760420009",
+        "090702000",
+        "503006020",
+        "207040000",
+        "000000090",
+        "900680742",
+        "070030816"
+      ],
+      "solutionRows": [
+        "324958671",
+        "859167234",
+        "761423589",
+        "698712453",
+        "543896127",
+        "217345968",
+        "186274395",
+        "935681742",
+        "472539816"
+      ]
+    },
+    {
+      "id": "insight_009",
+      "title": "Insight 09",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "500000100",
+        "409000003",
+        "082000090",
+        "053600981",
+        "008050600",
+        "040008035",
+        "091805300",
+        "800004719",
+        "060000802"
+      ],
+      "solutionRows": [
+        "536479128",
+        "479182563",
+        "182536497",
+        "253647981",
+        "918253674",
+        "647918235",
+        "791825346",
+        "825364719",
+        "364791852"
+      ]
+    },
+    {
+      "id": "insight_010",
+      "title": "Insight 10",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600020105",
+        "010906320",
+        "000005986",
+        "027409003",
+        "006200000",
+        "005063001",
+        "071598032",
+        "050000000",
+        "000010008"
+      ],
+      "solutionRows": [
+        "698327145",
+        "514986327",
+        "732145986",
+        "127459863",
+        "386271459",
+        "945863271",
+        "471598632",
+        "859632714",
+        "263714598"
+      ]
+    },
+    {
+      "id": "insight_011",
+      "title": "Insight 11",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000009",
+        "090064017",
+        "103005002",
+        "901020003",
+        "006591804",
+        "048006105",
+        "010049200",
+        "300057000",
+        "000600700"
+      ],
+      "solutionRows": [
+        "624713589",
+        "895264317",
+        "173985462",
+        "951428673",
+        "736591824",
+        "248376195",
+        "517849236",
+        "362157948",
+        "489632751"
+      ]
+    },
+    {
+      "id": "insight_012",
+      "title": "Insight 12",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000600",
+        "100030497",
+        "947100023",
+        "004000970",
+        "798500006",
+        "320700100",
+        "009010700",
+        "070095060",
+        "031800000"
+      ],
+      "solutionRows": [
+        "283974615",
+        "165238497",
+        "947156823",
+        "514362978",
+        "798541236",
+        "326789154",
+        "459613782",
+        "872495361",
+        "631827549"
+      ]
+    },
+    {
+      "id": "insight_013",
+      "title": "Insight 13",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "910000280",
+        "004002090",
+        "830017000",
+        "000090000",
+        "093001548",
+        "701085300",
+        "300046802",
+        "008309004",
+        "000520000"
+      ],
+      "solutionRows": [
+        "917654283",
+        "654832791",
+        "832917465",
+        "485293176",
+        "293761548",
+        "761485329",
+        "379146852",
+        "528379614",
+        "146528937"
+      ]
+    },
+    {
+      "id": "insight_014",
+      "title": "Insight 14",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "060200849",
+        "070080036",
+        "000300527",
+        "006000308",
+        "457008000",
+        "080600470",
+        "000063010",
+        "001090600",
+        "600000954"
+      ],
+      "solutionRows": [
+        "163257849",
+        "572489136",
+        "894316527",
+        "216745398",
+        "457938261",
+        "389621475",
+        "945863712",
+        "721594683",
+        "638172954"
+      ]
+    },
+    {
+      "id": "insight_015",
+      "title": "Insight 15",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000280071",
+        "080000300",
+        "190034000",
+        "000042009",
+        "900305028",
+        "042060703",
+        "408020030",
+        "020013080",
+        "700008006"
+      ],
+      "solutionRows": [
+        "534286971",
+        "286197345",
+        "197534862",
+        "375842619",
+        "961375428",
+        "842961753",
+        "458629137",
+        "629713584",
+        "713458296"
+      ]
+    },
+    {
+      "id": "insight_016",
+      "title": "Insight 16",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000080",
+        "000840013",
+        "000003609",
+        "000000041",
+        "043700508",
+        "805401902",
+        "450300890",
+        "032000054",
+        "690504000"
+      ],
+      "solutionRows": [
+        "317269485",
+        "926845713",
+        "584173629",
+        "279658341",
+        "143792568",
+        "865431972",
+        "451327896",
+        "732986154",
+        "698514237"
+      ]
+    },
+    {
+      "id": "insight_017",
+      "title": "Insight 17",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "006030005",
+        "020008000",
+        "000002406",
+        "000409203",
+        "203000794",
+        "794020060",
+        "048700000",
+        "002090007",
+        "537200940"
+      ],
+      "solutionRows": [
+        "486937125",
+        "125648379",
+        "379512486",
+        "861479253",
+        "253186794",
+        "794325861",
+        "948753612",
+        "612894537",
+        "537261948"
+      ]
+    },
+    {
+      "id": "insight_018",
+      "title": "Insight 18",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "208905437",
+        "590004008",
+        "437080000",
+        "005000000",
+        "300106070",
+        "000009384",
+        "709008100",
+        "003500040",
+        "100090020"
+      ],
+      "solutionRows": [
+        "268915437",
+        "591374268",
+        "437682591",
+        "975843612",
+        "384126975",
+        "612759384",
+        "749238156",
+        "823561749",
+        "156497823"
+      ]
+    },
+    {
+      "id": "insight_019",
+      "title": "Insight 19",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "200675000",
+        "000000670",
+        "050108020",
+        "040006000",
+        "560780900",
+        "000900250",
+        "490300517",
+        "170000300",
+        "023500800"
+      ],
+      "solutionRows": [
+        "234675198",
+        "981423675",
+        "756198423",
+        "349256781",
+        "562781934",
+        "817934256",
+        "498362517",
+        "175849362",
+        "623517849"
+      ]
+    },
+    {
+      "id": "insight_020",
+      "title": "Insight 20",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "040010900",
+        "809250000",
+        "000983200",
+        "000000400",
+        "783095000",
+        "904001070",
+        "000007009",
+        "608530100",
+        "090102860"
+      ],
+      "solutionRows": [
+        "542716983",
+        "839254716",
+        "167983254",
+        "216378495",
+        "783495621",
+        "954621378",
+        "421867539",
+        "678539142",
+        "395142867"
+      ]
+    },
+    {
+      "id": "insight_021",
+      "title": "Insight 21",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "007002000",
+        "200080400",
+        "080004036",
+        "715040000",
+        "306809001",
+        "000510004",
+        "830195600",
+        "670000000",
+        "501400003"
+      ],
+      "solutionRows": [
+        "457362198",
+        "263981475",
+        "189754236",
+        "715643982",
+        "346829751",
+        "928517364",
+        "832195647",
+        "674238519",
+        "591476823"
+      ]
+    },
+    {
+      "id": "insight_022",
+      "title": "Insight 22",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "309700600",
+        "060000007",
+        "708400190",
+        "901020000",
+        "030500000",
+        "070014000",
+        "154200000",
+        "003608041",
+        "607005930"
+      ],
+      "solutionRows": [
+        "319782654",
+        "465391287",
+        "728456193",
+        "941823765",
+        "832567419",
+        "576914328",
+        "154239876",
+        "293678541",
+        "687145932"
+      ]
+    },
+    {
+      "id": "insight_023",
+      "title": "Insight 23",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "900003001",
+        "012400006",
+        "000210940",
+        "001002060",
+        "207600013",
+        "090108270",
+        "000500092",
+        "100020000",
+        "700000158"
+      ],
+      "solutionRows": [
+        "974863521",
+        "512479386",
+        "368215947",
+        "831752469",
+        "257694813",
+        "496138275",
+        "643581792",
+        "185927634",
+        "729346158"
+      ]
+    },
+    {
+      "id": "insight_024",
+      "title": "Insight 24",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "500230006",
+        "000060700",
+        "904510020",
+        "000372060",
+        "000000237",
+        "002080504",
+        "026001075",
+        "490703002",
+        "000000100"
+      ],
+      "solutionRows": [
+        "517238496",
+        "238964751",
+        "964517823",
+        "145372968",
+        "689145237",
+        "372689514",
+        "826491375",
+        "491753682",
+        "753826149"
+      ]
+    },
+    {
+      "id": "insight_025",
+      "title": "Insight 25",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "800004000",
+        "000560800",
+        "007020094",
+        "050082719",
+        "080700350",
+        "719300000",
+        "000008070",
+        "071200900",
+        "948001000"
+      ],
+      "solutionRows": [
+        "823194567",
+        "194567823",
+        "567823194",
+        "356482719",
+        "482719356",
+        "719356482",
+        "235948671",
+        "671235948",
+        "948671235"
+      ]
+    },
+    {
+      "id": "insight_026",
+      "title": "Insight 26",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "004005800",
+        "070090304",
+        "000310270",
+        "000950000",
+        "000003702",
+        "063042058",
+        "080000500",
+        "509001430",
+        "000529080"
+      ],
+      "solutionRows": [
+        "314275896",
+        "275896314",
+        "896314275",
+        "742958163",
+        "958163742",
+        "163742958",
+        "681437529",
+        "529681437",
+        "437529681"
+      ]
+    },
+    {
+      "id": "insight_027",
+      "title": "Insight 27",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "035002807",
+        "040070030",
+        "060005001",
+        "290100000",
+        "804050302",
+        "570020410",
+        "007200086",
+        "680007000",
+        "400001000"
+      ],
+      "solutionRows": [
+        "935412867",
+        "142678539",
+        "768395241",
+        "293184675",
+        "814756392",
+        "576923418",
+        "357249186",
+        "681537924",
+        "429861753"
+      ]
+    },
+    {
+      "id": "insight_028",
+      "title": "Insight 28",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "005400000",
+        "710906048",
+        "082030090",
+        "004000080",
+        "650090003",
+        "800000065",
+        "008010000",
+        "570260830",
+        "006304050"
+      ],
+      "solutionRows": [
+        "965428371",
+        "713956248",
+        "482731596",
+        "134675982",
+        "657892413",
+        "829143765",
+        "348517629",
+        "571269834",
+        "296384157"
+      ]
+    },
+    {
+      "id": "insight_029",
+      "title": "Insight 29",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "061008000",
+        "080095460",
+        "350000780",
+        "248907030",
+        "075000000",
+        "000280070",
+        "500000000",
+        "000572090",
+        "603001507"
+      ],
+      "solutionRows": [
+        "461728359",
+        "782395461",
+        "359416782",
+        "248957136",
+        "975163248",
+        "136284975",
+        "527639814",
+        "814572693",
+        "693841527"
+      ]
+    },
+    {
+      "id": "insight_030",
+      "title": "Insight 30",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "700000000",
+        "012873005",
+        "906100738",
+        "300005200",
+        "201908004",
+        "005001009",
+        "520300800",
+        "007080000",
+        "000204003"
+      ],
+      "solutionRows": [
+        "783596421",
+        "412873965",
+        "956142738",
+        "398465217",
+        "271938654",
+        "645721389",
+        "524317896",
+        "137689542",
+        "869254173"
+      ]
+    },
+    {
+      "id": "insight_031",
+      "title": "Insight 31",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "005700089",
+        "070000000",
+        "000030600",
+        "040801763",
+        "000429008",
+        "580060004",
+        "700600800",
+        "128500406",
+        "900000075"
+      ],
+      "solutionRows": [
+        "315746289",
+        "476982531",
+        "892135647",
+        "249851763",
+        "637429158",
+        "581367924",
+        "753694812",
+        "128573496",
+        "964218375"
+      ]
+    },
+    {
+      "id": "insight_032",
+      "title": "Insight 32",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030800600",
+        "206590008",
+        "070001030",
+        "042000090",
+        "065009201",
+        "708000060",
+        "900008300",
+        "620900004",
+        "001602050"
+      ],
+      "solutionRows": [
+        "539847612",
+        "216593478",
+        "874261935",
+        "142356897",
+        "365789241",
+        "798124563",
+        "957418326",
+        "623975184",
+        "481632759"
+      ]
+    },
+    {
+      "id": "insight_033",
+      "title": "Insight 33",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "510007000",
+        "008000076",
+        "063000201",
+        "020006708",
+        "605800000",
+        "400001000",
+        "000513680",
+        "001768009",
+        "076040005"
+      ],
+      "solutionRows": [
+        "512637894",
+        "948125376",
+        "763489251",
+        "129356748",
+        "635874912",
+        "487291563",
+        "294513687",
+        "351768429",
+        "876942135"
+      ]
+    },
+    {
+      "id": "insight_034",
+      "title": "Insight 34",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600000040",
+        "009240000",
+        "040850901",
+        "700190325",
+        "401320600",
+        "003680190",
+        "960410000",
+        "005000000",
+        "000038000"
+      ],
+      "solutionRows": [
+        "658971243",
+        "179243856",
+        "342856971",
+        "786194325",
+        "491325687",
+        "523687194",
+        "967412538",
+        "835769412",
+        "214538769"
+      ]
+    },
+    {
+      "id": "insight_035",
+      "title": "Insight 35",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "090020300",
+        "005300000",
+        "301097800",
+        "078253600",
+        "010908000",
+        "003010978",
+        "000009002",
+        "000780500",
+        "080030109"
+      ],
+      "solutionRows": [
+        "497825361",
+        "825361497",
+        "361497825",
+        "978253614",
+        "614978253",
+        "253614978",
+        "536149782",
+        "149782536",
+        "782536149"
+      ]
+    },
+    {
+      "id": "insight_036",
+      "title": "Insight 36",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "801342000",
+        "900000403",
+        "040000610",
+        "035100000",
+        "000035000",
+        "196204300",
+        "000000004",
+        "410023006",
+        "079400035"
+      ],
+      "solutionRows": [
+        "861342579",
+        "957861423",
+        "342957618",
+        "735196842",
+        "284735961",
+        "196284357",
+        "523679184",
+        "418523796",
+        "679418235"
+      ]
+    },
+    {
+      "id": "insight_037",
+      "title": "Insight 37",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "041652080",
+        "000708000",
+        "007043005",
+        "000000000",
+        "402060090",
+        "500300001",
+        "680007002",
+        "005006070",
+        "034520968"
+      ],
+      "solutionRows": [
+        "341652789",
+        "256798134",
+        "897143625",
+        "973214856",
+        "412865397",
+        "568379241",
+        "689437512",
+        "125986473",
+        "734521968"
+      ]
+    },
+    {
+      "id": "insight_038",
+      "title": "Insight 38",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030000410",
+        "000000060",
+        "685000003",
+        "800700100",
+        "050010080",
+        "340800675",
+        "500000301",
+        "013089000",
+        "460201850"
+      ],
+      "solutionRows": [
+        "932658417",
+        "174923568",
+        "685147293",
+        "829765134",
+        "756314982",
+        "341892675",
+        "598476321",
+        "213589746",
+        "467231859"
+      ]
+    },
+    {
+      "id": "insight_039",
+      "title": "Insight 39",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "802509100",
+        "930000000",
+        "000240000",
+        "120000000",
+        "059603210",
+        "306021540",
+        "294000800",
+        "560100020",
+        "000400050"
+      ],
+      "solutionRows": [
+        "842539167",
+        "935716482",
+        "617248395",
+        "128954736",
+        "459673218",
+        "376821549",
+        "294365871",
+        "563187924",
+        "781492653"
+      ]
+    },
+    {
+      "id": "insight_040",
+      "title": "Insight 40",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "001800000",
+        "070002300",
+        "600431005",
+        "000183007",
+        "500000813",
+        "000007400",
+        "914000276",
+        "700010500",
+        "058000104"
+      ],
+      "solutionRows": [
+        "431875962",
+        "875692341",
+        "692431785",
+        "249183657",
+        "567249813",
+        "183567429",
+        "914358276",
+        "726914538",
+        "358726194"
+      ]
+    },
+    {
+      "id": "insight_041",
+      "title": "Insight 41",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070009200",
+        "005174000",
+        "800000000",
+        "003700500",
+        "650003000",
+        "091008032",
+        "006000879",
+        "080506120",
+        "012980060"
+      ],
+      "solutionRows": [
+        "174869253",
+        "325174698",
+        "869325741",
+        "243791586",
+        "658243917",
+        "791658432",
+        "536412879",
+        "987536124",
+        "412987365"
+      ]
+    },
+    {
+      "id": "insight_042",
+      "title": "Insight 42",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "950300700",
+        "000804901",
+        "700090603",
+        "000037005",
+        "800006300",
+        "370580102",
+        "230048006",
+        "000000009",
+        "080600200"
+      ],
+      "solutionRows": [
+        "951362748",
+        "623874951",
+        "748195623",
+        "162437895",
+        "895216374",
+        "374589162",
+        "237948516",
+        "516723489",
+        "489651237"
+      ]
+    },
+    {
+      "id": "insight_043",
+      "title": "Insight 43",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008007030",
+        "750000080",
+        "003846510",
+        "000000072",
+        "080002394",
+        "007930000",
+        "002000051",
+        "060000908",
+        "804001703"
+      ],
+      "solutionRows": [
+        "648157239",
+        "751329486",
+        "923846517",
+        "439685172",
+        "586712394",
+        "217934865",
+        "372498651",
+        "165273948",
+        "894561723"
+      ]
+    },
+    {
+      "id": "insight_044",
+      "title": "Insight 44",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "010400078",
+        "000000050",
+        "007201403",
+        "800190305",
+        "300806190",
+        "000020046",
+        "003000519",
+        "500002700",
+        "000019030"
+      ],
+      "solutionRows": [
+        "215463978",
+        "436978251",
+        "987251463",
+        "864197325",
+        "352846197",
+        "179325846",
+        "623784519",
+        "591632784",
+        "748519632"
+      ]
+    },
+    {
+      "id": "insight_045",
+      "title": "Insight 45",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000200060",
+        "000007500",
+        "000618007",
+        "720036004",
+        "009500010",
+        "360904052",
+        "098700200",
+        "010069070",
+        "457000000"
+      ],
+      "solutionRows": [
+        "974253168",
+        "186497523",
+        "532618947",
+        "725136894",
+        "849572316",
+        "361984752",
+        "698745231",
+        "213869475",
+        "457321689"
+      ]
+    },
+    {
+      "id": "insight_046",
+      "title": "Insight 46",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030520000",
+        "000907060",
+        "007036580",
+        "702090831",
+        "090003700",
+        "800000649",
+        "070309010",
+        "001070000",
+        "000280400"
+      ],
+      "solutionRows": [
+        "136528974",
+        "528947163",
+        "947136582",
+        "752694831",
+        "694813725",
+        "813752649",
+        "475369218",
+        "281475396",
+        "369281457"
+      ]
+    },
+    {
+      "id": "insight_047",
+      "title": "Insight 47",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "020000050",
+        "951047638",
+        "806500000",
+        "200070005",
+        "047000000",
+        "568002040",
+        "000001290",
+        "000904070",
+        "002030501"
+      ],
+      "solutionRows": [
+        "724368159",
+        "951247638",
+        "836519427",
+        "219473865",
+        "347685912",
+        "568192743",
+        "673851294",
+        "185924376",
+        "492736581"
+      ]
+    },
+    {
+      "id": "insight_048",
+      "title": "Insight 48",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "319020000",
+        "000704130",
+        "704000006",
+        "000100400",
+        "000093618",
+        "000040953",
+        "030000000",
+        "900602305",
+        "602030801"
+      ],
+      "solutionRows": [
+        "319826574",
+        "826754139",
+        "754319286",
+        "593168427",
+        "247593618",
+        "168247953",
+        "435981762",
+        "981672345",
+        "672435891"
+      ]
+    },
+    {
+      "id": "insight_049",
+      "title": "Insight 49",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "009001008",
+        "600000000",
+        "251060900",
+        "096104000",
+        "502900000",
+        "700052600",
+        "027005004",
+        "008007530",
+        "065090702"
+      ],
+      "solutionRows": [
+        "479521368",
+        "683749125",
+        "251863947",
+        "896174253",
+        "532986471",
+        "714352689",
+        "127635894",
+        "948217536",
+        "365498712"
+      ]
+    },
+    {
+      "id": "insight_050",
+      "title": "Insight 50",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000100500",
+        "006000009",
+        "708004010",
+        "670000190",
+        "014600005",
+        "025040763",
+        "002010030",
+        "400008000",
+        "087529600"
+      ],
+      "solutionRows": [
+        "249163578",
+        "136785429",
+        "758294316",
+        "673852194",
+        "914637285",
+        "825941763",
+        "592416837",
+        "461378952",
+        "387529641"
+      ]
+    },
+    {
+      "id": "insight_051",
+      "title": "Insight 51",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000080100",
+        "070901302",
+        "000000748",
+        "008070920",
+        "040210683",
+        "102000007",
+        "000002870",
+        "600100000",
+        "020708014"
+      ],
+      "solutionRows": [
+        "236487195",
+        "874951362",
+        "519623748",
+        "368574921",
+        "745219683",
+        "192836457",
+        "451392876",
+        "687145239",
+        "923768514"
+      ]
+    },
+    {
+      "id": "insight_052",
+      "title": "Insight 52",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "024007596",
+        "900004307",
+        "807900000",
+        "090010800",
+        "702090000",
+        "405700903",
+        "008500000",
+        "540200000",
+        "070008409"
+      ],
+      "solutionRows": [
+        "124837596",
+        "956124387",
+        "837956214",
+        "693415872",
+        "782693145",
+        "415782963",
+        "368549721",
+        "549271638",
+        "271368459"
+      ]
+    },
+    {
+      "id": "insight_053",
+      "title": "Insight 53",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "080009601",
+        "409000030",
+        "000070495",
+        "034000070",
+        "000087543",
+        "020000100",
+        "040608000",
+        "300490086",
+        "060700910"
+      ],
+      "solutionRows": [
+        "783549621",
+        "459162738",
+        "612873495",
+        "534916872",
+        "196287543",
+        "827354169",
+        "941628357",
+        "375491286",
+        "268735914"
+      ]
+    },
+    {
+      "id": "insight_054",
+      "title": "Insight 54",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "004000003",
+        "070000416",
+        "398000000",
+        "900183000",
+        "180040000",
+        "006020380",
+        "809030060",
+        "000809130",
+        "400260908"
+      ],
+      "solutionRows": [
+        "614572893",
+        "572398416",
+        "398614275",
+        "925183647",
+        "183746529",
+        "746925381",
+        "859431762",
+        "267859134",
+        "431267958"
+      ]
+    },
+    {
+      "id": "insight_055",
+      "title": "Insight 55",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "007560020",
+        "800000000",
+        "030982000",
+        "003200105",
+        "002004369",
+        "501006207",
+        "078005000",
+        "206000000",
+        "300620071"
+      ],
+      "solutionRows": [
+        "417563928",
+        "829741536",
+        "635982714",
+        "963278145",
+        "782154369",
+        "541396287",
+        "178435692",
+        "296817453",
+        "354629871"
+      ]
+    },
+    {
+      "id": "insight_056",
+      "title": "Insight 56",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000005080",
+        "000706040",
+        "543200700",
+        "030028000",
+        "901004008",
+        "025170000",
+        "718960000",
+        "000800900",
+        "300452007"
+      ],
+      "solutionRows": [
+        "697345281",
+        "182796345",
+        "543281796",
+        "436528179",
+        "971634528",
+        "825179634",
+        "718963452",
+        "254817963",
+        "369452817"
+      ]
+    },
+    {
+      "id": "insight_057",
+      "title": "Insight 57",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008600030",
+        "200034070",
+        "000500609",
+        "000080000",
+        "076201300",
+        "000706041",
+        "007000403",
+        "543800012",
+        "102003060"
+      ],
+      "solutionRows": [
+        "758629134",
+        "269134578",
+        "314578629",
+        "421385796",
+        "976241385",
+        "835796241",
+        "687912453",
+        "543867912",
+        "192453867"
+      ]
+    },
+    {
+      "id": "insight_058",
+      "title": "Insight 58",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "860090010",
+        "007000953",
+        "000007000",
+        "000000301",
+        "090476200",
+        "205001046",
+        "000000134",
+        "000000678",
+        "030768029"
+      ],
+      "solutionRows": [
+        "862593417",
+        "417682953",
+        "953147862",
+        "746825391",
+        "391476285",
+        "285931746",
+        "678259134",
+        "529314678",
+        "134768529"
+      ]
+    },
+    {
+      "id": "insight_059",
+      "title": "Insight 59",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000190034",
+        "340706000",
+        "005000000",
+        "010630250",
+        "030570901",
+        "070009000",
+        "080200790",
+        "000081026",
+        "203907000"
+      ],
+      "solutionRows": [
+        "726195834",
+        "348726519",
+        "195348672",
+        "819634257",
+        "634572981",
+        "572819463",
+        "481263795",
+        "957481326",
+        "263957148"
+      ]
+    },
+    {
+      "id": "insight_060",
+      "title": "Insight 60",
+      "seal": "悟",
+      "difficulty": "medium",
+      "difficultyScore": 145,
+      "targetTimeSeconds": 720,
+      "medianTimeSeconds": 900,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000230470",
+        "074980002",
+        "200040860",
+        "049028500",
+        "080000907",
+        "100000000",
+        "490800000",
+        "821305000",
+        "007400100"
+      ],
+      "solutionRows": [
+        "968231475",
+        "574986312",
+        "213547869",
+        "749628531",
+        "682153947",
+        "135794286",
+        "496812753",
+        "821375694",
+        "357469128"
+      ]
+    }
+  ],
+  "batchIndex": 1,
+  "batchCount": 6
+}

@@ -1,0 +1,2253 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.06.002",
+  "generatedAt": "2026-06-21",
+  "generatorVersion": "sudoku-pack-generator-1.2.0",
+  "validatorVersion": "sudoku-pack-validator-1.1.0",
+  "solverVersion": "human-solver-1.0.0",
+  "contentSource": "deterministic production generator seed 20260621",
+  "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+  "milestoneEvery": 10,
+  "id": "mastery",
+  "puzzles": [
+    {
+      "id": "mastery_121",
+      "title": "Mastery 121",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070400000",
+        "086305001",
+        "200080030",
+        "000000004",
+        "005007106",
+        "702060050",
+        "600000019",
+        "400000072",
+        "020100680"
+      ],
+      "solutionRows": [
+        "573412968",
+        "986375241",
+        "214689537",
+        "169538724",
+        "835247196",
+        "742961853",
+        "658723419",
+        "491856372",
+        "327194685"
+      ]
+    },
+    {
+      "id": "mastery_122",
+      "title": "Mastery 122",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "046709000",
+        "025000090",
+        "903251000",
+        "380000200",
+        "007000000",
+        "600000059",
+        "009600070",
+        "700002000",
+        "400080925"
+      ],
+      "solutionRows": [
+        "846739512",
+        "125468397",
+        "973251684",
+        "384975261",
+        "597126438",
+        "612843759",
+        "259614873",
+        "738592146",
+        "461387925"
+      ]
+    },
+    {
+      "id": "mastery_123",
+      "title": "Mastery 123",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "530400000",
+        "001730800",
+        "000109075",
+        "000900100",
+        "010000096",
+        "649500008",
+        "000600001",
+        "093807000",
+        "400000500"
+      ],
+      "solutionRows": [
+        "537482619",
+        "961735842",
+        "284169375",
+        "872946153",
+        "315278496",
+        "649513728",
+        "758624931",
+        "193857264",
+        "426391587"
+      ]
+    },
+    {
+      "id": "mastery_124",
+      "title": "Mastery 124",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030010405",
+        "400200079",
+        "007000000",
+        "300000500",
+        "570030010",
+        "000400008",
+        "000900701",
+        "010384000",
+        "069001034"
+      ],
+      "solutionRows": [
+        "632719485",
+        "458263179",
+        "197845623",
+        "386192547",
+        "574638912",
+        "921457368",
+        "843926751",
+        "715384296",
+        "269571834"
+      ]
+    },
+    {
+      "id": "mastery_125",
+      "title": "Mastery 125",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070859020",
+        "005300060",
+        "204006000",
+        "060030010",
+        "000200000",
+        "000685003",
+        "000000470",
+        "002000039",
+        "350400106"
+      ],
+      "solutionRows": [
+        "671859324",
+        "985342761",
+        "234716895",
+        "568934217",
+        "493271658",
+        "127685943",
+        "816593472",
+        "742168539",
+        "359427186"
+      ]
+    },
+    {
+      "id": "mastery_126",
+      "title": "Mastery 126",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000040080",
+        "005007200",
+        "042060079",
+        "070431000",
+        "004680050",
+        "086000000",
+        "000000000",
+        "008756300",
+        "013004060"
+      ],
+      "solutionRows": [
+        "791243586",
+        "865197234",
+        "342568179",
+        "579431628",
+        "134682957",
+        "286975413",
+        "657319842",
+        "428756391",
+        "913824765"
+      ]
+    },
+    {
+      "id": "mastery_127",
+      "title": "Mastery 127",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "683900000",
+        "074000836",
+        "200000000",
+        "000000008",
+        "006090405",
+        "002801300",
+        "000459280",
+        "120006050",
+        "000002000"
+      ],
+      "solutionRows": [
+        "683947512",
+        "974215836",
+        "251638749",
+        "739524168",
+        "816793425",
+        "542861397",
+        "367459281",
+        "128376954",
+        "495182673"
+      ]
+    },
+    {
+      "id": "mastery_128",
+      "title": "Mastery 128",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "068000520",
+        "004000000",
+        "500070003",
+        "020510670",
+        "005000300",
+        "040002050",
+        "400020800",
+        "800009230",
+        "050107400"
+      ],
+      "solutionRows": [
+        "768493521",
+        "934251786",
+        "512876943",
+        "329518674",
+        "185764392",
+        "647932158",
+        "496325817",
+        "871649235",
+        "253187469"
+      ]
+    },
+    {
+      "id": "mastery_129",
+      "title": "Mastery 129",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000602010",
+        "310009000",
+        "400035079",
+        "200807900",
+        "500006030",
+        "900000507",
+        "000000000",
+        "000974023",
+        "004200100"
+      ],
+      "solutionRows": [
+        "879642315",
+        "315789462",
+        "462135879",
+        "231857946",
+        "587496231",
+        "946321587",
+        "623518794",
+        "158974623",
+        "794263158"
+      ]
+    },
+    {
+      "id": "mastery_130",
+      "title": "Mastery 130",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070000080",
+        "025089104",
+        "000004500",
+        "000000000",
+        "507093000",
+        "040065290",
+        "750000000",
+        "006918400",
+        "009000032"
+      ],
+      "solutionRows": [
+        "471526389",
+        "625389174",
+        "983174526",
+        "392841765",
+        "567293841",
+        "148765293",
+        "754632918",
+        "236918457",
+        "819457632"
+      ]
+    },
+    {
+      "id": "mastery_131",
+      "title": "Mastery 131",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "400100290",
+        "020050801",
+        "007000000",
+        "702005100",
+        "905000300",
+        "000030059",
+        "000090010",
+        "001873940",
+        "200000700"
+      ],
+      "solutionRows": [
+        "456187293",
+        "329456871",
+        "187329564",
+        "732945186",
+        "945618327",
+        "618732459",
+        "873294615",
+        "561873942",
+        "294561738"
+      ]
+    },
+    {
+      "id": "mastery_132",
+      "title": "Mastery 132",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000000",
+        "402905300",
+        "900630080",
+        "800590600",
+        "070040005",
+        "020100030",
+        "008054100",
+        "790080000",
+        "040700003"
+      ],
+      "solutionRows": [
+        "613428759",
+        "482975316",
+        "957631284",
+        "834592671",
+        "176843925",
+        "529167438",
+        "368254197",
+        "791386542",
+        "245719863"
+      ]
+    },
+    {
+      "id": "mastery_133",
+      "title": "Mastery 133",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "960080051",
+        "000006080",
+        "300700906",
+        "600000000",
+        "089005600",
+        "100070008",
+        "000069003",
+        "806003007",
+        "030210000"
+      ],
+      "solutionRows": [
+        "962384751",
+        "715926384",
+        "348751926",
+        "627498135",
+        "489135672",
+        "153672498",
+        "271869543",
+        "896543217",
+        "534217869"
+      ]
+    },
+    {
+      "id": "mastery_134",
+      "title": "Mastery 134",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "070490000",
+        "080003007",
+        "506000090",
+        "060750009",
+        "000040000",
+        "020000340",
+        "017004005",
+        "050970084",
+        "000205900"
+      ],
+      "solutionRows": [
+        "172498563",
+        "489563127",
+        "536127498",
+        "364752819",
+        "891346752",
+        "725819346",
+        "917684235",
+        "253971684",
+        "648235971"
+      ]
+    },
+    {
+      "id": "mastery_135",
+      "title": "Mastery 135",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "005003000",
+        "310700600",
+        "000580390",
+        "030040706",
+        "760800904",
+        "001060080",
+        "070002030",
+        "006098100",
+        "000000000"
+      ],
+      "solutionRows": [
+        "685913472",
+        "319724658",
+        "427586391",
+        "538149726",
+        "762835914",
+        "941267583",
+        "174652839",
+        "256398147",
+        "893471265"
+      ]
+    },
+    {
+      "id": "mastery_136",
+      "title": "Mastery 136",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "010060952",
+        "050004006",
+        "000000000",
+        "097050381",
+        "005800090",
+        "000906005",
+        "700000008",
+        "000200530",
+        "000681009"
+      ],
+      "solutionRows": [
+        "413768952",
+        "952134876",
+        "876529413",
+        "697452381",
+        "245813697",
+        "381976245",
+        "729345168",
+        "168297534",
+        "534681729"
+      ]
+    },
+    {
+      "id": "mastery_137",
+      "title": "Mastery 137",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000040560",
+        "080170300",
+        "004000009",
+        "001800006",
+        "000217804",
+        "800050000",
+        "000095421",
+        "400080000",
+        "750000080"
+      ],
+      "solutionRows": [
+        "197342568",
+        "586179342",
+        "324568179",
+        "271834956",
+        "965217834",
+        "843956217",
+        "638795421",
+        "412683795",
+        "759421683"
+      ]
+    },
+    {
+      "id": "mastery_138",
+      "title": "Mastery 138",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "130000002",
+        "000000856",
+        "500702000",
+        "009403000",
+        "453078009",
+        "000200500",
+        "027900605",
+        "000000400",
+        "000300087"
+      ],
+      "solutionRows": [
+        "134586972",
+        "792134856",
+        "586792314",
+        "219453768",
+        "453678129",
+        "678219543",
+        "827941635",
+        "365827491",
+        "941365287"
+      ]
+    },
+    {
+      "id": "mastery_139",
+      "title": "Mastery 139",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "803000005",
+        "060000000",
+        "279600300",
+        "050004000",
+        "000037009",
+        "027500401",
+        "400005006",
+        "000300597",
+        "090108000"
+      ],
+      "solutionRows": [
+        "843729165",
+        "561483972",
+        "279651348",
+        "956814723",
+        "184237659",
+        "327596481",
+        "432975816",
+        "618342597",
+        "795168234"
+      ]
+    },
+    {
+      "id": "mastery_140",
+      "title": "Mastery 140",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000009425",
+        "000600001",
+        "300502000",
+        "004000002",
+        "190050000",
+        "500800079",
+        "976001800",
+        "000000907",
+        "000706203"
+      ],
+      "solutionRows": [
+        "768139425",
+        "452678391",
+        "319542786",
+        "684917532",
+        "197253648",
+        "523864179",
+        "976321854",
+        "231485967",
+        "845796213"
+      ]
+    },
+    {
+      "id": "mastery_141",
+      "title": "Mastery 141",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "700200100",
+        "600005042",
+        "000900000",
+        "500000014",
+        "100000830",
+        "000402006",
+        "037004680",
+        "006320001",
+        "010500700"
+      ],
+      "solutionRows": [
+        "785243169",
+        "691875342",
+        "423961578",
+        "569738214",
+        "142659837",
+        "378412956",
+        "237194685",
+        "856327491",
+        "914586723"
+      ]
+    },
+    {
+      "id": "mastery_142",
+      "title": "Mastery 142",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "600120080",
+        "048009000",
+        "100004000",
+        "000841005",
+        "070006048",
+        "800000030",
+        "001008063",
+        "900000014",
+        "050400009"
+      ],
+      "solutionRows": [
+        "695123487",
+        "748659321",
+        "132784956",
+        "263841795",
+        "579236148",
+        "814597632",
+        "421978563",
+        "987365214",
+        "356412879"
+      ]
+    },
+    {
+      "id": "mastery_143",
+      "title": "Mastery 143",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "248000090",
+        "705000004",
+        "000028053",
+        "492007010",
+        "307500020",
+        "000040070",
+        "070190000",
+        "010003000",
+        "800000040"
+      ],
+      "solutionRows": [
+        "248375196",
+        "735619284",
+        "169428753",
+        "492837615",
+        "387561429",
+        "651942378",
+        "576194832",
+        "914283567",
+        "823756941"
+      ]
+    },
+    {
+      "id": "mastery_144",
+      "title": "Mastery 144",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "090000000",
+        "642090810",
+        "000000037",
+        "000000104",
+        "000609370",
+        "030504000",
+        "078052003",
+        "360070540",
+        "000000080"
+      ],
+      "solutionRows": [
+        "793185426",
+        "642397815",
+        "581246937",
+        "926738154",
+        "415629378",
+        "837514269",
+        "178452693",
+        "369871542",
+        "254963781"
+      ]
+    },
+    {
+      "id": "mastery_145",
+      "title": "Mastery 145",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000002",
+        "060000170",
+        "508000306",
+        "040001037",
+        "006000000",
+        "109060004",
+        "900100403",
+        "204800001",
+        "017300090"
+      ],
+      "solutionRows": [
+        "791634852",
+        "463285179",
+        "528917346",
+        "842591637",
+        "376428915",
+        "159763284",
+        "985176423",
+        "234859761",
+        "617342598"
+      ]
+    },
+    {
+      "id": "mastery_146",
+      "title": "Mastery 146",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "500018070",
+        "074000981",
+        "000047060",
+        "008070000",
+        "000289100",
+        "030400200",
+        "040600813",
+        "009000040",
+        "000700000"
+      ],
+      "solutionRows": [
+        "562918374",
+        "374526981",
+        "981347562",
+        "298173456",
+        "456289137",
+        "137465298",
+        "745692813",
+        "629831745",
+        "813754629"
+      ]
+    },
+    {
+      "id": "mastery_147",
+      "title": "Mastery 147",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "008090700",
+        "000208040",
+        "040050001",
+        "000001062",
+        "269000080",
+        "000600074",
+        "000500307",
+        "000000090",
+        "713900406"
+      ],
+      "solutionRows": [
+        "128496735",
+        "537218649",
+        "946357821",
+        "475831962",
+        "269745183",
+        "381629574",
+        "892564317",
+        "654173298",
+        "713982456"
+      ]
+    },
+    {
+      "id": "mastery_148",
+      "title": "Mastery 148",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000245090",
+        "000000008",
+        "169080500",
+        "010600072",
+        "000500800",
+        "300704009",
+        "590000080",
+        "728009000",
+        "001000005"
+      ],
+      "solutionRows": [
+        "873245691",
+        "452916738",
+        "169387524",
+        "915638472",
+        "247591863",
+        "386724159",
+        "594163287",
+        "728459316",
+        "631872945"
+      ]
+    },
+    {
+      "id": "mastery_149",
+      "title": "Mastery 149",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "200000095",
+        "086050002",
+        "000407860",
+        "000030024",
+        "060042710",
+        "090700000",
+        "010590080",
+        "000003000",
+        "000008106"
+      ],
+      "solutionRows": [
+        "247816395",
+        "186359472",
+        "539427861",
+        "871635924",
+        "365942718",
+        "492781653",
+        "613594287",
+        "728163549",
+        "954278136"
+      ]
+    },
+    {
+      "id": "mastery_150",
+      "title": "Mastery 150",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000028003",
+        "000700960",
+        "700690208",
+        "009300700",
+        "000800030",
+        "012005609",
+        "000007826",
+        "080000400",
+        "900006000"
+      ],
+      "solutionRows": [
+        "694128573",
+        "128753964",
+        "753694218",
+        "869312745",
+        "475869132",
+        "312475689",
+        "531947826",
+        "286531497",
+        "947286351"
+      ]
+    },
+    {
+      "id": "mastery_151",
+      "title": "Mastery 151",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030000000",
+        "700030958",
+        "500400000",
+        "900700000",
+        "080549007",
+        "100680005",
+        "070160080",
+        "060008009",
+        "000004601"
+      ],
+      "solutionRows": [
+        "632895174",
+        "714236958",
+        "598417362",
+        "945721836",
+        "386549217",
+        "127683495",
+        "479162583",
+        "261358749",
+        "853974621"
+      ]
+    },
+    {
+      "id": "mastery_152",
+      "title": "Mastery 152",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "080040005",
+        "040100070",
+        "030082060",
+        "000801947",
+        "700050000",
+        "000407006",
+        "010900600",
+        "460003000",
+        "070004020"
+      ],
+      "solutionRows": [
+        "287649315",
+        "946135872",
+        "531782469",
+        "653821947",
+        "794356281",
+        "128497536",
+        "312978654",
+        "465213798",
+        "879564123"
+      ]
+    },
+    {
+      "id": "mastery_153",
+      "title": "Mastery 153",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "408370910",
+        "200000004",
+        "619050000",
+        "000000230",
+        "700200605",
+        "100090007",
+        "000040009",
+        "000100068",
+        "000008740"
+      ],
+      "solutionRows": [
+        "458372916",
+        "273916854",
+        "619854372",
+        "596487231",
+        "784231695",
+        "132695487",
+        "865743129",
+        "347129568",
+        "921568743"
+      ]
+    },
+    {
+      "id": "mastery_154",
+      "title": "Mastery 154",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000800605",
+        "030010080",
+        "004006000",
+        "800030009",
+        "960080203",
+        "340005070",
+        "750000006",
+        "400003050",
+        "003009010"
+      ],
+      "solutionRows": [
+        "197824635",
+        "536917482",
+        "284356791",
+        "871432569",
+        "965781243",
+        "342695178",
+        "759148326",
+        "418263957",
+        "623579814"
+      ]
+    },
+    {
+      "id": "mastery_155",
+      "title": "Mastery 155",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000905001",
+        "950070083",
+        "060080000",
+        "080500006",
+        "079000400",
+        "040600012",
+        "705800300",
+        "000709000",
+        "800420000"
+      ],
+      "solutionRows": [
+        "328945671",
+        "954176283",
+        "167382549",
+        "281534796",
+        "679218435",
+        "543697812",
+        "795861324",
+        "432759168",
+        "816423957"
+      ]
+    },
+    {
+      "id": "mastery_156",
+      "title": "Mastery 156",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "040005001",
+        "001006050",
+        "000217068",
+        "300000504",
+        "000000012",
+        "060040039",
+        "000860040",
+        "030070800",
+        "206050000"
+      ],
+      "solutionRows": [
+        "648935271",
+        "721486953",
+        "593217468",
+        "379621584",
+        "854793612",
+        "162548739",
+        "917862345",
+        "435179826",
+        "286354197"
+      ]
+    },
+    {
+      "id": "mastery_157",
+      "title": "Mastery 157",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000090016",
+        "060074930",
+        "089000000",
+        "506107004",
+        "700400000",
+        "000005200",
+        "090512000",
+        "800006100",
+        "051040000"
+      ],
+      "solutionRows": [
+        "427893516",
+        "165274938",
+        "389651742",
+        "536127894",
+        "712489653",
+        "948365271",
+        "693512487",
+        "874936125",
+        "251748369"
+      ]
+    },
+    {
+      "id": "mastery_158",
+      "title": "Mastery 158",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000010005",
+        "000000760",
+        "070208034",
+        "802000000",
+        "019000408",
+        "657000093",
+        "061075000",
+        "000004000",
+        "200600800"
+      ],
+      "solutionRows": [
+        "493716285",
+        "528943761",
+        "176258934",
+        "842139576",
+        "319567428",
+        "657482193",
+        "961875342",
+        "785324619",
+        "234691857"
+      ]
+    },
+    {
+      "id": "mastery_159",
+      "title": "Mastery 159",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000083",
+        "300006720",
+        "107050000",
+        "800640000",
+        "004009070",
+        "291007000",
+        "900001000",
+        "030920807",
+        "008060000"
+      ],
+      "solutionRows": [
+        "469172583",
+        "385496721",
+        "127358964",
+        "873645192",
+        "654219378",
+        "291837456",
+        "942781635",
+        "536924817",
+        "718563249"
+      ]
+    },
+    {
+      "id": "mastery_160",
+      "title": "Mastery 160",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "230948000",
+        "750000000",
+        "004710000",
+        "000000000",
+        "010300028",
+        "040091003",
+        "020000000",
+        "190607034",
+        "005430000"
+      ],
+      "solutionRows": [
+        "236948517",
+        "751263849",
+        "984715362",
+        "367824195",
+        "519376428",
+        "842591673",
+        "423189756",
+        "198657234",
+        "675432981"
+      ]
+    },
+    {
+      "id": "mastery_161",
+      "title": "Mastery 161",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "375000000",
+        "008503269",
+        "000000000",
+        "700000004",
+        "450000106",
+        "000350920",
+        "800700000",
+        "590012400",
+        "000030700"
+      ],
+      "solutionRows": [
+        "375269841",
+        "148573269",
+        "962841573",
+        "729186354",
+        "453927186",
+        "681354927",
+        "834795612",
+        "597612438",
+        "216438795"
+      ]
+    },
+    {
+      "id": "mastery_162",
+      "title": "Mastery 162",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000307509",
+        "051000000",
+        "300005082",
+        "010400090",
+        "060000000",
+        "000090125",
+        "100800900",
+        "005042070",
+        "007000041"
+      ],
+      "solutionRows": [
+        "248367519",
+        "951284763",
+        "376915482",
+        "512438697",
+        "769521834",
+        "483796125",
+        "124873956",
+        "695142378",
+        "837659241"
+      ]
+    },
+    {
+      "id": "mastery_163",
+      "title": "Mastery 163",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "050000680",
+        "028000000",
+        "000682940",
+        "080100007",
+        "000260500",
+        "000090034",
+        "490000050",
+        "800000003",
+        "002806010"
+      ],
+      "solutionRows": [
+        "954371682",
+        "628945371",
+        "317682945",
+        "589134267",
+        "143267598",
+        "276598134",
+        "491723856",
+        "865419723",
+        "732856419"
+      ]
+    },
+    {
+      "id": "mastery_164",
+      "title": "Mastery 164",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "308000000",
+        "000900045",
+        "600001090",
+        "000812903",
+        "001500400",
+        "003700081",
+        "700000060",
+        "800090700",
+        "000100032"
+      ],
+      "solutionRows": [
+        "398456127",
+        "127983645",
+        "645271398",
+        "476812953",
+        "281539476",
+        "953764281",
+        "714328569",
+        "832695714",
+        "569147832"
+      ]
+    },
+    {
+      "id": "mastery_165",
+      "title": "Mastery 165",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000039000",
+        "017040000",
+        "308000546",
+        "000097400",
+        "900000068",
+        "000360000",
+        "020100053",
+        "700600002",
+        "006000104"
+      ],
+      "solutionRows": [
+        "465839721",
+        "217546839",
+        "398721546",
+        "683297415",
+        "972415368",
+        "154368297",
+        "829174653",
+        "741653982",
+        "536982174"
+      ]
+    },
+    {
+      "id": "mastery_166",
+      "title": "Mastery 166",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "080500000",
+        "006004950",
+        "000306800",
+        "000630709",
+        "479002008",
+        "000009000",
+        "040000000",
+        "203860000",
+        "807900003"
+      ],
+      "solutionRows": [
+        "784591236",
+        "326784951",
+        "591326874",
+        "152638749",
+        "479152368",
+        "638479512",
+        "945213687",
+        "213867495",
+        "867945123"
+      ]
+    },
+    {
+      "id": "mastery_167",
+      "title": "Mastery 167",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000400070",
+        "000065900",
+        "030780005",
+        "000020000",
+        "000851000",
+        "500600097",
+        "100000030",
+        "093018450",
+        "400000108"
+      ],
+      "solutionRows": [
+        "651493872",
+        "827165943",
+        "934782615",
+        "346927581",
+        "279851364",
+        "518634297",
+        "182546739",
+        "793218456",
+        "465379128"
+      ]
+    },
+    {
+      "id": "mastery_168",
+      "title": "Mastery 168",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "001508090",
+        "060130000",
+        "000006030",
+        "002007659",
+        "090240000",
+        "078000000",
+        "017000004",
+        "800360021",
+        "000000080"
+      ],
+      "solutionRows": [
+        "321578496",
+        "964132578",
+        "785496132",
+        "432817659",
+        "596243817",
+        "178659243",
+        "217985364",
+        "859364721",
+        "643721985"
+      ]
+    },
+    {
+      "id": "mastery_169",
+      "title": "Mastery 169",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "608000200",
+        "400603070",
+        "000090008",
+        "900050012",
+        "100904680",
+        "000000403",
+        "010060807",
+        "300000000",
+        "087200000"
+      ],
+      "solutionRows": [
+        "638715249",
+        "429683571",
+        "751492368",
+        "943856712",
+        "172934685",
+        "865127493",
+        "214369857",
+        "396578124",
+        "587241936"
+      ]
+    },
+    {
+      "id": "mastery_170",
+      "title": "Mastery 170",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "004000302",
+        "030040790",
+        "901020050",
+        "000090460",
+        "000007200",
+        "000400105",
+        "080001020",
+        "200000006",
+        "006900043"
+      ],
+      "solutionRows": [
+        "564719382",
+        "832645791",
+        "971328654",
+        "715293468",
+        "648157239",
+        "329486175",
+        "483561927",
+        "297834516",
+        "156972843"
+      ]
+    },
+    {
+      "id": "mastery_171",
+      "title": "Mastery 171",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "360004002",
+        "904000080",
+        "000008700",
+        "083600000",
+        "000052830",
+        "050103006",
+        "031000200",
+        "000000005",
+        "420000068"
+      ],
+      "solutionRows": [
+        "368974152",
+        "974215683",
+        "215368749",
+        "183649527",
+        "649752831",
+        "752183496",
+        "531896274",
+        "896427315",
+        "427531968"
+      ]
+    },
+    {
+      "id": "mastery_172",
+      "title": "Mastery 172",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "300500100",
+        "000000290",
+        "000293047",
+        "000902485",
+        "048000072",
+        "000400000",
+        "075004000",
+        "000320050",
+        "600000010"
+      ],
+      "solutionRows": [
+        "329547168",
+        "754168293",
+        "816293547",
+        "163972485",
+        "548631972",
+        "297485631",
+        "975814326",
+        "481326759",
+        "632759814"
+      ]
+    },
+    {
+      "id": "mastery_173",
+      "title": "Mastery 173",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000000000",
+        "064007080",
+        "000900146",
+        "602000070",
+        "300009028",
+        "050806004",
+        "870004030",
+        "500000402",
+        "406000000"
+      ],
+      "solutionRows": [
+        "298641753",
+        "164357289",
+        "735982146",
+        "682413975",
+        "341579628",
+        "957826314",
+        "879264531",
+        "513798462",
+        "426135897"
+      ]
+    },
+    {
+      "id": "mastery_174",
+      "title": "Mastery 174",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000070200",
+        "007000061",
+        "800401070",
+        "680000005",
+        "030000047",
+        "000395000",
+        "253000000",
+        "460710500",
+        "900000004"
+      ],
+      "solutionRows": [
+        "146973258",
+        "397258461",
+        "825461973",
+        "682147395",
+        "539826147",
+        "714395826",
+        "253684719",
+        "468719532",
+        "971532684"
+      ]
+    },
+    {
+      "id": "mastery_175",
+      "title": "Mastery 175",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "030794000",
+        "028030000",
+        "400026050",
+        "002000900",
+        "000000276",
+        "140000000",
+        "070000400",
+        "014079008",
+        "200000607"
+      ],
+      "solutionRows": [
+        "531794862",
+        "628135749",
+        "497826153",
+        "762358914",
+        "853941276",
+        "149267385",
+        "976582431",
+        "314679528",
+        "285413697"
+      ]
+    },
+    {
+      "id": "mastery_176",
+      "title": "Mastery 176",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "109065420",
+        "000090700",
+        "006020003",
+        "004009800",
+        "000000010",
+        "590800002",
+        "208000051",
+        "040000000",
+        "605200900"
+      ],
+      "solutionRows": [
+        "139765428",
+        "482193765",
+        "756428193",
+        "324519876",
+        "867342519",
+        "591876342",
+        "278934651",
+        "943651287",
+        "615287934"
+      ]
+    },
+    {
+      "id": "mastery_177",
+      "title": "Mastery 177",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "508003020",
+        "000000000",
+        "193700005",
+        "400907500",
+        "900000030",
+        "285000060",
+        "050800900",
+        "370002010",
+        "800000200"
+      ],
+      "solutionRows": [
+        "548193627",
+        "726548391",
+        "193726845",
+        "431967582",
+        "967285134",
+        "285431769",
+        "652814973",
+        "379652418",
+        "814379256"
+      ]
+    },
+    {
+      "id": "mastery_178",
+      "title": "Mastery 178",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000241900",
+        "010597000",
+        "509003000",
+        "105068043",
+        "000300090",
+        "000050600",
+        "000970300",
+        "820000000",
+        "000030050"
+      ],
+      "solutionRows": [
+        "638241975",
+        "214597836",
+        "579683412",
+        "195768243",
+        "786324591",
+        "342159687",
+        "451976328",
+        "823415769",
+        "967832154"
+      ]
+    },
+    {
+      "id": "mastery_179",
+      "title": "Mastery 179",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "080001005",
+        "316500700",
+        "002070600",
+        "004000500",
+        "960000301",
+        "000000028",
+        "740093802",
+        "000000030",
+        "000000107"
+      ],
+      "solutionRows": [
+        "487361295",
+        "316529784",
+        "592478613",
+        "824137569",
+        "965842371",
+        "173956428",
+        "741693852",
+        "258714936",
+        "639285147"
+      ]
+    },
+    {
+      "id": "mastery_180",
+      "title": "Mastery 180",
+      "seal": "極",
+      "difficulty": "hard",
+      "difficultyScore": 185,
+      "targetTimeSeconds": 960,
+      "medianTimeSeconds": 1140,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single"
+      ],
+      "rankedEligible": false,
+      "givensRows": [
+        "000060009",
+        "003008000",
+        "849075060",
+        "005000090",
+        "000007005",
+        "798016000",
+        "000009007",
+        "007053000",
+        "924000050"
+      ],
+      "solutionRows": [
+        "571362849",
+        "263948571",
+        "849175263",
+        "615234798",
+        "432897615",
+        "798516432",
+        "356429187",
+        "187653924",
+        "924781356"
+      ]
+    }
+  ],
+  "batchIndex": 3,
+  "batchCount": 5
+}
