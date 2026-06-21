@@ -48,15 +48,32 @@ class SudokuNumberPad extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(right: value == 9 ? 0 : 6),
                       child: SizedBox(
-                        height: 48,
+                        height: 56,
                         child: FilledButton.tonal(
                           onPressed: () => controller.enterNumber(value),
                           style: FilledButton.styleFrom(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text('$value'),
+                          child: Text(
+                            '$value',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: const Color(0xFF006FE6),
+                              fontSize: 25,
+                              fontStyle: controller.notesMode
+                                  ? FontStyle.italic
+                                  : FontStyle.normal,
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                              letterSpacing: 0,
+                            ),
+                          ),
                         ),
                       ),
                     ),

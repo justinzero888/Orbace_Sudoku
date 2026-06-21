@@ -217,6 +217,7 @@ class GameSessionController extends ChangeNotifier {
       return;
     }
 
+    final previousNotes = Set<int>.from(_notes[selected]);
     _values[selected] = null;
     _notes[selected].clear();
     if (previous != null) {
@@ -229,6 +230,19 @@ class GameSessionController extends ChangeNotifier {
           type: SudokuMoveType.erase,
         ),
       );
+    } else {
+      for (final noteValue in previousNotes) {
+        _recordMove(
+          SudokuMove(
+            cellIndex: selected,
+            previousValue: null,
+            nextValue: null,
+            elapsedSeconds: _elapsedSeconds,
+            type: SudokuMoveType.noteToggle,
+            noteValue: noteValue,
+          ),
+        );
+      }
     }
     _completed = false;
     notifyListeners();

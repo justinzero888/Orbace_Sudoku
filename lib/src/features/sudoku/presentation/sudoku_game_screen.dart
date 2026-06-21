@@ -90,50 +90,85 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, _) {
-            return Stack(
-              children: [
-                ListView(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final widePortrait = constraints.maxWidth >= 700;
+                final contentMaxWidth = widePortrait ? 620.0 : double.infinity;
+                final boardMaxWidth = widePortrait
+                    ? (constraints.maxHeight * 0.52).clamp(480.0, 540.0)
+                    : double.infinity;
+
+                return Stack(
                   children: [
-                    _SessionHeader(controller: _controller, puzzle: _puzzle),
-                    const SizedBox(height: 12),
-                    SudokuBoardWidget(controller: _controller),
-                    const SizedBox(height: 18),
-                    SudokuNumberPad(controller: _controller),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: _showHint,
-                            icon: const Icon(Icons.light_mode_outlined),
-                            label: const Text('Lantern Hint'),
+                    SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: contentMaxWidth,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _SessionHeader(
+                                controller: _controller,
+                                puzzle: _puzzle,
+                              ),
+                              const SizedBox(height: 12),
+                              Center(
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: boardMaxWidth,
+                                  ),
+                                  child: SudokuBoardWidget(
+                                    controller: _controller,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 18),
+                              SudokuNumberPad(controller: _controller),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: OutlinedButton.icon(
+                                      onPressed: _showHint,
+                                      icon: const Icon(
+                                        Icons.light_mode_outlined,
+                                      ),
+                                      label: const Text('Lantern Hint'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: OutlinedButton.icon(
+                                      onPressed: () =>
+                                          _controller.setMistakeChecking(
+                                            !_controller.mistakeChecking,
+                                          ),
+                                      icon: Icon(
+                                        _controller.mistakeChecking
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      label: Text(
+                                        _controller.mistakeChecking
+                                            ? 'Check On'
+                                            : 'Check Off',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () => _controller.setMistakeChecking(
-                              !_controller.mistakeChecking,
-                            ),
-                            icon: Icon(
-                              _controller.mistakeChecking
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
-                            label: Text(
-                              _controller.mistakeChecking
-                                  ? 'Check On'
-                                  : 'Check Off',
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
+                    if (_controller.paused) const _PauseOverlay(),
                   ],
-                ),
-                if (_controller.paused) const _PauseOverlay(),
-              ],
+                );
+              },
             );
           },
         ),

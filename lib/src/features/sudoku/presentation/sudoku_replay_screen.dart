@@ -24,7 +24,7 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final values = _valuesAtStep();
+    final snapshot = _snapshotAtStep();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Replay')),
@@ -39,7 +39,7 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
             const SizedBox(height: 8),
             Text('Step $_step of ${widget.attempt.moveHistory.length}'),
             const SizedBox(height: 16),
-            _ReplayBoard(values: values, givens: widget.givens),
+            _ReplayBoard(snapshot: snapshot, givens: widget.givens),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -72,8 +72,13 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
     );
   }
 
-  List<int?> _valuesAtStep() {
+  _ReplaySnapshot _snapshotAtStep() {
     final values = widget.givens.toMutableCells();
+    final notes = List<Set<int>>.generate(
+      SudokuBoard.cellCount,
+      (_) => <int>{},
+      growable: false,
+    );
     for (var i = 0; i < _step && i < widget.attempt.moveHistory.length; i++) {
       final move = widget.attempt.moveHistory[i];
       switch (move.type) {
@@ -81,19 +86,37 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
         case SudokuMoveType.erase:
         case SudokuMoveType.hintReveal:
           values[move.cellIndex] = move.nextValue;
+          if (move.nextValue != null) {
+            notes[move.cellIndex].clear();
+          }
           break;
         case SudokuMoveType.noteToggle:
+          final noteValue = move.noteValue;
+          if (noteValue != null) {
+            if (notes[move.cellIndex].contains(noteValue)) {
+              notes[move.cellIndex].remove(noteValue);
+            } else {
+              notes[move.cellIndex].add(noteValue);
+            }
+          }
           break;
       }
     }
-    return values;
+    return _ReplaySnapshot(values: values, notes: notes);
   }
 }
 
-class _ReplayBoard extends StatelessWidget {
-  const _ReplayBoard({required this.values, required this.givens});
+class _ReplaySnapshot {
+  const _ReplaySnapshot({required this.values, required this.notes});
 
   final List<int?> values;
+  final List<Set<int>> notes;
+}
+
+class _ReplayBoard extends StatelessWidget {
+  const _ReplayBoard({required this.snapshot, required this.givens});
+
+  final _ReplaySnapshot snapshot;
   final SudokuBoard givens;
 
   @override
@@ -103,7 +126,7 @@ class _ReplayBoard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: OrbaceTheme.ink,
-          border: Border.all(color: OrbaceTheme.ink, width: 2),
+          border: Border.all(color: OrbaceTheme.ink, width: 4),
         ),
         child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -115,7 +138,7 @@ class _ReplayBoard extends StatelessWidget {
           itemBuilder: (context, index) {
             final row = SudokuBoard.rowOf(index);
             final col = SudokuBoard.colOf(index);
-            final value = values[index];
+            final value = snapshot.values[index];
             final isGiven = givens.valueAtIndex(index) != null;
             return Container(
               alignment: Alignment.center,
@@ -126,26 +149,61 @@ class _ReplayBoard extends StatelessWidget {
                 border: Border(
                   right: BorderSide(
                     color: OrbaceTheme.ink,
-                    width: col == 2 || col == 5 ? 2 : 0.7,
+                    width: col == 2 || col == 5 ? 2.5 : 0.7,
                   ),
                   bottom: BorderSide(
                     color: OrbaceTheme.ink,
-                    width: row == 2 || row == 5 ? 2 : 0.7,
+                    width: row == 2 || row == 5 ? 2.5 : 0.7,
                   ),
                 ),
               ),
-              child: Text(
-                value == null ? '' : '$value',
-                style: TextStyle(
-                  color: isGiven ? OrbaceTheme.ink : const Color(0xFF385D4A),
-                  fontWeight: isGiven ? FontWeight.w700 : FontWeight.w500,
-                  fontSize: 22,
-                ),
-              ),
+              child: value == null
+                  ? _ReplayNotesGrid(notes: snapshot.notes[index])
+                  : Text(
+                      '$value',
+                      style: TextStyle(
+                        color: isGiven
+                            ? OrbaceTheme.ink
+                            : const Color(0xFF006FE6),
+                        fontWeight: isGiven ? FontWeight.w700 : FontWeight.w600,
+                        fontSize: 22,
+                        letterSpacing: 0,
+                      ),
+                    ),
             );
           },
         ),
       ),
+    );
+  }
+}
+
+class _ReplayNotesGrid extends StatelessWidget {
+  const _ReplayNotesGrid({required this.notes});
+
+  final Set<int> notes;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(3),
+      crossAxisCount: 3,
+      children: [
+        for (var value = 1; value <= 9; value++)
+          Center(
+            child: Text(
+              notes.contains(value) ? '$value' : '',
+              style: const TextStyle(
+                color: Color(0xFF006FE6),
+                fontSize: 9,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

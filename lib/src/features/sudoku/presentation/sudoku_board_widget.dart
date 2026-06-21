@@ -19,7 +19,7 @@ class SudokuBoardWidget extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: OrbaceTheme.ink,
-              border: Border.all(color: OrbaceTheme.ink, width: 2),
+              border: Border.all(color: OrbaceTheme.ink, width: 4),
             ),
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
@@ -57,8 +57,8 @@ class _SudokuCell extends StatelessWidget {
 
     final row = SudokuBoard.rowOf(index);
     final col = SudokuBoard.colOf(index);
-    final rightBorder = col == 2 || col == 5 ? 2.0 : 0.7;
-    final bottomBorder = row == 2 || row == 5 ? 2.0 : 0.7;
+    final rightBorder = col == 2 || col == 5 ? 2.5 : 0.7;
+    final bottomBorder = row == 2 || row == 5 ? 2.5 : 0.7;
 
     return Semantics(
       button: true,
@@ -91,9 +91,9 @@ class _SudokuCell extends StatelessWidget {
                         ? OrbaceTheme.vermilion
                         : isGiven
                         ? OrbaceTheme.ink
-                        : const Color(0xFF385D4A),
+                        : const Color(0xFF006FE6),
                     fontSize: 22,
-                    fontWeight: isGiven ? FontWeight.w700 : FontWeight.w500,
+                    fontWeight: isGiven ? FontWeight.w700 : FontWeight.w600,
                     letterSpacing: 0,
                   ),
                 ),
@@ -151,9 +151,10 @@ class _NotesGrid extends StatelessWidget {
             child: Text(
               notes.contains(value) ? '$value' : '',
               style: const TextStyle(
-                color: OrbaceTheme.mutedInk,
+                color: Color(0xFF006FE6),
                 fontSize: 9,
-                fontWeight: FontWeight.w500,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w600,
                 letterSpacing: 0,
               ),
             ),
