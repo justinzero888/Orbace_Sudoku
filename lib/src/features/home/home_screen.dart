@@ -7,6 +7,7 @@ import '../sudoku/data/sudoku_repository.dart';
 import '../sudoku/domain/daily_tea_moment.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
 import '../sudoku/presentation/level_pack_screen.dart';
+import '../sudoku/presentation/record_hall_screen.dart';
 import '../sudoku/presentation/scholar_path_screen.dart';
 import '../sudoku/presentation/sudoku_game_screen.dart';
 
@@ -77,7 +78,7 @@ class _HomeContent extends StatelessWidget {
             const SizedBox(height: 24),
             _PhaseCard(
               title: 'Tea Moment',
-              subtitle: 'Start the Phase 2 playable puzzle',
+              subtitle: 'Start today\'s calm puzzle',
               seal: '茶',
               onTap: () {
                 Navigator.of(context).push(
@@ -85,12 +86,31 @@ class _HomeContent extends StatelessWidget {
                     builder: (_) => SudokuGameScreen(
                       repository: repository,
                       puzzle: dailyPuzzle,
+                      catalog: catalog,
                     ),
                   ),
                 );
               },
             ),
             const SizedBox(height: 12),
+            if (repository != null) ...[
+              _PhaseCard(
+                title: 'Record Hall',
+                subtitle: '藏谱阁 · replay saved Su-Pu',
+                seal: '谱',
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => RecordHallScreen(
+                        repository: repository!,
+                        catalog: catalog,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+            ],
             _PhaseCard(
               title: 'Level Packs',
               subtitle: '${catalog.puzzles.length} puzzles loaded',

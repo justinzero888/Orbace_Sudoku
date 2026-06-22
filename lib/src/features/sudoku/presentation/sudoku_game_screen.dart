@@ -10,21 +10,29 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
+import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_score_class.dart';
 import '../engine/human_ranked_solver.dart';
 import 'fixture_puzzles.dart';
 import 'game_session_controller.dart';
+import 'record_hall_screen.dart';
 import 'sudoku_board_widget.dart';
 import 'sudoku_number_pad.dart';
 import 'sudoku_replay_screen.dart';
 
 class SudokuGameScreen extends StatefulWidget {
-  const SudokuGameScreen({super.key, this.repository, this.puzzle});
+  const SudokuGameScreen({
+    super.key,
+    this.repository,
+    this.puzzle,
+    this.catalog,
+  });
 
   final SudokuRepository? repository;
   final FixturePuzzleDefinition? puzzle;
+  final PuzzlePackCatalog? catalog;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -274,6 +282,19 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
             Navigator.of(context).pop();
             Navigator.of(context).pop();
           },
+          onRecordHall: widget.catalog == null
+              ? null
+              : () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute<void>(
+                      builder: (_) => RecordHallScreen(
+                        repository: _repository,
+                        catalog: widget.catalog!,
+                      ),
+                    ),
+                  );
+                },
         );
       },
     );
@@ -288,6 +309,7 @@ class _CompletionCertificateDialog extends StatefulWidget {
     required this.onRetry,
     required this.onReplay,
     required this.onDone,
+    this.onRecordHall,
   });
 
   final SudokuAttempt attempt;
@@ -296,6 +318,7 @@ class _CompletionCertificateDialog extends StatefulWidget {
   final VoidCallback onRetry;
   final VoidCallback onReplay;
   final VoidCallback onDone;
+  final VoidCallback? onRecordHall;
 
   @override
   State<_CompletionCertificateDialog> createState() =>
@@ -450,7 +473,7 @@ class _CompletionCertificateDialogState
                       label: const Text('Share Card'),
                     ),
                     OutlinedButton.icon(
-                      onPressed: _showRecordHallMessage,
+                      onPressed: widget.onRecordHall ?? _showRecordHallMessage,
                       icon: const Icon(Icons.inventory_2_outlined),
                       label: const Text('Record Hall'),
                     ),

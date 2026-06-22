@@ -14,9 +14,10 @@
 | `1.0.0 (13)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + iOS Home banner | AdMob iOS app ID and bottom banner integrated; no ads during active gameplay. |
 | `1.0.0 (14)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + Su-Pu completion certificate | Phase 2 Completion Su-Pu Certificate CX: branded Solve Record dialog, score class badge, clean marker, transparent score breakdown, and player difficulty rating persistence. |
 | `1.0.0 (15)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + save/share score card | Phase 3 Save and Share Score Certificate: score card PNG render, app-local save, native share sheet, stored score-card path, and branded iOS launch screen. |
+| `1.0.0 (16)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + Record Hall | Phase 4 Record Hall: browse saved Su-Pu, reload replay after app restart, filters, favorite toggle, and saved card view/share. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
 
-The current iOS UAT candidate is build `1.0.0 (15)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (16)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
 ## Feedback Log
 
@@ -44,7 +45,7 @@ The current iOS UAT candidate is build `1.0.0 (15)`. The current Android closed-
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
-| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Phase 3 complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating. Save Card now writes a PNG to app-local storage, Share Card opens the native share sheet, and score-card path metadata is stored. Next step: Phase 4 Record Hall. |
+| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Phase 4 complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating. Save/share score card is complete. Record Hall now browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, and opens saved score-card images. Next step: Phase 5 Su-Pu detail and puzzle versions. |
 
 ## Action Workflow
 
@@ -67,3 +68,4 @@ The current iOS UAT candidate is build `1.0.0 (15)`. The current Android closed-
 | `1.0.0 (13)` | iOS IPA | IDEA-001 iOS AdMob banner | Local validation passed; IPA built | Home screen bottom banner integrated with Orbace iOS AdMob unit; game board remains ad-free. |
 | `1.0.0 (14)` | iOS IPA | IDEA-006 Phase 2 | Local validation passed; IPA built | Completion Su-Pu Certificate CX added for TestFlight validation. |
 | `1.0.0 (15)` | iOS IPA | IDEA-006 Phase 3 | Local validation passed; IPA built | Save/share score certificate image added; launch screen placeholder removed. |
+| `1.0.0 (16)` | iOS IPA | IDEA-006 Phase 4 | Local validation passed; IPA built | Record Hall added for replay reload after app restart. |

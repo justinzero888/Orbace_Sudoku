@@ -27,6 +27,7 @@ void main() {
     expect(find.text('Orbace Sudoku'), findsOneWidget);
     expect(find.text('一局一茶'), findsOneWidget);
     expect(find.text('Tea Moment'), findsOneWidget);
+    expect(find.text('Record Hall'), findsOneWidget);
     expect(find.text('Level Packs'), findsOneWidget);
     expect(find.text('Scholar\'s Path'), findsOneWidget);
 
@@ -54,6 +55,21 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
+    await tester.tap(find.text('Record Hall'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Record Hall'), findsWidgets);
+    expect(find.text('藏谱阁 · Your Su-Pu collection'), findsOneWidget);
+    expect(
+      find.text('Your Record Hall begins with your first completed Su-Pu.'),
+      findsOneWidget,
+    );
+
+    await tester.pageBack();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+
     await tester.tap(find.text('Scholar\'s Path'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
@@ -62,6 +78,11 @@ void main() {
     await tester.pageBack();
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    await tester.scrollUntilVisible(
+      find.text('Extreme Challenge'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Extreme Challenge'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

@@ -635,6 +635,8 @@ Implementation notes:
 
 ### Phase 4: Record Hall
 
+Status: **Complete for iOS UAT - 2026-06-22**
+
 Tasks:
 
 - Add Record Hall screen with `藏谱阁` subtitle.
@@ -660,6 +662,16 @@ Validation:
 - Favorite persists.
 - Score class filter works.
 - Clean filter works.
+
+Implementation notes:
+
+- Added a Home screen entry for `Record Hall`.
+- Added the `Record Hall / 藏谱阁` screen with collection stats, empty state, and filters for All, Favorites, Official, Clean, and Extreme.
+- Completed Su-Pu records load from persisted attempt rows after app restart.
+- Each record can reopen saved replay with the original puzzle givens and move history.
+- Favorite toggle persists and refreshes the list.
+- Saved score-card PNGs can be viewed and shared from Record Hall when a card was previously saved.
+- The completion certificate `Record Hall` action now opens Record Hall directly when the puzzle catalog is available.
 
 ### Phase 5: Su-Pu Detail and Puzzle Versions
 

@@ -73,7 +73,7 @@ class _PackBrowser extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         for (final pack in catalog.packs) ...[
-          _PackSection(repository: repository, pack: pack),
+          _PackSection(repository: repository, catalog: catalog, pack: pack),
           const SizedBox(height: 12),
         ],
       ],
@@ -82,9 +82,14 @@ class _PackBrowser extends StatelessWidget {
 }
 
 class _PackSection extends StatelessWidget {
-  const _PackSection({required this.repository, required this.pack});
+  const _PackSection({
+    required this.repository,
+    required this.catalog,
+    required this.pack,
+  });
 
   final SudokuRepository? repository;
+  final PuzzlePackCatalog catalog;
   final PuzzlePackDefinition pack;
 
   @override
@@ -126,7 +131,11 @@ class _PackSection extends StatelessWidget {
             ),
           ),
           for (final puzzle in pack.puzzles) ...[
-            _PuzzleTile(repository: repository, puzzle: puzzle),
+            _PuzzleTile(
+              repository: repository,
+              catalog: catalog,
+              puzzle: puzzle,
+            ),
             const SizedBox(height: 8),
           ],
         ],
@@ -136,9 +145,14 @@ class _PackSection extends StatelessWidget {
 }
 
 class _PuzzleTile extends StatelessWidget {
-  const _PuzzleTile({required this.repository, required this.puzzle});
+  const _PuzzleTile({
+    required this.repository,
+    required this.catalog,
+    required this.puzzle,
+  });
 
   final SudokuRepository? repository;
+  final PuzzlePackCatalog catalog;
   final FixturePuzzleDefinition puzzle;
 
   @override
@@ -153,8 +167,11 @@ class _PuzzleTile extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute<void>(
-              builder: (_) =>
-                  SudokuGameScreen(repository: repository, puzzle: puzzle),
+              builder: (_) => SudokuGameScreen(
+                repository: repository,
+                puzzle: puzzle,
+                catalog: catalog,
+              ),
             ),
           );
         },
