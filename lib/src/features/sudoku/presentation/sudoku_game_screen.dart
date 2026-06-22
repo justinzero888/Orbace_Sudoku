@@ -6,6 +6,7 @@ import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
+import '../domain/sudoku_score_class.dart';
 import '../engine/human_ranked_solver.dart';
 import 'fixture_puzzles.dart';
 import 'game_session_controller.dart';
@@ -235,66 +236,540 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   }
 
   void _showCompletion(SudokuAttempt attempt) {
-    final score = attempt.score;
     showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Puzzle Complete'),
-          content: SingleChildScrollView(
-            child: Text(
-              'Seal earned: 入門\n'
-              'Score: ${score?.total ?? 0}\n'
-              'Base: ${score?.baseScore ?? 0}\n'
-              'Accuracy: x${(score?.accuracyMultiplier ?? 0).toStringAsFixed(2)}\n'
-              'Time bonus: ${score?.timeBonus ?? 0}\n'
-              'Efficiency bonus: ${score?.efficiencyBonus ?? 0}\n'
-              'Clean solve bonus: ${score?.cleanSolveBonus ?? 0}\n'
-              'Time: ${_formatTime(attempt.elapsedSeconds)}\n'
-              'Mistakes: ${attempt.errorCount}\n'
-              'Hints: ${attempt.hintNudgeCount + attempt.hintExplanationCount + attempt.hintRevealCount}',
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _controller.resetForRetry();
-                _completionShown = false;
-              },
-              child: const Text('Retry'),
-            ),
-            TextButton(
-              onPressed: () {
-                final replayAttempt = _lastAttempt;
-                if (replayAttempt == null) {
-                  return;
-                }
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => SudokuReplayScreen(
-                      givens: _controller.givens,
-                      attempt: replayAttempt,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('View Replay'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: const Text('Return Home'),
-            ),
-          ],
+        return _CompletionCertificateDialog(
+          attempt: attempt,
+          puzzle: _puzzle,
+          repository: _repository,
+          onRetry: () {
+            Navigator.of(context).pop();
+            _controller.resetForRetry();
+            _completionShown = false;
+          },
+          onReplay: () {
+            final replayAttempt = _lastAttempt;
+            if (replayAttempt == null) {
+              return;
+            }
+            Navigator.of(context).pop();
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => SudokuReplayScreen(
+                  givens: _controller.givens,
+                  attempt: replayAttempt,
+                ),
+              ),
+            );
+          },
+          onDone: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
         );
       },
     );
   }
+}
+
+class _CompletionCertificateDialog extends StatefulWidget {
+  const _CompletionCertificateDialog({
+    required this.attempt,
+    required this.puzzle,
+    required this.repository,
+    required this.onRetry,
+    required this.onReplay,
+    required this.onDone,
+  });
+
+  final SudokuAttempt attempt;
+  final FixturePuzzleDefinition puzzle;
+  final SudokuRepository repository;
+  final VoidCallback onRetry;
+  final VoidCallback onReplay;
+  final VoidCallback onDone;
+
+  @override
+  State<_CompletionCertificateDialog> createState() =>
+      _CompletionCertificateDialogState();
+}
+
+class _CompletionCertificateDialogState
+    extends State<_CompletionCertificateDialog> {
+  late double _rating = widget.attempt.playerDifficultyRating ?? 3.0;
+  bool _ratingSaved = false;
+  bool _savingRating = false;
+
+  int get _hintCount =>
+      widget.attempt.hintNudgeCount +
+      widget.attempt.hintExplanationCount +
+      widget.attempt.hintRevealCount;
+
+  bool get _isClean =>
+      widget.attempt.errorCount == 0 &&
+      widget.attempt.hintNudgeCount == 0 &&
+      widget.attempt.hintExplanationCount == 0 &&
+      widget.attempt.hintRevealCount == 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final score = widget.attempt.score;
+    final scoreClass = widget.attempt.scoreClass;
+    final ratingLabel = _difficultyRatingLabel(_rating);
+
+    return Dialog(
+      insetPadding: const EdgeInsets.all(16),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 560),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: OrbaceTheme.ricePaper,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xFFE6DED0)),
+          ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _CertificateSeal(
+                      label: widget.puzzle.difficulty.chineseLabel,
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Orbace Sudoku', style: textTheme.titleLarge),
+                          const SizedBox(height: 2),
+                          Text(
+                            'Solve Record · 一局成績',
+                            style: textTheme.bodyLarge?.copyWith(
+                              color: OrbaceTheme.mutedInk,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'Su-Pu · 数谱 saved to Record Hall',
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: OrbaceTheme.mutedInk,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                Center(
+                  child: Text(
+                    '${score?.total ?? 0}',
+                    style: textTheme.headlineMedium?.copyWith(
+                      fontSize: 44,
+                      fontWeight: FontWeight.w700,
+                      color: OrbaceTheme.ink,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    _CertificateChip(
+                      label:
+                          '${scoreClass.label} · ${_scoreClassChinese(scoreClass)}',
+                      color: _scoreClassColor(scoreClass),
+                    ),
+                    if (_isClean)
+                      const _CertificateChip(
+                        label: 'Clean · 净谱',
+                        color: OrbaceTheme.celadon,
+                      ),
+                    _CertificateChip(
+                      label:
+                          '${widget.puzzle.difficulty.label} · ${widget.puzzle.difficulty.chineseLabel}',
+                      color: OrbaceTheme.vermilion,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                _CertificateSection(
+                  title: widget.puzzle.title,
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      _MetricTile(
+                        label: 'Time',
+                        value: _formatTime(widget.attempt.elapsedSeconds),
+                      ),
+                      _MetricTile(
+                        label: 'Mistakes',
+                        value: '${widget.attempt.errorCount}',
+                      ),
+                      _MetricTile(label: 'Hints', value: '$_hintCount'),
+                      _MetricTile(
+                        label: 'Steps',
+                        value: '${widget.attempt.moveHistory.length}',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _CertificateSection(
+                  title: 'Score Breakdown',
+                  child: Column(
+                    children: [
+                      _BreakdownRow(
+                        label: 'Base',
+                        value: '${score?.baseScore ?? 0}',
+                      ),
+                      _BreakdownRow(
+                        label: 'Accuracy',
+                        value:
+                            'x${(score?.accuracyMultiplier ?? 0).toStringAsFixed(2)}',
+                      ),
+                      _BreakdownRow(
+                        label: 'Time bonus',
+                        value: '+${score?.timeBonus ?? 0}',
+                      ),
+                      _BreakdownRow(
+                        label: 'Efficiency bonus',
+                        value: '+${score?.efficiencyBonus ?? 0}',
+                      ),
+                      _BreakdownRow(
+                        label: 'Clean solve bonus',
+                        value: '+${score?.cleanSolveBonus ?? 0}',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _CertificateSection(
+                  title: 'Player Difficulty',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            '${_rating.toStringAsFixed(1)} / 5.0',
+                            style: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              ratingLabel,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: OrbaceTheme.mutedInk,
+                              ),
+                            ),
+                          ),
+                          if (_savingRating)
+                            const SizedBox.square(
+                              dimension: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          else if (_ratingSaved)
+                            const Icon(
+                              Icons.check_circle,
+                              color: OrbaceTheme.celadon,
+                              size: 20,
+                            ),
+                        ],
+                      ),
+                      Slider(
+                        value: _rating,
+                        min: 1,
+                        max: 5,
+                        divisions: 40,
+                        label: _rating.toStringAsFixed(1),
+                        onChanged: (value) {
+                          setState(() {
+                            _rating = double.parse(value.toStringAsFixed(1));
+                            _ratingSaved = false;
+                          });
+                        },
+                        onChangeEnd: _saveRating,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Text(
+                  'Su-Pu ID: ${widget.attempt.id}\n'
+                  'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally',
+                  textAlign: TextAlign.center,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: OrbaceTheme.mutedInk,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Wrap(
+                  alignment: WrapAlignment.end,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    TextButton.icon(
+                      onPressed: widget.onRetry,
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Retry'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: widget.onReplay,
+                      icon: const Icon(Icons.play_arrow),
+                      label: const Text('Replay'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _showPhaseThreeMessage,
+                      icon: const Icon(Icons.ios_share),
+                      label: const Text('Share Card'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _showRecordHallMessage,
+                      icon: const Icon(Icons.inventory_2_outlined),
+                      label: const Text('Record Hall'),
+                    ),
+                    FilledButton(
+                      onPressed: widget.onDone,
+                      child: const Text('Done'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _saveRating(double value) async {
+    setState(() {
+      _savingRating = true;
+      _ratingSaved = false;
+    });
+    await widget.repository.updatePlayerDifficultyRating(
+      widget.attempt.id,
+      value,
+    );
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _savingRating = false;
+      _ratingSaved = true;
+    });
+  }
+
+  void _showPhaseThreeMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Share Card is planned for Phase 3. This Su-Pu is saved.',
+        ),
+      ),
+    );
+  }
+
+  void _showRecordHallMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Record Hall arrives in Phase 4. This Su-Pu is saved locally.',
+        ),
+      ),
+    );
+  }
+}
+
+class _CertificateSeal extends StatelessWidget {
+  const _CertificateSeal({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 64,
+      height: 64,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: OrbaceTheme.vermilion,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: const Color(0xFF8E2F23), width: 2),
+      ),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+}
+
+class _CertificateChip extends StatelessWidget {
+  const _CertificateChip({required this.label, required this.color});
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: color.withValues(alpha: 0.55)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: OrbaceTheme.ink,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CertificateSection extends StatelessWidget {
+  const _CertificateSection({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: OrbaceTheme.paper.withValues(alpha: 0.55),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFE6DED0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              title,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 10),
+            child,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MetricTile extends StatelessWidget {
+  const _MetricTile({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 112,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            value,
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BreakdownRow extends StatelessWidget {
+  const _BreakdownRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: [
+          Expanded(child: Text(label)),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w700)),
+        ],
+      ),
+    );
+  }
+}
+
+String _scoreClassChinese(SudokuScoreClass scoreClass) {
+  return switch (scoreClass) {
+    SudokuScoreClass.official => '正谱',
+    SudokuScoreClass.assisted => '习谱',
+    SudokuScoreClass.retry => '重修谱',
+    SudokuScoreClass.legacy => '旧谱',
+  };
+}
+
+Color _scoreClassColor(SudokuScoreClass scoreClass) {
+  return switch (scoreClass) {
+    SudokuScoreClass.official => OrbaceTheme.celadon,
+    SudokuScoreClass.assisted => const Color(0xFF2E74B5),
+    SudokuScoreClass.retry => const Color(0xFF7B6BB2),
+    SudokuScoreClass.legacy => OrbaceTheme.mutedInk,
+  };
+}
+
+String _difficultyRatingLabel(double rating) {
+  if (rating < 2) {
+    return 'Gentle';
+  }
+  if (rating < 3) {
+    return 'Steady';
+  }
+  if (rating < 4) {
+    return 'Challenging';
+  }
+  if (rating < 4.7) {
+    return 'Hard';
+  }
+  return 'Extreme';
 }
 
 class _SessionHeader extends StatelessWidget {

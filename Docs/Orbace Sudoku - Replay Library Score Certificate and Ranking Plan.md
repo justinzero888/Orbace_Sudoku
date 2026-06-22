@@ -558,7 +558,7 @@ Implementation notes:
 
 ### Phase 2: Completion Su-Pu Certificate CX
 
-Status: **Next implementation phase**
+Status: **Complete for iOS UAT - 2026-06-22**
 
 Tasks:
 
@@ -592,6 +592,15 @@ Validation:
 - Score class is understandable without knowing Chinese.
 - Player difficulty rating persists and reloads.
 - No overlap with AdMob banner because completion is in the game screen, where ads are absent.
+
+Implementation notes:
+
+- Completion now opens a branded Su-Pu / Solve Record certificate dialog.
+- Score class is shown as English plus Chinese cultural cue.
+- Clean records show `Clean · 净谱`.
+- Player difficulty rating uses a 1.0-5.0 slider with 0.1 precision and persists through the repository.
+- Replay action remains fully functional.
+- Share Card and Record Hall buttons communicate the upcoming Phase 3 and Phase 4 scope while confirming the Su-Pu is already saved locally.
 
 ### Phase 3: Save and Share Score Certificate
 
