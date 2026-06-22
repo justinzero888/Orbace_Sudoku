@@ -1,16 +1,21 @@
-# Orbace Sudoku - Replay Library, Score Certificate, and Ranking Plan
+# Orbace Sudoku - Su-Pu, Record Hall, Score Certificate, and Ranking Plan
 
-**Version**: 1.0  
-**Date**: 2026-06-21  
-**Purpose**: Define the v1 production plan for local replay save/reload, formal Orbace score cards, player difficulty ratings, score fairness, local storage, and future sharing/leaderboard readiness.
+**Version**: 1.1
+**Date**: 2026-06-22
+**Purpose**: Define the v1 production plan for the Orbace Su-Pu system: local replay save/reload, formal Orbace score certificates, player difficulty ratings, score fairness, local storage, Record Hall collection management, and future sharing/leaderboard readiness.
+
+**Related strategy doc**: `Orbace Sudoku — Qi Pu System & Ranking Plan v2.md`
+**Decision**: Adopt the Su-Pu / Record Hall concept as the product north star, but keep v1 UI approachable by pairing cultural terms with plain English labels.
 
 ## 1. Product Intent
 
-Orbace Sudoku should treat every completed puzzle as a meaningful record:
+Orbace Sudoku should treat every completed puzzle as a meaningful **Su-Pu**: a recorded solve that can be replayed, studied, collected, certified, compared, and eventually ranked.
 
-- **Replay** is the learning record.
+- **Su-Pu / Solve Record** is the core object.
+- **Replay** is the study mode for that record.
 - **Score** is the comparable performance record.
-- **Score Certificate** is the branded achievement artifact.
+- **Score Certificate** is the branded shareable artifact.
+- **Record Hall** is the player's personal archive.
 - **Player Difficulty Rating** is the player's subjective experience record.
 - **Leaderboard publishing** is deferred, but local data must be ready for it.
 
@@ -18,9 +23,28 @@ The v1 production scope is local-first:
 
 - Save and reload replay locally for any completed game.
 - Save and reload score certificate data locally.
+- Let the player find saved solves in a branded Record Hall, not a generic replay list.
 - Allow user to save/share a generated score card image through the platform share sheet.
 - Do not publish replay or score to worldwide leaderboard yet.
 - Do not make sharing part of ranking integrity yet.
+
+### 1.1 Brand and CX Decision
+
+The Qi Pu plan is directionally stronger than the original Replay Library plan because it creates a differentiated product language. The risk is terminology overload. V1 should use a bilingual ladder:
+
+| Concept | V1 Primary UI | Cultural Cue | Notes |
+| --- | --- | --- | --- |
+| Recorded solve | `Solve Record` | `Su-Pu · 数谱` | Introduce on completion and detail views. |
+| Archive | `Record Hall` | `藏谱阁` | Use as screen title/subtitle, not every button. |
+| Replay | `Replay` | `复盘` | Use `Replay` in buttons; `复盘` can appear as section flavor. |
+| Compare | `Compare` | `对谱` | Post-v1 core feature; do not block local save/share. |
+| Share | `Share` | `传谱` | V1 shares certificate image only. |
+| Official record | `Official` | `正谱` | Use in badges and certificate. |
+| Practice record | `Practice` | `习谱` | Internal enum may remain `assisted`; external label should be `Practice`. |
+| Retry record | `Retry` | `重修谱` | Never ranked; used for improvement tracking. |
+| Clean record | `Clean` | `净谱` | Strong positive marker for score certificate and collection filters. |
+
+Recommendation: avoid making users learn romanization before they understand value. Use English first, Chinese as a seal-like brand cue.
 
 ## 2. Clarifications and Decisions
 
@@ -79,8 +103,35 @@ Orbace differentiation:
 - Make score transparent and accuracy-weighted.
 - Make replay a first-class study object.
 - Make the completion card feel like a formal record, not a generic modal.
+- Turn the replay library into a Record Hall so saved solves feel collected and owned.
+- Make the "Clean Record / 净谱" and "Official / 正谱" labels a source of pride.
 - Preserve ranked integrity by separating official score from practice score.
 - Use player difficulty rating as a learning and curation signal, not as official score.
+
+### 3.1 Critique of the Qi Pu Plan
+
+What to adopt:
+
+- The Su-Pu concept is the strongest differentiation idea so far. It turns ordinary replay, scoring, sharing, and ranking into one coherent system.
+- Record Hall is a better experience than `Replay Library`; it gives saved solves emotional value.
+- Comparison / 对谱 is a strong post-v1 learning feature because it makes replay active, not passive.
+- Certificate content is more complete and more brand-specific than the original score-card plan.
+- Per-puzzle ranking rules are correct: compare only the same puzzle/checksum/scoring version and only official-class records.
+
+What to adjust:
+
+- The document title says `Qi Pu`, while the product term inside is `Su-Pu`. V1 should standardize on **Su-Pu / 数谱** for Sudoku solve records.
+- The plan introduces too many Chinese terms at once. Use them as cultural cues, not required navigation vocabulary.
+- Several proposed fields are useful but not v1 blockers: parent Su-Pu ID, player tags, technique-count storage, share history, local leaderboard UI, and comparison.
+- Side-by-side comparison is valuable but complex. It should follow the stable Record Hall and Replay experience, not precede certificate/save/share.
+- `Official` eligibility must be stricter than "no T3 hints": any hint, auto-check, mistake reveal, or retry should prevent official ranking eligibility.
+
+Best CX conclusion:
+
+1. Completion should immediately feel rewarding through a formal Su-Pu certificate.
+2. Saved records should have a home in Record Hall.
+3. Replay should be reliable and consequence-free.
+4. Compare, shareable replay files, and leaderboards should build on that foundation.
 
 ## 4. Score Fairness Model
 
@@ -124,12 +175,12 @@ Add an explicit score class:
 
 | Score Class | Eligibility | Display |
 | --- | --- | --- |
-| `official` | First completion, no reveal hint, no retry, puzzle eligible, scoring version current | Eligible for future ranking |
-| `assisted` | Used hints or assist features | Practice score |
-| `retry` | Retry attempt | Personal improvement only |
-| `legacy` | Old scoring version | Display only; not ranked |
+| `official` | First completion, no hints, no auto-check/mistake reveal, no retry, puzzle eligible, scoring version current | `Official · 正谱`; eligible for future ranking |
+| `assisted` | Used hints or assist features | `Practice · 习谱`; personal progress only |
+| `retry` | Retry attempt | `Retry · 重修谱`; improvement tracking only |
+| `legacy` | Old scoring version or pre-v2 migrated attempt | `Legacy · 旧谱`; display only, not ranked |
 
-Note: v1 can keep current numeric score while adding classification fields.
+Note: the current internal enum value `assisted` can remain; the player-facing label should be `Practice`.
 
 ### 4.4 Ranked Fairness Rules
 
@@ -139,7 +190,7 @@ For future ranking:
 - Compare only same `scoringVersion`.
 - Accept only `official` attempts.
 - Exclude retries.
-- Exclude reveal hints.
+- Exclude all hints, including nudge, explanation, and reveal.
 - Exclude auto-check/mistake reveal.
 - Store replay hash to validate that the score was derived from the recorded move sequence.
 - Store content version and puzzle checksum to prevent ranking against modified puzzle data.
@@ -154,9 +205,10 @@ For each puzzle:
 
 Recommended UI labels:
 
-- `Best Official`
-- `Best Practice`
-- `Latest Replay`
+- `Best Official · 最佳正谱`
+- `Best Practice · 最佳习谱`
+- `Latest Su-Pu · 最新数谱`
+- `Latest Replay` only where the action is specifically replay playback.
 
 ## 5. Player Difficulty Rating
 
@@ -303,28 +355,30 @@ V1 recommendation:
 - Implement **Save Card** to app-local storage first.
 - Add Save to Photos later only if UAT asks for it, because it adds permissions and review surface.
 
-## 7. Replay Library
+## 7. Record Hall
 
 ### 7.1 User Stories
 
 As a player:
 
-- I can view replays from any completed puzzle.
-- I can replay a specific attempt.
-- I can distinguish best replay, latest replay, and favorite replay.
-- I can reload replay after app restart.
-- I can keep score cards for meaningful solves.
+- I can view every completed Su-Pu / Solve Record in my Record Hall.
+- I can replay a specific Su-Pu.
+- I can distinguish Best Official, Best Practice, latest Su-Pu, and favorites.
+- I can reload a Su-Pu after app restart.
+- I can keep score certificates for meaningful solves.
+- I can feel that my solved puzzles are becoming a personal body of work, not just a stats list.
 
 ### 7.2 Entry Points
 
 Recommended v1 entry points:
 
 - Completion card: `View Replay`.
-- Home screen: `Replay Library`.
-- Scholar's Path: `Replay Library`.
+- Completion card: `View in Record Hall`.
+- Home screen: `Record Hall`.
+- Scholar's Path: `Record Hall`.
 - Level pack puzzle row: replay icon / best score row.
 
-### 7.3 Replay Library List
+### 7.3 Record Hall List
 
 Sort default:
 
@@ -337,6 +391,7 @@ Filters:
 - Pack.
 - Difficulty.
 - Official only.
+- Clean only.
 - Favorites.
 - Extreme.
 
@@ -344,7 +399,33 @@ V1 minimal filters:
 
 - All.
 - Favorites.
+- Official.
+- Clean.
 - Extreme.
+
+### 7.4 V1 Record Hall Scope
+
+The Qi Pu plan's full Record Hall concept is excellent, but v1 should avoid building a complex archive before the completion and replay foundations are polished.
+
+V1 should include:
+
+- Screen title: `Record Hall` with `藏谱阁` as subtitle.
+- List of completed Su-Pu / Solve Records.
+- Favorite toggle.
+- Score class badge: `Official`, `Practice`, `Retry`, `Legacy`.
+- Clean marker.
+- Player difficulty rating when available.
+- `Replay`, `Certificate`, and `Retry` actions.
+- Simple grouping by puzzle when multiple attempts exist, if low effort; otherwise show attempts individually and add grouping in the next pass.
+
+Post-v1 should add:
+
+- Puzzle collection view with all versions.
+- Best Official vs Best Overall comparison.
+- Player notes / 谱评.
+- Tags.
+- Delete/export controls.
+- Side-by-side Compare / 对谱.
 
 ## 8. Data Storage Plan
 
@@ -386,6 +467,14 @@ Add columns to `AttemptRows`:
 | `contentVersion` | text nullable | Puzzle content version at attempt time. |
 | `scoreCardImagePath` | text nullable | Cached/generated card image path. |
 | `scoreCardGeneratedAt` | datetime nullable | Last card render timestamp. |
+
+Naming note:
+
+- Do not rename database columns to Su-Pu terminology in v1. The app can present attempts as Su-Pu while preserving the stable schema already implemented.
+- `scoreClass = assisted` should be displayed as `Practice`.
+- `replayFavorite` should be displayed as Favorite / 珍藏.
+- `replayNotes` can become player notes / 谱评 when that UI ships.
+- Add `parentSuPuId`, tags, technique counts, and share history only when those features are actively implemented.
 
 Add optional table later, not required v1:
 
@@ -434,7 +523,7 @@ Future settings:
 
 ## 9. Implementation Plan
 
-### Phase 1: Data Model and Migration
+### Phase 1: Su-Pu Data Foundation
 
 Status: **Complete - 2026-06-21**
 
@@ -461,101 +550,174 @@ Validation:
 Implementation notes:
 
 - Drift schema is now version 2.
-- Completed attempts can be queried for Replay Library in favorite-first, newest-first order.
+- Completed attempts can be queried for Record Hall in favorite-first, newest-first order.
 - Attempt rows now support score class, player difficulty rating, replay favorite, replay title/notes, replay hash, puzzle checksum, content version, and generated score-card image path.
 - New attempts save puzzle checksum and replay hash for later replay/card integrity work.
 - Existing migrated rows map missing `scoreClass` as `Legacy`.
 - Local validation passed with formatter clean, 1,800-puzzle validator, analyzer, and test suite.
 
-### Phase 2: Score Fairness Classification
+### Phase 2: Completion Su-Pu Certificate CX
 
-Status: **Partially complete - model and attempt classification added in Phase 1**
-
-Tasks:
-
-- Add `ScoreClass` enum.
-- Classify attempt at completion.
-- Compute replay hash and puzzle checksum.
-- Show score class in completion flow.
-- Keep `rankedEligible` strict.
-
-Validation:
-
-- Clean first no-assist solve becomes official when puzzle allows it.
-- Hint/reveal/auto-check/retry becomes practice or retry.
-- Replay viewing never creates a new attempt.
-
-### Phase 3: Orbace Score Certificate UI
+Status: **Next implementation phase**
 
 Tasks:
 
-- Replace basic completion dialog with score certificate layout.
-- Add player difficulty rating input.
-- Add buttons:
-  - View Replay.
-  - Save Card.
-  - Share Card.
-  - Next Puzzle / Done.
-- Ensure card is readable on iPhone and iPad.
+- Replace the basic completion dialog with a branded Su-Pu / Solve Record certificate.
+- Show score class as both plain English and cultural cue:
+  - `Official · 正谱`
+  - `Practice · 习谱`
+  - `Retry · 重修谱`
+  - `Legacy · 旧谱`
+- Show clean marker as `Clean · 净谱` when zero errors and zero hints.
+- Add player difficulty rating input with 0.1 precision.
+- Persist player difficulty rating immediately.
+- Show transparent score breakdown:
+  - Base score.
+  - Accuracy multiplier.
+  - Time bonus.
+  - Efficiency bonus.
+  - Clean solve bonus.
+- Include `Replay saved` / `Saved to Record Hall` status.
+- Add actions:
+  - `Replay`.
+  - `Save Card`.
+  - `Share Card`.
+  - `View in Record Hall`.
+  - `Next Puzzle`.
 
 Validation:
 
 - Card fits portrait iPhone and iPad.
-- Brand cues are clear.
-- No overlap with AdMob banner because completion is in game screen, where ads are absent.
+- Brand cues are clear but not visually heavy.
+- Score class is understandable without knowing Chinese.
+- Player difficulty rating persists and reloads.
+- No overlap with AdMob banner because completion is in the game screen, where ads are absent.
 
-### Phase 4: Replay Library
+### Phase 3: Save and Share Score Certificate
 
 Tasks:
 
-- Add Replay Library screen.
+- Add card render boundary.
+- Generate PNG from the certificate widget.
+- Save PNG to app-local documents path.
+- Share PNG with platform share sheet.
+- Store generated image path and timestamp.
+- Regenerate on demand if cached image is missing.
+- Keep Save to Photos deferred unless UAT asks for it.
+
+Validation:
+
+- Shared PNG displays correct score, class, puzzle, and player rating.
+- Sharing works on iOS.
+- Saved PNG reloads after app restart.
+- No leaderboard publish occurs.
+- Testers are not asked to post publicly.
+
+### Phase 4: Record Hall
+
+Tasks:
+
+- Add Record Hall screen with `藏谱阁` subtitle.
 - Add Home/Scholar Path entry.
-- List completed attempts.
-- Show replay metadata.
+- List completed Su-Pu / Solve Records.
+- Show replay metadata:
+  - Puzzle title / ID.
+  - Score.
+  - Score class.
+  - Clean marker.
+  - Player difficulty rating.
+  - Completion date.
+  - Attempt number.
 - Allow favorite toggle.
 - Open replay by attempt.
+- Open certificate by attempt.
+- Provide minimal filters: All, Favorites, Official, Clean, Extreme.
 
 Validation:
 
 - Completed attempt appears after app restart.
 - Multiple attempts for same puzzle are distinguishable.
 - Favorite persists.
+- Score class filter works.
+- Clean filter works.
 
-### Phase 5: Save and Share Score Card
+### Phase 5: Su-Pu Detail and Puzzle Versions
 
 Tasks:
 
-- Add card render boundary.
-- Generate PNG from certificate widget.
-- Save PNG to app-local documents path.
-- Share PNG with platform share sheet.
-- Store generated image path and timestamp.
+- Add a single Su-Pu detail screen.
+- Add puzzle-specific version list for all Su-Pu on the same puzzle.
+- Show Best Official and Best Overall.
+- Show improvement deltas between attempts.
+- Add player notes / 谱评 if the data model remains stable in UAT.
+- Add Retry from detail view.
 
 Validation:
 
-- Shared PNG displays correct score and puzzle metadata.
-- Sharing works on iOS.
-- No leaderboard publish occurs.
-- Testers are not asked to post publicly.
+- Versions are grouped correctly by puzzle.
+- Retry creates a new retry-class record.
+- Retry does not affect official ranking eligibility.
+- Notes persist if included.
+
+### Phase 6: Compare / 对谱
+
+Tasks:
+
+- Compare two Su-Pu for the same puzzle.
+- Start with a non-animated comparison table:
+  - Score delta.
+  - Time delta.
+  - Step count delta.
+  - Error/hint delta.
+  - Clean marker.
+- Add side-by-side synchronized replay only after the simple comparison is validated.
+- Add divergence detection later when technique labeling is reliable enough.
+
+Validation:
+
+- Only same-puzzle records can be compared.
+- Comparison explains improvement clearly.
+- Replay comparison remains consequence-free.
+
+### Phase 7: Local Ranking / 名谱榜
+
+Tasks:
+
+- Add per-puzzle local ranking.
+- Include only `Official · 正谱` records.
+- Compare only same puzzle checksum and scoring version.
+- Highlight Best Official.
+- Keep worldwide leaderboard deferred until backend/account/privacy work exists.
+
+Validation:
+
+- Practice, Retry, and Legacy records are excluded.
+- Scoring version mismatch is excluded.
+- Puzzle checksum mismatch is excluded.
+- Ranking order is deterministic.
 
 ## 10. UAT Test Cases
 
-### Replay
+### Replay / Su-Pu
 
 - Complete a puzzle and view replay immediately.
-- Close app, reopen, find replay in Replay Library.
+- Close app, reopen, find the Su-Pu in Record Hall.
 - Save multiple attempts for the same puzzle.
 - Confirm attempt number, score, and date distinguish them.
 - Mark favorite and reload app.
 
-### Score Certificate
+### Completion Certificate
 
 - Complete clean solve.
 - Complete solve with mistakes.
 - Complete solve with hints.
-- Confirm score class and score breakdown are understandable.
+- Complete solve with auto-check off and no hints; confirm it is `Official · 正谱`.
+- Complete solve with any hint or assist; confirm it is `Practice · 习谱`.
+- Retry a puzzle; confirm it is `Retry · 重修谱`.
+- Confirm score class and score breakdown are understandable without knowing Chinese.
 - Set player difficulty rating `4.6`.
 - Reload attempt and confirm rating persists.
+- Confirm `Saved to Record Hall` is visible after completion.
 
 ### Sharing
 
@@ -568,8 +730,9 @@ Validation:
 
 - Confirm official attempts have replay hash and puzzle checksum.
 - Confirm retry is not official.
-- Confirm assisted play is not official.
+- Confirm practice/assisted play is not official.
 - Confirm score version is stored.
+- Confirm same score is compared only within same puzzle ID/checksum.
 
 ## 11. Open Questions
 
@@ -592,9 +755,12 @@ Validation:
 
 Proceed with implementation in this order:
 
-1. Schema v2 and score classification.
-2. Formal score certificate with player difficulty rating.
-3. Replay Library.
-4. Save/share score card image.
+1. Su-Pu data foundation and score classification. Complete.
+2. Completion Su-Pu certificate with player difficulty rating.
+3. Save/share score certificate image.
+4. Record Hall / 藏谱阁.
+5. Su-Pu detail and puzzle versions.
+6. Compare / 对谱.
+7. Local ranking / 名谱榜.
 
-This order reduces risk because it locks the data model first, then builds UI and sharing on top of stable stored records.
+This order gives the best customer experience because the player first feels the value of creating a formal record at completion, then gains a place to collect records, then receives deeper study and competition features. It also reduces engineering risk because sharing, Record Hall, comparison, and ranking all build on the same stable Su-Pu data foundation.
