@@ -1,6 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
@@ -298,9 +304,13 @@ class _CompletionCertificateDialog extends StatefulWidget {
 
 class _CompletionCertificateDialogState
     extends State<_CompletionCertificateDialog> {
+  final GlobalKey _certificateKey = GlobalKey();
   late double _rating = widget.attempt.playerDifficultyRating ?? 3.0;
   bool _ratingSaved = false;
   bool _savingRating = false;
+  bool _savingCard = false;
+  bool _sharingCard = false;
+  String? _scoreCardPath;
 
   int get _hintCount =>
       widget.attempt.hintNudgeCount +
@@ -317,7 +327,6 @@ class _CompletionCertificateDialogState
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final score = widget.attempt.score;
-    final scoreClass = widget.attempt.scoreClass;
     final ratingLabel = _difficultyRatingLabel(_rating);
 
     return Dialog(
@@ -336,122 +345,14 @@ class _CompletionCertificateDialogState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _CertificateSeal(
-                      label: widget.puzzle.difficulty.chineseLabel,
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Orbace Sudoku', style: textTheme.titleLarge),
-                          const SizedBox(height: 2),
-                          Text(
-                            'Solve Record · 一局成績',
-                            style: textTheme.bodyLarge?.copyWith(
-                              color: OrbaceTheme.mutedInk,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            'Su-Pu · 数谱 saved to Record Hall',
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: OrbaceTheme.mutedInk,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 18),
-                Center(
-                  child: Text(
-                    '${score?.total ?? 0}',
-                    style: textTheme.headlineMedium?.copyWith(
-                      fontSize: 44,
-                      fontWeight: FontWeight.w700,
-                      color: OrbaceTheme.ink,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    _CertificateChip(
-                      label:
-                          '${scoreClass.label} · ${_scoreClassChinese(scoreClass)}',
-                      color: _scoreClassColor(scoreClass),
-                    ),
-                    if (_isClean)
-                      const _CertificateChip(
-                        label: 'Clean · 净谱',
-                        color: OrbaceTheme.celadon,
-                      ),
-                    _CertificateChip(
-                      label:
-                          '${widget.puzzle.difficulty.label} · ${widget.puzzle.difficulty.chineseLabel}',
-                      color: OrbaceTheme.vermilion,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 18),
-                _CertificateSection(
-                  title: widget.puzzle.title,
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: [
-                      _MetricTile(
-                        label: 'Time',
-                        value: _formatTime(widget.attempt.elapsedSeconds),
-                      ),
-                      _MetricTile(
-                        label: 'Mistakes',
-                        value: '${widget.attempt.errorCount}',
-                      ),
-                      _MetricTile(label: 'Hints', value: '$_hintCount'),
-                      _MetricTile(
-                        label: 'Steps',
-                        value: '${widget.attempt.moveHistory.length}',
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
-                _CertificateSection(
-                  title: 'Score Breakdown',
-                  child: Column(
-                    children: [
-                      _BreakdownRow(
-                        label: 'Base',
-                        value: '${score?.baseScore ?? 0}',
-                      ),
-                      _BreakdownRow(
-                        label: 'Accuracy',
-                        value:
-                            'x${(score?.accuracyMultiplier ?? 0).toStringAsFixed(2)}',
-                      ),
-                      _BreakdownRow(
-                        label: 'Time bonus',
-                        value: '+${score?.timeBonus ?? 0}',
-                      ),
-                      _BreakdownRow(
-                        label: 'Efficiency bonus',
-                        value: '+${score?.efficiencyBonus ?? 0}',
-                      ),
-                      _BreakdownRow(
-                        label: 'Clean solve bonus',
-                        value: '+${score?.cleanSolveBonus ?? 0}',
-                      ),
-                    ],
+                RepaintBoundary(
+                  key: _certificateKey,
+                  child: _ScoreCertificateCard(
+                    attempt: widget.attempt,
+                    puzzle: widget.puzzle,
+                    rating: _rating,
+                    hintCount: _hintCount,
+                    isClean: _isClean,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -534,7 +435,17 @@ class _CompletionCertificateDialogState
                       label: const Text('Replay'),
                     ),
                     OutlinedButton.icon(
-                      onPressed: _showPhaseThreeMessage,
+                      onPressed: _savingCard ? null : _saveScoreCard,
+                      icon: _savingCard
+                          ? const SizedBox.square(
+                              dimension: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.save_alt),
+                      label: const Text('Save Card'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _sharingCard ? null : _shareScoreCard,
                       icon: const Icon(Icons.ios_share),
                       label: const Text('Share Card'),
                     ),
@@ -575,14 +486,89 @@ class _CompletionCertificateDialogState
     });
   }
 
-  void _showPhaseThreeMessage() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Share Card is planned for Phase 3. This Su-Pu is saved.',
+  Future<void> _saveScoreCard() async {
+    setState(() {
+      _savingCard = true;
+    });
+    try {
+      final path = await _renderScoreCardPng();
+      await widget.repository.updateScoreCardImagePath(widget.attempt.id, path);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _scoreCardPath = path;
+      });
+      _showMessage('Score card saved inside Orbace Sudoku.');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _savingCard = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _shareScoreCard() async {
+    setState(() {
+      _sharingCard = true;
+    });
+    try {
+      final path = _scoreCardPath ?? await _renderScoreCardPng();
+      await widget.repository.updateScoreCardImagePath(widget.attempt.id, path);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _scoreCardPath = path;
+      });
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(path)],
+          text: 'My Orbace Sudoku Su-Pu · ${widget.puzzle.title}',
+          subject: 'Orbace Sudoku Solve Record',
         ),
-      ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _sharingCard = false;
+        });
+      }
+    }
+  }
+
+  Future<String> _renderScoreCardPng() async {
+    await WidgetsBinding.instance.endOfFrame;
+    final boundary =
+        _certificateKey.currentContext?.findRenderObject()
+            as RenderRepaintBoundary?;
+    if (boundary == null) {
+      throw StateError('Score card is not ready to render.');
+    }
+    final image = await boundary.toImage(pixelRatio: 3);
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData == null) {
+      throw StateError('Could not encode score card.');
+    }
+    final dir = await getApplicationDocumentsDirectory();
+    final cardDir = Directory(p.join(dir.path, 'score_cards'));
+    if (!cardDir.existsSync()) {
+      await cardDir.create(recursive: true);
+    }
+    final safeAttemptId = widget.attempt.id.replaceAll(
+      RegExp(r'[^A-Za-z0-9_.-]'),
+      '_',
     );
+    final file = File(p.join(cardDir.path, '$safeAttemptId.png'));
+    await file.writeAsBytes(byteData.buffer.asUint8List(), flush: true);
+    return file.path;
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _showRecordHallMessage() {
@@ -590,6 +576,176 @@ class _CompletionCertificateDialogState
       const SnackBar(
         content: Text(
           'Record Hall arrives in Phase 4. This Su-Pu is saved locally.',
+        ),
+      ),
+    );
+  }
+}
+
+class _ScoreCertificateCard extends StatelessWidget {
+  const _ScoreCertificateCard({
+    required this.attempt,
+    required this.puzzle,
+    required this.rating,
+    required this.hintCount,
+    required this.isClean,
+  });
+
+  final SudokuAttempt attempt;
+  final FixturePuzzleDefinition puzzle;
+  final double rating;
+  final int hintCount;
+  final bool isClean;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final score = attempt.score;
+    final scoreClass = attempt.scoreClass;
+
+    return ColoredBox(
+      color: OrbaceTheme.ricePaper,
+      child: Padding(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _CertificateSeal(label: puzzle.difficulty.chineseLabel),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Orbace Sudoku', style: textTheme.titleLarge),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Solve Record · 一局成績',
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: OrbaceTheme.mutedInk,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Su-Pu · 数谱 saved to Record Hall',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: OrbaceTheme.mutedInk,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            Center(
+              child: Text(
+                '${score?.total ?? 0}',
+                style: textTheme.headlineMedium?.copyWith(
+                  fontSize: 44,
+                  fontWeight: FontWeight.w700,
+                  color: OrbaceTheme.ink,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _CertificateChip(
+                  label:
+                      '${scoreClass.label} · ${_scoreClassChinese(scoreClass)}',
+                  color: _scoreClassColor(scoreClass),
+                ),
+                if (isClean)
+                  const _CertificateChip(
+                    label: 'Clean · 净谱',
+                    color: OrbaceTheme.celadon,
+                  ),
+                _CertificateChip(
+                  label:
+                      '${puzzle.difficulty.label} · ${puzzle.difficulty.chineseLabel}',
+                  color: OrbaceTheme.vermilion,
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            _CertificateSection(
+              title: puzzle.title,
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  _MetricTile(
+                    label: 'Time',
+                    value: _formatTime(attempt.elapsedSeconds),
+                  ),
+                  _MetricTile(
+                    label: 'Mistakes',
+                    value: '${attempt.errorCount}',
+                  ),
+                  _MetricTile(label: 'Hints', value: '$hintCount'),
+                  _MetricTile(
+                    label: 'Steps',
+                    value: '${attempt.moveHistory.length}',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _CertificateSection(
+              title: 'Score Breakdown',
+              child: Column(
+                children: [
+                  _BreakdownRow(
+                    label: 'Base',
+                    value: '${score?.baseScore ?? 0}',
+                  ),
+                  _BreakdownRow(
+                    label: 'Accuracy',
+                    value:
+                        'x${(score?.accuracyMultiplier ?? 0).toStringAsFixed(2)}',
+                  ),
+                  _BreakdownRow(
+                    label: 'Time bonus',
+                    value: '+${score?.timeBonus ?? 0}',
+                  ),
+                  _BreakdownRow(
+                    label: 'Efficiency bonus',
+                    value: '+${score?.efficiencyBonus ?? 0}',
+                  ),
+                  _BreakdownRow(
+                    label: 'Clean solve bonus',
+                    value: '+${score?.cleanSolveBonus ?? 0}',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _CertificateSection(
+              title: 'Player Rating',
+              child: _BreakdownRow(
+                label: _difficultyRatingLabel(rating),
+                value: '${rating.toStringAsFixed(1)} / 5.0',
+              ),
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Su-Pu ID: ${attempt.id}\n'
+              'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally',
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium?.copyWith(
+                color: OrbaceTheme.mutedInk,
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
     );

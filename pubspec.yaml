@@ -39,6 +39,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.24
   google_mobile_ads: ^9.0.0
   crypto: ^3.0.7
+  share_plus: ^13.1.0
 
 dev_dependencies:
   flutter_test:

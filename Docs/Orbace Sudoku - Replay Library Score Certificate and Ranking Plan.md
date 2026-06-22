@@ -604,6 +604,8 @@ Implementation notes:
 
 ### Phase 3: Save and Share Score Certificate
 
+Status: **Complete for iOS UAT - 2026-06-22**
+
 Tasks:
 
 - Add card render boundary.
@@ -621,6 +623,15 @@ Validation:
 - Saved PNG reloads after app restart.
 - No leaderboard publish occurs.
 - Testers are not asked to post publicly.
+
+Implementation notes:
+
+- Added native share sheet support with `share_plus`.
+- `Save Card` renders the Su-Pu certificate widget as a PNG in app-local documents storage.
+- `Share Card` renders or reuses the saved PNG and opens the platform share sheet.
+- Saved score-card path and generated timestamp are persisted through the existing attempt metadata.
+- Save to Photos remains deferred to avoid adding photo-library permission surface before UAT asks for it.
+- iOS launch screen no longer references the default Flutter `LaunchImage` placeholder; it uses a storyboard-only Orbace launch treatment.
 
 ### Phase 4: Record Hall
 
