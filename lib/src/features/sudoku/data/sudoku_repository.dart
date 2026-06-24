@@ -129,6 +129,14 @@ class SudokuRepository {
     return database.updateReplayFavorite(attemptId, favorite);
   }
 
+  Future<void> updateReplayNotes(String attemptId, String notes) {
+    final normalized = notes.trim();
+    return database.updateReplayNotes(
+      attemptId,
+      normalized.isEmpty ? null : normalized,
+    );
+  }
+
   Future<void> updateScoreCardImagePath(
     String attemptId,
     String imagePath, {

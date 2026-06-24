@@ -72,6 +72,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                       onReplay: () => _openReplay(attempt),
                       onFavorite: () => _toggleFavorite(attempt),
                       onCertificate: () => _openCertificate(attempt),
+                      onNotes: () => _editNotes(attempt),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -178,6 +179,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                               files: [XFile(imagePath)],
                               text: 'My Orbace Sudoku Su-Pu',
                               subject: 'Orbace Sudoku Solve Record',
+                              sharePositionOrigin: _shareOrigin(),
                             ),
                           );
                         },
@@ -195,10 +197,63 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
     );
   }
 
+  Future<void> _editNotes(SudokuAttempt attempt) async {
+    final controller = TextEditingController(text: attempt.replayNotes ?? '');
+    final notes = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Ranking Notes · 谱评'),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            minLines: 3,
+            maxLines: 6,
+            textInputAction: TextInputAction.newline,
+            decoration: const InputDecoration(
+              hintText: 'Add notes about difficulty, technique, or ranking.',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: Navigator.of(context).pop,
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(controller.text),
+              child: const Text('Save Notes'),
+            ),
+          ],
+        );
+      },
+    );
+    controller.dispose();
+    if (notes == null) {
+      return;
+    }
+    await widget.repository.updateReplayNotes(attempt.id, notes);
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _attemptsFuture = _loadAttempts();
+    });
+  }
+
   void _showMessage(String message) {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Rect _shareOrigin() {
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize) {
+      return Rect.zero;
+    }
+    final origin = box.localToGlobal(Offset.zero);
+    return origin & box.size;
   }
 }
 
@@ -318,6 +373,7 @@ class _SuPuCard extends StatelessWidget {
     required this.onReplay,
     required this.onFavorite,
     required this.onCertificate,
+    required this.onNotes,
   });
 
   final SudokuAttempt attempt;
@@ -325,6 +381,7 @@ class _SuPuCard extends StatelessWidget {
   final VoidCallback onReplay;
   final VoidCallback onFavorite;
   final VoidCallback onCertificate;
+  final VoidCallback onNotes;
 
   @override
   Widget build(BuildContext context) {
@@ -420,12 +477,32 @@ class _SuPuCard extends StatelessWidget {
                 context,
               ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
             ),
+            if (attempt.replayNotes case final notes?
+                when notes.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: OrbaceTheme.paper,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: const Color(0xFFE6DED0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text('谱评: $notes'),
+                ),
+              ),
+            ],
             const SizedBox(height: 12),
             Wrap(
               alignment: WrapAlignment.end,
               spacing: 8,
               runSpacing: 8,
               children: [
+                OutlinedButton.icon(
+                  onPressed: onNotes,
+                  icon: const Icon(Icons.edit_note),
+                  label: const Text('Notes'),
+                ),
                 OutlinedButton.icon(
                   onPressed: onCertificate,
                   icon: const Icon(Icons.workspace_premium_outlined),

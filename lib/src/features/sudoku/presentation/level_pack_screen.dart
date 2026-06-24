@@ -41,42 +41,81 @@ class _LevelPackScreenState extends State<LevelPackScreen> {
   }
 }
 
-class _PackBrowser extends StatelessWidget {
+class _PackBrowser extends StatefulWidget {
   const _PackBrowser({required this.repository, required this.catalog});
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
 
   @override
+  State<_PackBrowser> createState() => _PackBrowserState();
+}
+
+class _PackBrowserState extends State<_PackBrowser> {
+  late final Future<Set<String>> _completedPuzzleIdsFuture =
+      _loadCompletedPuzzleIds();
+
+  Future<Set<String>> _loadCompletedPuzzleIds() async {
+    final repository = widget.repository;
+    if (repository == null) {
+      return <String>{};
+    }
+    final attempts = await repository.allAttempts();
+    return attempts
+        .where((attempt) => attempt.completed)
+        .map((attempt) => attempt.puzzleId)
+        .toSet();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final advancedCount = catalog.puzzles
+    final advancedCount = widget.catalog.puzzles
         .where((puzzle) => _hasAdvancedTechnique(puzzle))
         .length;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
-      children: [
-        Text(
-          '${catalog.puzzles.length} puzzles loaded',
-          style: textTheme.bodyLarge,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Content ${catalog.contentVersion}  |  Curated ${catalog.generatedAt}',
-          style: textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '$advancedCount puzzles require pair or pointing techniques',
-          style: textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 14),
-        for (final pack in catalog.packs) ...[
-          _PackSection(repository: repository, catalog: catalog, pack: pack),
-          const SizedBox(height: 12),
-        ],
-      ],
+    return FutureBuilder<Set<String>>(
+      future: _completedPuzzleIdsFuture,
+      builder: (context, snapshot) {
+        final completedPuzzleIds = snapshot.data ?? <String>{};
+
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
+          children: [
+            Text(
+              '${widget.catalog.puzzles.length} puzzles loaded',
+              style: textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Content ${widget.catalog.contentVersion}  |  Curated ${widget.catalog.generatedAt}',
+              style: textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '$advancedCount puzzles require pair or pointing techniques',
+              style: textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${completedPuzzleIds.length} completed',
+              style: textTheme.bodyMedium?.copyWith(
+                color: OrbaceTheme.mutedInk,
+              ),
+            ),
+            const SizedBox(height: 14),
+            for (final pack in widget.catalog.packs) ...[
+              _PackSection(
+                repository: widget.repository,
+                catalog: widget.catalog,
+                pack: pack,
+                completedPuzzleIds: completedPuzzleIds,
+              ),
+              const SizedBox(height: 12),
+            ],
+          ],
+        );
+      },
     );
   }
 }
@@ -86,11 +125,13 @@ class _PackSection extends StatelessWidget {
     required this.repository,
     required this.catalog,
     required this.pack,
+    required this.completedPuzzleIds,
   });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
   final PuzzlePackDefinition pack;
+  final Set<String> completedPuzzleIds;
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +176,7 @@ class _PackSection extends StatelessWidget {
               repository: repository,
               catalog: catalog,
               puzzle: puzzle,
+              completed: completedPuzzleIds.contains(puzzle.id),
             ),
             const SizedBox(height: 8),
           ],
@@ -149,11 +191,13 @@ class _PuzzleTile extends StatelessWidget {
     required this.repository,
     required this.catalog,
     required this.puzzle,
+    required this.completed,
   });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
   final FixturePuzzleDefinition puzzle;
+  final bool completed;
 
   @override
   Widget build(BuildContext context) {
@@ -206,6 +250,16 @@ class _PuzzleTile extends StatelessWidget {
                   ],
                 ),
               ),
+              if (completed)
+                const Tooltip(
+                  message: 'Completed',
+                  child: Icon(
+                    Icons.check_circle,
+                    color: OrbaceTheme.celadon,
+                    size: 22,
+                  ),
+                ),
+              if (completed) const SizedBox(width: 8),
               if (advanced)
                 Tooltip(
                   message: puzzle.requiredTechniques.join(', '),

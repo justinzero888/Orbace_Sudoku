@@ -328,12 +328,23 @@ class _CompletionCertificateDialog extends StatefulWidget {
 class _CompletionCertificateDialogState
     extends State<_CompletionCertificateDialog> {
   final GlobalKey _certificateKey = GlobalKey();
+  late final TextEditingController _notesController = TextEditingController(
+    text: widget.attempt.replayNotes ?? '',
+  );
   late double _rating = widget.attempt.playerDifficultyRating ?? 3.0;
   bool _ratingSaved = false;
   bool _savingRating = false;
+  bool _savingNotes = false;
+  bool _notesSaved = false;
   bool _savingCard = false;
   bool _sharingCard = false;
   String? _scoreCardPath;
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
+  }
 
   int get _hintCount =>
       widget.attempt.hintNudgeCount +
@@ -397,7 +408,7 @@ class _CompletionCertificateDialogState
                             child: Text(
                               ratingLabel,
                               style: textTheme.bodyMedium?.copyWith(
-                                color: OrbaceTheme.mutedInk,
+                                color: OrbaceTheme.ink,
                               ),
                             ),
                           ),
@@ -431,14 +442,61 @@ class _CompletionCertificateDialogState
                     ],
                   ),
                 ),
+                const SizedBox(height: 12),
+                _CertificateSection(
+                  title: 'Ranking Notes · 谱评',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextField(
+                        controller: _notesController,
+                        minLines: 2,
+                        maxLines: 4,
+                        textInputAction: TextInputAction.newline,
+                        decoration: const InputDecoration(
+                          hintText:
+                              'Add what made this solve hard, clean, or memorable.',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (_) {
+                          if (_notesSaved) {
+                            setState(() => _notesSaved = false);
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: OutlinedButton.icon(
+                          onPressed: _savingNotes ? null : _saveNotes,
+                          icon: _savingNotes
+                              ? const SizedBox.square(
+                                  dimension: 18,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Icon(
+                                  _notesSaved
+                                      ? Icons.check_circle
+                                      : Icons.edit_note,
+                                ),
+                          label: Text(
+                            _notesSaved ? 'Notes Saved' : 'Save Notes',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 14),
                 Text(
                   'Su-Pu ID: ${widget.attempt.id}\n'
                   'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally',
                   textAlign: TextAlign.center,
                   style: textTheme.bodyMedium?.copyWith(
-                    color: OrbaceTheme.mutedInk,
-                    fontSize: 12,
+                    color: OrbaceTheme.ink,
+                    fontSize: 13,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -509,6 +567,24 @@ class _CompletionCertificateDialogState
     });
   }
 
+  Future<void> _saveNotes() async {
+    setState(() {
+      _savingNotes = true;
+      _notesSaved = false;
+    });
+    await widget.repository.updateReplayNotes(
+      widget.attempt.id,
+      _notesController.text,
+    );
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _savingNotes = false;
+      _notesSaved = true;
+    });
+  }
+
   Future<void> _saveScoreCard() async {
     setState(() {
       _savingCard = true;
@@ -550,6 +626,7 @@ class _CompletionCertificateDialogState
           files: [XFile(path)],
           text: 'My Orbace Sudoku Su-Pu · ${widget.puzzle.title}',
           subject: 'Orbace Sudoku Solve Record',
+          sharePositionOrigin: _shareOrigin(),
         ),
       );
     } finally {
@@ -603,6 +680,15 @@ class _CompletionCertificateDialogState
       ),
     );
   }
+
+  Rect _shareOrigin() {
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize) {
+      return Rect.zero;
+    }
+    final origin = box.localToGlobal(Offset.zero);
+    return origin & box.size;
+  }
 }
 
 class _ScoreCertificateCard extends StatelessWidget {
@@ -648,7 +734,7 @@ class _ScoreCertificateCard extends StatelessWidget {
                       Text(
                         'Solve Record · 一局成績',
                         style: textTheme.bodyLarge?.copyWith(
-                          color: OrbaceTheme.mutedInk,
+                          color: OrbaceTheme.ink,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -656,7 +742,8 @@ class _ScoreCertificateCard extends StatelessWidget {
                       Text(
                         'Su-Pu · 数谱 saved to Record Hall',
                         style: textTheme.bodyMedium?.copyWith(
-                          color: OrbaceTheme.mutedInk,
+                          color: OrbaceTheme.ink,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -764,8 +851,9 @@ class _ScoreCertificateCard extends StatelessWidget {
               'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally',
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
-                color: OrbaceTheme.mutedInk,
-                fontSize: 12,
+                color: OrbaceTheme.ink,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -841,9 +929,10 @@ class _CertificateSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: OrbaceTheme.paper.withValues(alpha: 0.55),
+        // High contrast for exported score-card PNGs on older iPhone/iPad screens.
+        color: const Color(0xFFFFFCF5),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE6DED0)),
+        border: Border.all(color: const Color(0xFFD2C6B4)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -882,7 +971,7 @@ class _MetricTile extends StatelessWidget {
             label,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
+            ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
           ),
           const SizedBox(height: 2),
           Text(

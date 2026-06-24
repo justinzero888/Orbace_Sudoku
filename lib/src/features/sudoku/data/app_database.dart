@@ -216,6 +216,11 @@ class AppDatabase extends _$AppDatabase {
         .write(AttemptRowsCompanion(replayFavorite: Value(favorite)));
   }
 
+  Future<void> updateReplayNotes(String attemptId, String? notes) {
+    return (update(attemptRows)..where((row) => row.id.equals(attemptId)))
+        .write(AttemptRowsCompanion(replayNotes: Value(notes)));
+  }
+
   Future<void> updateScoreCardImagePath(
     String attemptId,
     String imagePath,

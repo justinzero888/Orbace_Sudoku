@@ -461,7 +461,7 @@ Add columns to `AttemptRows`:
 | `playerDifficultyRatedAt` | datetime nullable | Rating timestamp. |
 | `replayFavorite` | bool default false | User-marked important replay. |
 | `replayTitle` | text nullable | Optional user label, future. |
-| `replayNotes` | text nullable | Optional private notes, future. |
+| `replayNotes` | text nullable | Player ranking notes / 谱评. |
 | `replayHash` | text nullable | Integrity hash of replay inputs. |
 | `puzzleChecksum` | text nullable | Integrity hash of givens/solution. |
 | `contentVersion` | text nullable | Puzzle content version at attempt time. |
@@ -473,7 +473,7 @@ Naming note:
 - Do not rename database columns to Su-Pu terminology in v1. The app can present attempts as Su-Pu while preserving the stable schema already implemented.
 - `scoreClass = assisted` should be displayed as `Practice`.
 - `replayFavorite` should be displayed as Favorite / 珍藏.
-- `replayNotes` can become player notes / 谱评 when that UI ships.
+- `replayNotes` is now player ranking notes / 谱评 for the completion certificate and Record Hall.
 - Add `parentSuPuId`, tags, technique counts, and share history only when those features are actively implemented.
 
 Add optional table later, not required v1:
@@ -599,6 +599,7 @@ Implementation notes:
 - Score class is shown as English plus Chinese cultural cue.
 - Clean records show `Clean · 净谱`.
 - Player difficulty rating uses a 1.0-5.0 slider with 0.1 precision and persists through the repository.
+- Ranking notes / 谱评 can be added from the completion certificate and persist through the repository.
 - Replay action remains fully functional.
 - Share Card and Record Hall buttons communicate the upcoming Phase 3 and Phase 4 scope while confirming the Su-Pu is already saved locally.
 
@@ -670,10 +671,13 @@ Implementation notes:
 - Completed Su-Pu records load from persisted attempt rows after app restart.
 - Each record can reopen saved replay with the original puzzle givens and move history.
 - Favorite toggle persists and refreshes the list.
+- Each record can edit and display local ranking notes / 谱评.
 - Saved score-card PNGs can be viewed and shared from Record Hall when a card was previously saved.
 - The completion certificate `Record Hall` action now opens Record Hall directly when the puzzle catalog is available.
 
 ### Phase 5: Su-Pu Detail and Puzzle Versions
+
+Status: **Planned; ranking notes fast-follow shipped in build 17 UAT**
 
 Tasks:
 
@@ -681,7 +685,7 @@ Tasks:
 - Add puzzle-specific version list for all Su-Pu on the same puzzle.
 - Show Best Official and Best Overall.
 - Show improvement deltas between attempts.
-- Add player notes / 谱评 if the data model remains stable in UAT.
+- Promote player notes / 谱评 from the current completion/Record Hall UI into the detail view.
 - Add Retry from detail view.
 
 Validation:
