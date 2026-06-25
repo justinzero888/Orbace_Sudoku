@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../app/orbace_theme.dart';
 import '../data/puzzle_pack_loader.dart';
+import '../data/score_card_store.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_score_class.dart';
@@ -29,6 +28,7 @@ class RecordHallScreen extends StatefulWidget {
 
 class _RecordHallScreenState extends State<RecordHallScreen> {
   late Future<List<SudokuAttempt>> _attemptsFuture = _loadAttempts();
+  final ScoreCardStore _scoreCardStore = const ScoreCardStore();
   _RecordHallFilter _filter = _RecordHallFilter.all;
 
   Future<List<SudokuAttempt>> _loadAttempts() {
@@ -133,9 +133,15 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
 
   Future<void> _openCertificate(SudokuAttempt attempt) async {
     final imagePath = attempt.scoreCardImagePath;
-    if (imagePath == null || !File(imagePath).existsSync()) {
+    final imageFile = imagePath == null
+        ? null
+        : await _scoreCardStore.resolve(imagePath);
+    if (!mounted) {
+      return;
+    }
+    if (imageFile == null) {
       _showMessage(
-        'No saved card yet. Open this solve after completion and tap Save Card.',
+        'No saved card image found. Open this solve after completion and tap Save Card.',
       );
       return;
     }
@@ -160,7 +166,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                   Flexible(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.file(File(imagePath)),
+                      child: Image.file(imageFile),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -176,7 +182,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                         onPressed: () async {
                           await SharePlus.instance.share(
                             ShareParams(
-                              files: [XFile(imagePath)],
+                              files: [XFile(imageFile.path)],
                               text: 'My Orbace Sudoku Su-Pu',
                               subject: 'Orbace Sudoku Solve Record',
                               sharePositionOrigin: _shareOrigin(),

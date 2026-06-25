@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:drift/drift.dart';
 
 import '../domain/solving_step.dart';
@@ -10,6 +11,7 @@ import '../domain/sudoku_move.dart';
 import '../domain/sudoku_puzzle.dart';
 import '../domain/sudoku_score.dart';
 import '../domain/sudoku_score_class.dart';
+import '../presentation/fixture_puzzles.dart';
 import 'app_database.dart';
 
 class SudokuRepository {
@@ -33,6 +35,53 @@ class SudokuRepository {
         challengeId: Value(puzzle.challengeId),
       ),
     );
+  }
+
+  Future<void> upsertImportedPuzzle({
+    required String id,
+    required String title,
+    required SudokuBoard givens,
+    required SudokuBoard solution,
+    required SudokuDifficulty difficulty,
+    required int difficultyScore,
+    required int targetTimeSeconds,
+    required int medianTimeSeconds,
+    required List<String> requiredTechniques,
+    required List<StoredSolvingStep> solvePath,
+    String? sourceLabel,
+    DateTime? now,
+  }) {
+    final timestamp = now ?? DateTime.now();
+    return database.upsertImportedPuzzle(
+      ImportedPuzzleRowsCompanion(
+        id: Value(id),
+        title: Value(title),
+        sourceLabel: Value(_normalizedNullable(sourceLabel)),
+        givensJson: Value(_encodeCells(givens.cells)),
+        solutionJson: Value(_encodeCells(solution.cells)),
+        difficulty: Value(difficulty.name),
+        difficultyScore: Value(difficultyScore),
+        targetTimeSeconds: Value(targetTimeSeconds),
+        medianTimeSeconds: Value(medianTimeSeconds),
+        requiredTechniquesJson: Value(jsonEncode(requiredTechniques)),
+        solvePathJson: Value(_encodeSolvePath(solvePath)),
+        puzzleChecksum: Value(puzzleChecksum(givens, solution)),
+        createdAt: Value(timestamp),
+        updatedAt: Value(timestamp),
+      ),
+    );
+  }
+
+  Future<List<FixturePuzzleDefinition>> importedPuzzleDefinitions() async {
+    final rows = await database.allImportedPuzzles();
+    return rows.map(_importedDefinitionFromRow).toList(growable: false);
+  }
+
+  Future<FixturePuzzleDefinition?> importedPuzzleDefinitionById(
+    String id,
+  ) async {
+    final row = await database.importedPuzzleById(id);
+    return row == null ? null : _importedDefinitionFromRow(row);
   }
 
   Future<void> saveAttempt(SudokuAttempt attempt) {
@@ -149,6 +198,19 @@ class SudokuRepository {
     );
   }
 
+  String puzzleChecksum(SudokuBoard givens, SudokuBoard solution) {
+    return sha256
+        .convert(
+          utf8.encode(
+            jsonEncode(<String, Object?>{
+              'givens': givens.cells,
+              'solution': solution.cells,
+            }),
+          ),
+        )
+        .toString();
+  }
+
   SudokuAttempt _attemptFromRow(AttemptRow row) {
     final score = row.scoreTotal == null
         ? null
@@ -202,6 +264,13 @@ class SudokuRepository {
     return jsonEncode(cells);
   }
 
+  SudokuBoard _decodeBoard(String json) {
+    final decoded = jsonDecode(json) as List<dynamic>;
+    return SudokuBoard.fromCells([
+      for (final value in decoded) value == null ? null : value as int,
+    ]);
+  }
+
   String _encodeSolvePath(List<StoredSolvingStep> steps) {
     return jsonEncode([
       for (final step in steps)
@@ -250,6 +319,43 @@ class SudokuRepository {
 
   List<String> _decodeStringList(String json) {
     return (jsonDecode(json) as List<dynamic>).cast<String>();
+  }
+
+  FixturePuzzleDefinition _importedDefinitionFromRow(ImportedPuzzleRow row) {
+    final givens = _decodeBoard(row.givensJson);
+    final solution = _decodeBoard(row.solutionJson);
+    return FixturePuzzleDefinition(
+      id: row.id,
+      title: row.title,
+      seal: '入',
+      packId: 'imported',
+      difficulty: SudokuDifficulty.values.byName(row.difficulty),
+      difficultyScore: row.difficultyScore,
+      targetTimeSeconds: row.targetTimeSeconds,
+      medianTimeSeconds: row.medianTimeSeconds,
+      requiredTechniques: _decodeStringList(row.requiredTechniquesJson),
+      rankedEligible: false,
+      givensRows: _rowsFromBoard(givens),
+      solutionRows: _rowsFromBoard(solution),
+    );
+  }
+
+  List<String> _rowsFromBoard(SudokuBoard board) {
+    return <String>[
+      for (var row = 0; row < SudokuBoard.size; row++)
+        [
+          for (var col = 0; col < SudokuBoard.size; col++)
+            board.valueAt(row, col)?.toString() ?? '0',
+        ].join(),
+    ];
+  }
+
+  String? _normalizedNullable(String? value) {
+    final normalized = value?.trim();
+    if (normalized == null || normalized.isEmpty) {
+      return null;
+    }
+    return normalized;
   }
 }
 

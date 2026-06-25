@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../presentation/fixture_puzzles.dart';
+import 'sudoku_repository.dart';
 
 class PuzzlePackCatalog {
   const PuzzlePackCatalog({
@@ -103,9 +104,11 @@ class PuzzlePackDefinition {
 }
 
 class PuzzlePackLoader {
-  PuzzlePackLoader({AssetBundle? bundle}) : _bundle = bundle ?? rootBundle;
+  PuzzlePackLoader({AssetBundle? bundle, this.repository})
+    : _bundle = bundle ?? rootBundle;
 
   final AssetBundle _bundle;
+  final SudokuRepository? repository;
 
   Future<PuzzlePackCatalog> load() {
     return _loadFromAssets();
@@ -135,6 +138,26 @@ class PuzzlePackLoader {
         );
       }
       packs.add(PuzzlePackDefinition.fromJson(packItem, puzzles: puzzles));
+    }
+
+    final imported = await repository?.importedPuzzleDefinitions();
+    if (imported != null && imported.isNotEmpty) {
+      packs.add(
+        PuzzlePackDefinition(
+          id: 'imported',
+          title: 'Imported',
+          subtitle: 'Personal puzzles',
+          seal: '入',
+          description:
+              'Personal imported puzzles. Local play only; excluded from worldwide ranking until reviewed by Orbace.',
+          assets: const <String>[],
+          order: 99,
+          difficultyBand: 'personal',
+          curationStrategy: 'Personal import',
+          milestoneEvery: 0,
+          puzzles: imported,
+        ),
+      );
     }
 
     packs.sort((a, b) => a.order.compareTo(b.order));

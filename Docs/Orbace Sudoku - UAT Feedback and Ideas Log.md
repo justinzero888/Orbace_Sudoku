@@ -16,9 +16,10 @@
 | `1.0.0 (15)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + save/share score card | Phase 3 Save and Share Score Certificate: score card PNG render, app-local save, native share sheet, stored score-card path, and branded iOS launch screen. |
 | `1.0.0 (16)` | iOS TestFlight IPA | 1,800 production-candidate puzzles + Record Hall | Phase 4 Record Hall: browse saved Su-Pu, reload replay after app restart, filters, favorite toggle, and saved card view/share. |
 | `1.0.0 (17)` | iOS TestFlight IPA | Build 16 UAT fixes + ranking notes | Share-card iPad popover fix, completed-game markers in Level Packs, higher-contrast certificates, and local ranking notes. |
+| `1.0.0 (18)` | iOS TestFlight IPA | External import V1 + certificate persistence fix | Personal import supports paste/grid entry, validation for one solution, local Imported pack, and update-safe score-card image paths. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
 
-The current iOS UAT candidate is build `1.0.0 (17)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (18)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
 ## Feedback Log
 
@@ -40,7 +41,8 @@ The current iOS UAT candidate is build `1.0.0 (17)`. The current Android closed-
 | UAT-014 | Build 16 UAT | Add a symbol of "Completed" for games already completed in each level pack. | Medium | Complete | Level Packs now load completed attempt IDs and show a green completed checkmark plus completed count. | Pending UAT in build `1.0.0 (17)`. |
 | UAT-015 | Build 16 UAT | Certificate colors are grey and hard to read on iPhone and one iPad. | High | Complete | Increased certificate text contrast, strengthened section surfaces, and made exported certificate copy use ink color instead of muted grey. | Pending UAT in build `1.0.0 (17)`. |
 | UAT-016 | Build 16 UAT | User wants to input ranking notes for each game. | Medium | Complete | Added local ranking notes / 谱评 entry on the completion certificate and editing/display from Record Hall. Notes persist in attempt metadata. | Pending UAT in build `1.0.0 (17)`. |
-| UAT-017 | Build 16 UAT | User wants to import games from other sources easily. | Medium | Solution documented | Proposed Personal Import first: paste 81-character string and manual grid entry, validated for uniqueness and kept separate from official/worldwide ranking. | Solution doc created; implementation not started. |
+| UAT-017 | Build 16 UAT | User wants to import games from other sources easily. | Medium | Complete for V1 UAT | Implemented Personal Import V1: paste 81-character string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and non-ranked imported puzzle metadata. | Pending UAT in build `1.0.0 (18)`. |
+| UAT-018 | Build 17 UAT | Certificate is lost after app update. | High | Complete | Score cards now store relative app-document paths and Record Hall resolves old absolute paths by filename after iOS container path changes. | Pending UAT in build `1.0.0 (18)`. |
 
 ## New Requirements and Ideas Backlog
 
@@ -52,7 +54,7 @@ The current iOS UAT candidate is build `1.0.0 (17)`. The current Android closed-
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 | IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Phase 4 complete plus UAT notes fast-follow | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall now browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, and edits/displays notes. Next step: Phase 5 Su-Pu detail and puzzle versions. |
-| IDEA-007 | Content Import | Personal puzzle import from other sources | Solution documented | See `Orbace Sudoku - External Puzzle Import Solution.md`. Recommended V1: paste 81-character string, manual grid entry, validation for exactly one solution, local Imported pack, no worldwide ranking eligibility. |
+| IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
 
 ## Action Workflow
 
@@ -77,3 +79,4 @@ The current iOS UAT candidate is build `1.0.0 (17)`. The current Android closed-
 | `1.0.0 (15)` | iOS IPA | IDEA-006 Phase 3 | Local validation passed; IPA built | Save/share score certificate image added; launch screen placeholder removed. |
 | `1.0.0 (16)` | iOS IPA | IDEA-006 Phase 4 | Local validation passed; IPA built | Record Hall added for replay reload after app restart. |
 | `1.0.0 (17)` | iOS IPA | UAT-013, UAT-014, UAT-015, UAT-016, UAT-017 solution | Local validation passed; IPA built | Build 16 UAT fixes plus external import solution documentation. |
+| `1.0.0 (18)` | iOS IPA | UAT-017, UAT-018 | Local validation passed; IPA built | External import V1 plus update-safe certificate image path handling. |

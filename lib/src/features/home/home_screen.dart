@@ -6,6 +6,7 @@ import '../sudoku/data/puzzle_pack_loader.dart';
 import '../sudoku/data/sudoku_repository.dart';
 import '../sudoku/domain/daily_tea_moment.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
+import '../sudoku/presentation/import_puzzle_screen.dart';
 import '../sudoku/presentation/level_pack_screen.dart';
 import '../sudoku/presentation/record_hall_screen.dart';
 import '../sudoku/presentation/scholar_path_screen.dart';
@@ -21,8 +22,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final Future<PuzzlePackCatalog> _catalogFuture = PuzzlePackLoader()
-      .load();
+  late Future<PuzzlePackCatalog> _catalogFuture = _loadCatalog();
+
+  Future<PuzzlePackCatalog> _loadCatalog() {
+    return PuzzlePackLoader(repository: widget.repository).load();
+  }
+
+  void _refreshCatalog() {
+    setState(() {
+      _catalogFuture = _loadCatalog();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return _HomeContent(
           repository: widget.repository,
           catalog: snapshot.requireData,
+          onRefreshCatalog: _refreshCatalog,
         );
       },
     );
@@ -45,10 +56,15 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HomeContent extends StatelessWidget {
-  const _HomeContent({required this.repository, required this.catalog});
+  const _HomeContent({
+    required this.repository,
+    required this.catalog,
+    required this.onRefreshCatalog,
+  });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
+  final VoidCallback onRefreshCatalog;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +110,21 @@ class _HomeContent extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             if (repository != null) ...[
+              _PhaseCard(
+                title: 'Import Puzzle',
+                subtitle: 'Paste or enter a personal Sudoku',
+                seal: '入',
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) =>
+                          ImportPuzzleScreen(repository: repository!),
+                    ),
+                  );
+                  onRefreshCatalog();
+                },
+              ),
+              const SizedBox(height: 12),
               _PhaseCard(
                 title: 'Record Hall',
                 subtitle: '藏谱阁 · replay saved Su-Pu',

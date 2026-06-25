@@ -4,6 +4,7 @@ import '../../../app/orbace_theme.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
 import 'fixture_puzzles.dart';
+import 'import_puzzle_screen.dart';
 import 'sudoku_game_screen.dart';
 
 class LevelPackScreen extends StatefulWidget {
@@ -16,13 +17,40 @@ class LevelPackScreen extends StatefulWidget {
 }
 
 class _LevelPackScreenState extends State<LevelPackScreen> {
-  late final Future<PuzzlePackCatalog> _catalogFuture = PuzzlePackLoader()
-      .load();
+  late Future<PuzzlePackCatalog> _catalogFuture = _loadCatalog();
+
+  Future<PuzzlePackCatalog> _loadCatalog() {
+    return PuzzlePackLoader(repository: widget.repository).load();
+  }
+
+  void _refreshCatalog() {
+    setState(() {
+      _catalogFuture = _loadCatalog();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Level Packs')),
+      appBar: AppBar(
+        title: const Text('Level Packs'),
+        actions: [
+          if (widget.repository != null)
+            IconButton(
+              tooltip: 'Import Puzzle',
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        ImportPuzzleScreen(repository: widget.repository!),
+                  ),
+                );
+                _refreshCatalog();
+              },
+              icon: const Icon(Icons.input),
+            ),
+        ],
+      ),
       body: SafeArea(
         child: FutureBuilder<PuzzlePackCatalog>(
           future: _catalogFuture,

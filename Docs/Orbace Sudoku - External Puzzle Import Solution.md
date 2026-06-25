@@ -2,7 +2,7 @@
 
 **Version**: 1.0
 **Date**: 2026-06-24
-**Status**: Proposed solution before implementation
+**Status**: V1 implemented for iOS UAT in build `1.0.0 (18)`
 
 ## 1. User Request
 
@@ -18,7 +18,7 @@ The goal is convenience, but the implementation must protect product quality:
 
 ## 2. Recommended V1 Scope
 
-Implement **Personal Import** first.
+Implement **Personal Import** first. This is now the Build 18 UAT scope.
 
 V1 imported puzzles should:
 
@@ -29,7 +29,7 @@ V1 imported puzzles should:
 - Be clearly labeled `Imported`.
 - Be excluded from official/worldwide leaderboards.
 
-V1 should support two input modes:
+V1 supports two input modes:
 
 1. **Paste 81-character puzzle string**
    - Digits `1-9` for givens.
@@ -67,7 +67,7 @@ If validation fails, show a precise message:
 
 Do not modify the 1,800 production catalog.
 
-Add a separate table in a future schema version:
+Added a separate table in schema version 3:
 
 ```text
 ImportedPuzzleRows
@@ -98,8 +98,9 @@ Attempts can continue to reference `puzzleId`. The repository/catalog layer shou
 
 Entry point:
 
-- Home → Level Packs → Imported
-- Later: Home → Import Puzzle
+- Home → Import Puzzle
+- Level Packs → Import action
+- Level Packs → Imported pack after at least one imported puzzle exists
 
 Flow:
 
@@ -148,10 +149,14 @@ Post-V1:
 
 Implement import after the current UAT bug-fix batch and before backend leaderboards.
 
-Recommended phases:
+Implemented phases:
 
 1. Paste 81-character string import.
 2. Manual grid import.
-3. Imported puzzle list and replay integration.
-4. OCR/photo import only after V1 import is stable.
+3. Imported puzzle list and replay integration through the local `Imported` pack.
 
+Next recommended phase:
+
+1. Add edit/delete for imported puzzles.
+2. Add duplicate detection against the official catalog.
+3. Add OCR/photo import only after V1 import is stable.

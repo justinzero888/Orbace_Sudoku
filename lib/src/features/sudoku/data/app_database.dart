@@ -80,12 +80,34 @@ class CurrentProgressRows extends Table {
   Set<Column<Object>> get primaryKey => {puzzleId};
 }
 
-@DriftDatabase(tables: [PuzzleRows, AttemptRows, CurrentProgressRows])
+class ImportedPuzzleRows extends Table {
+  TextColumn get id => text()();
+  TextColumn get title => text()();
+  TextColumn get sourceLabel => text().nullable()();
+  TextColumn get givensJson => text()();
+  TextColumn get solutionJson => text()();
+  TextColumn get difficulty => text()();
+  IntColumn get difficultyScore => integer()();
+  IntColumn get targetTimeSeconds => integer()();
+  IntColumn get medianTimeSeconds => integer()();
+  TextColumn get requiredTechniquesJson => text()();
+  TextColumn get solvePathJson => text()();
+  TextColumn get puzzleChecksum => text()();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+@DriftDatabase(
+  tables: [PuzzleRows, AttemptRows, CurrentProgressRows, ImportedPuzzleRows],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -112,6 +134,9 @@ class AppDatabase extends _$AppDatabase {
             attemptRows,
             attemptRows.scoreCardGeneratedAt,
           );
+        }
+        if (from < 3) {
+          await migrator.createTable(importedPuzzleRows);
         }
       },
     );
@@ -194,6 +219,24 @@ class AppDatabase extends _$AppDatabase {
             ),
           ]))
         .get();
+  }
+
+  Future<void> upsertImportedPuzzle(ImportedPuzzleRowsCompanion puzzle) {
+    return into(importedPuzzleRows).insertOnConflictUpdate(puzzle);
+  }
+
+  Future<List<ImportedPuzzleRow>> allImportedPuzzles() {
+    return (select(importedPuzzleRows)..orderBy([
+          (row) =>
+              OrderingTerm(expression: row.createdAt, mode: OrderingMode.desc),
+        ]))
+        .get();
+  }
+
+  Future<ImportedPuzzleRow?> importedPuzzleById(String id) {
+    return (select(
+      importedPuzzleRows,
+    )..where((row) => row.id.equals(id))).getSingleOrNull();
   }
 
   Future<void> updatePlayerDifficultyRating(

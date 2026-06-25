@@ -28,8 +28,8 @@ void main() {
     expect(find.text('一局一茶'), findsOneWidget);
     expect(find.text('Tea Moment'), findsOneWidget);
     expect(find.text('Record Hall'), findsOneWidget);
+    expect(find.text('Import Puzzle'), findsOneWidget);
     expect(find.text('Level Packs'), findsOneWidget);
-    expect(find.text('Scholar\'s Path'), findsOneWidget);
 
     await tester.tap(find.text('Tea Moment'));
     await tester.pump();
@@ -70,6 +70,11 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
+    await tester.scrollUntilVisible(
+      find.text('Scholar\'s Path'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Scholar\'s Path'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

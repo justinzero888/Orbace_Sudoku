@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
 import '../data/puzzle_pack_loader.dart';
+import '../data/score_card_store.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_score_class.dart';
@@ -328,6 +326,7 @@ class _CompletionCertificateDialog extends StatefulWidget {
 class _CompletionCertificateDialogState
     extends State<_CompletionCertificateDialog> {
   final GlobalKey _certificateKey = GlobalKey();
+  final ScoreCardStore _scoreCardStore = const ScoreCardStore();
   late final TextEditingController _notesController = TextEditingController(
     text: widget.attempt.replayNotes ?? '',
   );
@@ -615,6 +614,10 @@ class _CompletionCertificateDialogState
     try {
       final path = _scoreCardPath ?? await _renderScoreCardPng();
       await widget.repository.updateScoreCardImagePath(widget.attempt.id, path);
+      final file = await _scoreCardStore.resolve(path);
+      if (file == null) {
+        throw StateError('Score card file is not ready to share.');
+      }
       if (!mounted) {
         return;
       }
@@ -623,7 +626,7 @@ class _CompletionCertificateDialogState
       });
       await SharePlus.instance.share(
         ShareParams(
-          files: [XFile(path)],
+          files: [XFile(file.path)],
           text: 'My Orbace Sudoku Su-Pu · ${widget.puzzle.title}',
           subject: 'Orbace Sudoku Solve Record',
           sharePositionOrigin: _shareOrigin(),
@@ -651,18 +654,9 @@ class _CompletionCertificateDialogState
     if (byteData == null) {
       throw StateError('Could not encode score card.');
     }
-    final dir = await getApplicationDocumentsDirectory();
-    final cardDir = Directory(p.join(dir.path, 'score_cards'));
-    if (!cardDir.existsSync()) {
-      await cardDir.create(recursive: true);
-    }
-    final safeAttemptId = widget.attempt.id.replaceAll(
-      RegExp(r'[^A-Za-z0-9_.-]'),
-      '_',
-    );
-    final file = File(p.join(cardDir.path, '$safeAttemptId.png'));
+    final file = await _scoreCardStore.fileForAttempt(widget.attempt.id);
     await file.writeAsBytes(byteData.buffer.asUint8List(), flush: true);
-    return file.path;
+    return _scoreCardStore.relativePathForAttempt(widget.attempt.id);
   }
 
   void _showMessage(String message) {

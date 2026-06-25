@@ -1,6 +1,8 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/app_database.dart';
+import 'package:orbace_sudoku/src/features/sudoku/data/imported_puzzle_service.dart';
+import 'package:orbace_sudoku/src/features/sudoku/data/score_card_store.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/sudoku_repository.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_attempt.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_difficulty.dart';
@@ -175,6 +177,54 @@ void main() {
       expect(
         () => repository.updatePlayerDifficultyRating('attempt_a', 0.9),
         throwsArgumentError,
+      );
+    });
+
+    test('imports a valid personal puzzle into the local catalog', () async {
+      final service = ImportedPuzzleService(repository: repository);
+
+      final preview = service.previewFromString(
+        '530070000'
+        '600195000'
+        '098000060'
+        '800060003'
+        '400803001'
+        '700020006'
+        '060000280'
+        '000419005'
+        '000080079',
+        title: 'Outside Source Test',
+        sourceLabel: 'UAT',
+        now: DateTime(2026, 6, 24, 12),
+      );
+      await service.save(preview);
+
+      final imported = await repository.importedPuzzleDefinitions();
+
+      expect(imported, hasLength(1));
+      expect(imported.single.title, 'Outside Source Test');
+      expect(imported.single.packId, 'imported');
+      expect(imported.single.rankedEligible, isFalse);
+      expect(imported.single.solutionRows.first, '534678912');
+    });
+
+    test('rejects imported puzzles with multiple solutions', () {
+      final service = ImportedPuzzleService(repository: repository);
+
+      expect(
+        () => service.previewFromString(List<String>.filled(81, '0').join()),
+        throwsA(isA<ImportedPuzzleException>()),
+      );
+    });
+  });
+
+  group('ScoreCardStore', () {
+    test('uses relative score-card paths for update-safe persistence', () {
+      const store = ScoreCardStore();
+
+      expect(
+        store.relativePathForAttempt('attempt:one/two'),
+        'score_cards/attempt_one_two.png',
       );
     });
   });

@@ -3177,6 +3177,859 @@ class CurrentProgressRowsCompanion extends UpdateCompanion<CurrentProgressRow> {
   }
 }
 
+class $ImportedPuzzleRowsTable extends ImportedPuzzleRows
+    with TableInfo<$ImportedPuzzleRowsTable, ImportedPuzzleRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ImportedPuzzleRowsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourceLabelMeta = const VerificationMeta(
+    'sourceLabel',
+  );
+  @override
+  late final GeneratedColumn<String> sourceLabel = GeneratedColumn<String>(
+    'source_label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _givensJsonMeta = const VerificationMeta(
+    'givensJson',
+  );
+  @override
+  late final GeneratedColumn<String> givensJson = GeneratedColumn<String>(
+    'givens_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _solutionJsonMeta = const VerificationMeta(
+    'solutionJson',
+  );
+  @override
+  late final GeneratedColumn<String> solutionJson = GeneratedColumn<String>(
+    'solution_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _difficultyMeta = const VerificationMeta(
+    'difficulty',
+  );
+  @override
+  late final GeneratedColumn<String> difficulty = GeneratedColumn<String>(
+    'difficulty',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _difficultyScoreMeta = const VerificationMeta(
+    'difficultyScore',
+  );
+  @override
+  late final GeneratedColumn<int> difficultyScore = GeneratedColumn<int>(
+    'difficulty_score',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _targetTimeSecondsMeta = const VerificationMeta(
+    'targetTimeSeconds',
+  );
+  @override
+  late final GeneratedColumn<int> targetTimeSeconds = GeneratedColumn<int>(
+    'target_time_seconds',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _medianTimeSecondsMeta = const VerificationMeta(
+    'medianTimeSeconds',
+  );
+  @override
+  late final GeneratedColumn<int> medianTimeSeconds = GeneratedColumn<int>(
+    'median_time_seconds',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _requiredTechniquesJsonMeta =
+      const VerificationMeta('requiredTechniquesJson');
+  @override
+  late final GeneratedColumn<String> requiredTechniquesJson =
+      GeneratedColumn<String>(
+        'required_techniques_json',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _solvePathJsonMeta = const VerificationMeta(
+    'solvePathJson',
+  );
+  @override
+  late final GeneratedColumn<String> solvePathJson = GeneratedColumn<String>(
+    'solve_path_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _puzzleChecksumMeta = const VerificationMeta(
+    'puzzleChecksum',
+  );
+  @override
+  late final GeneratedColumn<String> puzzleChecksum = GeneratedColumn<String>(
+    'puzzle_checksum',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    sourceLabel,
+    givensJson,
+    solutionJson,
+    difficulty,
+    difficultyScore,
+    targetTimeSeconds,
+    medianTimeSeconds,
+    requiredTechniquesJson,
+    solvePathJson,
+    puzzleChecksum,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'imported_puzzle_rows';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ImportedPuzzleRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('source_label')) {
+      context.handle(
+        _sourceLabelMeta,
+        sourceLabel.isAcceptableOrUnknown(
+          data['source_label']!,
+          _sourceLabelMeta,
+        ),
+      );
+    }
+    if (data.containsKey('givens_json')) {
+      context.handle(
+        _givensJsonMeta,
+        givensJson.isAcceptableOrUnknown(data['givens_json']!, _givensJsonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_givensJsonMeta);
+    }
+    if (data.containsKey('solution_json')) {
+      context.handle(
+        _solutionJsonMeta,
+        solutionJson.isAcceptableOrUnknown(
+          data['solution_json']!,
+          _solutionJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_solutionJsonMeta);
+    }
+    if (data.containsKey('difficulty')) {
+      context.handle(
+        _difficultyMeta,
+        difficulty.isAcceptableOrUnknown(data['difficulty']!, _difficultyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_difficultyMeta);
+    }
+    if (data.containsKey('difficulty_score')) {
+      context.handle(
+        _difficultyScoreMeta,
+        difficultyScore.isAcceptableOrUnknown(
+          data['difficulty_score']!,
+          _difficultyScoreMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_difficultyScoreMeta);
+    }
+    if (data.containsKey('target_time_seconds')) {
+      context.handle(
+        _targetTimeSecondsMeta,
+        targetTimeSeconds.isAcceptableOrUnknown(
+          data['target_time_seconds']!,
+          _targetTimeSecondsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_targetTimeSecondsMeta);
+    }
+    if (data.containsKey('median_time_seconds')) {
+      context.handle(
+        _medianTimeSecondsMeta,
+        medianTimeSeconds.isAcceptableOrUnknown(
+          data['median_time_seconds']!,
+          _medianTimeSecondsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_medianTimeSecondsMeta);
+    }
+    if (data.containsKey('required_techniques_json')) {
+      context.handle(
+        _requiredTechniquesJsonMeta,
+        requiredTechniquesJson.isAcceptableOrUnknown(
+          data['required_techniques_json']!,
+          _requiredTechniquesJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_requiredTechniquesJsonMeta);
+    }
+    if (data.containsKey('solve_path_json')) {
+      context.handle(
+        _solvePathJsonMeta,
+        solvePathJson.isAcceptableOrUnknown(
+          data['solve_path_json']!,
+          _solvePathJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_solvePathJsonMeta);
+    }
+    if (data.containsKey('puzzle_checksum')) {
+      context.handle(
+        _puzzleChecksumMeta,
+        puzzleChecksum.isAcceptableOrUnknown(
+          data['puzzle_checksum']!,
+          _puzzleChecksumMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_puzzleChecksumMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ImportedPuzzleRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ImportedPuzzleRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      sourceLabel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_label'],
+      ),
+      givensJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}givens_json'],
+      )!,
+      solutionJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}solution_json'],
+      )!,
+      difficulty: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}difficulty'],
+      )!,
+      difficultyScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}difficulty_score'],
+      )!,
+      targetTimeSeconds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}target_time_seconds'],
+      )!,
+      medianTimeSeconds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}median_time_seconds'],
+      )!,
+      requiredTechniquesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}required_techniques_json'],
+      )!,
+      solvePathJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}solve_path_json'],
+      )!,
+      puzzleChecksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}puzzle_checksum'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ImportedPuzzleRowsTable createAlias(String alias) {
+    return $ImportedPuzzleRowsTable(attachedDatabase, alias);
+  }
+}
+
+class ImportedPuzzleRow extends DataClass
+    implements Insertable<ImportedPuzzleRow> {
+  final String id;
+  final String title;
+  final String? sourceLabel;
+  final String givensJson;
+  final String solutionJson;
+  final String difficulty;
+  final int difficultyScore;
+  final int targetTimeSeconds;
+  final int medianTimeSeconds;
+  final String requiredTechniquesJson;
+  final String solvePathJson;
+  final String puzzleChecksum;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const ImportedPuzzleRow({
+    required this.id,
+    required this.title,
+    this.sourceLabel,
+    required this.givensJson,
+    required this.solutionJson,
+    required this.difficulty,
+    required this.difficultyScore,
+    required this.targetTimeSeconds,
+    required this.medianTimeSeconds,
+    required this.requiredTechniquesJson,
+    required this.solvePathJson,
+    required this.puzzleChecksum,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['title'] = Variable<String>(title);
+    if (!nullToAbsent || sourceLabel != null) {
+      map['source_label'] = Variable<String>(sourceLabel);
+    }
+    map['givens_json'] = Variable<String>(givensJson);
+    map['solution_json'] = Variable<String>(solutionJson);
+    map['difficulty'] = Variable<String>(difficulty);
+    map['difficulty_score'] = Variable<int>(difficultyScore);
+    map['target_time_seconds'] = Variable<int>(targetTimeSeconds);
+    map['median_time_seconds'] = Variable<int>(medianTimeSeconds);
+    map['required_techniques_json'] = Variable<String>(requiredTechniquesJson);
+    map['solve_path_json'] = Variable<String>(solvePathJson);
+    map['puzzle_checksum'] = Variable<String>(puzzleChecksum);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  ImportedPuzzleRowsCompanion toCompanion(bool nullToAbsent) {
+    return ImportedPuzzleRowsCompanion(
+      id: Value(id),
+      title: Value(title),
+      sourceLabel: sourceLabel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sourceLabel),
+      givensJson: Value(givensJson),
+      solutionJson: Value(solutionJson),
+      difficulty: Value(difficulty),
+      difficultyScore: Value(difficultyScore),
+      targetTimeSeconds: Value(targetTimeSeconds),
+      medianTimeSeconds: Value(medianTimeSeconds),
+      requiredTechniquesJson: Value(requiredTechniquesJson),
+      solvePathJson: Value(solvePathJson),
+      puzzleChecksum: Value(puzzleChecksum),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory ImportedPuzzleRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ImportedPuzzleRow(
+      id: serializer.fromJson<String>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      sourceLabel: serializer.fromJson<String?>(json['sourceLabel']),
+      givensJson: serializer.fromJson<String>(json['givensJson']),
+      solutionJson: serializer.fromJson<String>(json['solutionJson']),
+      difficulty: serializer.fromJson<String>(json['difficulty']),
+      difficultyScore: serializer.fromJson<int>(json['difficultyScore']),
+      targetTimeSeconds: serializer.fromJson<int>(json['targetTimeSeconds']),
+      medianTimeSeconds: serializer.fromJson<int>(json['medianTimeSeconds']),
+      requiredTechniquesJson: serializer.fromJson<String>(
+        json['requiredTechniquesJson'],
+      ),
+      solvePathJson: serializer.fromJson<String>(json['solvePathJson']),
+      puzzleChecksum: serializer.fromJson<String>(json['puzzleChecksum']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'title': serializer.toJson<String>(title),
+      'sourceLabel': serializer.toJson<String?>(sourceLabel),
+      'givensJson': serializer.toJson<String>(givensJson),
+      'solutionJson': serializer.toJson<String>(solutionJson),
+      'difficulty': serializer.toJson<String>(difficulty),
+      'difficultyScore': serializer.toJson<int>(difficultyScore),
+      'targetTimeSeconds': serializer.toJson<int>(targetTimeSeconds),
+      'medianTimeSeconds': serializer.toJson<int>(medianTimeSeconds),
+      'requiredTechniquesJson': serializer.toJson<String>(
+        requiredTechniquesJson,
+      ),
+      'solvePathJson': serializer.toJson<String>(solvePathJson),
+      'puzzleChecksum': serializer.toJson<String>(puzzleChecksum),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ImportedPuzzleRow copyWith({
+    String? id,
+    String? title,
+    Value<String?> sourceLabel = const Value.absent(),
+    String? givensJson,
+    String? solutionJson,
+    String? difficulty,
+    int? difficultyScore,
+    int? targetTimeSeconds,
+    int? medianTimeSeconds,
+    String? requiredTechniquesJson,
+    String? solvePathJson,
+    String? puzzleChecksum,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => ImportedPuzzleRow(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    sourceLabel: sourceLabel.present ? sourceLabel.value : this.sourceLabel,
+    givensJson: givensJson ?? this.givensJson,
+    solutionJson: solutionJson ?? this.solutionJson,
+    difficulty: difficulty ?? this.difficulty,
+    difficultyScore: difficultyScore ?? this.difficultyScore,
+    targetTimeSeconds: targetTimeSeconds ?? this.targetTimeSeconds,
+    medianTimeSeconds: medianTimeSeconds ?? this.medianTimeSeconds,
+    requiredTechniquesJson:
+        requiredTechniquesJson ?? this.requiredTechniquesJson,
+    solvePathJson: solvePathJson ?? this.solvePathJson,
+    puzzleChecksum: puzzleChecksum ?? this.puzzleChecksum,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  ImportedPuzzleRow copyWithCompanion(ImportedPuzzleRowsCompanion data) {
+    return ImportedPuzzleRow(
+      id: data.id.present ? data.id.value : this.id,
+      title: data.title.present ? data.title.value : this.title,
+      sourceLabel: data.sourceLabel.present
+          ? data.sourceLabel.value
+          : this.sourceLabel,
+      givensJson: data.givensJson.present
+          ? data.givensJson.value
+          : this.givensJson,
+      solutionJson: data.solutionJson.present
+          ? data.solutionJson.value
+          : this.solutionJson,
+      difficulty: data.difficulty.present
+          ? data.difficulty.value
+          : this.difficulty,
+      difficultyScore: data.difficultyScore.present
+          ? data.difficultyScore.value
+          : this.difficultyScore,
+      targetTimeSeconds: data.targetTimeSeconds.present
+          ? data.targetTimeSeconds.value
+          : this.targetTimeSeconds,
+      medianTimeSeconds: data.medianTimeSeconds.present
+          ? data.medianTimeSeconds.value
+          : this.medianTimeSeconds,
+      requiredTechniquesJson: data.requiredTechniquesJson.present
+          ? data.requiredTechniquesJson.value
+          : this.requiredTechniquesJson,
+      solvePathJson: data.solvePathJson.present
+          ? data.solvePathJson.value
+          : this.solvePathJson,
+      puzzleChecksum: data.puzzleChecksum.present
+          ? data.puzzleChecksum.value
+          : this.puzzleChecksum,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ImportedPuzzleRow(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('sourceLabel: $sourceLabel, ')
+          ..write('givensJson: $givensJson, ')
+          ..write('solutionJson: $solutionJson, ')
+          ..write('difficulty: $difficulty, ')
+          ..write('difficultyScore: $difficultyScore, ')
+          ..write('targetTimeSeconds: $targetTimeSeconds, ')
+          ..write('medianTimeSeconds: $medianTimeSeconds, ')
+          ..write('requiredTechniquesJson: $requiredTechniquesJson, ')
+          ..write('solvePathJson: $solvePathJson, ')
+          ..write('puzzleChecksum: $puzzleChecksum, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    title,
+    sourceLabel,
+    givensJson,
+    solutionJson,
+    difficulty,
+    difficultyScore,
+    targetTimeSeconds,
+    medianTimeSeconds,
+    requiredTechniquesJson,
+    solvePathJson,
+    puzzleChecksum,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ImportedPuzzleRow &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.sourceLabel == this.sourceLabel &&
+          other.givensJson == this.givensJson &&
+          other.solutionJson == this.solutionJson &&
+          other.difficulty == this.difficulty &&
+          other.difficultyScore == this.difficultyScore &&
+          other.targetTimeSeconds == this.targetTimeSeconds &&
+          other.medianTimeSeconds == this.medianTimeSeconds &&
+          other.requiredTechniquesJson == this.requiredTechniquesJson &&
+          other.solvePathJson == this.solvePathJson &&
+          other.puzzleChecksum == this.puzzleChecksum &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ImportedPuzzleRowsCompanion extends UpdateCompanion<ImportedPuzzleRow> {
+  final Value<String> id;
+  final Value<String> title;
+  final Value<String?> sourceLabel;
+  final Value<String> givensJson;
+  final Value<String> solutionJson;
+  final Value<String> difficulty;
+  final Value<int> difficultyScore;
+  final Value<int> targetTimeSeconds;
+  final Value<int> medianTimeSeconds;
+  final Value<String> requiredTechniquesJson;
+  final Value<String> solvePathJson;
+  final Value<String> puzzleChecksum;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const ImportedPuzzleRowsCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.sourceLabel = const Value.absent(),
+    this.givensJson = const Value.absent(),
+    this.solutionJson = const Value.absent(),
+    this.difficulty = const Value.absent(),
+    this.difficultyScore = const Value.absent(),
+    this.targetTimeSeconds = const Value.absent(),
+    this.medianTimeSeconds = const Value.absent(),
+    this.requiredTechniquesJson = const Value.absent(),
+    this.solvePathJson = const Value.absent(),
+    this.puzzleChecksum = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ImportedPuzzleRowsCompanion.insert({
+    required String id,
+    required String title,
+    this.sourceLabel = const Value.absent(),
+    required String givensJson,
+    required String solutionJson,
+    required String difficulty,
+    required int difficultyScore,
+    required int targetTimeSeconds,
+    required int medianTimeSeconds,
+    required String requiredTechniquesJson,
+    required String solvePathJson,
+    required String puzzleChecksum,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       title = Value(title),
+       givensJson = Value(givensJson),
+       solutionJson = Value(solutionJson),
+       difficulty = Value(difficulty),
+       difficultyScore = Value(difficultyScore),
+       targetTimeSeconds = Value(targetTimeSeconds),
+       medianTimeSeconds = Value(medianTimeSeconds),
+       requiredTechniquesJson = Value(requiredTechniquesJson),
+       solvePathJson = Value(solvePathJson),
+       puzzleChecksum = Value(puzzleChecksum),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<ImportedPuzzleRow> custom({
+    Expression<String>? id,
+    Expression<String>? title,
+    Expression<String>? sourceLabel,
+    Expression<String>? givensJson,
+    Expression<String>? solutionJson,
+    Expression<String>? difficulty,
+    Expression<int>? difficultyScore,
+    Expression<int>? targetTimeSeconds,
+    Expression<int>? medianTimeSeconds,
+    Expression<String>? requiredTechniquesJson,
+    Expression<String>? solvePathJson,
+    Expression<String>? puzzleChecksum,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (sourceLabel != null) 'source_label': sourceLabel,
+      if (givensJson != null) 'givens_json': givensJson,
+      if (solutionJson != null) 'solution_json': solutionJson,
+      if (difficulty != null) 'difficulty': difficulty,
+      if (difficultyScore != null) 'difficulty_score': difficultyScore,
+      if (targetTimeSeconds != null) 'target_time_seconds': targetTimeSeconds,
+      if (medianTimeSeconds != null) 'median_time_seconds': medianTimeSeconds,
+      if (requiredTechniquesJson != null)
+        'required_techniques_json': requiredTechniquesJson,
+      if (solvePathJson != null) 'solve_path_json': solvePathJson,
+      if (puzzleChecksum != null) 'puzzle_checksum': puzzleChecksum,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ImportedPuzzleRowsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? title,
+    Value<String?>? sourceLabel,
+    Value<String>? givensJson,
+    Value<String>? solutionJson,
+    Value<String>? difficulty,
+    Value<int>? difficultyScore,
+    Value<int>? targetTimeSeconds,
+    Value<int>? medianTimeSeconds,
+    Value<String>? requiredTechniquesJson,
+    Value<String>? solvePathJson,
+    Value<String>? puzzleChecksum,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return ImportedPuzzleRowsCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      sourceLabel: sourceLabel ?? this.sourceLabel,
+      givensJson: givensJson ?? this.givensJson,
+      solutionJson: solutionJson ?? this.solutionJson,
+      difficulty: difficulty ?? this.difficulty,
+      difficultyScore: difficultyScore ?? this.difficultyScore,
+      targetTimeSeconds: targetTimeSeconds ?? this.targetTimeSeconds,
+      medianTimeSeconds: medianTimeSeconds ?? this.medianTimeSeconds,
+      requiredTechniquesJson:
+          requiredTechniquesJson ?? this.requiredTechniquesJson,
+      solvePathJson: solvePathJson ?? this.solvePathJson,
+      puzzleChecksum: puzzleChecksum ?? this.puzzleChecksum,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (sourceLabel.present) {
+      map['source_label'] = Variable<String>(sourceLabel.value);
+    }
+    if (givensJson.present) {
+      map['givens_json'] = Variable<String>(givensJson.value);
+    }
+    if (solutionJson.present) {
+      map['solution_json'] = Variable<String>(solutionJson.value);
+    }
+    if (difficulty.present) {
+      map['difficulty'] = Variable<String>(difficulty.value);
+    }
+    if (difficultyScore.present) {
+      map['difficulty_score'] = Variable<int>(difficultyScore.value);
+    }
+    if (targetTimeSeconds.present) {
+      map['target_time_seconds'] = Variable<int>(targetTimeSeconds.value);
+    }
+    if (medianTimeSeconds.present) {
+      map['median_time_seconds'] = Variable<int>(medianTimeSeconds.value);
+    }
+    if (requiredTechniquesJson.present) {
+      map['required_techniques_json'] = Variable<String>(
+        requiredTechniquesJson.value,
+      );
+    }
+    if (solvePathJson.present) {
+      map['solve_path_json'] = Variable<String>(solvePathJson.value);
+    }
+    if (puzzleChecksum.present) {
+      map['puzzle_checksum'] = Variable<String>(puzzleChecksum.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ImportedPuzzleRowsCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('sourceLabel: $sourceLabel, ')
+          ..write('givensJson: $givensJson, ')
+          ..write('solutionJson: $solutionJson, ')
+          ..write('difficulty: $difficulty, ')
+          ..write('difficultyScore: $difficultyScore, ')
+          ..write('targetTimeSeconds: $targetTimeSeconds, ')
+          ..write('medianTimeSeconds: $medianTimeSeconds, ')
+          ..write('requiredTechniquesJson: $requiredTechniquesJson, ')
+          ..write('solvePathJson: $solvePathJson, ')
+          ..write('puzzleChecksum: $puzzleChecksum, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3184,6 +4037,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $AttemptRowsTable attemptRows = $AttemptRowsTable(this);
   late final $CurrentProgressRowsTable currentProgressRows =
       $CurrentProgressRowsTable(this);
+  late final $ImportedPuzzleRowsTable importedPuzzleRows =
+      $ImportedPuzzleRowsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3192,6 +4047,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     puzzleRows,
     attemptRows,
     currentProgressRows,
+    importedPuzzleRows,
   ];
 }
 
@@ -4593,6 +5449,410 @@ typedef $$CurrentProgressRowsTableProcessedTableManager =
       CurrentProgressRow,
       PrefetchHooks Function()
     >;
+typedef $$ImportedPuzzleRowsTableCreateCompanionBuilder =
+    ImportedPuzzleRowsCompanion Function({
+      required String id,
+      required String title,
+      Value<String?> sourceLabel,
+      required String givensJson,
+      required String solutionJson,
+      required String difficulty,
+      required int difficultyScore,
+      required int targetTimeSeconds,
+      required int medianTimeSeconds,
+      required String requiredTechniquesJson,
+      required String solvePathJson,
+      required String puzzleChecksum,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<int> rowid,
+    });
+typedef $$ImportedPuzzleRowsTableUpdateCompanionBuilder =
+    ImportedPuzzleRowsCompanion Function({
+      Value<String> id,
+      Value<String> title,
+      Value<String?> sourceLabel,
+      Value<String> givensJson,
+      Value<String> solutionJson,
+      Value<String> difficulty,
+      Value<int> difficultyScore,
+      Value<int> targetTimeSeconds,
+      Value<int> medianTimeSeconds,
+      Value<String> requiredTechniquesJson,
+      Value<String> solvePathJson,
+      Value<String> puzzleChecksum,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$ImportedPuzzleRowsTableFilterComposer
+    extends Composer<_$AppDatabase, $ImportedPuzzleRowsTable> {
+  $$ImportedPuzzleRowsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sourceLabel => $composableBuilder(
+    column: $table.sourceLabel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get givensJson => $composableBuilder(
+    column: $table.givensJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get solutionJson => $composableBuilder(
+    column: $table.solutionJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get difficultyScore => $composableBuilder(
+    column: $table.difficultyScore,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get targetTimeSeconds => $composableBuilder(
+    column: $table.targetTimeSeconds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get medianTimeSeconds => $composableBuilder(
+    column: $table.medianTimeSeconds,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get requiredTechniquesJson => $composableBuilder(
+    column: $table.requiredTechniquesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get solvePathJson => $composableBuilder(
+    column: $table.solvePathJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ImportedPuzzleRowsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ImportedPuzzleRowsTable> {
+  $$ImportedPuzzleRowsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sourceLabel => $composableBuilder(
+    column: $table.sourceLabel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get givensJson => $composableBuilder(
+    column: $table.givensJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get solutionJson => $composableBuilder(
+    column: $table.solutionJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get difficultyScore => $composableBuilder(
+    column: $table.difficultyScore,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get targetTimeSeconds => $composableBuilder(
+    column: $table.targetTimeSeconds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get medianTimeSeconds => $composableBuilder(
+    column: $table.medianTimeSeconds,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get requiredTechniquesJson => $composableBuilder(
+    column: $table.requiredTechniquesJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get solvePathJson => $composableBuilder(
+    column: $table.solvePathJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ImportedPuzzleRowsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ImportedPuzzleRowsTable> {
+  $$ImportedPuzzleRowsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get sourceLabel => $composableBuilder(
+    column: $table.sourceLabel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get givensJson => $composableBuilder(
+    column: $table.givensJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get solutionJson => $composableBuilder(
+    column: $table.solutionJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get difficulty => $composableBuilder(
+    column: $table.difficulty,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get difficultyScore => $composableBuilder(
+    column: $table.difficultyScore,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get targetTimeSeconds => $composableBuilder(
+    column: $table.targetTimeSeconds,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get medianTimeSeconds => $composableBuilder(
+    column: $table.medianTimeSeconds,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get requiredTechniquesJson => $composableBuilder(
+    column: $table.requiredTechniquesJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get solvePathJson => $composableBuilder(
+    column: $table.solvePathJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get puzzleChecksum => $composableBuilder(
+    column: $table.puzzleChecksum,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$ImportedPuzzleRowsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ImportedPuzzleRowsTable,
+          ImportedPuzzleRow,
+          $$ImportedPuzzleRowsTableFilterComposer,
+          $$ImportedPuzzleRowsTableOrderingComposer,
+          $$ImportedPuzzleRowsTableAnnotationComposer,
+          $$ImportedPuzzleRowsTableCreateCompanionBuilder,
+          $$ImportedPuzzleRowsTableUpdateCompanionBuilder,
+          (
+            ImportedPuzzleRow,
+            BaseReferences<
+              _$AppDatabase,
+              $ImportedPuzzleRowsTable,
+              ImportedPuzzleRow
+            >,
+          ),
+          ImportedPuzzleRow,
+          PrefetchHooks Function()
+        > {
+  $$ImportedPuzzleRowsTableTableManager(
+    _$AppDatabase db,
+    $ImportedPuzzleRowsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ImportedPuzzleRowsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ImportedPuzzleRowsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ImportedPuzzleRowsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String?> sourceLabel = const Value.absent(),
+                Value<String> givensJson = const Value.absent(),
+                Value<String> solutionJson = const Value.absent(),
+                Value<String> difficulty = const Value.absent(),
+                Value<int> difficultyScore = const Value.absent(),
+                Value<int> targetTimeSeconds = const Value.absent(),
+                Value<int> medianTimeSeconds = const Value.absent(),
+                Value<String> requiredTechniquesJson = const Value.absent(),
+                Value<String> solvePathJson = const Value.absent(),
+                Value<String> puzzleChecksum = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ImportedPuzzleRowsCompanion(
+                id: id,
+                title: title,
+                sourceLabel: sourceLabel,
+                givensJson: givensJson,
+                solutionJson: solutionJson,
+                difficulty: difficulty,
+                difficultyScore: difficultyScore,
+                targetTimeSeconds: targetTimeSeconds,
+                medianTimeSeconds: medianTimeSeconds,
+                requiredTechniquesJson: requiredTechniquesJson,
+                solvePathJson: solvePathJson,
+                puzzleChecksum: puzzleChecksum,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String title,
+                Value<String?> sourceLabel = const Value.absent(),
+                required String givensJson,
+                required String solutionJson,
+                required String difficulty,
+                required int difficultyScore,
+                required int targetTimeSeconds,
+                required int medianTimeSeconds,
+                required String requiredTechniquesJson,
+                required String solvePathJson,
+                required String puzzleChecksum,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => ImportedPuzzleRowsCompanion.insert(
+                id: id,
+                title: title,
+                sourceLabel: sourceLabel,
+                givensJson: givensJson,
+                solutionJson: solutionJson,
+                difficulty: difficulty,
+                difficultyScore: difficultyScore,
+                targetTimeSeconds: targetTimeSeconds,
+                medianTimeSeconds: medianTimeSeconds,
+                requiredTechniquesJson: requiredTechniquesJson,
+                solvePathJson: solvePathJson,
+                puzzleChecksum: puzzleChecksum,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ImportedPuzzleRowsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ImportedPuzzleRowsTable,
+      ImportedPuzzleRow,
+      $$ImportedPuzzleRowsTableFilterComposer,
+      $$ImportedPuzzleRowsTableOrderingComposer,
+      $$ImportedPuzzleRowsTableAnnotationComposer,
+      $$ImportedPuzzleRowsTableCreateCompanionBuilder,
+      $$ImportedPuzzleRowsTableUpdateCompanionBuilder,
+      (
+        ImportedPuzzleRow,
+        BaseReferences<
+          _$AppDatabase,
+          $ImportedPuzzleRowsTable,
+          ImportedPuzzleRow
+        >,
+      ),
+      ImportedPuzzleRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -4603,4 +5863,6 @@ class $AppDatabaseManager {
       $$AttemptRowsTableTableManager(_db, _db.attemptRows);
   $$CurrentProgressRowsTableTableManager get currentProgressRows =>
       $$CurrentProgressRowsTableTableManager(_db, _db.currentProgressRows);
+  $$ImportedPuzzleRowsTableTableManager get importedPuzzleRows =>
+      $$ImportedPuzzleRowsTableTableManager(_db, _db.importedPuzzleRows);
 }
