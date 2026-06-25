@@ -677,7 +677,7 @@ Implementation notes:
 
 ### Phase 5: Su-Pu Detail and Puzzle Versions
 
-Status: **Planned; ranking notes fast-follow shipped in build 17 UAT**
+Status: **Complete for iOS UAT - 2026-06-25**
 
 Tasks:
 
@@ -694,6 +694,14 @@ Validation:
 - Retry creates a new retry-class record.
 - Retry does not affect official ranking eligibility.
 - Notes persist if included.
+
+Implementation notes:
+
+- Record Hall cards now open a Su-Pu detail screen for the selected puzzle.
+- The detail screen shows Best Official, Best Overall, Latest Su-Pu, and all completed versions for the same puzzle.
+- Each version shows score, time, mistakes, hints, steps, score class, notes, and improvement deltas against the previous attempt.
+- Detail actions include Notes, Certificate, Replay, and Retry This Puzzle.
+- Retry launched from detail and retry from completion now save the next completed attempt as `Retry · 重修谱`.
 
 ### Phase 6: Compare / 对谱
 

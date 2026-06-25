@@ -26,11 +26,13 @@ class SudokuGameScreen extends StatefulWidget {
     this.repository,
     this.puzzle,
     this.catalog,
+    this.isRetry = false,
   });
 
   final SudokuRepository? repository;
   final FixturePuzzleDefinition? puzzle;
   final PuzzlePackCatalog? catalog;
+  final bool isRetry;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -41,6 +43,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   late final AppDatabase _database;
   late final SudokuRepository _repository;
   late final FixturePuzzleDefinition _puzzle;
+  late bool _isRetrySession;
   Timer? _timer;
   bool _completionShown = false;
   SudokuAttempt? _lastAttempt;
@@ -55,6 +58,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       _repository = SudokuRepository(_database);
     }
     _puzzle = widget.puzzle ?? FixturePuzzles.defaultTeaMoment;
+    _isRetrySession = widget.isRetry;
     _controller = GameSessionController(
       givens: _puzzle.givens,
       solution: _puzzle.solution,
@@ -219,6 +223,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       _controller.puzzleId,
     );
     final attempt = _controller.buildAttempt(
+      isRetry: _isRetrySession,
       attemptNumber: priorAttempts.length + 1,
     );
     await _repository.saveAttempt(attempt);
@@ -259,6 +264,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
           onRetry: () {
             Navigator.of(context).pop();
             _controller.resetForRetry();
+            _isRetrySession = true;
             _completionShown = false;
           },
           onReplay: () {

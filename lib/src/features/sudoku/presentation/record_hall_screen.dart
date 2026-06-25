@@ -8,6 +8,7 @@ import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_score_class.dart';
 import 'fixture_puzzles.dart';
+import 'su_pu_detail_screen.dart';
 import 'sudoku_replay_screen.dart';
 
 enum _RecordHallFilter { all, favorites, official, clean, extreme }
@@ -73,6 +74,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                       onFavorite: () => _toggleFavorite(attempt),
                       onCertificate: () => _openCertificate(attempt),
                       onNotes: () => _editNotes(attempt),
+                      onDetails: () => _openDetail(attempt),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -116,6 +118,25 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
             SudokuReplayScreen(givens: puzzle.givens, attempt: attempt),
       ),
     );
+  }
+
+  Future<void> _openDetail(SudokuAttempt attempt) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => SuPuDetailScreen(
+          repository: widget.repository,
+          catalog: widget.catalog,
+          puzzle: _puzzleFor(attempt),
+          initialAttempt: attempt,
+        ),
+      ),
+    );
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _attemptsFuture = _loadAttempts();
+    });
   }
 
   Future<void> _toggleFavorite(SudokuAttempt attempt) async {
@@ -380,6 +401,7 @@ class _SuPuCard extends StatelessWidget {
     required this.onFavorite,
     required this.onCertificate,
     required this.onNotes,
+    required this.onDetails,
   });
 
   final SudokuAttempt attempt;
@@ -388,6 +410,7 @@ class _SuPuCard extends StatelessWidget {
   final VoidCallback onFavorite;
   final VoidCallback onCertificate;
   final VoidCallback onNotes;
+  final VoidCallback onDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -399,129 +422,137 @@ class _SuPuCard extends StatelessWidget {
     final rating = attempt.playerDifficultyRating;
 
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: OrbaceTheme.vermilion,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    puzzle.seal,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onDetails,
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: OrbaceTheme.vermilion,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      puzzle.seal,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        puzzle.title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        '${puzzle.difficulty.label} · Attempt ${attempt.attemptNumber}',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: OrbaceTheme.mutedInk,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          puzzle.title,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 3),
+                        Text(
+                          '${puzzle.difficulty.label} · Attempt ${attempt.attemptNumber}',
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: OrbaceTheme.mutedInk),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                IconButton(
-                  tooltip: attempt.replayFavorite
-                      ? 'Remove favorite'
-                      : 'Favorite',
-                  onPressed: onFavorite,
-                  icon: Icon(
-                    attempt.replayFavorite ? Icons.star : Icons.star_border,
-                    color: attempt.replayFavorite
-                        ? OrbaceTheme.vermilion
-                        : OrbaceTheme.mutedInk,
+                  IconButton(
+                    tooltip: attempt.replayFavorite
+                        ? 'Remove favorite'
+                        : 'Favorite',
+                    onPressed: onFavorite,
+                    icon: Icon(
+                      attempt.replayFavorite ? Icons.star : Icons.star_border,
+                      color: attempt.replayFavorite
+                          ? OrbaceTheme.vermilion
+                          : OrbaceTheme.mutedInk,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  _Badge(
+                    label:
+                        '${attempt.scoreClass.label} · ${_scoreClassChinese(attempt.scoreClass)}',
+                  ),
+                  if (attempt.cleanSolve) const _Badge(label: 'Clean · 净谱'),
+                  if (rating != null)
+                    _Badge(label: 'Rated ${rating.toStringAsFixed(1)}'),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Score $score · ${_formatTime(attempt.elapsedSeconds)} · '
+                '${attempt.errorCount} mistakes · $hintCount hints',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                _formatDate(attempt.completedAt ?? attempt.startedAt),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
+              ),
+              if (attempt.replayNotes case final notes?
+                  when notes.isNotEmpty) ...[
+                const SizedBox(height: 10),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: OrbaceTheme.paper,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: const Color(0xFFE6DED0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text('谱评: $notes'),
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                _Badge(
-                  label:
-                      '${attempt.scoreClass.label} · ${_scoreClassChinese(attempt.scoreClass)}',
-                ),
-                if (attempt.cleanSolve) const _Badge(label: 'Clean · 净谱'),
-                if (rating != null)
-                  _Badge(label: 'Rated ${rating.toStringAsFixed(1)}'),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Score $score · ${_formatTime(attempt.elapsedSeconds)} · '
-              '${attempt.errorCount} mistakes · $hintCount hints',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              _formatDate(attempt.completedAt ?? attempt.startedAt),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
-            ),
-            if (attempt.replayNotes case final notes?
-                when notes.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: OrbaceTheme.paper,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: const Color(0xFFE6DED0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text('谱评: $notes'),
-                ),
+              const SizedBox(height: 12),
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: onDetails,
+                    icon: const Icon(Icons.manage_search),
+                    label: const Text('Details'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: onNotes,
+                    icon: const Icon(Icons.edit_note),
+                    label: const Text('Notes'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: onCertificate,
+                    icon: const Icon(Icons.workspace_premium_outlined),
+                    label: const Text('Certificate'),
+                  ),
+                  FilledButton.icon(
+                    onPressed: onReplay,
+                    icon: const Icon(Icons.play_arrow),
+                    label: const Text('Replay'),
+                  ),
+                ],
               ),
             ],
-            const SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.end,
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                OutlinedButton.icon(
-                  onPressed: onNotes,
-                  icon: const Icon(Icons.edit_note),
-                  label: const Text('Notes'),
-                ),
-                OutlinedButton.icon(
-                  onPressed: onCertificate,
-                  icon: const Icon(Icons.workspace_premium_outlined),
-                  label: const Text('Certificate'),
-                ),
-                FilledButton.icon(
-                  onPressed: onReplay,
-                  icon: const Icon(Icons.play_arrow),
-                  label: const Text('Replay'),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
