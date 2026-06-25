@@ -24,6 +24,15 @@
 
 The current iOS UAT candidate is build `1.0.0 (21)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
+Current saved baseline for production-readiness planning:
+
+| Area | Baseline |
+| --- | --- |
+| Source commit | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (21)` |
+| Validation status | Local validation passed for build `1.0.0 (21)` before IPA build |
+| Production readiness plan | `Docs/Orbace Sudoku - Production Readiness Plan.md` |
+
 ## Feedback Log
 
 | ID | Source/Phase | Feedback | Priority | Status | Action Taken | Validation |
@@ -58,6 +67,7 @@ The current iOS UAT candidate is build `1.0.0 (21)`. The current Android closed-
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 | IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Local ranking complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, and opens Su-Pu detail with version history, retry, and per-puzzle local 名谱榜. Score class and ranked eligibility come from one deterministic eligibility engine. Next step: compare / 对谱 after build 21 UAT smoke. |
 | IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
+| IDEA-008 | Release Ops | Production readiness plan | Started | Product build readiness is now tracked as a dedicated 8-step plan, with AdMob + IPA/TestFlight/App Store integration as its own major gate. Continue using this UAT log for new requests, UAT bugs, and scope changes. |
 
 ## Action Workflow
 
