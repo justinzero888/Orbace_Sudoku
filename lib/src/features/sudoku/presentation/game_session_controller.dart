@@ -7,8 +7,8 @@ import '../domain/sudoku_board.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_difficulty.dart';
 import '../domain/sudoku_move.dart';
-import '../domain/sudoku_score_class.dart';
 import '../domain/solving_step.dart';
+import '../engine/attempt_eligibility_engine.dart';
 import '../engine/human_ranked_solver.dart';
 import '../engine/score_calculator.dart';
 import '../engine/sudoku_validator.dart';
@@ -20,8 +20,11 @@ class GameSessionController extends ChangeNotifier {
     this.puzzleId = 'tea_moment_fixture',
     this.difficulty = SudokuDifficulty.beginner,
     this.targetTimeSeconds = 360,
+    this.puzzleRankedEligible = false,
+    this.contentVersion,
     HumanRankedSolver? humanSolver,
     this.scoreCalculator = const ScoreCalculator(),
+    this.eligibilityEngine = const AttemptEligibilityEngine(),
   }) : _givens = givens,
        _humanSolver = humanSolver ?? HumanRankedSolver(),
        _values = givens.toMutableCells(),
@@ -38,8 +41,11 @@ class GameSessionController extends ChangeNotifier {
   final String puzzleId;
   final SudokuDifficulty difficulty;
   final int targetTimeSeconds;
+  final bool puzzleRankedEligible;
+  final String? contentVersion;
   final HumanRankedSolver _humanSolver;
   final ScoreCalculator scoreCalculator;
+  final AttemptEligibilityEngine eligibilityEngine;
   static const SudokuValidator _validator = SudokuValidator();
   final List<int?> _values;
   final List<Set<int>> _notes;
@@ -362,7 +368,6 @@ class GameSessionController extends ChangeNotifier {
 
   SudokuAttempt buildAttempt({bool isRetry = false, int attemptNumber = 1}) {
     final cleanSolve = _mistakeCount == 0 && _hintCount == 0;
-    final scoreClass = _scoreClassFor(isRetry: isRetry);
     final score = scoreCalculator.calculate(
       ScoreInput(
         difficulty: difficulty,
@@ -377,6 +382,21 @@ class GameSessionController extends ChangeNotifier {
         cleanSolve: cleanSolve,
         playerSteps: _undoStack.length,
         optimalSteps: _solvePath.length,
+      ),
+    );
+    final eligibility = eligibilityEngine.evaluate(
+      AttemptEligibilityInput(
+        completed: _completed,
+        isRetry: isRetry,
+        attemptNumber: attemptNumber,
+        hintNudgeCount: _hintNudgeCount,
+        hintExplanationCount: _hintExplanationCount,
+        hintRevealCount: _hintRevealCount,
+        autoCheckEnabled: _mistakeChecking,
+        mistakeRevealEnabled: _mistakeChecking,
+        puzzleRankedEligible: puzzleRankedEligible,
+        scoringVersion: score.scoringVersion,
+        currentScoringVersion: ScoreCalculator.scoringVersion,
       ),
     );
 
@@ -394,28 +414,16 @@ class GameSessionController extends ChangeNotifier {
       mistakeRevealEnabled: _mistakeChecking,
       completed: _completed,
       cleanSolve: cleanSolve,
-      rankedEligible: false,
-      scoreClass: scoreClass,
+      rankedEligible: eligibility.rankedEligible,
+      scoreClass: eligibility.scoreClass,
       score: score,
       moveHistory: moveHistory,
       startedAt: _startedAt,
       completedAt: _completed ? DateTime.now() : null,
       replayHash: _replayHash(),
       puzzleChecksum: _puzzleChecksum(),
+      contentVersion: contentVersion,
     );
-  }
-
-  SudokuScoreClass _scoreClassFor({required bool isRetry}) {
-    if (isRetry) {
-      return SudokuScoreClass.retry;
-    }
-    if (_hintNudgeCount > 0 ||
-        _hintExplanationCount > 0 ||
-        _hintRevealCount > 0 ||
-        _mistakeChecking) {
-      return SudokuScoreClass.assisted;
-    }
-    return SudokuScoreClass.official;
   }
 
   String _puzzleChecksum() {

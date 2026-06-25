@@ -114,7 +114,7 @@ void main() {
 
         expect(attempts, hasLength(1));
         expect(attempts.single.score, isNotNull);
-        expect(attempts.single.scoreClass, SudokuScoreClass.assisted);
+        expect(attempts.single.scoreClass, SudokuScoreClass.legacy);
         expect(attempts.single.replayHash, hasLength(64));
         expect(attempts.single.puzzleChecksum, hasLength(64));
         expect(attempts.single.replayFavorite, isFalse);

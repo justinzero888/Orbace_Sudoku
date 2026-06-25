@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_board.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_score_class.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/game_session_controller.dart';
 
@@ -100,5 +101,30 @@ void main() {
     expect(third.tier, 3);
     expect(controller.hintTargetIndex, isNotNull);
     expect(controller.selectedIndex, controller.hintTargetIndex);
+  });
+
+  test('buildAttempt uses ranked eligibility engine for official attempts', () {
+    final rankedController = GameSessionController(
+      givens: FixturePuzzles.teaMomentGivens(),
+      solution: FixturePuzzles.teaMomentSolution(),
+      puzzleRankedEligible: true,
+    );
+    addTearDown(rankedController.dispose);
+    rankedController.setMistakeChecking(false);
+
+    for (var index = 0; index < SudokuBoard.cellCount; index++) {
+      if (rankedController.isGiven(index)) {
+        continue;
+      }
+      rankedController
+        ..selectCell(index)
+        ..enterNumber(FixturePuzzles.teaMomentSolution().valueAtIndex(index)!);
+    }
+
+    final attempt = rankedController.buildAttempt();
+
+    expect(attempt.completed, isTrue);
+    expect(attempt.scoreClass, SudokuScoreClass.official);
+    expect(attempt.rankedEligible, isTrue);
   });
 }

@@ -169,6 +169,14 @@ Current code already uses:
 
 Current score formula is suitable for v1 local play, but leaderboard readiness needs stricter rule labeling.
 
+Implementation status - 2026-06-25:
+
+- A centralized `AttemptEligibilityEngine` now owns score-class and ranking eligibility decisions.
+- The game session controller passes factual inputs into the engine: completion state, retry state, attempt number, hint counts, assist flags, puzzle ranked flag, and scoring version.
+- The engine returns deterministic reason codes internally, including `not_completed`, `retry_or_later_attempt`, `hints_used`, `assist_enabled`, `puzzle_not_ranked`, and `scoring_version_mismatch`.
+- Current bundled catalog puzzles remain `rankedEligible: false`, so normal UAT solves are protected from accidental ranking until Orbace certifies rankable content.
+- Unit coverage confirms a certified, completed, no-assist first attempt becomes `Official` and ranked eligible, while hints, assists, retries, uncertified puzzles, and scoring-version mismatch are blocked.
+
 ### 4.3 Recommended v1 Score Classes
 
 Add an explicit score class:
@@ -725,6 +733,12 @@ Validation:
 
 ### Phase 7: Local Ranking / 名谱榜
 
+Prerequisite status:
+
+- Ranked eligibility hardening is complete for build `1.0.0 (20)`.
+- Local ranking can now trust stored `scoreClass` and `rankedEligible` because both are derived from one audited engine path.
+- Before enabling ranked lists for bundled packs, certify which puzzle catalog entries should flip `rankedEligible` from false to true.
+
 Tasks:
 
 - Add per-puzzle local ranking.
@@ -738,6 +752,7 @@ Validation:
 - Practice, Retry, and Legacy records are excluded.
 - Scoring version mismatch is excluded.
 - Puzzle checksum mismatch is excluded.
+- Uncertified puzzle content is excluded even when solved cleanly.
 - Ranking order is deterministic.
 
 ## 10. UAT Test Cases
@@ -805,6 +820,6 @@ Proceed with implementation in this order:
 4. Record Hall / 藏谱阁.
 5. Su-Pu detail and puzzle versions.
 6. Compare / 对谱.
-7. Local ranking / 名谱榜.
+7. Local ranking / 名谱榜. Next after build `1.0.0 (20)` UAT smoke.
 
 This order gives the best customer experience because the player first feels the value of creating a formal record at completion, then gains a place to collect records, then receives deeper study and competition features. It also reduces engineering risk because sharing, Record Hall, comparison, and ranking all build on the same stable Su-Pu data foundation.

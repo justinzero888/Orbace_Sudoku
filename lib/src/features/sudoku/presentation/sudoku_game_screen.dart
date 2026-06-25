@@ -65,6 +65,8 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       puzzleId: _puzzle.id,
       difficulty: _puzzle.difficulty,
       targetTimeSeconds: _puzzle.targetTimeSeconds,
+      puzzleRankedEligible: _puzzle.rankedEligible,
+      contentVersion: widget.catalog?.contentVersion,
     )..addListener(_handleControllerChanged);
     unawaited(_seedPuzzle());
     _timer = Timer.periodic(
