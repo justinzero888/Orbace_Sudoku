@@ -24,7 +24,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "179800200",
         "030200000",
@@ -61,7 +61,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "006002094",
         "030940050",
@@ -98,7 +98,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "075000196",
         "000700408",
@@ -135,7 +135,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "060107804",
         "400060007",
@@ -173,7 +173,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "090206040",
         "003750000",
@@ -212,7 +212,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "600905010",
         "300000486",
@@ -249,7 +249,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "040800000",
         "600050000",
@@ -286,7 +286,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "906340000",
         "280069000",
@@ -323,7 +323,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "700900150",
         "050870049",
@@ -360,7 +360,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "700005000",
         "090004010",
@@ -397,7 +397,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "502360409",
         "004750000",
@@ -436,7 +436,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000830007",
         "408702006",
@@ -474,7 +474,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000007120",
         "597000000",
@@ -511,7 +511,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "050980000",
         "700000098",
@@ -548,7 +548,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "007009080",
         "428006500",
@@ -585,7 +585,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "300078956",
         "000050000",
@@ -622,7 +622,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "009300002",
         "020968530",
@@ -659,7 +659,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "040057008",
         "908000257",
@@ -696,7 +696,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "109500038",
         "063410500",
@@ -735,7 +735,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000900600",
         "580406002",
@@ -772,7 +772,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "849000007",
         "000000000",
@@ -809,7 +809,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "010903050",
         "000007601",
@@ -846,7 +846,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "003700900",
         "407009000",
@@ -884,7 +884,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "700005600",
         "098710030",
@@ -921,7 +921,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "010000000",
         "006050031",
@@ -958,7 +958,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000080040",
         "003009010",
@@ -995,7 +995,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000000605",
         "703010020",
@@ -1033,7 +1033,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "057100008",
         "000000413",
@@ -1070,7 +1070,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "500306800",
         "610040007",
@@ -1107,7 +1107,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "004000087",
         "000000100",
@@ -1144,7 +1144,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000243600",
         "006851030",
@@ -1181,7 +1181,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000800200",
         "070300094",
@@ -1218,7 +1218,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "005100080",
         "003402006",
@@ -1255,7 +1255,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "720093600",
         "001200039",
@@ -1292,7 +1292,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "010007000",
         "200000005",
@@ -1329,7 +1329,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "320980000",
         "094070062",
@@ -1366,7 +1366,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000396000",
         "006000205",
@@ -1405,7 +1405,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000600900",
         "940003000",
@@ -1443,7 +1443,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "107059020",
         "000100000",
@@ -1480,7 +1480,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "075286900",
         "100507002",
@@ -1517,7 +1517,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "012070008",
         "043100900",
@@ -1554,7 +1554,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000000068",
         "060002709",
@@ -1591,7 +1591,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "200009035",
         "400010007",
@@ -1629,7 +1629,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000408007",
         "420000000",
@@ -1666,7 +1666,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000210900",
         "000009360",
@@ -1703,7 +1703,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "420003001",
         "000045000",
@@ -1740,7 +1740,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "483200719",
         "250070000",
@@ -1778,7 +1778,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "407600010",
         "010000090",
@@ -1815,7 +1815,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "600000020",
         "983045000",
@@ -1852,7 +1852,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "008009100",
         "200000597",
@@ -1889,7 +1889,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "007002005",
         "005010003",
@@ -1928,7 +1928,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "800000500",
         "016005400",
@@ -1965,7 +1965,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000009010",
         "970000805",
@@ -2002,7 +2002,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "068250791",
         "205090000",
@@ -2039,7 +2039,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000310000",
         "000900410",
@@ -2076,7 +2076,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "508001020",
         "000800091",
@@ -2113,7 +2113,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000079000",
         "705000000",
@@ -2150,7 +2150,7 @@
         "naked_pair",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "004008020",
         "058210060",
@@ -2187,7 +2187,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000400003",
         "637090405",
@@ -2224,7 +2224,7 @@
         "naked_single",
         "pointing_pair"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "005314900",
         "400006000",

@@ -17,6 +17,15 @@ void main() {
     );
   });
 
+  test('bundled asset catalog is certified for local ranking', () async {
+    final catalog = await PuzzlePackLoader().load();
+
+    expect(
+      catalog.puzzles.where((puzzle) => puzzle.rankedEligible),
+      hasLength(catalog.puzzles.length),
+    );
+  });
+
   test('asset catalog has matching unique solutions', () async {
     final catalog = await PuzzlePackLoader().load();
     final solver = SudokuSolver();

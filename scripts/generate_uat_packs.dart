@@ -389,7 +389,7 @@ class PackPlan {
     required this.cellsToRemove,
     required this.targetDifficulty,
     required this.requiredAdvancedRatio,
-    this.rankedEligible = false,
+    this.rankedEligible = true,
     this.milestoneEvery = 10,
     this.allowAdvanced = true,
     this.maxAttemptMultiplier = 220,

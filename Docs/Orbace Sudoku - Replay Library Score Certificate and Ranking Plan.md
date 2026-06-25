@@ -737,7 +737,8 @@ Prerequisite status:
 
 - Ranked eligibility hardening is complete for build `1.0.0 (20)`.
 - Local ranking can now trust stored `scoreClass` and `rankedEligible` because both are derived from one audited engine path.
-- Before enabling ranked lists for bundled packs, certify which puzzle catalog entries should flip `rankedEligible` from false to true.
+- Bundled puzzle catalog entries are certified for local ranking in build `1.0.0 (21)`.
+- Imported puzzles remain personal records only and are explicitly labeled as imported/not-ranked on certificates.
 
 Tasks:
 
@@ -745,6 +746,7 @@ Tasks:
 - Include only `Official · 正谱` records.
 - Compare only same puzzle checksum and scoring version.
 - Highlight Best Official.
+- Label imported certificates as personal/imported and not ranked.
 - Keep worldwide leaderboard deferred until backend/account/privacy work exists.
 
 Validation:
@@ -753,6 +755,7 @@ Validation:
 - Scoring version mismatch is excluded.
 - Puzzle checksum mismatch is excluded.
 - Uncertified puzzle content is excluded even when solved cleanly.
+- Imported puzzles are excluded from ranking and clearly labeled on saved/shared certificates.
 - Ranking order is deterministic.
 
 ## 10. UAT Test Cases

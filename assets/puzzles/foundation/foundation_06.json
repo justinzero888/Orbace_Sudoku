@@ -21,7 +21,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000080002",
         "060050947",
@@ -56,7 +56,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "008200365",
         "910000004",
@@ -91,7 +91,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "002406901",
         "081003600",
@@ -126,7 +126,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "063005012",
         "000364508",
@@ -161,7 +161,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "057010304",
         "040009680",
@@ -196,7 +196,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "723060015",
         "460510020",
@@ -231,7 +231,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "503000089",
         "780300200",
@@ -266,7 +266,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "130000426",
         "240010007",
@@ -301,7 +301,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "340000070",
         "620079803",
@@ -336,7 +336,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "950821704",
         "002076000",
@@ -371,7 +371,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "100320600",
         "060087039",
@@ -406,7 +406,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "003009476",
         "640030000",
@@ -441,7 +441,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "370100200",
         "064000000",
@@ -476,7 +476,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "400009005",
         "657100980",
@@ -511,7 +511,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "600070520",
         "925000041",
@@ -546,7 +546,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "341780005",
         "000431000",
@@ -581,7 +581,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "058003000",
         "401062007",
@@ -616,7 +616,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "040000053",
         "700480206",
@@ -651,7 +651,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "400007000",
         "009080507",
@@ -686,7 +686,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "140000005",
         "003070108",
@@ -721,7 +721,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "419308600",
         "030200004",
@@ -756,7 +756,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "058030020",
         "000261570",
@@ -791,7 +791,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "600027000",
         "405003009",
@@ -826,7 +826,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000034020",
         "409050816",
@@ -861,7 +861,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "100350004",
         "002900080",
@@ -896,7 +896,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000902005",
         "000000200",
@@ -931,7 +931,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "070089643",
         "436005000",
@@ -966,7 +966,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "308006400",
         "100472305",
@@ -1001,7 +1001,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "200090000",
         "350080914",
@@ -1036,7 +1036,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "007621900",
         "260503007",
@@ -1071,7 +1071,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "058701264",
         "000004890",
@@ -1106,7 +1106,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "005007698",
         "000014030",
@@ -1141,7 +1141,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "004307056",
         "702000184",
@@ -1176,7 +1176,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "740800320",
         "000040960",
@@ -1211,7 +1211,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "428000007",
         "390570000",
@@ -1246,7 +1246,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "034050006",
         "000000520",
@@ -1281,7 +1281,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "907001004",
         "000254090",
@@ -1316,7 +1316,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "958400312",
         "000003900",
@@ -1351,7 +1351,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "010520376",
         "763400000",
@@ -1386,7 +1386,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000600471",
         "070090003",
@@ -1421,7 +1421,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "300702018",
         "814309007",
@@ -1456,7 +1456,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "071002049",
         "825090030",
@@ -1491,7 +1491,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "450020080",
         "630014709",
@@ -1526,7 +1526,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "182650000",
         "605039010",
@@ -1561,7 +1561,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "095000080",
         "710003920",
@@ -1596,7 +1596,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000700040",
         "708469001",
@@ -1631,7 +1631,7 @@
       "requiredTechniques": [
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "376021084",
         "804000000",
@@ -1667,7 +1667,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "060030410",
         "837104090",
@@ -1703,7 +1703,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "039000015",
         "060100809",
@@ -1739,7 +1739,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000085040",
         "409210005",
@@ -1775,7 +1775,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "367012945",
         "102500006",
@@ -1811,7 +1811,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "009000060",
         "030419850",
@@ -1847,7 +1847,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "006100024",
         "030000760",
@@ -1883,7 +1883,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "006097000",
         "100040090",
@@ -1919,7 +1919,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "290000000",
         "003000050",
@@ -1955,7 +1955,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "107090384",
         "902084600",
@@ -1991,7 +1991,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "200000000",
         "400000510",
@@ -2027,7 +2027,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "000100820",
         "051200004",
@@ -2063,7 +2063,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "006100090",
         "040065781",
@@ -2099,7 +2099,7 @@
         "hidden_single",
         "naked_single"
       ],
-      "rankedEligible": false,
+      "rankedEligible": true,
       "givensRows": [
         "060002100",
         "901600027",

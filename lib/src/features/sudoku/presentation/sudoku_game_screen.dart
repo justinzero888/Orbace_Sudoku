@@ -713,6 +713,7 @@ class _ScoreCertificateCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final score = attempt.score;
     final scoreClass = attempt.scoreClass;
+    final isImported = puzzle.packId == 'imported';
 
     return ColoredBox(
       color: OrbaceTheme.ricePaper,
@@ -785,6 +786,16 @@ class _ScoreCertificateCard extends StatelessWidget {
                       '${puzzle.difficulty.label} · ${puzzle.difficulty.chineseLabel}',
                   color: OrbaceTheme.vermilion,
                 ),
+                if (isImported)
+                  const _CertificateChip(
+                    label: 'Imported · 入谱 · Personal only',
+                    color: Color(0xFF8A6E2F),
+                  ),
+                if (!attempt.rankedEligible)
+                  const _CertificateChip(
+                    label: 'Not ranked · 非名谱',
+                    color: OrbaceTheme.mutedInk,
+                  ),
               ],
             ),
             const SizedBox(height: 18),
@@ -850,7 +861,8 @@ class _ScoreCertificateCard extends StatelessWidget {
             const SizedBox(height: 14),
             Text(
               'Su-Pu ID: ${attempt.id}\n'
-              'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally',
+              'Scoring v${score?.scoringVersion ?? 0} · Replay saved locally'
+              '${isImported ? '\nImported puzzle: personal certificate, excluded from ranking' : ''}',
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
                 color: OrbaceTheme.ink,

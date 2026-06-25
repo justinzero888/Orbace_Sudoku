@@ -7,6 +7,8 @@ import '../data/score_card_store.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_score_class.dart';
+import '../engine/local_ranking_engine.dart';
+import '../engine/score_calculator.dart';
 import 'fixture_puzzles.dart';
 import 'sudoku_game_screen.dart';
 import 'sudoku_replay_screen.dart';
@@ -32,6 +34,7 @@ class SuPuDetailScreen extends StatefulWidget {
 class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
   late Future<List<SudokuAttempt>> _attemptsFuture = _loadAttempts();
   final ScoreCardStore _scoreCardStore = const ScoreCardStore();
+  final LocalRankingEngine _rankingEngine = const LocalRankingEngine();
 
   Future<List<SudokuAttempt>> _loadAttempts() async {
     final attempts = await widget.repository.attemptsForPuzzle(
@@ -53,7 +56,8 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
               return const Center(child: CircularProgressIndicator());
             }
             final attempts = snapshot.requireData;
-            final bestOfficial = _bestOfficial(attempts);
+            final localRanking = _localRanking(attempts);
+            final bestOfficial = localRanking.firstOrNull?.attempt;
             final bestOverall = _bestOverall(attempts);
             final latest = attempts.isEmpty ? null : attempts.first;
 
@@ -66,6 +70,12 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
                   bestOfficial: bestOfficial,
                   bestOverall: bestOverall,
                   latest: latest,
+                ),
+                const SizedBox(height: 14),
+                _LocalRankingPanel(
+                  puzzle: widget.puzzle,
+                  entries: localRanking,
+                  initialAttemptId: widget.initialAttempt.id,
                 ),
                 const SizedBox(height: 14),
                 Text('Versions', style: Theme.of(context).textTheme.titleLarge),
@@ -107,11 +117,14 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
     );
   }
 
-  SudokuAttempt? _bestOfficial(List<SudokuAttempt> attempts) {
-    return _bestOverall(
-      attempts
-          .where((attempt) => attempt.scoreClass == SudokuScoreClass.official)
-          .toList(growable: false),
+  List<LocalRankingEntry> _localRanking(List<SudokuAttempt> attempts) {
+    return _rankingEngine.rank(
+      attempts: attempts,
+      puzzleChecksum: widget.repository.puzzleChecksum(
+        widget.puzzle.givens,
+        widget.puzzle.solution,
+      ),
+      scoringVersion: ScoreCalculator.scoringVersion,
     );
   }
 
@@ -418,6 +431,137 @@ class _SummaryTile extends StatelessWidget {
                 ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LocalRankingPanel extends StatelessWidget {
+  const _LocalRankingPanel({
+    required this.puzzle,
+    required this.entries,
+    required this.initialAttemptId,
+  });
+
+  final FixturePuzzleDefinition puzzle;
+  final List<LocalRankingEntry> entries;
+  final String initialAttemptId;
+
+  @override
+  Widget build(BuildContext context) {
+    final isImported = puzzle.packId == 'imported';
+    final visibleEntries = entries.take(5).toList(growable: false);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: OrbaceTheme.paper,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFE6DED0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.leaderboard_outlined),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Local Ranking · 名谱榜',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+                if (isImported)
+                  const _Badge(label: 'Imported · 入谱')
+                else
+                  _Badge(label: '${entries.length} ranked'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              isImported
+                  ? 'Imported puzzles are personal records only. They can be replayed, rated, and shared, but are excluded from ranking.'
+                  : 'Only Official · 正谱 records with the same puzzle checksum and scoring version appear here.',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
+            ),
+            const SizedBox(height: 12),
+            if (entries.isEmpty)
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFCF5),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: const Color(0xFFE6DED0)),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'No ranked Su-Pu yet. Complete a built-in puzzle with no hints, no auto-check, and no retry to create one.',
+                  ),
+                ),
+              )
+            else
+              for (final entry in visibleEntries) ...[
+                _RankingRow(
+                  entry: entry,
+                  isCurrent: entry.attempt.id == initialAttemptId,
+                ),
+                if (entry != visibleEntries.last) const Divider(height: 14),
+              ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RankingRow extends StatelessWidget {
+  const _RankingRow({required this.entry, required this.isCurrent});
+
+  final LocalRankingEntry entry;
+  final bool isCurrent;
+
+  @override
+  Widget build(BuildContext context) {
+    final attempt = entry.attempt;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: isCurrent ? const Color(0xFFFFFCF5) : Colors.transparent,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 40,
+              child: Text(
+                '#${entry.rank}',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Attempt ${attempt.attemptNumber}${isCurrent ? ' · Current' : ''}',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: isCurrent ? FontWeight.w800 : FontWeight.w600,
+                ),
+              ),
+            ),
+            Text(
+              '${attempt.score?.total ?? 0}',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+            ),
+            const SizedBox(width: 12),
+            Text(_formatTime(attempt.elapsedSeconds)),
+          ],
         ),
       ),
     );

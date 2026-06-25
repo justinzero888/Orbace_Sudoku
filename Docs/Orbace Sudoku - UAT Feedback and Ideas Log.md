@@ -19,9 +19,10 @@
 | `1.0.0 (18)` | iOS TestFlight IPA | External import V1 + certificate persistence fix | Personal import supports paste/grid entry, validation for one solution, local Imported pack, and update-safe score-card image paths. |
 | `1.0.0 (19)` | iOS TestFlight IPA | Su-Pu Phase 5 detail and versions | Record Hall cards open same-puzzle Su-Pu detail, Best Official/Best Overall/Latest summary, version deltas, and Retry from detail. |
 | `1.0.0 (20)` | iOS TestFlight IPA | Ranked eligibility hardening | Centralized eligibility engine controls score class and ranked eligibility with deterministic blocking reasons before local ranking. |
+| `1.0.0 (21)` | iOS TestFlight IPA | Imported certificate labels + local ranking | Imported certificates show personal/not-ranked labels; bundled puzzles are certified for local ranking; Su-Pu Detail shows per-puzzle 名谱榜. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
 
-The current iOS UAT candidate is build `1.0.0 (20)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (21)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
 ## Feedback Log
 
@@ -55,7 +56,7 @@ The current iOS UAT candidate is build `1.0.0 (20)`. The current Android closed-
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
-| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Ranked eligibility hardening complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, and opens Su-Pu detail with version history and retry. Score class and ranked eligibility now come from one deterministic eligibility engine. Next step: local ranking / 名谱榜 after build 20 UAT smoke. |
+| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Local ranking complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, and opens Su-Pu detail with version history, retry, and per-puzzle local 名谱榜. Score class and ranked eligibility come from one deterministic eligibility engine. Next step: compare / 对谱 after build 21 UAT smoke. |
 | IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
 
 ## Action Workflow
@@ -84,3 +85,4 @@ The current iOS UAT candidate is build `1.0.0 (20)`. The current Android closed-
 | `1.0.0 (18)` | iOS IPA | UAT-017, UAT-018 | Local validation passed; IPA built | External import V1 plus update-safe certificate image path handling. |
 | `1.0.0 (19)` | iOS IPA | IDEA-006 Phase 5 | Local validation passed; IPA built | Su-Pu detail/version history with best summaries, deltas, notes, replay/certificate actions, and retry-class retry. |
 | `1.0.0 (20)` | iOS IPA | IDEA-006 ranked eligibility hardening | Local validation passed; IPA built | Centralized score-class/ranked eligibility engine added before local ranking. Current catalog remains non-ranked until content certification. |
+| `1.0.0 (21)` | iOS IPA | IDEA-006 local ranking + imported labels | Local validation passed; IPA built | Imported certificates are labeled personal/not-ranked; bundled catalog is certified for local ranking; Su-Pu Detail shows local 名谱榜. |
