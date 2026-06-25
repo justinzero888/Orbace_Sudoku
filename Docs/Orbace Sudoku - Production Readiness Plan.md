@@ -47,6 +47,12 @@ Exit criteria:
 
 Goal: make the 1,800-puzzle catalog feel like a real product library, not only a playable list.
 
+Important clarification:
+
+- The 1,800 puzzle content audit is already complete for the current UAT baseline: uniqueness, solver compatibility, duplicate-scan cleanup, difficulty distribution, and packaging have been validated.
+- Gate 2 is **not** another 1,800-puzzle quality audit.
+- Gate 2 is the user-experience and persistence layer that sits on top of the audited catalog: showing progress, best results, and resume paths so the large library feels navigable and owned by the player.
+
 Deliverables:
 
 - Completed count per pack.
@@ -61,6 +67,7 @@ Why this matters:
 - Product users need clear progress through a large catalog.
 - UAT already has completion markers, but product readiness needs resume and best-score behavior.
 - The database has current-progress schema, but app workflows do not yet use it.
+- Without this gate, players can test all 1,800 puzzles, but the catalog behaves more like a long static list than a polished product library.
 
 Exit criteria:
 
@@ -119,11 +126,15 @@ Exit criteria:
 - Android closed-test notes are updated.
 - Android UAT smoke covers gameplay, replay, Record Hall, certificate, imported puzzle, and local ranking.
 
-### Gate 5: AdMob, IPA, TestFlight, and App Store Integration
+### Gate 5: AdMob, Store Build, Test Track, and Store Upload Integration
 
-Goal: treat monetization and Apple upload mechanics as one explicit release gate, because release failures here are easy to miss late.
+Goal: treat monetization and platform upload mechanics as one explicit release gate, because release failures here are easy to miss late.
 
 This gate must be run every time the app moves from UAT candidate to release-candidate build.
+
+### Gate 5A: iOS AdMob, IPA, TestFlight, and App Store Connect
+
+Goal: make sure the iOS binary, AdMob setup, TestFlight processing, and App Store Connect metadata are aligned before external or production release.
 
 Deliverables:
 
@@ -133,10 +144,10 @@ Deliverables:
   - debug builds use Google test ads.
   - release builds use Orbace production unit only after store metadata/privacy are ready.
   - ads remain absent during active gameplay, replay, Record Hall detail, and certificates.
-- Confirm AdMob account/store setup:
+- Confirm iOS AdMob account/store setup:
   - app is linked to the correct App Store record when available.
   - app-ads.txt is published on the developer website.
-  - privacy/data-safety answers include ad SDK behavior.
+  - App Store privacy answers include ad SDK behavior.
   - consent requirement is decided for launch countries.
 - Confirm IPA build process:
   - build number increments.
@@ -170,6 +181,53 @@ Exit criteria:
 - Home-screen banner behavior is validated.
 - Active gameplay remains ad-free.
 - App Store privacy, export compliance, ads declaration, and app-ads.txt status are documented.
+
+### Gate 5B: Android AdMob, AAB, Closed Testing, and Google Play
+
+Goal: make sure Android uses the matching release candidate code, builds a signed AAB, and has Play Console / AdMob setup aligned before broader closed testing or production rollout.
+
+Deliverables:
+
+- Confirm Android AdMob readiness:
+  - Android AdMob app ID is available.
+  - Android banner ad unit ID is available.
+  - Android `AndroidManifest.xml` includes the AdMob app ID only after IDs are final.
+  - debug builds use Google test ads.
+  - release builds use Orbace production unit only after Google Play data safety, ads declaration, and app-ads.txt are ready.
+  - ads remain absent during active gameplay, replay, Record Hall detail, and certificates.
+- Confirm AAB build process:
+  - build number increments separately but stays traceable to the iOS release-candidate commit.
+  - `flutter build appbundle --release --build-name ... --build-number ...` succeeds.
+  - signed AAB path is documented.
+  - signing certificate is verified.
+  - upload keystore remains backed up and uncommitted.
+- Confirm Google Play test track:
+  - AAB uploads successfully.
+  - closed/internal test track is updated.
+  - tester list / opt-in link is current.
+  - release notes include user-visible changes and UAT focus areas.
+  - testers are not asked to click ads.
+- Confirm Google Play compliance:
+  - Data safety includes ad SDK behavior.
+  - Ads declaration is accurate.
+  - Target audience and content rating are complete.
+  - app-ads.txt is published on the developer website.
+
+Recommended commands:
+
+```bash
+scripts/run_validation.sh
+flutter build appbundle --release --build-name 1.0.0 --build-number <next>
+"/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/jarsigner" -verify -verbose -certs build/app/outputs/bundle/release/app-release.aab
+```
+
+Exit criteria:
+
+- Signed AAB uploads successfully to Google Play.
+- Closed/internal test build is available to testers.
+- Home-screen banner behavior is validated on Android if Android ads are enabled.
+- Active gameplay remains ad-free.
+- Google Play data safety, ads declaration, content rating, and app-ads.txt status are documented.
 
 ### Gate 6: Store Metadata, Privacy, and Compliance
 
@@ -277,17 +335,48 @@ Exit criteria:
 1. Update stale planning docs and keep build baseline committed.
 2. Implement Pack Progress and Resume.
 3. Build fresh iOS IPA and Android AAB for UAT parity.
-4. Run Gate 5 as a dry run: AdMob + IPA + TestFlight process checklist.
+4. Run Gate 5 as a dry run: AdMob + iOS IPA/TestFlight + Android AAB/Google Play process checklist.
 5. Implement Compare / 对谱 if UAT does not surface higher-priority blockers.
 6. Complete store/privacy/app-ads.txt decisions.
 7. Add local data management for imported puzzles and Su-Pu records.
 8. Run full Release Candidate validation and go/no-go.
 
-## 4. Deferred Post-Product-Build Scope
+## 4. V1 Hook for Future Downloadable/Purchasable Packs
+
+Recommendation: add a **lightweight V1 hook** for future packs, but do not build the full V2 download/purchase system in V1.
+
+Rationale:
+
+- The launch catalog has 1,800 puzzles, which is enough for V1 UAT and initial release but small compared with larger Sudoku libraries.
+- A visible future-pack entry can set player expectations and collect demand without adding backend, payment, entitlement, download, or support risk before launch.
+- Full pack download/purchase from `orbacesudoku.com` belongs to V2 because it requires remote catalog, account or receipt strategy, payment/compliance decisions, content signing/checksums, cache management, and customer support flows.
+
+Recommended V1 scope:
+
+- Add a `More Packs` / `Coming Soon` row in Level Packs.
+- Copy should say additional Orbace packs are planned at `orbacesudoku.com`.
+- Optional button: `Learn More` opens `https://orbacesudoku.com` only after the website page exists.
+- No in-app purchase, no external purchase prompt inside gameplay, no entitlement logic, and no downloadable content in V1.
+- Add a remote-pack schema/design document in V1 planning so V2 can start cleanly.
+
+Do not do in V1:
+
+- Do not sell digital puzzle packs through an external web checkout from inside the iOS app without a platform-policy review.
+- Do not add a download button until content signing, manifest versioning, offline fallback, and support behavior are designed.
+- Do not mix paid/remote packs with ranked eligibility until anti-cheat and content certification rules are defined.
+
+Exit criteria for the V1 hook:
+
+- The hook does not block normal pack browsing.
+- The hook does not imply a purchase is currently available unless the website and store policy path are ready.
+- App review risk is reviewed before adding any external purchase language.
+
+## 5. Deferred Post-Product-Build Scope
 
 - Worldwide leaderboard backend.
 - Game Center / Google Play Games leaderboards.
-- Remote seasonal content catalog.
+- Full remote seasonal content catalog.
+- Downloadable/purchasable pack entitlement system.
 - OCR/photo puzzle import.
 - Save score card directly to Photos.
 - Cloud sync or account login.
