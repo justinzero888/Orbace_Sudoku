@@ -9,7 +9,7 @@
 | Area | Current State |
 | --- | --- |
 | Current app-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
-| Current planning baseline | `ff6037b` - `Clarify production readiness gates`; Gate 1 doc cleanup in progress on 2026-06-26 |
+| Current planning baseline | `874587d` - `Update release planning docs`; Gate 1 complete on 2026-06-26 |
 | Current iOS UAT build | `1.0.0 (21)` |
 | Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
 | Current Android closed-test build | `1.0.0 (12)` |
@@ -39,6 +39,7 @@ Current gaps:
 - Game Pack Creation plan was refreshed on 2026-06-26 to reflect the 1,800-puzzle UAT baseline, resolved duplicate warnings, and remaining product gaps.
 - A separate level-assignment, validation, and scoring logic reference was created on 2026-06-26.
 - Local `Package.resolved` drift and untracked competitive-analysis artifacts are present but not part of the current release baseline.
+- Status: **Complete**. No release-scope uncommitted changes remained after commit `874587d`; unrelated local drift is explicitly excluded from the release baseline.
 
 Exit criteria:
 
@@ -50,6 +51,8 @@ Exit criteria:
 
 Goal: make the 1,800-puzzle catalog feel like a real product library, not only a playable list.
 
+Status: **Started on 2026-06-26**.
+
 Important clarification:
 
 - The 1,800 puzzle content audit is already complete for the current UAT baseline: uniqueness, solver compatibility, duplicate-scan cleanup, difficulty distribution, and packaging have been validated.
@@ -58,12 +61,20 @@ Important clarification:
 
 Deliverables:
 
-- Completed count per pack.
-- Best score per puzzle.
-- Clean/Official markers per puzzle.
-- Continue or Next Unsolved action per pack.
-- Save and reload in-progress puzzle state.
-- Resume in-progress puzzle from Level Packs.
+- Completed count per pack. Complete.
+- Best score per puzzle. Implemented for local validation.
+- Clean/Official markers per puzzle. Implemented for local validation.
+- Continue or Next Unsolved action per pack. Implemented for local validation.
+- Save and reload in-progress puzzle state. Implemented for local validation.
+- Resume in-progress puzzle from Level Packs. Implemented for local validation.
+
+Current implementation notes:
+
+- Level Packs now load a progress summary from completed attempts and current progress rows.
+- Puzzle rows show best score, official, clean, completed, and in-progress status.
+- Pack sections expose Continue and Next Unsolved actions.
+- Gameplay auto-saves current values, notes, and elapsed time; completion clears current progress.
+- Bundled puzzle seeding now preserves `rankedEligible` in the database row.
 
 Why this matters:
 

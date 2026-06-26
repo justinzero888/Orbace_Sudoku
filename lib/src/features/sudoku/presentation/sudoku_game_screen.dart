@@ -11,6 +11,7 @@ import '../data/puzzle_pack_loader.dart';
 import '../data/score_card_store.dart';
 import '../data/sudoku_repository.dart';
 import '../domain/sudoku_attempt.dart';
+import '../domain/sudoku_current_progress.dart';
 import '../domain/sudoku_score_class.dart';
 import '../engine/human_ranked_solver.dart';
 import 'fixture_puzzles.dart';
@@ -27,12 +28,14 @@ class SudokuGameScreen extends StatefulWidget {
     this.puzzle,
     this.catalog,
     this.isRetry = false,
+    this.initialProgress,
   });
 
   final SudokuRepository? repository;
   final FixturePuzzleDefinition? puzzle;
   final PuzzlePackCatalog? catalog;
   final bool isRetry;
+  final SudokuCurrentProgress? initialProgress;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -45,6 +48,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   late final FixturePuzzleDefinition _puzzle;
   late bool _isRetrySession;
   Timer? _timer;
+  Timer? _progressSaveTimer;
   bool _completionShown = false;
   SudokuAttempt? _lastAttempt;
 
@@ -67,6 +71,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       targetTimeSeconds: _puzzle.targetTimeSeconds,
       puzzleRankedEligible: _puzzle.rankedEligible,
       contentVersion: widget.catalog?.contentVersion,
+      initialProgress: widget.initialProgress,
     )..addListener(_handleControllerChanged);
     unawaited(_seedPuzzle());
     _timer = Timer.periodic(
@@ -78,6 +83,12 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _progressSaveTimer?.cancel();
+    if (widget.repository != null &&
+        !_controller.completed &&
+        _controller.hasUnsavedProgress) {
+      unawaited(_saveCurrentProgress());
+    }
     _controller
       ..removeListener(_handleControllerChanged)
       ..dispose();
@@ -201,7 +212,9 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         unawaited(_completeAttempt());
       });
+      return;
     }
+    _scheduleProgressSave();
   }
 
   Future<void> _seedPuzzle() async {
@@ -216,6 +229,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
         difficultyScore: _puzzle.difficultyScore,
         targetTimeSeconds: _puzzle.targetTimeSeconds,
         medianTimeSeconds: _puzzle.medianTimeSeconds,
+        rankedEligible: _puzzle.rankedEligible,
       ),
     );
   }
@@ -229,6 +243,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       attemptNumber: priorAttempts.length + 1,
     );
     await _repository.saveAttempt(attempt);
+    await _repository.deleteCurrentProgress(_controller.puzzleId);
     _lastAttempt = attempt;
     if (mounted) {
       _showCompletion(attempt);
@@ -254,6 +269,20 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
     );
   }
 
+  void _scheduleProgressSave() {
+    if (_controller.completed || !_controller.hasUnsavedProgress) {
+      return;
+    }
+    _progressSaveTimer?.cancel();
+    _progressSaveTimer = Timer(const Duration(milliseconds: 700), () {
+      unawaited(_saveCurrentProgress());
+    });
+  }
+
+  Future<void> _saveCurrentProgress() {
+    return _repository.saveCurrentProgress(_controller.buildCurrentProgress());
+  }
+
   void _showCompletion(SudokuAttempt attempt) {
     showDialog<void>(
       context: context,
@@ -265,6 +294,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
           repository: _repository,
           onRetry: () {
             Navigator.of(context).pop();
+            unawaited(_repository.deleteCurrentProgress(_controller.puzzleId));
             _controller.resetForRetry();
             _isRetrySession = true;
             _completionShown = false;

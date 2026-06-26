@@ -6,6 +6,7 @@ import 'package:drift/drift.dart';
 import '../domain/solving_step.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_board.dart';
+import '../domain/sudoku_current_progress.dart';
 import '../domain/sudoku_difficulty.dart';
 import '../domain/sudoku_move.dart';
 import '../domain/sudoku_puzzle.dart';
@@ -155,6 +156,34 @@ class SudokuRepository {
     return rows.map(_attemptFromRow).toList(growable: false);
   }
 
+  Future<void> saveCurrentProgress(SudokuCurrentProgress progress) {
+    return database.upsertCurrentProgress(
+      CurrentProgressRowsCompanion(
+        puzzleId: Value(progress.puzzleId),
+        valuesJson: Value(_encodeCells(progress.values)),
+        notesJson: Value(_encodeNotes(progress.notes)),
+        elapsedSeconds: Value(progress.elapsedSeconds),
+        updatedAt: Value(progress.updatedAt),
+      ),
+    );
+  }
+
+  Future<SudokuCurrentProgress?> currentProgressForPuzzle(
+    String puzzleId,
+  ) async {
+    final row = await database.currentProgressForPuzzle(puzzleId);
+    return row == null ? null : _progressFromRow(row);
+  }
+
+  Future<List<SudokuCurrentProgress>> allCurrentProgress() async {
+    final rows = await database.allCurrentProgress();
+    return rows.map(_progressFromRow).toList(growable: false);
+  }
+
+  Future<void> deleteCurrentProgress(String puzzleId) {
+    return database.deleteCurrentProgress(puzzleId);
+  }
+
   Future<void> updatePlayerDifficultyRating(
     String attemptId,
     double rating, {
@@ -264,6 +293,12 @@ class SudokuRepository {
     return jsonEncode(cells);
   }
 
+  String _encodeNotes(List<Set<int>> notes) {
+    return jsonEncode([
+      for (final noteSet in notes) (noteSet.toList()..sort()),
+    ]);
+  }
+
   SudokuBoard _decodeBoard(String json) {
     final decoded = jsonDecode(json) as List<dynamic>;
     return SudokuBoard.fromCells([
@@ -319,6 +354,24 @@ class SudokuRepository {
 
   List<String> _decodeStringList(String json) {
     return (jsonDecode(json) as List<dynamic>).cast<String>();
+  }
+
+  List<Set<int>> _decodeNotes(String json) {
+    final decoded = jsonDecode(json) as List<dynamic>;
+    return [
+      for (final item in decoded)
+        (item as List<dynamic>).map((value) => value as int).toSet(),
+    ];
+  }
+
+  SudokuCurrentProgress _progressFromRow(CurrentProgressRow row) {
+    return SudokuCurrentProgress(
+      puzzleId: row.puzzleId,
+      values: _decodeBoard(row.valuesJson).cells,
+      notes: _decodeNotes(row.notesJson),
+      elapsedSeconds: row.elapsedSeconds,
+      updatedAt: row.updatedAt,
+    );
   }
 
   FixturePuzzleDefinition _importedDefinitionFromRow(ImportedPuzzleRow row) {

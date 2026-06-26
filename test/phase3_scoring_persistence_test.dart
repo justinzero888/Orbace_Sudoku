@@ -5,6 +5,8 @@ import 'package:orbace_sudoku/src/features/sudoku/data/imported_puzzle_service.d
 import 'package:orbace_sudoku/src/features/sudoku/data/score_card_store.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/sudoku_repository.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_attempt.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_board.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_current_progress.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_difficulty.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_move.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_score_class.dart';
@@ -214,6 +216,44 @@ void main() {
       expect(
         () => service.previewFromString(List<String>.filled(81, '0').join()),
         throwsA(isA<ImportedPuzzleException>()),
+      );
+    });
+
+    test('persists and clears current puzzle progress', () async {
+      final updatedAt = DateTime(2026, 6, 26, 10);
+      await repository.saveCurrentProgress(
+        SudokuCurrentProgress(
+          puzzleId: 'tea_moment_fixture',
+          values: [
+            for (var index = 0; index < SudokuBoard.cellCount; index++)
+              index == 2 ? 4 : null,
+          ],
+          notes: [
+            for (var index = 0; index < SudokuBoard.cellCount; index++)
+              index == 3 ? <int>{1, 2} : <int>{},
+          ],
+          elapsedSeconds: 125,
+          updatedAt: updatedAt,
+        ),
+      );
+
+      final progress = await repository.currentProgressForPuzzle(
+        'tea_moment_fixture',
+      );
+      final allProgress = await repository.allCurrentProgress();
+
+      expect(progress, isNotNull);
+      expect(progress!.values[2], 4);
+      expect(progress.notes[3], <int>{1, 2});
+      expect(progress.elapsedSeconds, 125);
+      expect(progress.updatedAt, updatedAt);
+      expect(allProgress.single.puzzleId, 'tea_moment_fixture');
+
+      await repository.deleteCurrentProgress('tea_moment_fixture');
+
+      expect(
+        await repository.currentProgressForPuzzle('tea_moment_fixture'),
+        isNull,
       );
     });
   });

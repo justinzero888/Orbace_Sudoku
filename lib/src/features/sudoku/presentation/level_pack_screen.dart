@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
+import '../domain/sudoku_attempt.dart';
+import '../domain/sudoku_current_progress.dart';
+import '../domain/sudoku_score_class.dart';
 import 'fixture_puzzles.dart';
 import 'import_puzzle_screen.dart';
 import 'sudoku_game_screen.dart';
@@ -80,19 +83,22 @@ class _PackBrowser extends StatefulWidget {
 }
 
 class _PackBrowserState extends State<_PackBrowser> {
-  late final Future<Set<String>> _completedPuzzleIdsFuture =
-      _loadCompletedPuzzleIds();
+  late Future<_PackProgressSummary> _progressFuture = _loadProgressSummary();
 
-  Future<Set<String>> _loadCompletedPuzzleIds() async {
+  Future<_PackProgressSummary> _loadProgressSummary() async {
     final repository = widget.repository;
     if (repository == null) {
-      return <String>{};
+      return _PackProgressSummary.empty();
     }
     final attempts = await repository.allAttempts();
-    return attempts
-        .where((attempt) => attempt.completed)
-        .map((attempt) => attempt.puzzleId)
-        .toSet();
+    final currentProgress = await repository.allCurrentProgress();
+    return _PackProgressSummary.from(attempts, currentProgress);
+  }
+
+  void _refreshProgress() {
+    setState(() {
+      _progressFuture = _loadProgressSummary();
+    });
   }
 
   @override
@@ -102,10 +108,10 @@ class _PackBrowserState extends State<_PackBrowser> {
         .where((puzzle) => _hasAdvancedTechnique(puzzle))
         .length;
 
-    return FutureBuilder<Set<String>>(
-      future: _completedPuzzleIdsFuture,
+    return FutureBuilder<_PackProgressSummary>(
+      future: _progressFuture,
       builder: (context, snapshot) {
-        final completedPuzzleIds = snapshot.data ?? <String>{};
+        final progress = snapshot.data ?? _PackProgressSummary.empty();
 
         return ListView(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
@@ -126,7 +132,8 @@ class _PackBrowserState extends State<_PackBrowser> {
             ),
             const SizedBox(height: 4),
             Text(
-              '${completedPuzzleIds.length} completed',
+              '${progress.completedPuzzleIds.length} completed'
+              '${progress.currentProgressByPuzzleId.isEmpty ? '' : '  |  ${progress.currentProgressByPuzzleId.length} in progress'}',
               style: textTheme.bodyMedium?.copyWith(
                 color: OrbaceTheme.mutedInk,
               ),
@@ -137,7 +144,8 @@ class _PackBrowserState extends State<_PackBrowser> {
                 repository: widget.repository,
                 catalog: widget.catalog,
                 pack: pack,
-                completedPuzzleIds: completedPuzzleIds,
+                progress: progress,
+                onProgressChanged: _refreshProgress,
               ),
               const SizedBox(height: 12),
             ],
@@ -153,17 +161,24 @@ class _PackSection extends StatelessWidget {
     required this.repository,
     required this.catalog,
     required this.pack,
-    required this.completedPuzzleIds,
+    required this.progress,
+    required this.onProgressChanged,
   });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
   final PuzzlePackDefinition pack;
-  final Set<String> completedPuzzleIds;
+  final _PackProgressSummary progress;
+  final VoidCallback onProgressChanged;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final completedCount = pack.puzzles
+        .where((puzzle) => progress.completedPuzzleIds.contains(puzzle.id))
+        .length;
+    final continuePuzzle = _continuePuzzle();
+    final nextUnsolvedPuzzle = _nextUnsolvedPuzzle();
 
     return Card(
       child: ExpansionTile(
@@ -188,7 +203,7 @@ class _PackSection extends StatelessWidget {
         ),
         title: Text(pack.title, style: textTheme.titleLarge),
         subtitle: Text(
-          '${pack.puzzles.length} puzzles  |  '
+          '$completedCount/${pack.puzzles.length} completed  |  '
           '${pack.advancedPuzzleCount} advanced',
         ),
         children: [
@@ -199,18 +214,93 @@ class _PackSection extends StatelessWidget {
               child: Text(pack.description, style: textTheme.bodyMedium),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: continuePuzzle == null
+                        ? null
+                        : () => _openPuzzle(
+                            context,
+                            continuePuzzle,
+                            progress.currentProgressByPuzzleId[continuePuzzle
+                                .id],
+                          ),
+                    icon: const Icon(Icons.play_circle_outline),
+                    label: const Text('Continue'),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: FilledButton.icon(
+                    onPressed: nextUnsolvedPuzzle == null
+                        ? null
+                        : () => _openPuzzle(context, nextUnsolvedPuzzle, null),
+                    icon: const Icon(Icons.skip_next),
+                    label: const Text('Next Unsolved'),
+                  ),
+                ),
+              ],
+            ),
+          ),
           for (final puzzle in pack.puzzles) ...[
             _PuzzleTile(
               repository: repository,
               catalog: catalog,
               puzzle: puzzle,
-              completed: completedPuzzleIds.contains(puzzle.id),
+              progress: progress,
+              onProgressChanged: onProgressChanged,
             ),
             const SizedBox(height: 8),
           ],
         ],
       ),
     );
+  }
+
+  FixturePuzzleDefinition? _continuePuzzle() {
+    final inProgress =
+        pack.puzzles
+            .where(
+              (puzzle) =>
+                  progress.currentProgressByPuzzleId.containsKey(puzzle.id),
+            )
+            .toList()
+          ..sort((a, b) {
+            final aProgress = progress.currentProgressByPuzzleId[a.id]!;
+            final bProgress = progress.currentProgressByPuzzleId[b.id]!;
+            return bProgress.updatedAt.compareTo(aProgress.updatedAt);
+          });
+    return inProgress.isEmpty ? null : inProgress.first;
+  }
+
+  FixturePuzzleDefinition? _nextUnsolvedPuzzle() {
+    for (final puzzle in pack.puzzles) {
+      if (!progress.completedPuzzleIds.contains(puzzle.id)) {
+        return puzzle;
+      }
+    }
+    return null;
+  }
+
+  Future<void> _openPuzzle(
+    BuildContext context,
+    FixturePuzzleDefinition puzzle,
+    SudokuCurrentProgress? currentProgress,
+  ) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => SudokuGameScreen(
+          repository: repository,
+          puzzle: puzzle,
+          catalog: catalog,
+          initialProgress: currentProgress,
+        ),
+      ),
+    );
+    onProgressChanged();
   }
 }
 
@@ -219,33 +309,43 @@ class _PuzzleTile extends StatelessWidget {
     required this.repository,
     required this.catalog,
     required this.puzzle,
-    required this.completed,
+    required this.progress,
+    required this.onProgressChanged,
   });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
   final FixturePuzzleDefinition puzzle;
-  final bool completed;
+  final _PackProgressSummary progress;
+  final VoidCallback onProgressChanged;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final advanced = _hasAdvancedTechnique(puzzle);
+    final completed = progress.completedPuzzleIds.contains(puzzle.id);
+    final currentProgress = progress.currentProgressByPuzzleId[puzzle.id];
+    final bestAttempt = progress.bestAttemptByPuzzleId[puzzle.id];
+    final bestScore = bestAttempt?.score?.total;
+    final hasOfficial = progress.officialPuzzleIds.contains(puzzle.id);
+    final hasClean = progress.cleanPuzzleIds.contains(puzzle.id);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: () {
-          Navigator.of(context).push(
+        onTap: () async {
+          await Navigator.of(context).push(
             MaterialPageRoute<void>(
               builder: (_) => SudokuGameScreen(
                 repository: repository,
                 puzzle: puzzle,
                 catalog: catalog,
+                initialProgress: currentProgress,
               ),
             ),
           );
+          onProgressChanged();
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -275,9 +375,60 @@ class _PuzzleTile extends StatelessWidget {
                       'Target ${_formatMinutes(puzzle.targetTimeSeconds)}',
                       style: textTheme.bodyMedium,
                     ),
+                    if (bestScore != null || currentProgress != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Wrap(
+                          spacing: 8,
+                          runSpacing: 2,
+                          children: [
+                            if (bestScore != null)
+                              Text(
+                                'Best $bestScore',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: OrbaceTheme.ink,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            if (hasOfficial)
+                              Text(
+                                'Official',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: OrbaceTheme.vermilion,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            if (hasClean)
+                              Text(
+                                'Clean',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: OrbaceTheme.celadon,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            if (currentProgress != null)
+                              Text(
+                                'In progress ${_formatMinutes(currentProgress.elapsedSeconds)}',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: OrbaceTheme.mutedInk,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),
+              if (currentProgress != null)
+                const Tooltip(
+                  message: 'In progress',
+                  child: Icon(
+                    Icons.play_circle_fill,
+                    color: OrbaceTheme.vermilion,
+                    size: 22,
+                  ),
+                ),
+              if (currentProgress != null) const SizedBox(width: 8),
               if (completed)
                 const Tooltip(
                   message: 'Completed',
@@ -314,4 +465,77 @@ bool _hasAdvancedTechnique(FixturePuzzleDefinition puzzle) {
 String _formatMinutes(int seconds) {
   final minutes = (seconds / 60).round();
   return '${minutes}m';
+}
+
+class _PackProgressSummary {
+  const _PackProgressSummary({
+    required this.completedPuzzleIds,
+    required this.officialPuzzleIds,
+    required this.cleanPuzzleIds,
+    required this.bestAttemptByPuzzleId,
+    required this.currentProgressByPuzzleId,
+  });
+
+  factory _PackProgressSummary.empty() {
+    return const _PackProgressSummary(
+      completedPuzzleIds: <String>{},
+      officialPuzzleIds: <String>{},
+      cleanPuzzleIds: <String>{},
+      bestAttemptByPuzzleId: <String, SudokuAttempt>{},
+      currentProgressByPuzzleId: <String, SudokuCurrentProgress>{},
+    );
+  }
+
+  factory _PackProgressSummary.from(
+    List<SudokuAttempt> attempts,
+    List<SudokuCurrentProgress> currentProgress,
+  ) {
+    final completedPuzzleIds = <String>{};
+    final officialPuzzleIds = <String>{};
+    final cleanPuzzleIds = <String>{};
+    final bestAttemptByPuzzleId = <String, SudokuAttempt>{};
+
+    for (final attempt in attempts.where((attempt) => attempt.completed)) {
+      completedPuzzleIds.add(attempt.puzzleId);
+      if (attempt.scoreClass == SudokuScoreClass.official) {
+        officialPuzzleIds.add(attempt.puzzleId);
+      }
+      if (attempt.cleanSolve) {
+        cleanPuzzleIds.add(attempt.puzzleId);
+      }
+
+      final currentBest = bestAttemptByPuzzleId[attempt.puzzleId];
+      if (currentBest == null || _isBetterAttempt(attempt, currentBest)) {
+        bestAttemptByPuzzleId[attempt.puzzleId] = attempt;
+      }
+    }
+
+    return _PackProgressSummary(
+      completedPuzzleIds: completedPuzzleIds,
+      officialPuzzleIds: officialPuzzleIds,
+      cleanPuzzleIds: cleanPuzzleIds,
+      bestAttemptByPuzzleId: bestAttemptByPuzzleId,
+      currentProgressByPuzzleId: {
+        for (final progress in currentProgress) progress.puzzleId: progress,
+      },
+    );
+  }
+
+  final Set<String> completedPuzzleIds;
+  final Set<String> officialPuzzleIds;
+  final Set<String> cleanPuzzleIds;
+  final Map<String, SudokuAttempt> bestAttemptByPuzzleId;
+  final Map<String, SudokuCurrentProgress> currentProgressByPuzzleId;
+
+  static bool _isBetterAttempt(SudokuAttempt a, SudokuAttempt b) {
+    final scoreCompare = (a.score?.total ?? 0).compareTo(b.score?.total ?? 0);
+    if (scoreCompare != 0) {
+      return scoreCompare > 0;
+    }
+    final timeCompare = a.elapsedSeconds.compareTo(b.elapsedSeconds);
+    if (timeCompare != 0) {
+      return timeCompare < 0;
+    }
+    return a.startedAt.isBefore(b.startedAt);
+  }
 }

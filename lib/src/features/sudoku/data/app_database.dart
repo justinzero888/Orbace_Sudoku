@@ -221,6 +221,30 @@ class AppDatabase extends _$AppDatabase {
         .get();
   }
 
+  Future<void> upsertCurrentProgress(CurrentProgressRowsCompanion progress) {
+    return into(currentProgressRows).insertOnConflictUpdate(progress);
+  }
+
+  Future<CurrentProgressRow?> currentProgressForPuzzle(String puzzleId) {
+    return (select(
+      currentProgressRows,
+    )..where((row) => row.puzzleId.equals(puzzleId))).getSingleOrNull();
+  }
+
+  Future<List<CurrentProgressRow>> allCurrentProgress() {
+    return (select(currentProgressRows)..orderBy([
+          (row) =>
+              OrderingTerm(expression: row.updatedAt, mode: OrderingMode.desc),
+        ]))
+        .get();
+  }
+
+  Future<void> deleteCurrentProgress(String puzzleId) {
+    return (delete(
+      currentProgressRows,
+    )..where((row) => row.puzzleId.equals(puzzleId))).go();
+  }
+
   Future<void> upsertImportedPuzzle(ImportedPuzzleRowsCompanion puzzle) {
     return into(importedPuzzleRows).insertOnConflictUpdate(puzzle);
   }

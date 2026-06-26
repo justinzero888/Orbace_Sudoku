@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import '../domain/sudoku_board.dart';
 import '../domain/sudoku_attempt.dart';
+import '../domain/sudoku_current_progress.dart';
 import '../domain/sudoku_difficulty.dart';
 import '../domain/sudoku_move.dart';
 import '../domain/solving_step.dart';
@@ -22,6 +23,7 @@ class GameSessionController extends ChangeNotifier {
     this.targetTimeSeconds = 360,
     this.puzzleRankedEligible = false,
     this.contentVersion,
+    SudokuCurrentProgress? initialProgress,
     HumanRankedSolver? humanSolver,
     this.scoreCalculator = const ScoreCalculator(),
     this.eligibilityEngine = const AttemptEligibilityEngine(),
@@ -34,6 +36,9 @@ class GameSessionController extends ChangeNotifier {
          growable: false,
        ) {
     _solvePath = _humanSolver.solve(_givens).steps;
+    if (initialProgress != null) {
+      _restoreProgress(initialProgress);
+    }
   }
 
   final SudokuBoard _givens;
@@ -91,6 +96,20 @@ class GameSessionController extends ChangeNotifier {
       List<SudokuMove>.unmodifiable(_moveHistory);
   bool get canUndo => _undoStack.isNotEmpty;
   bool get canRedo => _redoStack.isNotEmpty;
+  bool get hasUnsavedProgress {
+    if (_completed) {
+      return false;
+    }
+    for (var index = 0; index < SudokuBoard.cellCount; index++) {
+      if (_givens.valueAtIndex(index) == null && _values[index] != null) {
+        return true;
+      }
+      if (_notes[index].isNotEmpty) {
+        return true;
+      }
+    }
+    return _elapsedSeconds > 0;
+  }
 
   bool isGiven(int index) => _givens.valueAtIndex(index) != null;
 
@@ -426,6 +445,18 @@ class GameSessionController extends ChangeNotifier {
     );
   }
 
+  SudokuCurrentProgress buildCurrentProgress({DateTime? updatedAt}) {
+    return SudokuCurrentProgress(
+      puzzleId: puzzleId,
+      values: List<int?>.unmodifiable(_values),
+      notes: List<Set<int>>.unmodifiable(
+        _notes.map((noteSet) => Set<int>.unmodifiable(noteSet)),
+      ),
+      elapsedSeconds: _elapsedSeconds,
+      updatedAt: updatedAt ?? DateTime.now(),
+    );
+  }
+
   String _puzzleChecksum() {
     return sha256
         .convert(
@@ -487,6 +518,28 @@ class GameSessionController extends ChangeNotifier {
     _hintTargetIndex = null;
     _startedAt = DateTime.now();
     notifyListeners();
+  }
+
+  void _restoreProgress(SudokuCurrentProgress progress) {
+    if (progress.values.length == SudokuBoard.cellCount) {
+      for (var index = 0; index < SudokuBoard.cellCount; index++) {
+        final given = _givens.valueAtIndex(index);
+        _values[index] = given ?? progress.values[index];
+      }
+    }
+
+    if (progress.notes.length == SudokuBoard.cellCount) {
+      for (var index = 0; index < SudokuBoard.cellCount; index++) {
+        _notes[index]
+          ..clear()
+          ..addAll(
+            progress.notes[index].where((value) => value >= 1 && value <= 9),
+          );
+      }
+    }
+
+    _elapsedSeconds = progress.elapsedSeconds < 0 ? 0 : progress.elapsedSeconds;
+    _completed = _validator.isSolved(SudokuBoard.fromCells(_values));
   }
 
   void _recordMove(SudokuMove move) {

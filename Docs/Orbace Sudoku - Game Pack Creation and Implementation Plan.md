@@ -473,7 +473,7 @@ Validation checkpoint:
 
 ### GP-3: Add Pack Progress Persistence
 
-Status: **Partially started - completion markers exist; resume workflow pending**
+Status: **Started - current progress and resume implemented for local validation**
 
 Goal:
 
@@ -482,12 +482,12 @@ Connect packs to local progress.
 Deliverables:
 
 - Repository queries:
-  - completed count per pack
-  - best score per puzzle
-  - clean solve count per pack
-  - last played puzzle per pack
-- Current progress per puzzle.
-- Resume puzzle from pack browser.
+  - completed count per pack. Complete.
+  - best score per puzzle. Complete.
+  - clean solve count per pack. Complete.
+  - last played puzzle per pack. Complete through current-progress timestamps.
+- Current progress per puzzle. Complete for values, notes, and elapsed time.
+- Resume puzzle from pack browser. Complete through Continue and in-progress puzzle rows.
 
 Acceptance criteria:
 
@@ -497,8 +497,9 @@ Acceptance criteria:
 
 Validation checkpoint:
 
-- Local persistence tests required.
-- Simulator smoke test required.
+- Local persistence tests pass.
+- Full local validation passes.
+- Simulator smoke test still required before marking Gate 2 complete for UAT.
 - TestFlight checkpoint recommended because this affects normal user navigation and replay access.
 
 ### GP-4: Create 100-Puzzle UAT Content Set
