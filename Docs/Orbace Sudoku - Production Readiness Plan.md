@@ -8,13 +8,15 @@
 
 | Area | Current State |
 | --- | --- |
-| Current source baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| Current app-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| Current planning baseline | `ff6037b` - `Clarify production readiness gates`; Gate 1 doc cleanup in progress on 2026-06-26 |
 | Current iOS UAT build | `1.0.0 (21)` |
 | Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
 | Current Android closed-test build | `1.0.0 (12)` |
 | Content catalog | 1,800 bundled puzzles, content version `2026.06.003`, 0 duplicate-scan warnings |
 | Su-Pu system | Replay, Record Hall, score certificate, save/share card, notes, imported labels, and local ranking complete for iOS UAT |
 | Active feedback tracker | `Docs/Orbace Sudoku - UAT Feedback and Ideas Log.md` |
+| Content/scoring reference | `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` |
 
 The UAT Feedback and Ideas Log remains the intake point for new UAT bugs, feature requests, release feedback, and monetization/store tasks. This document tracks production-readiness gates and sequencing.
 
@@ -34,7 +36,8 @@ Deliverables:
 
 Current gaps:
 
-- Game Pack Creation plan still has stale sections that reference 100-puzzle UAT and unresolved duplicate warnings.
+- Game Pack Creation plan was refreshed on 2026-06-26 to reflect the 1,800-puzzle UAT baseline, resolved duplicate warnings, and remaining product gaps.
+- A separate level-assignment, validation, and scoring logic reference was created on 2026-06-26.
 - Local `Package.resolved` drift and untracked competitive-analysis artifacts are present but not part of the current release baseline.
 
 Exit criteria:

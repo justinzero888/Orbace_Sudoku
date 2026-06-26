@@ -1,25 +1,25 @@
 # Orbace Sudoku - Game Pack Creation and Implementation Plan
 
-**Version**: 1.1  
-**Date**: 2026-06-21  
+**Version**: 1.2
+**Date**: 2026-06-26
 **Purpose**: Define how Orbace Sudoku creates, validates, ships, expands, and maintains puzzle packs from initial UAT content through the first 1,800 puzzles and beyond.
 
-## Current Status - 2026-06-21
+## Current Status - 2026-06-26
 
-The current TestFlight/UAT build is **not** the 1,800-puzzle production catalog.
+The current iOS UAT build includes the locally validated 1,800-puzzle launch catalog. The earlier 100-puzzle UAT pack is now historical context only.
 
 Current implemented content state:
 
 | Area | Status | Notes |
 | --- | --- | --- |
-| Bundled JSON pack assets | Complete for UAT | App loads puzzle content from `assets/puzzles/` instead of hardcoded fixtures. |
-| UAT puzzle count | Complete for current UAT | 100 bundled puzzles are loaded. |
-| Advanced UAT coverage | Complete for current UAT | 69 puzzles require pair or pointing techniques supported by the current human solver. |
-| Duplicate scan | Complete for current UAT | Exact, digit-remap, structural-signature, and shared-solution checks run in validator. Current warning count: 0. |
-| Curated ordering | Complete for current UAT | Current 100-puzzle set is sorted easier-to-harder with stronger milestone placement. |
-| Content version metadata | Complete for current UAT | Current content version: `2026.06.001`. |
-| 1,800-puzzle production library | Ready for UAT build | GP-5/IDEA-003 content version `2026.06.003` contains 1,800 puzzles split into 31 batch files and passes correctness, human-solver, uniqueness, and duplicate-scan validation with 0 warnings. |
-| Remote content readiness | Not started | Planned after bundled production content is stable. |
+| Bundled JSON pack assets | Complete | App loads puzzle content from `assets/puzzles/` instead of hardcoded fixtures. |
+| Launch catalog puzzle count | Complete for UAT | 1,800 bundled puzzles are loaded from 31 batch files referenced by `assets/puzzles/packs.json`. |
+| Content version metadata | Complete | Current launch catalog content version: `2026.06.003`. |
+| Validation and duplicate scan | Complete | Correctness, stored solution, unique-solution, human-solver, ID uniqueness, and duplicate/isomorphic scan pass with 0 warnings. |
+| Advanced coverage | Complete for UAT | Harder packs include pair/pointing logic and expert-level content for advanced-player testing. |
+| Local ranking certification | Complete for bundled catalog | Bundled catalog puzzles are marked rankable for local ranking; imported puzzles remain personal/non-ranked. |
+| Pack progress and resume UX | Product gap | Completion markers exist, but best-score surfacing, continue/next unsolved, and in-progress resume remain Gate 2 production-readiness work. |
+| Remote content readiness | Future phase | Planned after bundled production content and launch store flows are stable. |
 
 Recent build checkpoints:
 
@@ -28,13 +28,15 @@ Recent build checkpoints:
 | `1.0.0 (8)` | iOS IPA | 100-puzzle UAT pack with harder content | 100 | Built |
 | `1.0.0 (8)` | Android AAB | Android release bundle for current UAT content | 100 | Built |
 | `1.0.0 (9)` | iOS IPA | Stronger selected-cell highlight plus curated/versioned UAT content | 100 | Built |
-| Unbuilt candidate | Local assets | GP-5 production catalog candidate | 1,800 | Generated in 31 batches; duplicate-warning curation complete; ready for next IPA/AAB UAT build |
+| `1.0.0 (11)` | iOS IPA | First 1,800-puzzle TestFlight catalog | 1,800 | Built after duplicate-warning cleanup |
+| `1.0.0 (12)` | Android AAB | Android closed-test candidate with 1,800 puzzles | 1,800 | Signed and ready for Google Play closed testing upload |
+| `1.0.0 (21)` | iOS IPA | Current iOS UAT baseline with local ranking and imported labels | 1,800 | Built and locally validated |
 
 Terminology note:
 
 - **Pipeline Step 6: Curate Pack Ordering** means ordering whatever content set currently exists.
 - **Pipeline Step 7: Assign Content Version** means versioning whatever content set currently exists.
-- Completing Pipeline Steps 6 and 7 for the 100-puzzle UAT pack does **not** mean the 1,800-puzzle production library is complete.
+- For the current baseline, Pipeline Steps 1-7 are complete for the bundled 1,800-puzzle catalog. Remaining pack work is product UX, Android parity refresh, store readiness, and future remote expansion.
 
 Duplicate-warning root cause and resolution:
 
@@ -43,6 +45,10 @@ Duplicate-warning root cause and resolution:
 - The validator flagged 38 later puzzles with shared normalized solution grids in content version `2026.06.002`.
 - Content version `2026.06.003` replaces those later duplicate-pattern puzzles using the same pack rules while rejecting already-used givens and normalized solution patterns.
 - Current validation result: 1,800 puzzles, 0 duplicate-scan warnings.
+
+Related reference:
+
+- `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` defines launch-level assignment, validation criteria, and score parameters.
 
 ## 1. Goals
 
@@ -346,11 +352,11 @@ Detect duplicates across all packs:
 
 Current UAT status:
 
-- Implemented for the 100-puzzle pack.
-- Current report: 0 duplicate-scan warnings.
-- This must be rerun when the 1,800-puzzle library is generated.
+- Implemented for the 1,800-puzzle launch catalog.
+- Current content version: `2026.06.003`.
+- Current report: 1,800 puzzles validated with 0 duplicate-scan warnings.
 
-For production launch, exact duplicate detection is required. Isomorphic/structural duplicate detection is required before approving 1,800 puzzles.
+For production launch, exact duplicate detection and isomorphic/structural duplicate detection remain required for every future catalog or remote-pack release.
 
 ### Pipeline Step 6: Curate Pack Ordering
 
@@ -366,9 +372,9 @@ Pack sequence should:
 
 Current UAT status:
 
-- Implemented for the 100-puzzle pack.
-- Current ordering uses easier-to-harder sorting with stronger milestone puzzles.
-- This must be repeated and manually spot-checked for the 1,800-puzzle production library.
+- Implemented for the 1,800-puzzle launch catalog.
+- Current ordering uses easier-to-harder pack sequencing with stronger milestone puzzles.
+- UAT should continue to spot-check perceived difficulty, especially in Mastery and Extreme, because expert trust depends on level labels feeling earned.
 
 ### Pipeline Step 7: Assign Content Version
 
@@ -390,9 +396,9 @@ solverVersion = human-solver-1.0.0
 
 Current UAT status:
 
-- Implemented for the 100-puzzle pack.
-- Current content version: `2026.06.001`.
-- The 1,800-puzzle production library must receive a new content version after its own generation, duplicate scan, ordering, and validation pass.
+- Implemented for the 1,800-puzzle launch catalog.
+- Current content version: `2026.06.003`.
+- Future content packs must receive a new content version after generation, duplicate scan, ordering, and validation pass.
 
 ## 6. Implementation Plan and Validation Checkpoints
 
@@ -455,9 +461,10 @@ Acceptance criteria:
 
 Current implemented scope:
 
-- Pack browser loads 100 bundled UAT puzzles.
+- Pack browser loads the 1,800-puzzle bundled launch catalog.
 - Pack browser displays content version/date and advanced-puzzle count.
-- Per-pack progress, best score, and continue/next-unsolved actions are still pending.
+- Completed-game markers and completed counts are implemented.
+- Best-score surfacing, clean/official markers, and continue/next-unsolved actions are still pending.
 
 Validation checkpoint:
 
@@ -466,7 +473,7 @@ Validation checkpoint:
 
 ### GP-3: Add Pack Progress Persistence
 
-Status: **Not started**
+Status: **Partially started - completion markers exist; resume workflow pending**
 
 Goal:
 
@@ -538,7 +545,7 @@ Validation checkpoint:
 
 ### GP-5: Production Content Readiness for 1,800 Puzzles
 
-Status: **In progress - candidate generated**
+Status: **Complete for current UAT baseline**
 
 Important clarification:
 
@@ -569,9 +576,9 @@ Acceptance criteria:
 - No exact duplicate givens.
 - App startup/import remains acceptable on older iPhones.
 
-Current candidate status:
+Current baseline status:
 
-- Content version: `2026.06.002`.
+- Content version: `2026.06.003`.
 - Candidate count: 1,800 puzzles.
 - Asset layout: 31 batch files referenced by `assets/puzzles/packs.json`.
 - Pack distribution:
@@ -581,9 +588,9 @@ Current candidate status:
   - Insight: 360
   - Mastery: 270
   - Extreme: 270
-- Validator status: PASS for schema, unique solution, stored solution, and human-solver compatibility.
-- Duplicate-scan status: 38 shared normalized solution-grid warnings remain.
-- Production approval status: not approved until duplicate warnings are reviewed or replaced.
+- Validator status: PASS for schema, stored solution, unique solution, human-solver compatibility, ID uniqueness, and duplicate/isomorphic scan.
+- Duplicate-scan status: 0 warnings after replacing the 38 duplicate-pattern candidates from `2026.06.002`.
+- Production approval status: approved for UAT and local ranking certification; still subject to ongoing expert UAT difficulty calibration.
 
 Validation checkpoint:
 
@@ -608,7 +615,7 @@ Validation checkpoint:
 
 ### GP-6: Launch Candidate Content Integration
 
-Status: **Planned after GP-5**
+Status: **Partially complete; merged into Production Readiness Gate 2**
 
 Goal:
 
@@ -616,10 +623,10 @@ Integrate the 1,800-puzzle library into app flows without hurting app performanc
 
 Deliverables:
 
-- Content import/version tracking in local persistence.
-- Pack progress queries against full production content.
+- Content import/version tracking in local persistence. Complete for current bundled assets.
+- Pack progress queries against full production content. Partially complete for completed IDs/counts.
 - Continue / next unsolved / recently played behavior.
-- Optional lazy import or compact in-memory manifest strategy if startup slows.
+- Optional lazy import or compact in-memory manifest strategy if startup slows. Not currently required by local validation, but should remain an option if device testing shows launch lag.
 - Updated UAT cases for 1,800-puzzle browsing.
 
 Acceptance criteria:
@@ -637,7 +644,7 @@ Validation checkpoint:
 
 ### GP-7: Remote Content Readiness
 
-Status: **Future phase, not started**
+Status: **Future phase, V1 hook recommended**
 
 Goal:
 
@@ -645,6 +652,7 @@ Prepare for content beyond 1,800 without forcing frequent app releases.
 
 Deliverables:
 
+- V1 "More Packs" / "Coming Soon" hook in Level Packs after the website landing page exists.
 - Remote pack manifest schema.
 - Content download/cache design.
 - Version compatibility rules.
@@ -951,8 +959,9 @@ Status: **In progress**
 Scope:
 
 - Continue addressing visual/gameplay feedback from TestFlight.
-- Current example completed: selected-cell highlight strengthened in build `1.0.0 (9)`.
-- Keep content count at 100 unless UAT specifically needs more near-term coverage.
+- Current iOS UAT candidate: `1.0.0 (21)`.
+- Current Android closed-test candidate: `1.0.0 (12)`, behind current iOS feature baseline.
+- Keep using the 1,800-puzzle catalog for UAT unless a specific regression requires a smaller diagnostic build.
 
 Validation:
 
@@ -970,6 +979,7 @@ Scope:
 - Continue / next unsolved.
 - Resume in-progress puzzle from pack browser.
 - Replay access from completed puzzle rows.
+- V1 More Packs / Coming Soon hook if `orbacesudoku.com` has a suitable destination page.
 
 Validation:
 
@@ -980,12 +990,12 @@ Validation:
 
 ### Next Phase C: 1,800-Puzzle Production Library
 
-Status: **Not started**
+Status: **Complete for current UAT baseline**
 
 Scope:
 
-- Generate the full 1,800-puzzle library.
-- Apply the repeatable content pipeline:
+- Maintain the full 1,800-puzzle library.
+- Re-run the repeatable content pipeline for every future catalog change:
   - generate
   - validate correctness
   - validate human logic
@@ -997,18 +1007,20 @@ Scope:
 
 Validation:
 
-- Full local content validation required before app build.
-- Performance/import smoke test required.
-- TestFlight checkpoint required after the 1,800 catalog is integrated.
+- Full local content validation is required before any app build that changes content.
+- Performance/import smoke test is required when content volume or asset layout changes.
+- TestFlight checkpoint is required after any material catalog change.
 
 ### Next Phase D: Launch Candidate Integration
 
-Status: **Planned after 1,800 content exists**
+Status: **Partially complete; continue through Production Readiness Gates 2, 4, 5A, and 5B**
 
 Scope:
 
 - Ensure app startup and pack browsing remain fast with production content volume.
-- Add content import/version tracking if needed.
+- Finish pack progress and resume behavior.
+- Refresh Android AAB from the current iOS feature baseline.
+- Run iOS IPA/TestFlight and Android AAB/Google Play upload gates explicitly.
 - Tune daily Tea Moment pool and pack unlock pacing.
 - Update UAT test cases for the full catalog.
 
@@ -1024,6 +1036,7 @@ Status: **Future**
 
 Scope:
 
+- Add a lightweight V1 "More Packs" hook only after the website/page is ready.
 - Remote manifest schema.
 - Download/cache behavior.
 - Checksums/signing.

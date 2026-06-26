@@ -28,10 +28,12 @@ Current saved baseline for production-readiness planning:
 
 | Area | Baseline |
 | --- | --- |
-| Source commit | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| App-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| Planning baseline | `ff6037b` - `Clarify production readiness gates`; Gate 1 documentation cleanup prepared on 2026-06-26 |
 | Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (21)` |
 | Validation status | Local validation passed for build `1.0.0 (21)` before IPA build |
 | Production readiness plan | `Docs/Orbace Sudoku - Production Readiness Plan.md` |
+| Level/scoring reference | `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` |
 
 ## Feedback Log
 
@@ -67,7 +69,7 @@ Current saved baseline for production-readiness planning:
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 | IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Local ranking complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, and opens Su-Pu detail with version history, retry, and per-puzzle local 名谱榜. Score class and ranked eligibility come from one deterministic eligibility engine. Next step: compare / 对谱 after build 21 UAT smoke. |
 | IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
-| IDEA-008 | Release Ops | Production readiness plan | Started | Product build readiness is now tracked as a dedicated 8-step plan, with AdMob + IPA/TestFlight/App Store integration as its own major gate. Continue using this UAT log for new requests, UAT bugs, and scope changes. |
+| IDEA-008 | Release Ops | Production readiness plan | Gate 1 documentation cleanup in progress | Product build readiness is tracked as a dedicated 8-step plan, with AdMob plus iOS IPA/TestFlight/App Store and Android AAB/Google Play integration as explicit gates. Game-pack plan has been refreshed for the current 1,800-puzzle baseline, and level assignment/validation/scoring logic now has a separate reference document. Continue using this UAT log for new requests, UAT bugs, and scope changes. |
 
 ## Action Workflow
 
