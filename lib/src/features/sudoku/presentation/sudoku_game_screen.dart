@@ -882,6 +882,11 @@ class _ScoreCertificateCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _CertificateSection(
+              title: 'How Score Was Calculated',
+              child: _ScoreExplanationNote(attempt: attempt),
+            ),
+            const SizedBox(height: 12),
+            _CertificateSection(
               title: 'Player Rating',
               child: _BreakdownRow(
                 label: _difficultyRatingLabel(rating),
@@ -1046,6 +1051,70 @@ class _BreakdownRow extends StatelessWidget {
           Text(value, style: const TextStyle(fontWeight: FontWeight.w700)),
         ],
       ),
+    );
+  }
+}
+
+class _ScoreExplanationNote extends StatelessWidget {
+  const _ScoreExplanationNote({required this.attempt});
+
+  final SudokuAttempt attempt;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final score = attempt.score;
+    if (score == null) {
+      return Text(
+        'Score detail is unavailable for this saved record.',
+        style: textTheme.bodyMedium?.copyWith(
+          color: OrbaceTheme.ink,
+          fontWeight: FontWeight.w600,
+        ),
+      );
+    }
+
+    final factors = score.accuracyFactors.isEmpty
+        ? 'No mistakes, hints, or auto-check penalties were applied.'
+        : score.accuracyFactors.join('; ');
+    final formula =
+        'Total = rounded base x accuracy multiplier + time bonus + efficiency bonus + clean solve bonus.';
+    final applied =
+        '${score.total} = round(${score.baseScore} x ${score.accuracyMultiplier.toStringAsFixed(2)})'
+        ' + ${score.timeBonus} + ${score.efficiencyBonus} + ${score.cleanSolveBonus}.';
+    final status = attempt.scoreClass == SudokuScoreClass.official
+        ? 'Official score: first clean eligible attempt under scoring v${score.scoringVersion}.'
+        : '${attempt.scoreClass.label} score: shown for learning and record keeping, not ranked.';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          formula,
+          style: textTheme.bodyMedium?.copyWith(
+            color: OrbaceTheme.ink,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          applied,
+          style: textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          factors,
+          style: textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          status,
+          style: textTheme.bodyMedium?.copyWith(
+            color: OrbaceTheme.ink,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
     );
   }
 }
