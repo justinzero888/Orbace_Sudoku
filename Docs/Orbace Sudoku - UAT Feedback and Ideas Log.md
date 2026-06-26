@@ -29,7 +29,7 @@ Current saved baseline for production-readiness planning:
 | Area | Baseline |
 | --- | --- |
 | App-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
-| Planning baseline | `874587d` - `Update release planning docs`; Gate 1 complete on 2026-06-26 |
+| Planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete and Gate 2 started on 2026-06-26 |
 | Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (21)` |
 | Validation status | Local validation passed for build `1.0.0 (21)` before IPA build |
 | Production readiness plan | `Docs/Orbace Sudoku - Production Readiness Plan.md` |

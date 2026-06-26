@@ -9,7 +9,7 @@
 | Area | Current State |
 | --- | --- |
 | Current app-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
-| Current planning baseline | `874587d` - `Update release planning docs`; Gate 1 complete on 2026-06-26 |
+| Current planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete and Gate 2 started on 2026-06-26 |
 | Current iOS UAT build | `1.0.0 (21)` |
 | Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
 | Current Android closed-test build | `1.0.0 (12)` |

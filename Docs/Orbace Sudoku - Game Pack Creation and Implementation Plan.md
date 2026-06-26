@@ -18,7 +18,7 @@ Current implemented content state:
 | Validation and duplicate scan | Complete | Correctness, stored solution, unique-solution, human-solver, ID uniqueness, and duplicate/isomorphic scan pass with 0 warnings. |
 | Advanced coverage | Complete for UAT | Harder packs include pair/pointing logic and expert-level content for advanced-player testing. |
 | Local ranking certification | Complete for bundled catalog | Bundled catalog puzzles are marked rankable for local ranking; imported puzzles remain personal/non-ranked. |
-| Pack progress and resume UX | Product gap | Completion markers exist, but best-score surfacing, continue/next unsolved, and in-progress resume remain Gate 2 production-readiness work. |
+| Pack progress and resume UX | Started | Completion markers, best-score surfacing, clean/official markers, Continue/Next Unsolved, and in-progress resume are implemented for local validation. Simulator smoke and UAT build are still needed before Gate 2 is complete. |
 | Remote content readiness | Future phase | Planned after bundled production content and launch store flows are stable. |
 
 Recent build checkpoints:
