@@ -8,11 +8,12 @@
 
 | Area | Current State |
 | --- | --- |
-| Current app-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
-| Current planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete and Gate 2 started on 2026-06-26 |
-| Current iOS UAT build | `1.0.0 (21)` |
+| Current app-code baseline | `f54d0ad` - `Add Su-Pu compare view` |
+| Current planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete, Gate 2 started, Gate 3 implemented, and Gate 4 build refresh completed |
+| Current iOS UAT build | `1.0.0 (24)` |
 | Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
-| Current Android closed-test build | `1.0.0 (12)` |
+| Current Android closed-test build | `1.0.0 (24)` |
+| Current Android AAB | `build/app/outputs/bundle/release/app-release.aab` |
 | Content catalog | 1,800 bundled puzzles, content version `2026.06.003`, 0 duplicate-scan warnings |
 | Su-Pu system | Replay, Record Hall, score certificate, save/share card, notes, imported labels, and local ranking complete for iOS UAT |
 | Active feedback tracker | `Docs/Orbace Sudoku - UAT Feedback and Ideas Log.md` |
@@ -95,17 +96,19 @@ Exit criteria:
 
 Goal: complete the next core Su-Pu learning loop after local ranking.
 
+Status: **Complete for UAT in build `1.0.0 (24)`**.
+
 Deliverables:
 
-- Compare two Su-Pu for the same puzzle.
-- Start with a simple comparison table:
+- Compare two Su-Pu for the same puzzle. Complete.
+- Start with a simple comparison table. Complete:
   - score delta
   - time delta
   - steps delta
   - mistakes/hints delta
   - clean/official markers
-- Link Compare from Su-Pu Detail when at least two attempts exist.
-- Keep synchronized side-by-side replay deferred until the table is validated.
+- Link Compare from Su-Pu Detail when at least two attempts exist. Complete.
+- Keep synchronized side-by-side replay deferred until the table is validated. Still deferred by design.
 
 Why this matters:
 
@@ -123,20 +126,22 @@ Exit criteria:
 
 Goal: bring Android to parity with current iOS UAT before product release planning.
 
+Status: **Build refresh complete for UAT/beta in build `1.0.0 (24)`; Google Play upload/track processing pending.**
+
 Deliverables:
 
-- Build fresh Android AAB from current code after iOS build 21 features.
+- Build fresh Android AAB from current code after iOS build 21 features. Complete with build `1.0.0 (24)`.
 - Validate imported certificate labels and local ranking on Android.
 - Validate 1,800-puzzle pack browsing and board scaling on Android phone/tablet.
-- Update Android closed-test build number and document upload path.
+- Update Android closed-test build number and document upload path. Complete.
 
 Current gap:
 
-- Android closed-test candidate is still build `1.0.0 (12)`, behind iOS build `1.0.0 (21)`.
+- Google Play upload and tester-track availability are still pending after local AAB generation.
 
 Exit criteria:
 
-- Fresh signed AAB exists.
+- Fresh signed AAB exists. Complete: `build/app/outputs/bundle/release/app-release.aab`.
 - Android closed-test notes are updated.
 - Android UAT smoke covers gameplay, replay, Record Hall, certificate, imported puzzle, and local ranking.
 

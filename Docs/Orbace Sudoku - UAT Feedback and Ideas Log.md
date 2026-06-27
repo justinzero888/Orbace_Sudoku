@@ -22,18 +22,21 @@
 | `1.0.0 (21)` | iOS TestFlight IPA | Imported certificate labels + local ranking | Imported certificates show personal/not-ranked labels; bundled puzzles are certified for local ranking; Su-Pu Detail shows per-puzzle 名谱榜. |
 | `1.0.0 (22)` | iOS TestFlight IPA | Score explanation note | Completion certificate and saved/shared score card now include a plain-language explanation of how the score was calculated. |
 | `1.0.0 (23)` | iOS TestFlight IPA | Accuracy calculation correction | Accuracy no longer applies the auto-check assist penalty when there are no mistakes; scoring version bumped to v2. |
-| `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
+| `1.0.0 (24)` | iOS TestFlight IPA | Su-Pu Compare + Android parity checkpoint | Compare Su-Pu / 对谱 added from Su-Pu Detail; built from the same app-code checkpoint as Android build 24. |
+| `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Previous signed Android closed-test candidate. |
+| `1.0.0 (24)` | Android AAB | Su-Pu Compare + parity refresh | Fresh signed AAB from current app code for comprehensive UAT/beta and Google Play closed-test refresh. |
 
-The current iOS UAT candidate is build `1.0.0 (23)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (24)`. The current Android closed-test candidate is signed build `1.0.0 (24)`. Both use the locally validated 1,800-puzzle catalog.
 
 Current saved baseline for production-readiness planning:
 
 | Area | Baseline |
 | --- | --- |
-| App-code baseline | `fdaf60c` - `Add local ranking and imported certificate labels` |
+| App-code baseline | `f54d0ad` - `Add Su-Pu compare view` |
 | Planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete and Gate 2 started on 2026-06-26 |
-| Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (21)` |
-| Validation status | Local validation passed for build `1.0.0 (21)` before IPA build |
+| Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (24)` |
+| Latest Android AAB | `build/app/outputs/bundle/release/app-release.aab` from build `1.0.0 (24)` |
+| Validation status | Local validation passed for build `1.0.0 (24)` before IPA/AAB build |
 | Production readiness plan | `Docs/Orbace Sudoku - Production Readiness Plan.md` |
 | Level/scoring reference | `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` |
 
@@ -61,6 +64,7 @@ Current saved baseline for production-readiness planning:
 | UAT-018 | Build 17 UAT | Certificate is lost after app update. | High | Complete | Score cards now store relative app-document paths and Record Hall resolves old absolute paths by filename after iOS container path changes. | Pending UAT in build `1.0.0 (18)`. |
 | UAT-019 | UAT | Add an explanation note for each completed game showing how the score was calculated. | Medium | Complete | Added a "How Score Was Calculated" section to the completion certificate and exported score card, including formula, actual calculation, penalties, and score class/ranking note. | Pending UAT in build `1.0.0 (22)`. |
 | UAT-020 | UAT | If there is no mistake, the 85% accuracy penalty should not be applied. Accuracy should start at 100% and only actual mistakes/hints should reduce it. | High | Complete | Removed auto-check from the score accuracy multiplier. Auto-check still affects score class/ranked eligibility, but no longer lowers accuracy by itself. Bumped scoring version to v2. | Pending UAT in build `1.0.0 (23)`. |
+| UAT-021 | Product readiness Gate 3 | Implement Su-Pu Compare / 对谱. | High | Complete for UAT | Added a Compare Su-Pu card in Su-Pu Detail and a comparison screen for two completed records of the same puzzle, covering score, time, steps, mistakes, hints, accuracy, clean status, and score class. | Pending UAT in build `1.0.0 (24)`. |
 
 ## New Requirements and Ideas Backlog
 
@@ -71,7 +75,7 @@ Current saved baseline for production-readiness planning:
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
-| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Local ranking complete for iOS UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, and opens Su-Pu detail with version history, retry, and per-puzzle local 名谱榜. Score class and ranked eligibility come from one deterministic eligibility engine. Next step: compare / 对谱 after build 21 UAT smoke. |
+| IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Compare complete for UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, opens Su-Pu detail with version history, retry, per-puzzle local 名谱榜, and Compare Su-Pu / 对谱. Score class and ranked eligibility come from one deterministic eligibility engine. |
 | IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
 | IDEA-008 | Release Ops | Production readiness plan | Gate 2 started | Product build readiness is tracked as a dedicated 8-step plan, with AdMob plus iOS IPA/TestFlight/App Store and Android AAB/Google Play integration as explicit gates. Gate 1 documentation cleanup is complete. Gate 2 Pack Progress and Resume has started with saved in-progress games, Continue/Next Unsolved, best score, official/clean markers, and Level Pack progress status implemented for local validation. Continue using this UAT log for new requests, UAT bugs, and scope changes. |
 
@@ -104,3 +108,5 @@ Current saved baseline for production-readiness planning:
 | `1.0.0 (21)` | iOS IPA | IDEA-006 local ranking + imported labels | Local validation passed; IPA built | Imported certificates are labeled personal/not-ranked; bundled catalog is certified for local ranking; Su-Pu Detail shows local 名谱榜. |
 | `1.0.0 (22)` | iOS IPA | UAT-019 | Local validation passed; IPA built | Score calculation explanation added to completion certificate and saved/shared score card. |
 | `1.0.0 (23)` | iOS IPA | UAT-020 | Local validation passed; IPA built | Accuracy calculation corrected so auto-check does not apply a no-mistake 85% penalty; scoring version v2. |
+| `1.0.0 (24)` | iOS IPA | UAT-021, Gate 3, Gate 4 parity checkpoint | Local validation passed; IPA built | Su-Pu Compare / 对谱 added; same app-code checkpoint as Android build 24. |
+| `1.0.0 (24)` | Android AAB | UAT-021, Gate 4 parity checkpoint | Local validation passed; AAB built | Fresh Android closed-test/beta candidate from current app code. |

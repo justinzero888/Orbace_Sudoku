@@ -1,7 +1,7 @@
 # Orbace Sudoku - Google Play Closed Testing and AdMob Setup
 
-**Version**: 1.0  
-**Date**: 2026-06-21  
+**Version**: 1.1
+**Date**: 2026-06-27
 **Purpose**: Prepare Orbace Sudoku for Google Play closed testing and define the AdMob setup path without violating the product rule of no ads during active play.
 
 ## 1. Current Android App Information
@@ -11,7 +11,7 @@
 | App name | Orbace Sudoku |
 | Android package name | `com.orbace.orbace_sudoku` |
 | iOS bundle ID | `com.orbace.orbaceSudoku` |
-| Current AAB version | `1.0.0 (12)` |
+| Current AAB version | `1.0.0 (24)` |
 | Current AAB path | `build/app/outputs/bundle/release/app-release.aab` |
 | Content version | `2026.06.003` |
 | Puzzle count | 1,800 |
@@ -43,7 +43,7 @@ Backup requirement:
 Build command:
 
 ```bash
-flutter build appbundle --release --build-name=1.0.0 --build-number=12
+flutter build appbundle --release --build-name=1.0.0 --build-number=24
 ```
 
 Signature check:
@@ -88,7 +88,7 @@ If the Google Play developer account is a newly created personal account, Google
 
 ## 4. Closed-Test Validation Plan
 
-Use this checkpoint for build `1.0.0 (12)`:
+Use this checkpoint for build `1.0.0 (24)`:
 
 | Area | Validation |
 | --- | --- |
@@ -98,6 +98,7 @@ Use this checkpoint for build `1.0.0 (12)`:
 | Gameplay | Start Tea Moment and at least one pack puzzle. |
 | Board scaling | Board digits remain proportional on Android phone and tablet. |
 | Replay | Number and note back-actions appear in replay history. |
+| Record Hall / Su-Pu | Saved Su-Pu opens from Record Hall, Su-Pu Detail shows local ranking, and Compare Su-Pu / 对谱 opens when two records exist. |
 | Stability | No startup crash, no asset load failure. |
 | Feedback | Tester can submit notes through the configured feedback channel. |
 
@@ -190,7 +191,7 @@ Remaining Android implementation sequence after Android IDs are available:
 | Android app label | Complete |
 | Android upload signing support | Complete |
 | Local upload keystore | Complete, ignored by git |
-| Signed Android AAB for closed test | Complete: `1.0.0 (12)` |
+| Signed Android AAB for closed test | Complete: `1.0.0 (24)` |
 | Google Play closed-test process | Documented |
 | iOS AdMob app setup | Complete |
 | iOS AdMob code integration | Complete for Home-screen bottom banner |
