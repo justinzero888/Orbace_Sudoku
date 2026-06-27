@@ -37,7 +37,7 @@ void main() {
 
     expect(_row(comparison, 'Score').delta, '+600');
     expect(_row(comparison, 'Score').improved, isTrue);
-    expect(_row(comparison, 'Time').delta, '+60');
+    expect(_row(comparison, 'Time').delta, '+1:00');
     expect(_row(comparison, 'Steps').delta, '+8');
     expect(_row(comparison, 'Mistakes').delta, '+1');
     expect(_row(comparison, 'Hints').delta, '+1');

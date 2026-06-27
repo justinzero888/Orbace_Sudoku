@@ -128,7 +128,7 @@ class SuPuCompareEngine {
       label: label,
       primaryValue: formatter(primary),
       baselineValue: formatter(baseline),
-      delta: _signed(delta),
+      delta: _signedWith(delta, formatter),
       improved: delta == 0 ? null : delta > 0,
     );
   }
@@ -144,7 +144,7 @@ class SuPuCompareEngine {
       label: label,
       primaryValue: formatter(primary),
       baselineValue: formatter(baseline),
-      delta: _signed(-delta),
+      delta: _signedWith(-delta, formatter),
       improved: delta == 0 ? null : delta < 0,
     );
   }
@@ -183,5 +183,11 @@ class SuPuCompareEngine {
       return '+$value';
     }
     return '$value';
+  }
+
+  static String _signedWith(int value, String Function(int) formatter) {
+    if (value > 0) return '+${formatter(value)}';
+    if (value < 0) return '-${formatter(-value)}';
+    return formatter(0);
   }
 }
