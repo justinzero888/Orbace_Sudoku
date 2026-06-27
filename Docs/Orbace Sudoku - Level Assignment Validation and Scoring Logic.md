@@ -14,7 +14,7 @@
 | Current iOS UAT build | `1.0.0 (21)` |
 | Current Android closed-test build | `1.0.0 (12)` |
 | Local ranking state | Enabled for bundled catalog; disabled for imported puzzles |
-| Scoring version | `1` |
+| Scoring version | `2` |
 
 This document is the working contract for V1 content quality and scoring. Any future change to difficulty assignment, score formula, ranked eligibility, or validation gates must update this document and the related tests.
 
@@ -126,7 +126,8 @@ Penalty parameters:
 | Nudge hint | `x0.95` each |
 | Explanation hint | `x0.85` each |
 | Reveal hint | `x0.70` each |
-| Auto-check enabled | `x0.85` |
+
+Auto-check / mistake-checking does not reduce the accuracy multiplier by itself. It affects score class and ranking eligibility, but the accuracy number should reflect actual mistakes and hint usage only.
 
 Bonus parameters:
 
@@ -194,7 +195,7 @@ Possible post-UAT adjustments:
 - Adjust target times by pack or level.
 - Retire or replace outlier puzzles.
 - Add stronger technique support before expanding Extreme.
-- Version any formula change as `scoringVersion = 2` and keep old scores auditable.
+- Version any future formula change and keep old scores auditable.
 
 ## 11. Product Principles
 

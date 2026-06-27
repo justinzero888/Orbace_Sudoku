@@ -45,7 +45,35 @@ void main() {
       expect(score.total, 18000);
     });
 
-    test('penalizes errors, hint tiers, and auto-check', () {
+    test(
+      'does not penalize accuracy when auto-check is on without mistakes',
+      () {
+        const calculator = ScoreCalculator();
+
+        final score = calculator.calculate(
+          const ScoreInput(
+            difficulty: SudokuDifficulty.hard,
+            elapsedSeconds: 960,
+            targetTimeSeconds: 960,
+            errorCount: 0,
+            hintNudgeCount: 0,
+            hintExplanationCount: 0,
+            hintRevealCount: 0,
+            autoCheckEnabled: true,
+            timerEnabled: true,
+            cleanSolve: true,
+            playerSteps: 40,
+            optimalSteps: 40,
+          ),
+        );
+
+        expect(score.accuracyMultiplier, 1.0);
+        expect(score.accuracyFactors, isEmpty);
+        expect(score.total, 8800);
+      },
+    );
+
+    test('penalizes actual errors and hint tiers', () {
       const calculator = ScoreCalculator();
 
       final score = calculator.calculate(
@@ -68,7 +96,11 @@ void main() {
       expect(score.total, lessThan(8000));
       expect(score.timeBonus, 0);
       expect(score.cleanSolveBonus, 0);
-      expect(score.accuracyFactors, hasLength(5));
+      expect(score.accuracyFactors, hasLength(4));
+      expect(
+        score.accuracyFactors,
+        isNot(contains('Auto-check enabled: x0.85')),
+      );
     });
   });
 

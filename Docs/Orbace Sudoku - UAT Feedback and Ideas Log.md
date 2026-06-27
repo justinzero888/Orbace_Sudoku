@@ -21,9 +21,10 @@
 | `1.0.0 (20)` | iOS TestFlight IPA | Ranked eligibility hardening | Centralized eligibility engine controls score class and ranked eligibility with deterministic blocking reasons before local ranking. |
 | `1.0.0 (21)` | iOS TestFlight IPA | Imported certificate labels + local ranking | Imported certificates show personal/not-ranked labels; bundled puzzles are certified for local ranking; Su-Pu Detail shows per-puzzle 名谱榜. |
 | `1.0.0 (22)` | iOS TestFlight IPA | Score explanation note | Completion certificate and saved/shared score card now include a plain-language explanation of how the score was calculated. |
+| `1.0.0 (23)` | iOS TestFlight IPA | Accuracy calculation correction | Accuracy no longer applies the auto-check assist penalty when there are no mistakes; scoring version bumped to v2. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Signed with local upload key and ready for Google Play closed testing upload. |
 
-The current iOS UAT candidate is build `1.0.0 (22)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (23)`. The current Android closed-test candidate is signed build `1.0.0 (12)`. Both use the locally validated 1,800-puzzle catalog.
 
 Current saved baseline for production-readiness planning:
 
@@ -59,6 +60,7 @@ Current saved baseline for production-readiness planning:
 | UAT-017 | Build 16 UAT | User wants to import games from other sources easily. | Medium | Complete for V1 UAT | Implemented Personal Import V1: paste 81-character string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and non-ranked imported puzzle metadata. | Pending UAT in build `1.0.0 (18)`. |
 | UAT-018 | Build 17 UAT | Certificate is lost after app update. | High | Complete | Score cards now store relative app-document paths and Record Hall resolves old absolute paths by filename after iOS container path changes. | Pending UAT in build `1.0.0 (18)`. |
 | UAT-019 | UAT | Add an explanation note for each completed game showing how the score was calculated. | Medium | Complete | Added a "How Score Was Calculated" section to the completion certificate and exported score card, including formula, actual calculation, penalties, and score class/ranking note. | Pending UAT in build `1.0.0 (22)`. |
+| UAT-020 | UAT | If there is no mistake, the 85% accuracy penalty should not be applied. Accuracy should start at 100% and only actual mistakes/hints should reduce it. | High | Complete | Removed auto-check from the score accuracy multiplier. Auto-check still affects score class/ranked eligibility, but no longer lowers accuracy by itself. Bumped scoring version to v2. | Pending UAT in build `1.0.0 (23)`. |
 
 ## New Requirements and Ideas Backlog
 
@@ -101,3 +103,4 @@ Current saved baseline for production-readiness planning:
 | `1.0.0 (20)` | iOS IPA | IDEA-006 ranked eligibility hardening | Local validation passed; IPA built | Centralized score-class/ranked eligibility engine added before local ranking. Current catalog remains non-ranked until content certification. |
 | `1.0.0 (21)` | iOS IPA | IDEA-006 local ranking + imported labels | Local validation passed; IPA built | Imported certificates are labeled personal/not-ranked; bundled catalog is certified for local ranking; Su-Pu Detail shows local 名谱榜. |
 | `1.0.0 (22)` | iOS IPA | UAT-019 | Local validation passed; IPA built | Score calculation explanation added to completion certificate and saved/shared score card. |
+| `1.0.0 (23)` | iOS IPA | UAT-020 | Local validation passed; IPA built | Accuracy calculation corrected so auto-check does not apply a no-mistake 85% penalty; scoring version v2. |

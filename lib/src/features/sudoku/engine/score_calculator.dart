@@ -34,7 +34,7 @@ class ScoreInput {
 class ScoreCalculator {
   const ScoreCalculator();
 
-  static const int scoringVersion = 1;
+  static const int scoringVersion = 2;
 
   SudokuScore calculate(ScoreInput input) {
     var multiplier = 1.0;
@@ -68,11 +68,6 @@ class ScoreCalculator {
     }
     if (input.hintRevealCount > 0) {
       factors.add('${input.hintRevealCount} reveal hint(s): x0.70 each');
-    }
-
-    if (input.autoCheckEnabled) {
-      multiplier *= 0.85;
-      factors.add('Auto-check enabled: x0.85');
     }
 
     multiplier = multiplier.clamp(0.10, 1.0);
