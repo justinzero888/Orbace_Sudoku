@@ -10,6 +10,7 @@ import '../domain/sudoku_score_class.dart';
 import '../engine/local_ranking_engine.dart';
 import '../engine/score_calculator.dart';
 import 'fixture_puzzles.dart';
+import 'su_pu_compare_screen.dart';
 import 'sudoku_game_screen.dart';
 import 'sudoku_replay_screen.dart';
 
@@ -76,6 +77,13 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
                   puzzle: widget.puzzle,
                   entries: localRanking,
                   initialAttemptId: widget.initialAttempt.id,
+                ),
+                const SizedBox(height: 14),
+                _CompareEntryPanel(
+                  attempts: attempts,
+                  onCompare: attempts.length < 2
+                      ? null
+                      : () => _openCompare(attempts),
                 ),
                 const SizedBox(height: 14),
                 Text('Versions', style: Theme.of(context).textTheme.titleLarge),
@@ -156,6 +164,25 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
       MaterialPageRoute<void>(
         builder: (_) =>
             SudokuReplayScreen(givens: widget.puzzle.givens, attempt: attempt),
+      ),
+    );
+  }
+
+  void _openCompare(List<SudokuAttempt> attempts) {
+    if (attempts.length < 2) {
+      _showMessage('Complete this puzzle at least twice to compare Su-Pu.');
+      return;
+    }
+    final primary = attempts.first;
+    final baseline = _previousAttemptFor(primary, attempts) ?? attempts[1];
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => SuPuCompareScreen(
+          puzzle: widget.puzzle,
+          attempts: attempts,
+          initialPrimary: primary,
+          initialBaseline: baseline,
+        ),
       ),
     );
   }
@@ -431,6 +458,64 @@ class _SummaryTile extends StatelessWidget {
                 ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CompareEntryPanel extends StatelessWidget {
+  const _CompareEntryPanel({required this.attempts, required this.onCompare});
+
+  final List<SudokuAttempt> attempts;
+  final VoidCallback? onCompare;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = onCompare != null;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: OrbaceTheme.paper,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFE6DED0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.compare_arrows),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Compare Su-Pu · 对谱',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+                _Badge(label: '${attempts.length} records'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              enabled
+                  ? 'Compare two completed records for this same puzzle: score, time, steps, mistakes, hints, clean marker, and score class.'
+                  : 'Complete this puzzle at least twice to unlock 对谱 comparison.',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
+            ),
+            const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton.icon(
+                onPressed: onCompare,
+                icon: const Icon(Icons.compare),
+                label: const Text('Open Compare'),
+              ),
+            ),
+          ],
         ),
       ),
     );
