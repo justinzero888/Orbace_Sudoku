@@ -31,11 +31,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <!-- Required by the Google Mobile Ads SDK even when ads are not shown on Android.
-             Replace with the real Android AdMob App ID when the account is set up. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-7497527413129091~8886715279" />
         <!-- WorkManager is pulled in transitively by google_mobile_ads but this app does not
              use it. Removing auto-init prevents a WorkDatabase R8 crash at startup. -->
         <provider
