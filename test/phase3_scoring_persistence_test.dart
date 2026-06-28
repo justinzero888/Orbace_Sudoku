@@ -203,6 +203,37 @@ void main() {
       expect(library.first.scoreCardGeneratedAt, generatedAt);
     });
 
+    test('deletes a completed attempt from the replay library', () async {
+      final completedAt = DateTime(2026, 1, 2, 10);
+
+      await repository.saveAttempt(
+        _attempt(
+          id: 'attempt_to_keep',
+          completedAt: completedAt,
+          startedAt: completedAt.subtract(const Duration(minutes: 8)),
+        ),
+      );
+      await repository.saveAttempt(
+        _attempt(
+          id: 'attempt_to_delete',
+          completedAt: completedAt.add(const Duration(hours: 1)),
+          startedAt: completedAt.add(const Duration(minutes: 52)),
+        ),
+      );
+
+      await repository.deleteAttempt('attempt_to_delete');
+
+      final library = await repository.completedAttemptsForReplayLibrary();
+      final attemptsForPuzzle = await repository.attemptsForPuzzle(
+        'tea_moment_fixture',
+      );
+
+      expect(library.map((attempt) => attempt.id), ['attempt_to_keep']);
+      expect(attemptsForPuzzle.map((attempt) => attempt.id), [
+        'attempt_to_keep',
+      ]);
+    });
+
     test('rejects player difficulty ratings outside the 1 to 5 scale', () {
       expect(
         () => repository.updatePlayerDifficultyRating('attempt_a', 5.1),

@@ -221,6 +221,10 @@ class AppDatabase extends _$AppDatabase {
         .get();
   }
 
+  Future<void> deleteAttempt(String attemptId) {
+    return (delete(attemptRows)..where((row) => row.id.equals(attemptId))).go();
+  }
+
   Future<void> upsertCurrentProgress(CurrentProgressRowsCompanion progress) {
     return into(currentProgressRows).insertOnConflictUpdate(progress);
   }

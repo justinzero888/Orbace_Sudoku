@@ -75,6 +75,7 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                       onCertificate: () => _openCertificate(attempt),
                       onNotes: () => _editNotes(attempt),
                       onDetails: () => _openDetail(attempt),
+                      onDelete: () => _confirmDelete(attempt),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -268,6 +269,48 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
     });
   }
 
+  Future<void> _confirmDelete(SudokuAttempt attempt) async {
+    final puzzle = _puzzleFor(attempt);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete Su-Pu?'),
+          content: Text(
+            'Delete "${puzzle.title}" attempt ${attempt.attemptNumber} from Record Hall? '
+            'This removes the saved replay, score, notes, and local ranking record for this attempt.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton.icon(
+              style: FilledButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.error,
+                foregroundColor: Theme.of(context).colorScheme.onError,
+              ),
+              onPressed: () => Navigator.of(context).pop(true),
+              icon: const Icon(Icons.delete_outline),
+              label: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+    if (confirmed != true) {
+      return;
+    }
+    await widget.repository.deleteAttempt(attempt.id);
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _attemptsFuture = _loadAttempts();
+    });
+    _showMessage('Deleted Su-Pu from Record Hall.');
+  }
+
   void _showMessage(String message) {
     ScaffoldMessenger.of(
       context,
@@ -402,6 +445,7 @@ class _SuPuCard extends StatelessWidget {
     required this.onCertificate,
     required this.onNotes,
     required this.onDetails,
+    required this.onDelete,
   });
 
   final SudokuAttempt attempt;
@@ -411,6 +455,7 @@ class _SuPuCard extends StatelessWidget {
   final VoidCallback onCertificate;
   final VoidCallback onNotes;
   final VoidCallback onDetails;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -543,6 +588,14 @@ class _SuPuCard extends StatelessWidget {
                     onPressed: onCertificate,
                     icon: const Icon(Icons.workspace_premium_outlined),
                     label: const Text('Certificate'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: onDelete,
+                    icon: const Icon(Icons.delete_outline),
+                    label: const Text('Delete'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                   FilledButton.icon(
                     onPressed: onReplay,

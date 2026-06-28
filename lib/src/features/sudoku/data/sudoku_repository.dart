@@ -156,6 +156,10 @@ class SudokuRepository {
     return rows.map(_attemptFromRow).toList(growable: false);
   }
 
+  Future<void> deleteAttempt(String attemptId) {
+    return database.deleteAttempt(attemptId);
+  }
+
   Future<void> saveCurrentProgress(SudokuCurrentProgress progress) {
     return database.upsertCurrentProgress(
       CurrentProgressRowsCompanion(

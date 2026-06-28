@@ -87,6 +87,7 @@ Established:
 - [PRD V3](Docs/Orbace%20Sudoku%20%E2%80%94%20PRD%20V3.md)
 - [PRD V3a](Docs/Orbace%20Sudoku%20%E2%80%94%20PRD%20V3a.md)
 - [Phased Implementation Plan](Docs/Orbace%20Sudoku%20%E2%80%94%20Phased%20Implementation%20Plan.md)
+- [User Help Guide](Docs/Orbace%20Sudoku%20-%20User%20Help%20Guide.md)
 
 ## Validate
 
