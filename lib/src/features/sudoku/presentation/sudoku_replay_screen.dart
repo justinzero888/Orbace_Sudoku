@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../domain/sudoku_attempt.dart';
 import '../domain/sudoku_board.dart';
@@ -28,6 +29,7 @@ class _SudokuReplayScreenState extends State<SudokuReplayScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Replay')),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),

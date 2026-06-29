@@ -23,10 +23,12 @@
 | `1.0.0 (22)` | iOS TestFlight IPA | Score explanation note | Completion certificate and saved/shared score card now include a plain-language explanation of how the score was calculated. |
 | `1.0.0 (23)` | iOS TestFlight IPA | Accuracy calculation correction | Accuracy no longer applies the auto-check assist penalty when there are no mistakes; scoring version bumped to v2. |
 | `1.0.0 (24)` | iOS TestFlight IPA | Su-Pu Compare + Android parity checkpoint | Compare Su-Pu / 对谱 added from Su-Pu Detail; built from the same app-code checkpoint as Android build 24. |
+| `1.0.0 (29)` | iOS TestFlight IPA | Import polish + photo import beta + non-game banners + Settings | Paste example string, guided photo import tab, banners on non-game screens, Settings menu, and Official Ranking preview slot. |
 | `1.0.0 (12)` | Android AAB | 1,800 production-candidate puzzles | Previous signed Android closed-test candidate. |
 | `1.0.0 (24)` | Android AAB | Su-Pu Compare + parity refresh | Fresh signed AAB from current app code for comprehensive UAT/beta and Google Play closed-test refresh. |
+| `1.0.0 (29)` | Android AAB | Import polish + photo import beta + non-game banners + Settings | Same source checkpoint as iOS build 29; AAB signature verified locally. |
 
-The current iOS UAT candidate is build `1.0.0 (24)`. The current Android closed-test candidate is signed build `1.0.0 (24)`. Both use the locally validated 1,800-puzzle catalog.
+The current iOS UAT candidate is build `1.0.0 (29)`. The current Android closed-test candidate is signed build `1.0.0 (29)`. Both use the locally validated 1,800-puzzle catalog.
 
 Current saved baseline for production-readiness planning:
 
@@ -34,9 +36,9 @@ Current saved baseline for production-readiness planning:
 | --- | --- |
 | App-code baseline | `f54d0ad` - `Add Su-Pu compare view` |
 | Planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete and Gate 2 started on 2026-06-26 |
-| Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (24)` |
-| Latest Android AAB | `build/app/outputs/bundle/release/app-release.aab` from build `1.0.0 (24)` |
-| Validation status | Local validation passed for build `1.0.0 (24)` before IPA/AAB build |
+| Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` from build `1.0.0 (29)` |
+| Latest Android AAB | `build/app/outputs/bundle/release/app-release.aab` from build `1.0.0 (29)` |
+| Validation status | Local validation passed for build `1.0.0 (29)` before IPA/AAB build; Android AAB signature verified |
 | Production readiness plan | `Docs/Orbace Sudoku - Production Readiness Plan.md` |
 | Level/scoring reference | `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` |
 
@@ -69,18 +71,23 @@ Current saved baseline for production-readiness planning:
 | UAT-023 | UAT | Clarify the difference between Local Ranking and Compare Su-Pu / 对谱. | Medium | Complete | Added plain-language explanation to the user help guide: Local Ranking is leaderboard-style ordering of eligible records; Compare is study-style side-by-side analysis of two selected records for the same puzzle. | Pending next UAT build. |
 | UAT-024 | UAT | Clarify the criteria for "Improve score on 5 retries"; current wording is confusing. | Medium | Complete | Updated Scholar's Path requirement text to say a retry must finish with a higher score than the previous best for that same puzzle. Added detailed criteria to the user help guide. | Pending next UAT build. |
 | UAT-025 | UAT | Add a Record Hall delete CTA so users can remove unwanted records from repeated attempts. | High | Complete | Added Delete CTA on each Record Hall Su-Pu card with confirmation. Delete removes the selected attempt from Record Hall, puzzle history, replay, score, notes, and local ranking for that attempt. Added repository test coverage. | Pending next UAT build. |
+| UAT-026 | UAT | Under Import Puzzle -> Paste, show an example in the 81-cell puzzle string box so users can test quickly. | Medium | Complete for UAT | Added full 81-character example as placeholder plus a `Use Example String` CTA. Save & Play validation remains unchanged: imported puzzle must have exactly one solution and remains personal/not ranked. | Pending UAT in build `1.0.0 (29)`. |
+| UAT-027 | UAT | Add "Take a Picture of Sudoku" as a third import method so users can turn a photo into a playable game. | High | Beta complete for UAT | Added `Photo` import tab with camera/photo picker, selected-image preview, manual correction grid, and the same one-solution validation before Save & Play. Automated OCR/grid detection remains a follow-on after beta validation. | Pending UAT in build `1.0.0 (29)`. |
+| UAT-028 | UAT | Show AdMob banner on every tab/screen except the active game-playing tab. | High | Complete for UAT | Added bottom banner to Level Packs, Import Puzzle, Record Hall, Replay, Su-Pu Detail, Compare, Scholar's Path, Extreme Challenge, Settings, and Home. SudokuGameScreen remains ad-free. | Pending UAT in build `1.0.0 (29)`. |
+| UAT-029 | UAT | Add Settings menu with Privacy, Terms of Use, and Remove Ads IPA. | Medium | Complete for UAT | Added Settings entry from Home app bar with Privacy, Terms of Use, and Remove Ads IPA beta policy notes. | Pending UAT in build `1.0.0 (29)`. |
+| UAT-030 | Product UX | Prepare app UX for upcoming Daily Ranking Game and Global Ranking. | Medium | Complete for UAT | Added Official Ranking preview card on Home explaining account-based official events, one-attempt rules, server validation, and future global leaderboards while leaving V1 local play unchanged. | Pending UAT in build `1.0.0 (29)`. |
 
 ## New Requirements and Ideas Backlog
 
 | ID | Type | Idea / Requirement | Status | Notes / Next Step |
 | --- | --- | --- | --- | --- |
-| IDEA-001 | Monetization | AdMob setup | iOS integrated for UAT | iOS AdMob app ID and bottom banner unit added. Banner placement is Home screen only; no ads during active play. Android AdMob remains pending Android app/ad unit IDs. App privacy, data safety, consent, and app-ads.txt still need store/account work. |
+| IDEA-001 | Monetization | AdMob setup | Expanded for UAT | iOS and Android banner IDs are configured. Build 29 expands banner placement to non-game screens only; active gameplay remains ad-free. App privacy, data safety, consent, and app-ads.txt still need store/account work before production ads are broadly released. |
 | IDEA-002 | Content / Education | Create a Sudoku solution guide book | Not started | Could become an in-app guide, downloadable PDF, website lead magnet, or App Store marketing asset. Should align with Orbace teaching tone and named techniques supported by the engine. |
 | IDEA-003 | Content | 1,800-puzzle production library | Ready for UAT build | Candidate content version `2026.06.003` generated with 1,800 puzzles split into 31 batch files. Validator passes correctness, human-solver, uniqueness, and duplicate-scan gates with 0 warnings. |
 | IDEA-004 | Competitive | Worldwide leaderboard for Extreme Challenge | Planned | Requires backend, anti-cheat rules, ranked attempt integrity, and privacy/account design. |
 | IDEA-005 | Content Ops | Remote seasonal/event packs | Future | Requires remote manifest, checksum/signing, offline fallback, and content retirement strategy. |
 | IDEA-006 | Replay / Scoring | Su-Pu Record Hall, score certificate, player difficulty rating, and ranking-ready storage | Compare complete for UAT | Schema v2 migration and attempt metadata are complete. Completion shows a branded Su-Pu Solve Record with persisted player difficulty rating and ranking notes. Save/share score card is complete. Record Hall browses saved Su-Pu, reloads replay after app restart, supports filters/favorites, opens saved score-card images, edits/displays notes, opens Su-Pu detail with version history, retry, per-puzzle local 名谱榜, and Compare Su-Pu / 对谱. Score class and ranked eligibility come from one deterministic eligibility engine. |
-| IDEA-007 | Content Import | Personal puzzle import from other sources | V1 implemented for UAT | See `Orbace Sudoku - External Puzzle Import Solution.md`. V1 supports paste string, manual grid entry, validation for exactly one solution, local Imported pack, Save & Play, and no worldwide ranking eligibility. |
+| IDEA-007 | Content Import | Gate 7 beta build ready | See `Orbace Sudoku - External Puzzle Import Solution.md`. Build 29 supports paste string with example CTA, manual grid entry, and photo-guided import with manual correction/validation. Automated OCR/grid detection remains follow-on after beta validation. |
 | IDEA-008 | Release Ops | Production readiness plan | Gate 2 started | Product build readiness is tracked as a dedicated 8-step plan, with AdMob plus iOS IPA/TestFlight/App Store and Android AAB/Google Play integration as explicit gates. Gate 1 documentation cleanup is complete. Gate 2 Pack Progress and Resume has started with saved in-progress games, Continue/Next Unsolved, best score, official/clean markers, and Level Pack progress status implemented for local validation. Continue using this UAT log for new requests, UAT bugs, and scope changes. |
 
 ## Action Workflow
@@ -117,3 +124,5 @@ Current saved baseline for production-readiness planning:
 | `1.0.0 (25)` | Android AAB | Android crash fix 1/2 (UAT-022) | Local validation passed; AAB built | Hotfix: missing AdMob APPLICATION_ID meta-data caused startup crash on all Android devices. |
 | `1.0.0 (26)` | Android AAB | Version bump | Local validation passed; AAB built | Version bump only; still carried WorkDatabase startup crash. |
 | `1.0.0 (27)` | Android AAB | Android crash fix 2/2 (UAT-022) | Local validation passed; AAB built; no-crash confirmed on device via adb | Hotfix: WorkManager (transitive from google_mobile_ads) R8 crash at startup resolved by removing WorkManagerInitializer from startup chain. Play Store cache caused false "still crashing" report for v27; confirmed fixed. |
+| `1.0.0 (29)` | iOS IPA | UAT-026, UAT-027, UAT-028, UAT-029, UAT-030 | Local validation passed; IPA built | Import example, photo-guided import beta, non-game banners, Settings, and Official Ranking preview. |
+| `1.0.0 (29)` | Android AAB | UAT-026, UAT-027, UAT-028, UAT-029, UAT-030 | Local validation passed; AAB built; signature verified | Same source checkpoint as iOS build 29. |

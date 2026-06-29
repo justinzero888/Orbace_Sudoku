@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/imported_puzzle_service.dart';
 import '../data/puzzle_pack_loader.dart';
@@ -19,9 +23,10 @@ class ImportPuzzleScreen extends StatefulWidget {
 class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController = TabController(
-    length: 2,
+    length: 3,
     vsync: this,
   );
+  final ImagePicker _imagePicker = ImagePicker();
   late final ImportedPuzzleService _service = ImportedPuzzleService(
     repository: widget.repository,
   );
@@ -34,6 +39,7 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
         (_) => TextEditingController(),
       );
   ImportedPuzzlePreview? _preview;
+  XFile? _photo;
   String? _error;
   bool _saving = false;
 
@@ -61,9 +67,11 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
           tabs: const [
             Tab(text: 'Paste'),
             Tab(text: 'Grid'),
+            Tab(text: 'Photo'),
           ],
         ),
       ),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
@@ -98,6 +106,12 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
                 children: [
                   _PasteImportPane(controller: _pasteController),
                   _ManualGridPane(controllers: _cellControllers),
+                  _PhotoImportPane(
+                    photo: _photo,
+                    controllers: _cellControllers,
+                    onTakePhoto: () => _pickPhoto(ImageSource.camera),
+                    onChoosePhoto: () => _pickPhoto(ImageSource.gallery),
+                  ),
                 ],
               ),
             ),
@@ -202,26 +216,65 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
       }
     }
   }
+
+  Future<void> _pickPhoto(ImageSource source) async {
+    try {
+      final photo = await _imagePicker.pickImage(
+        source: source,
+        imageQuality: 90,
+        maxWidth: 1800,
+      );
+      if (!mounted || photo == null) {
+        return;
+      }
+      setState(() {
+        _photo = photo;
+        _error = null;
+        _preview = null;
+      });
+    } on Object catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _error =
+            'Could not open ${source == ImageSource.camera ? 'camera' : 'photos'}: $error';
+      });
+    }
+  }
 }
 
 class _PasteImportPane extends StatelessWidget {
   const _PasteImportPane({required this.controller});
 
   final TextEditingController controller;
+  static const String example =
+      '530070000600195000098000060800060003400803001700020006060000280000419005000080079';
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      minLines: 12,
-      maxLines: 14,
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: '81-cell puzzle string',
-        hintText: '530070000600195000098000060...',
-        helperText: 'Use 1-9 for givens; 0, dot, or dash for blanks.',
-        border: OutlineInputBorder(),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextField(
+          controller: controller,
+          minLines: 10,
+          maxLines: 12,
+          keyboardType: TextInputType.text,
+          decoration: const InputDecoration(
+            labelText: '81-cell puzzle string',
+            hintText: example,
+            helperText: 'Use 1-9 for givens; 0, dot, or dash for blanks.',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: 8),
+        OutlinedButton.icon(
+          onPressed: () => controller.text = example,
+          icon: const Icon(Icons.content_paste),
+          label: const Text('Use Example String'),
+        ),
+      ],
     );
   }
 }
@@ -281,6 +334,73 @@ class _ManualGridPane extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _PhotoImportPane extends StatelessWidget {
+  const _PhotoImportPane({
+    required this.photo,
+    required this.controllers,
+    required this.onTakePhoto,
+    required this.onChoosePhoto,
+  });
+
+  final XFile? photo;
+  final List<TextEditingController> controllers;
+  final VoidCallback onTakePhoto;
+  final VoidCallback onChoosePhoto;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Text(
+          'Take or choose a Sudoku photo, then enter/correct the givens below. Photo OCR is a beta workflow; validation still protects the final puzzle.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 10),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            FilledButton.icon(
+              onPressed: onTakePhoto,
+              icon: const Icon(Icons.photo_camera),
+              label: const Text('Take Picture'),
+            ),
+            OutlinedButton.icon(
+              onPressed: onChoosePhoto,
+              icon: const Icon(Icons.photo_library_outlined),
+              label: const Text('Choose Photo'),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        if (photo case final selectedPhoto?)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.file(
+              File(selectedPhoto.path),
+              height: 150,
+              fit: BoxFit.cover,
+            ),
+          )
+        else
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: OrbaceTheme.paper,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: const Color(0xFFE6DED0)),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(14),
+              child: Text('No photo selected yet.'),
+            ),
+          ),
+        const SizedBox(height: 12),
+        _ManualGridPane(controllers: controllers),
+      ],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/score_card_store.dart';
@@ -112,15 +113,23 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
           },
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: FilledButton.icon(
-            onPressed: _startRetry,
-            icon: const Icon(Icons.refresh),
-            label: const Text('Retry This Puzzle'),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SafeArea(
+            top: false,
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: FilledButton.icon(
+                onPressed: _startRetry,
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retry This Puzzle'),
+              ),
+            ),
           ),
-        ),
+          const AdMobBottomBanner(),
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../domain/sudoku_attempt.dart';
 import '../engine/su_pu_compare_engine.dart';
@@ -44,6 +45,7 @@ class _SuPuCompareScreenState extends State<SuPuCompareScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Compare Su-Pu · 对谱')),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),

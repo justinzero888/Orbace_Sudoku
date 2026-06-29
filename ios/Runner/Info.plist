@@ -30,6 +30,10 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Orbace Sudoku uses the camera to help import a Sudoku puzzle from a picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Orbace Sudoku uses photo library access to import a Sudoku puzzle image you choose.</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

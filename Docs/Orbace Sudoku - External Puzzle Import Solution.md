@@ -1,8 +1,8 @@
 # Orbace Sudoku - External Puzzle Import Solution
 
-**Version**: 1.0
-**Date**: 2026-06-24
-**Status**: V1 implemented for iOS UAT in build `1.0.0 (18)`
+**Version**: 1.1
+**Date**: 2026-06-28
+**Status**: V1 implemented for iOS UAT in build `1.0.0 (18)`; Gate 7 paste example and guided photo import beta included in build `1.0.0 (29)`
 
 ## 1. User Request
 
@@ -29,7 +29,7 @@ V1 imported puzzles should:
 - Be clearly labeled `Imported`.
 - Be excluded from official/worldwide leaderboards.
 
-V1 supports two input modes:
+Current V1 supports two input modes:
 
 1. **Paste 81-character puzzle string**
    - Digits `1-9` for givens.
@@ -40,7 +40,22 @@ V1 supports two input modes:
    - User enters givens into a blank 9x9 grid.
    - App validates after entry.
 
-OCR/photo import should be deferred. It is attractive, but it adds ML/OCR error handling, camera/photo permissions, and more UAT risk.
+Gate 7 V1 production-readiness additions:
+
+1. **Paste example UX**
+   - The `Paste 81-character puzzle string` input should show a valid example string as placeholder or helper text.
+   - Recommended example: `530070000600195000098000060800060003400803001700020006060000280000419005000080079`
+   - The example should help UAT users test import without reading a separate help document.
+   - Status: included in build `1.0.0 (29)` with a `Use Example String` CTA.
+
+2. **Take a Picture of Sudoku**
+   - Add a third import method for camera/photo import.
+   - User can take a photo or select an image of a Sudoku puzzle.
+   - Build `1.0.0 (29)` shows the selected image beside a manual correction grid, then runs the same validation pipeline.
+   - Automated grid detection/OCR is not included yet; it remains a follow-on if UAT confirms the guided photo workflow is valuable.
+   - Photo-imported puzzles remain personal/imported and not ranked.
+
+Camera import is valuable, but it adds camera/photo permissions, OCR/grid detection, correction UX, and more UAT risk. It should be accepted into V1 only if it can pass validation and review/correction reliably enough for product launch.
 
 ## 3. Validation Pipeline
 
@@ -105,7 +120,7 @@ Entry point:
 Flow:
 
 1. Tap `Import Puzzle`.
-2. Choose `Paste String` or `Manual Entry`.
+2. Choose `Paste String`, `Manual Entry`, or `Take a Picture`.
 3. Enter puzzle.
 4. Tap `Validate`.
 5. App shows:
@@ -138,7 +153,6 @@ Reason: the same puzzle must be checksum-matched and trusted before global compa
 
 Post-V1:
 
-- Camera/photo OCR import.
 - Import from common web formats.
 - QR/deep-link Su-Pu import.
 - Community puzzle submission queue.
@@ -159,4 +173,5 @@ Next recommended phase:
 
 1. Add edit/delete for imported puzzles.
 2. Add duplicate detection against the official catalog.
-3. Add OCR/photo import only after V1 import is stable.
+3. Add paste input example/help text.
+4. Add camera/photo import if Gate 7 UAT accepts the additional OCR/correction risk for V1.

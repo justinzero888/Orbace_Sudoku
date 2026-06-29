@@ -10,9 +10,9 @@
 | --- | --- |
 | Current app-code baseline | `f54d0ad` - `Add Su-Pu compare view` |
 | Current planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete, Gate 2 started, Gate 3 implemented, and Gate 4 build refresh completed |
-| Current iOS UAT build | `1.0.0 (24)` |
+| Current iOS UAT build | `1.0.0 (29)` |
 | Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
-| Current Android closed-test build | `1.0.0 (24)` |
+| Current Android closed-test build | `1.0.0 (29)` |
 | Current Android AAB | `build/app/outputs/bundle/release/app-release.aab` |
 | Content catalog | 1,800 bundled puzzles, content version `2026.06.003`, 0 duplicate-scan warnings |
 | Su-Pu system | Replay, Record Hall, score certificate, save/share card, notes, imported labels, and local ranking complete for iOS UAT |
@@ -290,6 +290,14 @@ Goal: reduce product risk around locally stored Su-Pu, certificate images, and i
 
 Deliverables:
 
+- Add example placeholder/help text under `Import Puzzle -> Paste` in the 81-cell puzzle string field so users can immediately test the feature.
+  - Status: complete for UAT in build `1.0.0 (29)`.
+- Add a third import method: `Take a Picture of Sudoku`.
+  - User can open camera/photo import from Import Puzzle.
+  - User can take a photo of a printed or on-screen Sudoku puzzle.
+  - Build `1.0.0 (29)` beta supports camera/photo picker, image preview, manual correction grid, and one-solution validation before `Save & Play`.
+  - Automated grid detection/OCR remains a follow-on decision after beta UAT confirms the guided photo workflow.
+  - Imported photo puzzles remain personal/local and not ranked unless Orbace later certifies them.
 - Delete imported puzzle.
 - Delete Su-Pu / replay record.
 - Delete saved score-card image.
@@ -300,9 +308,13 @@ Why this matters:
 
 - The app now stores replay histories and generated images.
 - Imported puzzles are personal content; users need basic control.
+- Import is a high-value differentiator only if ordinary users can bring a puzzle in without knowing the 81-character string format.
+- Camera import adds camera/photo permissions, OCR/grid-detection error handling, and correction UX, so it needs explicit UAT before production release if included in V1.
 
 Exit criteria:
 
+- Paste-string import shows a valid example or placeholder without blocking manual input.
+- Photo import can capture/select an image, allow correction/manual entry, and validate exactly one solution before saving. Automated OCR extraction is not yet part of the beta acceptance gate.
 - User can remove personal imported content.
 - User can remove local records/cards without reinstalling.
 - Deletion is tested against Record Hall, local ranking, and pack progress.
@@ -357,7 +369,7 @@ Exit criteria:
 4. Run Gate 5 as a dry run: AdMob + iOS IPA/TestFlight + Android AAB/Google Play process checklist.
 5. Implement Compare / 对谱 if UAT does not surface higher-priority blockers.
 6. Complete store/privacy/app-ads.txt decisions.
-7. Add local data management for imported puzzles and Su-Pu records.
+7. Complete Gate 7 import polish and local data management: paste example, photo import decision/implementation, imported puzzle delete, Su-Pu record cleanup.
 8. Run full Release Candidate validation and go/no-go.
 
 ## 4. V1 Hook for Future Downloadable/Purchasable Packs
@@ -396,7 +408,6 @@ Exit criteria for the V1 hook:
 - Game Center / Google Play Games leaderboards.
 - Full remote seasonal content catalog.
 - Downloadable/purchasable pack entitlement system.
-- OCR/photo puzzle import.
 - Save score card directly to Photos.
 - Cloud sync or account login.
 - Analytics/crash SDK, unless release operations require it and privacy docs are updated.

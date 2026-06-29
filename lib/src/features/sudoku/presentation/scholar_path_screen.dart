@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
 import '../data/sudoku_repository.dart';
@@ -44,6 +45,7 @@ class _ScholarPathScreenState extends State<ScholarPathScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Scholar\'s Path')),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: FutureBuilder<AwardSummary>(
           future: _summaryFuture,

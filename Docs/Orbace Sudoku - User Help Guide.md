@@ -69,6 +69,7 @@ How to use:
 3. Choose one import method:
    - Paste an 81-character puzzle string.
    - Manually fill the starting grid.
+   - Take or choose a Sudoku picture, then enter/correct the givens from the image.
 4. Preview and validate the puzzle.
 5. Tap **Save & Play**.
 
@@ -85,6 +86,12 @@ Example test string:
 ```
 
 This is 81 characters long. Zeroes represent empty cells.
+
+Photo import note:
+
+- The current beta photo flow lets the player take/select a Sudoku image and use it as a reference while filling the grid.
+- The app still validates the final grid for exactly one solution before saving.
+- Automated OCR/grid detection is planned as a follow-on if beta testing confirms the workflow is useful.
 
 Ranking note:
 
@@ -237,6 +244,19 @@ Official/ranked eligibility generally requires:
 - No auto-check assist.
 - No retry condition that disqualifies the attempt.
 
+Eligibility example:
+
+Assume the player completes **Foundation Puzzle 012** several times.
+
+| Solve | What happened | Score | Local Ranking status | Why |
+| --- | --- | ---: | --- | --- |
+| Attempt 1 | First completion, no hints, no auto-check, no retry | 7,800 | Ranked | This is an eligible official solve. |
+| Attempt 2 | Retry of the same puzzle, no hints, better score | 8,450 | Not ranked | Retry solves are personal improvement records, not official ranking records. |
+| Attempt 3 | First completion path, but used one hint | 7,200 | Not ranked | Hint use makes the solve assisted/practice. |
+| Imported puzzle | Puzzle pasted from another source | 9,100 | Not ranked | Imported puzzles are personal until Orbace certifies them. |
+
+In this example, Local Ranking shows **Attempt 1** as the ranked record even though Attempt 2 has a higher score. Attempt 2 still matters for personal study, Compare Su-Pu / 对谱, replay, and Scholar's Path retry-improvement progress, but it is not treated as an official ranked solve.
+
 Important notes:
 
 - Imported puzzles are excluded from ranking.
@@ -307,11 +327,11 @@ Important notes:
 
 ## 13. AdMob Home Banner
 
-The AdMob banner appears on the Home screen when enabled for the current platform/build.
+The AdMob banner appears on Home and other non-game screens when enabled for the current platform/build.
 
 Current ad rule:
 
-- Ads may appear on Home.
+- Ads may appear on Home, Level Packs, Import Puzzle, Record Hall, Replay, Su-Pu Detail, Compare, Scholar's Path, Extreme Challenge, and Settings.
 - Ads should not appear during active Sudoku gameplay.
 
 Why this matters:
@@ -321,10 +341,31 @@ Why this matters:
 
 Platform status:
 
-- iOS Home banner integration is available for UAT.
-- Android AdMob setup depends on Android AdMob app/ad unit configuration and closed-test release work.
+- iOS and Android banner integration is available for UAT.
+- Production release still needs store privacy/data-safety, consent, and app-ads.txt review.
 
-## 14. Common UAT Checklist
+## 14. Settings
+
+Settings is available from the Home screen app bar.
+
+Current Settings entries:
+
+- **Privacy**: explains local gameplay data and ad placement.
+- **Terms of Use**: explains beta use, imported puzzle limits, and future competition rules.
+- **Remove Ads IPA**: placeholder for a future paid/ad-free release option.
+
+## 15. Official Ranking Preview
+
+Official Ranking appears on Home as a preview for the upcoming V2 competitive layer.
+
+Current behavior:
+
+- Shows a coming-soon explanation.
+- Does not change V1 local ranking.
+- Does not require account registration yet.
+- Prepares the app UX for future daily/global ranking games with account-based official events and server validation.
+
+## 16. Common UAT Checklist
 
 For each new UAT build, testers should confirm:
 
@@ -332,6 +373,8 @@ For each new UAT build, testers should confirm:
 - Tea Moment opens and plays.
 - Level Packs open and show completion markers.
 - Imported Puzzle validates and saves a personal puzzle.
+- Imported Puzzle paste tab includes an example string.
+- Imported Puzzle photo tab can take/select a picture and validate manually entered givens.
 - Completion certificate appears after finishing.
 - Save Card creates a saved score-card image.
 - Share Card opens the native share flow.
@@ -342,3 +385,5 @@ For each new UAT build, testers should confirm:
 - Local ranking appears for eligible built-in puzzle attempts.
 - Compare Su-Pu / 对谱 appears after two completions of the same puzzle.
 - Home banner appears only where expected and does not interrupt gameplay.
+- Settings opens Privacy, Terms of Use, and Remove Ads IPA notes.
+- Official Ranking preview opens without changing V1 local play.

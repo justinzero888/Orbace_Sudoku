@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
 import '../data/sudoku_repository.dart';
@@ -44,6 +45,7 @@ class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Extreme Challenge')),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: FutureBuilder<_ExtremeHubState>(
           future: _stateFuture,

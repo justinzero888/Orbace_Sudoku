@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
@@ -54,6 +55,7 @@ class _LevelPackScreenState extends State<LevelPackScreen> {
             ),
         ],
       ),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: FutureBuilder<PuzzlePackCatalog>(
           future: _catalogFuture,
