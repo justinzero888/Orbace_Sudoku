@@ -31,10 +31,18 @@ class RecordHallScreen extends StatefulWidget {
 class _RecordHallScreenState extends State<RecordHallScreen> {
   late Future<List<SudokuAttempt>> _attemptsFuture = _loadAttempts();
   final ScoreCardStore _scoreCardStore = const ScoreCardStore();
+  final TextEditingController _searchController = TextEditingController();
   _RecordHallFilter _filter = _RecordHallFilter.all;
+  String _searchQuery = '';
 
   Future<List<SudokuAttempt>> _loadAttempts() {
     return widget.repository.completedAttemptsForReplayLibrary();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,6 +66,15 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
               children: [
                 _RecordHallHeader(attempts: attempts),
                 const SizedBox(height: 14),
+                _RecordSearchField(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() => _searchQuery = value),
+                  onClear: () {
+                    _searchController.clear();
+                    setState(() => _searchQuery = '');
+                  },
+                ),
+                const SizedBox(height: 12),
                 _FilterBar(
                   selected: _filter,
                   onChanged: (filter) => setState(() => _filter = filter),
@@ -94,19 +111,50 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
         .where((attempt) {
           final puzzle = _puzzleFor(attempt);
           return switch (_filter) {
-            _RecordHallFilter.all => true,
-            _RecordHallFilter.favorites => attempt.replayFavorite,
-            _RecordHallFilter.official =>
-              attempt.scoreClass == SudokuScoreClass.official,
-            _RecordHallFilter.clean => attempt.cleanSolve,
-            _RecordHallFilter.extreme =>
-              puzzle.difficulty.name == 'extreme' ||
-                  puzzle.packId == 'extreme' ||
-                  attempt.scoreClass == SudokuScoreClass.official &&
-                      puzzle.difficulty.label == 'Extreme',
-          };
+                _RecordHallFilter.all => true,
+                _RecordHallFilter.favorites => attempt.replayFavorite,
+                _RecordHallFilter.official =>
+                  attempt.scoreClass == SudokuScoreClass.official,
+                _RecordHallFilter.clean => attempt.cleanSolve,
+                _RecordHallFilter.extreme =>
+                  puzzle.difficulty.name == 'extreme' ||
+                      puzzle.packId == 'extreme' ||
+                      attempt.scoreClass == SudokuScoreClass.official &&
+                          puzzle.difficulty.label == 'Extreme',
+              } &&
+              _matchesSearch(attempt, puzzle);
         })
         .toList(growable: false);
+  }
+
+  bool _matchesSearch(SudokuAttempt attempt, FixturePuzzleDefinition puzzle) {
+    final query = _searchQuery.trim().toLowerCase();
+    if (query.isEmpty) {
+      return true;
+    }
+
+    final score = attempt.score?.total;
+    final completedAt = attempt.completedAt ?? attempt.startedAt;
+    final haystack = [
+      puzzle.title,
+      puzzle.id,
+      puzzle.packId,
+      puzzle.difficulty.label,
+      puzzle.seal,
+      attempt.scoreClass.label,
+      _scoreClassChinese(attempt.scoreClass),
+      'attempt ${attempt.attemptNumber}',
+      if (score != null) '$score',
+      _formatTime(attempt.elapsedSeconds),
+      '${attempt.errorCount} mistakes',
+      '${attempt.errorCount} errors',
+      if (attempt.cleanSolve) 'clean',
+      if (attempt.replayFavorite) 'favorite',
+      ?attempt.replayNotes,
+      _formatDate(completedAt),
+    ].join(' ').toLowerCase();
+
+    return haystack.contains(query);
   }
 
   FixturePuzzleDefinition _puzzleFor(SudokuAttempt attempt) {
@@ -433,6 +481,40 @@ class _FilterBar extends StatelessWidget {
             const SizedBox(width: 8),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _RecordSearchField extends StatelessWidget {
+  const _RecordSearchField({
+    required this.controller,
+    required this.onChanged,
+    required this.onClear,
+  });
+
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        labelText: 'Search Record Hall',
+        hintText: 'Puzzle, notes, score, class, date',
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: controller.text.isEmpty
+            ? null
+            : IconButton(
+                tooltip: 'Clear search',
+                onPressed: onClear,
+                icon: const Icon(Icons.clear),
+              ),
+        border: const OutlineInputBorder(),
       ),
     );
   }

@@ -69,7 +69,6 @@ How to use:
 3. Choose one import method:
    - Paste an 81-character puzzle string.
    - Manually fill the starting grid.
-   - Take or choose a Sudoku picture, then enter/correct the givens from the image.
 4. Preview and validate the puzzle.
 5. Tap **Save & Play**.
 
@@ -86,12 +85,6 @@ Example test string:
 ```
 
 This is 81 characters long. Zeroes represent empty cells.
-
-Photo import note:
-
-- The current beta photo flow lets the player take/select a Sudoku image and use it as a reference while filling the grid.
-- The app still validates the final grid for exactly one solution before saving.
-- Automated OCR/grid detection is planned as a follow-on if beta testing confirms the workflow is useful.
 
 Ranking note:
 
@@ -374,11 +367,11 @@ For each new UAT build, testers should confirm:
 - Level Packs open and show completion markers.
 - Imported Puzzle validates and saves a personal puzzle.
 - Imported Puzzle paste tab includes an example string.
-- Imported Puzzle photo tab can take/select a picture and validate manually entered givens.
 - Completion certificate appears after finishing.
 - Save Card creates a saved score-card image.
 - Share Card opens the native share flow.
 - Record Hall lists completed Su-Pu.
+- Record Hall search can find records by puzzle, notes, class, score, or date.
 - Record Hall can delete an unwanted Su-Pu after confirmation.
 - Replay works after app restart.
 - Su-Pu Detail opens for a completed puzzle.

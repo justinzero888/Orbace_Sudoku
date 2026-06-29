@@ -2,7 +2,7 @@
 
 **Version**: 1.1
 **Date**: 2026-06-28
-**Status**: V1 implemented for iOS UAT in build `1.0.0 (18)`; Gate 7 paste example and guided photo import beta included in build `1.0.0 (29)`
+**Status**: V1 implemented for iOS UAT in build `1.0.0 (18)`; paste example included in build `1.0.0 (29)`; photo import removed after UAT feedback and deferred
 
 ## 1. User Request
 
@@ -48,14 +48,11 @@ Gate 7 V1 production-readiness additions:
    - The example should help UAT users test import without reading a separate help document.
    - Status: included in build `1.0.0 (29)` with a `Use Example String` CTA.
 
-2. **Take a Picture of Sudoku**
-   - Add a third import method for camera/photo import.
-   - User can take a photo or select an image of a Sudoku puzzle.
-   - Build `1.0.0 (29)` shows the selected image beside a manual correction grid, then runs the same validation pipeline.
-   - Automated grid detection/OCR is not included yet; it remains a follow-on if UAT confirms the guided photo workflow is valuable.
-   - Photo-imported puzzles remain personal/imported and not ranked.
-
-Camera import is valuable, but it adds camera/photo permissions, OCR/grid detection, correction UX, and more UAT risk. It should be accepted into V1 only if it can pass validation and review/correction reliably enough for product launch.
+2. **Photo import decision**
+   - Build `1.0.0 (29)` tested a guided photo import beta.
+   - UAT feedback requested removing `Import Puzzle -> Photo`.
+   - Photo import is removed from the V1 release path.
+   - Camera/OCR import should be revisited only after a proper design spike for permissions, grid detection, OCR accuracy, correction UX, and validation risk.
 
 ## 3. Validation Pipeline
 
@@ -120,7 +117,7 @@ Entry point:
 Flow:
 
 1. Tap `Import Puzzle`.
-2. Choose `Paste String`, `Manual Entry`, or `Take a Picture`.
+2. Choose `Paste String` or `Manual Entry`.
 3. Enter puzzle.
 4. Tap `Validate`.
 5. App shows:
@@ -174,4 +171,4 @@ Next recommended phase:
 1. Add edit/delete for imported puzzles.
 2. Add duplicate detection against the official catalog.
 3. Add paste input example/help text.
-4. Add camera/photo import if Gate 7 UAT accepts the additional OCR/correction risk for V1.
+4. Revisit camera/photo import after V1 only with a dedicated OCR/camera design spike.
