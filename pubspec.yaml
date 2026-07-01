@@ -40,6 +40,8 @@ dependencies:
   google_mobile_ads: ^9.0.0
   crypto: ^3.0.7
   share_plus: ^13.1.0
+  firebase_core: ^4.11.0
+  firebase_crashlytics: ^5.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

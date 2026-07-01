@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
 import '../data/puzzle_pack_loader.dart';
@@ -116,6 +117,7 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: AnimatedBuilder(
           animation: _controller,

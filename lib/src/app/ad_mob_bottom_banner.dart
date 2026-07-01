@@ -13,10 +13,13 @@ class AdMobBottomBanner extends StatefulWidget {
 }
 
 class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
+  // Fixed, standard banner size (smaller than the previous adaptive banner,
+  // which could grow to ~15% of screen height on larger phones/tablets).
+  static const AdSize _adSize = AdSize.banner;
+
   BannerAd? _bannerAd;
-  AdSize? _adSize;
   bool _isLoaded = false;
-  int? _lastWidth;
+  bool _requested = false;
 
   @override
   void initState() {
@@ -27,7 +30,7 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadAdForCurrentWidth();
+    _loadAdIfNeeded();
   }
 
   @override
@@ -40,85 +43,58 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   @override
   Widget build(BuildContext context) {
     if (!AdMobConfig.shouldShowAds ||
-        !AdConsentService.state.value.canRequestAds ||
-        !_isLoaded ||
-        _bannerAd == null) {
+        !AdConsentService.state.value.canRequestAds) {
       return const SizedBox.shrink();
     }
 
-    final adSize = _adSize;
-    if (adSize == null) {
-      return const SizedBox.shrink();
+    if (_isLoaded && _bannerAd != null) {
+      return _AdSlot(adSize: _adSize, child: AdWidget(ad: _bannerAd!));
     }
 
-    final bottomPadding = MediaQuery.viewPaddingOf(context).bottom;
+    if (AdMobConfig.showAdLayoutPreview) {
+      return _AdSlot(adSize: _adSize, child: const _AdSpacePreview());
+    }
 
-    return ColoredBox(
-      color: OrbaceTheme.paper,
-      child: SizedBox(
-        height: adSize.height.toDouble() + bottomPadding,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: bottomPadding),
-          child: Center(
-            child: SizedBox(
-              width: adSize.width.toDouble(),
-              height: adSize.height.toDouble(),
-              child: AdWidget(ad: _bannerAd!),
-            ),
-          ),
-        ),
-      ),
-    );
+    return const SizedBox.shrink();
   }
 
-  Future<void> _loadAdForCurrentWidth() async {
-    if (!AdMobConfig.shouldShowAds ||
+  void _loadAdIfNeeded() {
+    if (_requested ||
+        !AdMobConfig.shouldShowAds ||
         !AdConsentService.state.value.canRequestAds) {
       return;
     }
-
-    final width = MediaQuery.sizeOf(context).width.truncate();
-    if (width <= 0 || width == _lastWidth) {
-      return;
-    }
-
-    _lastWidth = width;
-    final size = await AdSize.getLargeAnchoredAdaptiveBannerAdSize(width);
-    if (!mounted || size == null) {
-      return;
-    }
-
-    await _bannerAd?.dispose();
-    setState(() {
-      _adSize = size;
-      _isLoaded = false;
-      _bannerAd = BannerAd(
-        adUnitId: AdMobConfig.bottomBannerUnitId,
-        size: size,
-        request: const AdRequest(),
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            if (!mounted) {
-              ad.dispose();
-              return;
-            }
-            setState(() {
-              _isLoaded = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {
+    _requested = true;
+    _bannerAd = BannerAd(
+      adUnitId: AdMobConfig.bottomBannerUnitId,
+      size: _adSize,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          if (!mounted) {
             ad.dispose();
-            if (!mounted) {
-              return;
-            }
-            setState(() {
-              _isLoaded = false;
-              _bannerAd = null;
-            });
-          },
-        ),
-      )..load();
-    });
+            return;
+          }
+          setState(() {
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          debugPrint(
+            'AdMob banner failed to load (code ${error.code}, '
+            '${error.domain}): ${error.message}',
+          );
+          if (!mounted) {
+            return;
+          }
+          setState(() {
+            _isLoaded = false;
+            _bannerAd = null;
+          });
+        },
+      ),
+    )..load();
   }
 
   void _handleConsentStateChanged() {
@@ -130,10 +106,59 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
       setState(() {
         _bannerAd = null;
         _isLoaded = false;
+        _requested = false;
       });
       return;
     }
-    _lastWidth = null;
-    _loadAdForCurrentWidth();
+    setState(() {});
+    _loadAdIfNeeded();
+  }
+}
+
+class _AdSlot extends StatelessWidget {
+  const _AdSlot({required this.adSize, required this.child});
+
+  final AdSize adSize;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.viewPaddingOf(context).bottom;
+    return ColoredBox(
+      color: OrbaceTheme.paper,
+      child: SizedBox(
+        height: adSize.height.toDouble() + bottomPadding,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: bottomPadding),
+          child: Center(
+            child: SizedBox(
+              width: adSize.width.toDouble(),
+              height: adSize.height.toDouble(),
+              child: child,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AdSpacePreview extends StatelessWidget {
+  const _AdSpacePreview();
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: OrbaceTheme.mutedInk.withValues(alpha: 0.08),
+        border: Border.all(color: OrbaceTheme.mutedInk.withValues(alpha: 0.5)),
+      ),
+      child: const Center(
+        child: Text(
+          'Ad space (layout preview)',
+          style: TextStyle(fontSize: 11, color: OrbaceTheme.mutedInk),
+        ),
+      ),
+    );
   }
 }
