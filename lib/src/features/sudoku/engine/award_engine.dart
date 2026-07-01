@@ -99,13 +99,6 @@ class AwardEngine {
           current: cleanSolves,
           target: 3,
         ),
-        AwardRequirement(
-          id: 'five_replay_improvements',
-          label:
-              'Complete 5 retry solves with a higher score than your previous best for that puzzle',
-          current: replayImprovements,
-          target: 5,
-        ),
       ],
     );
 

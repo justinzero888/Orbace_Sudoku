@@ -1,4 +1,4 @@
-package com.orbace.orbace_sudoku
+package com.orbace.orbaceSudoku
 
 import io.flutter.embedding.android.FlutterActivity
 

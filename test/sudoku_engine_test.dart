@@ -61,6 +61,36 @@ void main() {
     test('detects multiple solutions for empty board', () {
       expect(solver.countSolutions(SudokuBoard.empty(), limit: 2), 2);
     });
+
+    test('resolves a sparse, poorly-constrained hand-entered grid quickly', () {
+      // Slice 17 cells out of a valid completed grid, scattered rather than
+      // laid out as a "designed" unique-solution puzzle - the kind of
+      // under-constrained input a user might type into the manual grid
+      // importer. Any subset of a valid full grid is automatically
+      // conflict-free, so this is a legitimate (if very loosely
+      // constrained) puzzle that a naive per-node full-board rescan used to
+      // take a very long time on.
+      int fullValue(int row, int col) => ((row * 3 + row ~/ 3 + col) % 9) + 1;
+
+      final cells = List<int?>.filled(SudokuBoard.cellCount, null);
+      for (var row = 0; row < 8; row++) {
+        for (final col in [0, 4]) {
+          cells[SudokuBoard.index(row, col)] = fullValue(row, col);
+        }
+      }
+      cells[SudokuBoard.index(8, 0)] = fullValue(8, 0);
+      final sparseGivens = SudokuBoard.fromCells(cells);
+
+      expect(sparseGivens.cells.whereType<int>().length, 17);
+      expect(const SudokuValidator().isValidPartial(sparseGivens), isTrue);
+
+      final stopwatch = Stopwatch()..start();
+      const solver = SudokuSolver();
+      solver.countSolutions(sparseGivens, limit: 2);
+      stopwatch.stop();
+
+      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
+    });
   });
 
   group('Human techniques', () {

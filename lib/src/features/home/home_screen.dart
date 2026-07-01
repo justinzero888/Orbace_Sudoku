@@ -170,13 +170,6 @@ class _HomeContent extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _PhaseCard(
-              title: 'Official Ranking',
-              subtitle: 'Daily and global ranking events are coming soon',
-              seal: '榜',
-              onTap: () => _showRankingPreview(context),
-            ),
-            const SizedBox(height: 12),
-            _PhaseCard(
               title: 'Scholar\'s Path',
               subtitle: 'Awards, replay, and local Extreme unlocks',
               seal: '學',
@@ -207,25 +200,6 @@ class _HomeContent extends StatelessWidget {
     );
   }
 
-  void _showRankingPreview(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Official Ranking · Coming Soon'),
-          content: const Text(
-            'Daily, weekly, monthly, and annual ranking games will be account-based official events. They will use one attempt, no pause, official availability windows, server-side validation, and global leaderboards. Current local play and local ranking stay unchanged.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: Navigator.of(context).pop,
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
 
 class _PhaseCard extends StatelessWidget {

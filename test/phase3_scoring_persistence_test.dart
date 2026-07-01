@@ -248,7 +248,7 @@ void main() {
     test('imports a valid personal puzzle into the local catalog', () async {
       final service = ImportedPuzzleService(repository: repository);
 
-      final preview = service.previewFromString(
+      final preview = await service.previewFromString(
         '530070000'
         '600195000'
         '098000060'
@@ -273,12 +273,37 @@ void main() {
       expect(imported.single.solutionRows.first, '534678912');
     });
 
-    test('rejects imported puzzles with multiple solutions', () {
+    test('rejects imported puzzles with multiple solutions', () async {
       final service = ImportedPuzzleService(repository: repository);
 
-      expect(
-        () => service.previewFromString(List<String>.filled(81, '0').join()),
+      await expectLater(
+        service.previewFromString(List<String>.filled(81, '0').join()),
         throwsA(isA<ImportedPuzzleException>()),
+      );
+    });
+
+    test('rejects sparse imported puzzles before expensive solving', () async {
+      final service = ImportedPuzzleService(repository: repository);
+
+      await expectLater(
+        service.previewFromString(
+          '000000000'
+          '090000600'
+          '500020000'
+          '000709000'
+          '200600000'
+          '100000050'
+          '000000000'
+          '000000000'
+          '000000000',
+        ),
+        throwsA(
+          isA<ImportedPuzzleException>().having(
+            (error) => error.message,
+            'message',
+            contains('at least 17 givens'),
+          ),
+        ),
       );
     });
 

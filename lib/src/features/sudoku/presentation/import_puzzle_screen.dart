@@ -37,6 +37,7 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
   ImportedPuzzlePreview? _preview;
   String? _error;
   bool _saving = false;
+  bool _validating = false;
 
   @override
   void dispose() {
@@ -71,7 +72,7 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
           children: [
             Text(
-              'Imported puzzles are personal, local-only, and not eligible for worldwide ranking.',
+              'Imported puzzles are personal and stored locally on this device only.',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -94,7 +95,7 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
             ),
             const SizedBox(height: 14),
             SizedBox(
-              height: 390,
+              height: 560,
               child: TabBarView(
                 controller: _tabController,
                 children: [
@@ -105,8 +106,13 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
             ),
             const SizedBox(height: 12),
             FilledButton.icon(
-              onPressed: _saving ? null : _validate,
-              icon: const Icon(Icons.fact_check_outlined),
+              onPressed: _saving || _validating ? null : _validate,
+              icon: _validating
+                  ? const SizedBox.square(
+                      dimension: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.fact_check_outlined),
               label: const Text('Validate Puzzle'),
             ),
             if (_error != null) ...[
@@ -133,29 +139,43 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     );
   }
 
-  void _validate() {
+  Future<void> _validate() async {
     setState(() {
       _error = null;
       _preview = null;
+      _validating = true;
     });
 
     try {
       final preview = _tabController.index == 0
-          ? _service.previewFromString(
+          ? await _service.previewFromString(
               _pasteController.text,
               title: _titleController.text,
               sourceLabel: _sourceController.text,
             )
-          : _service.previewFromCells(
+          : await _service.previewFromCells(
               _manualCells(),
               title: _titleController.text,
               sourceLabel: _sourceController.text,
             );
+      if (!mounted) {
+        return;
+      }
       setState(() => _preview = preview);
     } on ImportedPuzzleException catch (error) {
+      if (!mounted) {
+        return;
+      }
       setState(() => _error = error.message);
     } on Object catch (error) {
+      if (!mounted) {
+        return;
+      }
       setState(() => _error = 'Could not import this puzzle: $error');
+    } finally {
+      if (mounted) {
+        setState(() => _validating = false);
+      }
     }
   }
 
@@ -241,61 +261,188 @@ class _PasteImportPane extends StatelessWidget {
   }
 }
 
-class _ManualGridPane extends StatelessWidget {
+class _ManualGridPane extends StatefulWidget {
   const _ManualGridPane({required this.controllers});
 
   final List<TextEditingController> controllers;
 
   @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 9,
+  State<_ManualGridPane> createState() => _ManualGridPaneState();
+}
+
+class _ManualGridPaneState extends State<_ManualGridPane> {
+  int _selectedIndex = 0;
+
+  int get _filledCount => widget.controllers
+      .where((controller) => controller.text.isNotEmpty)
+      .length;
+
+  void _selectCell(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  void _setSelectedValue(int? value) {
+    setState(() {
+      widget.controllers[_selectedIndex].text = value?.toString() ?? '';
+      if (value != null && _selectedIndex < SudokuBoard.cellCount - 1) {
+        _selectedIndex += 1;
+      }
+    });
+  }
+
+  void _clearGrid() {
+    setState(() {
+      for (final controller in widget.controllers) {
+        controller.clear();
+      }
+      _selectedIndex = 0;
+    });
+  }
+
+  TextStyle? _cellTextStyle(BuildContext context, double boardWidth) {
+    final cellSize = boardWidth / 9;
+    return Theme.of(context).textTheme.headlineSmall?.copyWith(
+      color: OrbaceTheme.vermilion,
+      fontSize: cellSize * 0.62,
+      fontWeight: FontWeight.w800,
+      height: 1,
+    );
+  }
+
+  Widget _buildKeyButton({
+    required BuildContext context,
+    required Widget child,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: 42,
+      height: 40,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          foregroundColor: OrbaceTheme.ink,
+          side: BorderSide(color: OrbaceTheme.ink.withValues(alpha: 0.28)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        itemCount: SudokuBoard.cellCount,
-        itemBuilder: (context, index) {
-          final row = SudokuBoard.rowOf(index);
-          final col = SudokuBoard.colOf(index);
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              color: OrbaceTheme.paper,
-              border: Border(
-                top: BorderSide(
-                  color: Colors.black,
-                  width: row % 3 == 0 ? 1.8 : 0.5,
-                ),
-                left: BorderSide(
-                  color: Colors.black,
-                  width: col % 3 == 0 ? 1.8 : 0.5,
-                ),
-                right: BorderSide(
-                  color: Colors.black,
-                  width: col == 8 ? 1.8 : 0.5,
-                ),
-                bottom: BorderSide(
-                  color: Colors.black,
-                  width: row == 8 ? 1.8 : 0.5,
-                ),
-              ),
-            ),
-            child: TextField(
-              controller: controllers[index],
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              maxLength: 1,
-              style: Theme.of(context).textTheme.titleLarge,
-              decoration: const InputDecoration(
-                counterText: '',
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-              ),
-            ),
-          );
-        },
+        child: child,
       ),
+    );
+  }
+
+  Widget _buildNumberPad(BuildContext context) {
+    final numberStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
+      fontWeight: FontWeight.w800,
+      color: OrbaceTheme.ink,
+    );
+    return Wrap(
+      alignment: WrapAlignment.center,
+      runAlignment: WrapAlignment.center,
+      spacing: 6,
+      runSpacing: 6,
+      children: [
+        for (var number = 1; number <= 9; number += 1)
+          _buildKeyButton(
+            context: context,
+            onPressed: () => _setSelectedValue(number),
+            child: Text('$number', style: numberStyle),
+          ),
+        _buildKeyButton(
+          context: context,
+          onPressed: () => _setSelectedValue(null),
+          child: const Icon(Icons.backspace_outlined, size: 20),
+        ),
+        _buildKeyButton(
+          context: context,
+          onPressed: _clearGrid,
+          child: const Icon(Icons.clear_all, size: 22),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBoard(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final boardWidth = constraints.maxWidth;
+        final cellStyle = _cellTextStyle(context, boardWidth);
+        return AspectRatio(
+          aspectRatio: 1,
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 9,
+            ),
+            itemCount: SudokuBoard.cellCount,
+            itemBuilder: (context, index) {
+              final row = SudokuBoard.rowOf(index);
+              final col = SudokuBoard.colOf(index);
+              final selected = index == _selectedIndex;
+              final value = widget.controllers[index].text;
+              return Material(
+                color: selected
+                    ? OrbaceTheme.vermilion.withValues(alpha: 0.16)
+                    : OrbaceTheme.paper,
+                child: InkWell(
+                  onTap: () => _selectCell(index),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: Colors.black,
+                          width: row % 3 == 0 ? 1.8 : 0.5,
+                        ),
+                        left: BorderSide(
+                          color: Colors.black,
+                          width: col % 3 == 0 ? 1.8 : 0.5,
+                        ),
+                        right: BorderSide(
+                          color: Colors.black,
+                          width: col == 8 ? 1.8 : 0.5,
+                        ),
+                        bottom: BorderSide(
+                          color: Colors.black,
+                          width: row == 8 ? 1.8 : 0.5,
+                        ),
+                      ),
+                    ),
+                    child: Center(child: Text(value, style: cellStyle)),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Tap a cell, then choose 1-9. Leave blank cells empty.',
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 8),
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 280),
+            child: _buildBoard(context),
+          ),
+        ),
+        const SizedBox(height: 14),
+        _buildNumberPad(context),
+        const SizedBox(height: 10),
+        Text(
+          '$_filledCount givens entered. 17 or more are required before validation.',
+          textAlign: TextAlign.center,
+          style: textTheme.bodySmall?.copyWith(color: OrbaceTheme.ink),
+        ),
+      ],
     );
   }
 }

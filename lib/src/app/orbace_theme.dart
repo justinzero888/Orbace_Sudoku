@@ -8,7 +8,7 @@ class OrbaceTheme {
   static const Color ricePaper = Color(0xFFFFFCF5);
   static const Color celadon = Color(0xFF8FAF9B);
   static const Color vermilion = Color(0xFFB64A35);
-  static const Color mutedInk = Color(0xFF68716B);
+  static const Color mutedInk = Color(0xFF46524B);
 
   static ThemeData light() {
     final colorScheme = ColorScheme.fromSeed(
@@ -17,6 +17,8 @@ class OrbaceTheme {
       surface: paper,
       primary: ink,
       secondary: vermilion,
+      onSurface: ink,
+      onSurfaceVariant: mutedInk,
     );
 
     return ThemeData(
@@ -38,6 +40,16 @@ class OrbaceTheme {
           side: const BorderSide(color: Color(0xFFE6DED0)),
         ),
       ),
+      listTileTheme: const ListTileThemeData(
+        textColor: ink,
+        iconColor: ink,
+        subtitleTextStyle: TextStyle(
+          color: mutedInk,
+          fontSize: 14,
+          height: 1.4,
+          letterSpacing: 0,
+        ),
+      ),
     );
   }
 
@@ -52,6 +64,8 @@ class OrbaceTheme {
       surface: darkPaper,
       primary: warmText,
       secondary: vermilion,
+      onSurface: warmText,
+      onSurfaceVariant: warmText,
     );
 
     return ThemeData(
@@ -71,6 +85,16 @@ class OrbaceTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: const BorderSide(color: Color(0xFF313A35)),
+        ),
+      ),
+      listTileTheme: const ListTileThemeData(
+        textColor: warmText,
+        iconColor: warmText,
+        subtitleTextStyle: TextStyle(
+          color: warmText,
+          fontSize: 14,
+          height: 1.4,
+          letterSpacing: 0,
         ),
       ),
     );

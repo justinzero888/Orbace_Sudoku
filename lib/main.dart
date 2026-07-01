@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'src/app/ad_mob_config.dart';
+import 'src/app/ad_consent_service.dart';
 import 'src/app/orbace_sudoku_app.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AdMobConfig.initialize();
+  await AdConsentService.initialize();
   runApp(const OrbaceSudokuApp());
 }

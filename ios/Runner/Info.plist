@@ -30,6 +30,8 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Orbace Sudoku uses this identifier to support personalized ads where you allow ad personalization.</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

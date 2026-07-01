@@ -1,25 +1,46 @@
 # Orbace Sudoku - Production Readiness Plan
 
-**Version**: 1.0  
-**Date**: 2026-06-25  
+**Version**: 1.2
+**Date**: 2026-07-01 (refreshed twice today; originally 2026-06-25)
 **Purpose**: Define the remaining work to move Orbace Sudoku from UAT/TestFlight builds to a product-ready iOS and Android release candidate.
 
 ## 1. Current Baseline
 
 | Area | Current State |
 | --- | --- |
-| Current app-code baseline | `f54d0ad` - `Add Su-Pu compare view` |
-| Current planning baseline | `7623d7c` - `Start pack progress and resume gate`; Gate 1 complete, Gate 2 started, Gate 3 implemented, and Gate 4 build refresh completed |
-| Current iOS UAT build | `1.0.0 (29)` |
-| Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa` |
-| Current Android closed-test build | `1.0.0 (29)` |
-| Current Android AAB | `build/app/outputs/bundle/release/app-release.aab` |
-| Content catalog | 1,800 bundled puzzles, content version `2026.06.003`, 0 duplicate-scan warnings |
+| App-code baseline | `fec65f7` plus this session's commit bringing builds 31-37 worth of work into git history (see git log for the exact commit) |
+| Current beta build (both stores) | `1.0.0 (36)` — **confirmed uploaded to App Store Connect TestFlight and Google Play Console closed testing under the Orbace Technologies LLC corporate account, both platforms.** UAT feedback has been coming from this build on both platforms. |
+| Next beta build (this pass) | `1.0.0 (37)` — see section 1a |
+| Current iOS IPA | `build/ios/ipa/orbace_sudoku.ipa`, rebuilt for `1.0.0 (37)` this pass |
+| Current Android AAB | `build/app/outputs/bundle/release/app-release.aab`, rebuilt for `1.0.0 (37)` this pass |
+| Content catalog | 1,800 bundled puzzles, content version `2026.06.003`, 0 duplicate-scan warnings; `extreme` pack renamed "Extreme Challenge" → "Expert Challenge" (UAT-041) |
 | Su-Pu system | Replay, Record Hall, score certificate, save/share card, notes, imported labels, and local ranking complete for iOS UAT |
 | Active feedback tracker | `Docs/Orbace Sudoku - UAT Feedback and Ideas Log.md` |
 | Content/scoring reference | `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` |
+| Ownership/account migration tracker | `Docs/Orbace Sudoku - Developer Ownership Migration Checklist.md` — Android/iOS corporate-account uploads confirmed 2026-07-01; AdMob publisher ownership and iOS `app-ads.txt` remain open |
+| Open blocker before production | UAT-043: Google AdMob cannot validate `app-ads.txt` for the iOS app (Android confirmed working) |
 
 The UAT Feedback and Ideas Log remains the intake point for new UAT bugs, feature requests, release feedback, and monetization/store tasks. This document tracks production-readiness gates and sequencing.
+
+## 1a. Build 37 Changes and Resolved Items (2026-07-01)
+
+**Confirmed resolved since the last refresh of this plan (earlier today):**
+- Build `1.0.0 (36)` is live in TestFlight and Play Console closed testing under the Orbace Technologies LLC corporate account on both platforms — this resolves the Gate 1 "uncommitted drift/unknown build provenance" concern raised earlier today, and resolves the Android Play Console transfer risk called out in the Developer Ownership Migration Checklist (no transfer needed — it was uploaded directly under the corporate account).
+- UAT-034 through UAT-039 (UMP consent flow, iOS App Store processing, Android icon, UMP error messaging on both platforms) are **Validated** against build 36 UAT feedback. See UAT log for per-item detail. Two contrast-related sub-items (old-iPad text contrast in UAT-037/UAT-039) were not explicitly reconfirmed and should be checked again in the next UAT round if still relevant.
+- The Android application-ID rename to `com.orbace.orbaceSudoku` is confirmed intentional and already reflected in the build 36 upload — not an open risk.
+
+**New in build 37 (this pass):**
+- UAT-040: Import Puzzle -> Grid validation hang/ANR-crash on physical Android phone, root-caused and fixed for real (background-isolate validation + bitmask-based solver rewrite, not a time cutoff). Validated live on device `6ff716fb` in debug mode; this is the first time it will reach a signed release build.
+- UAT-041: Level Packs `extreme` pack renamed "Extreme Challenge" → "Expert Challenge".
+- UAT-042: Scholar's Path Insight stage's 4th requirement ("5 retry improvements") removed; Extreme Challenge unlock now only checks the remaining 3 Insight requirements.
+- UAT-044: Removed the "Ad Privacy Status" diagnostic tile from Settings now that UMP messaging is validated fixed (UAT-034–039). The "Privacy Choices" tile remains — it is a real UMP/GDPR compliance entry point, not a diagnostic.
+- Version bumped to `1.0.0+37` in `pubspec.yaml`.
+
+**Still open, not resolved in build 37:**
+- UAT-043: Google AdMob cannot validate `app-ads.txt` for the iOS app (Android is fine). This is very likely a store-metadata/domain issue, not an app-code issue — see the UAT log entry for the specific things to check (App Store Connect website/marketing URL vs. the domain hosting `app-ads.txt`). No code change addresses this.
+- AdMob publisher account corporate ownership is still unconfirmed.
+- GitHub repo ownership (`justinzero888` remote) is still unconfirmed as corporate-controlled.
+- Old-iPad text-contrast follow-up from UAT-037/UAT-039 not explicitly reconfirmed.
 
 ## 2. Product Build Readiness Gates
 
@@ -39,12 +60,13 @@ Current gaps:
 
 - Game Pack Creation plan was refreshed on 2026-06-26 to reflect the 1,800-puzzle UAT baseline, resolved duplicate warnings, and remaining product gaps.
 - A separate level-assignment, validation, and scoring logic reference was created on 2026-06-26.
-- Local `Package.resolved` drift and untracked competitive-analysis artifacts are present but not part of the current release baseline.
-- Status: **Complete**. No release-scope uncommitted changes remained after commit `874587d`; unrelated local drift is explicitly excluded from the release baseline.
+- Earlier today, Gate 1 had regressed: a large, multi-build set of changes (UAT-034–042, the Android application-ID rename) had never been committed. This pass commits that entire working tree in one pass so build `1.0.0 (37)` is traceable to a single commit, closing the regression.
+- Status: **Complete as of this pass** — see the commit referenced in section 1 above. Re-run this exit check before every future release step; it has regressed once already and can regress again if changes are made without committing.
 
 Exit criteria:
 
 - `git status` contains no release-scope uncommitted changes.
+- The Android application-ID rename is documented as intentional (done — see `Docs/Orbace Sudoku - Developer Ownership Migration Checklist.md`).
 - Production readiness plan, UAT log, and game-pack plan agree on current build/content status.
 - Latest build number, commit hash, and IPA/AAB paths are documented.
 
@@ -164,8 +186,8 @@ Deliverables:
   - release builds use Orbace production unit only after store metadata/privacy are ready.
   - ads remain absent during active gameplay, replay, Record Hall detail, and certificates.
 - Confirm iOS AdMob account/store setup:
-  - app is linked to the correct App Store record when available.
-  - app-ads.txt is published on the developer website.
+  - app is linked to the correct App Store record when available. **Confirmed 2026-07-01**: build 36 live in TestFlight under the corporate App Store Connect account.
+  - app-ads.txt is published on the developer website. **Open blocker (UAT-043, 2026-07-01)**: Google AdMob cannot validate `app-ads.txt` for the iOS app specifically, even though Android validates correctly. Check whether the website URL configured in App Store Connect for this app matches the domain hosting `app-ads.txt`.
   - App Store privacy answers include ad SDK behavior.
   - consent requirement is decided for launch countries.
 - Confirm IPA build process:
@@ -221,7 +243,7 @@ Deliverables:
   - signing certificate is verified.
   - upload keystore remains backed up and uncommitted.
 - Confirm Google Play test track:
-  - AAB uploads successfully.
+  - AAB uploads successfully. **Confirmed 2026-07-01**: build 36 uploaded to Play Console closed testing under the corporate account.
   - closed/internal test track is updated.
   - tester list / opt-in link is current.
   - release notes include user-visible changes and UAT focus areas.
@@ -230,7 +252,7 @@ Deliverables:
   - Data safety includes ad SDK behavior.
   - Ads declaration is accurate.
   - Target audience and content rating are complete.
-  - app-ads.txt is published on the developer website.
+  - app-ads.txt is published on the developer website. **Confirmed working for Android as of 2026-07-01** (iOS is not — see Gate 5A and UAT-043).
 
 Recommended commands:
 
@@ -301,6 +323,8 @@ Deliverables:
 - Delete saved score-card image.
 - Confirm deleting a puzzle does not corrupt unrelated attempts.
 - Decide whether `Export my data` is launch, post-launch, or support-only.
+- Import Puzzle -> Grid validation must not hang or crash the UI on under-constrained input.
+  - Status: **Validated on physical Android device (UAT-040)**, uncommitted. Root cause was synchronous, unbounded backtracking on the UI isolate; fixed with background-isolate validation (`compute()`) plus a bitmask-based `SudokuSolver` rewrite (real algorithmic speedup, not a time cutoff). Added `test/import_puzzle_paste_test.dart` (15 valid puzzles across all 6 difficulty tiers + 5 invalid-input cases) and a solver-level sparse-grid regression test. Still needs re-validation in a signed release build on device, per Gate 8.
 
 Why this matters:
 
@@ -359,16 +383,17 @@ Exit criteria:
 - Store metadata and compliance are ready for the intended release track.
 - A release tag can be created.
 
-## 3. Recommended Sequence From Current Build
+## 3. Recommended Sequence From Current Build (refreshed 2026-07-01, second pass)
 
-1. Update stale planning docs and keep build baseline committed.
-2. Implement Pack Progress and Resume.
-3. Build fresh iOS IPA and Android AAB for UAT parity.
-4. Run Gate 5 as a dry run: AdMob + iOS IPA/TestFlight + Android AAB/Google Play process checklist.
-5. Implement Compare / 对谱 if UAT does not surface higher-priority blockers.
-6. Complete store/privacy/app-ads.txt decisions.
-7. Complete Gate 7 import polish and local data management: paste example, photo import removal/defer decision, imported puzzle delete, Su-Pu record cleanup.
-8. Run full Release Candidate validation and go/no-go.
+Gates 2, 3, and 4 are done. Gate 1 hygiene and the Android app-ID/Play-Console questions from earlier today are resolved (build 36 confirmed uploaded under the corporate account on both platforms; UAT-034–039 validated). Remaining sequence:
+
+1. **Commit the current working tree** as one clean baseline (this pass) so build `1.0.0 (37)` — UAT-040/041/042/044 on top of the already-shipped build 36 — is reproducible from git history.
+2. **Cut build `1.0.0 (37)`** (iOS IPA + Android AAB from the same commit) for the next beta/TestFlight/closed-testing round.
+3. **Re-validate UAT-040 in this signed release build**, not just debug `flutter run` — ANR behavior can differ between debug and release (R8/ProGuard, different startup timing), per the existing note on UAT-022's release-vs-debug lesson.
+4. **Investigate UAT-043** (iOS `app-ads.txt` AdMob validation failure) — likely a store-metadata/domain issue; confirm the App Store Connect website/marketing URL matches the domain hosting `app-ads.txt`. This is the one open item blocking full production go/no-go.
+5. Re-confirm the old-iPad text-contrast items from UAT-037/UAT-039 in the next UAT round if still relevant.
+6. Confirm AdMob publisher-account corporate ownership and GitHub repo corporate custody (still open per the Developer Ownership Migration Checklist).
+7. Run full Gate 8 Release Candidate validation and go/no-go once 1–6 are clear.
 
 ## 4. V1 Hook for Future Downloadable/Purchasable Packs
 

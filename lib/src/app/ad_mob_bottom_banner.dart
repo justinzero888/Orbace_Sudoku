@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'ad_consent_service.dart';
 import 'ad_mob_config.dart';
 import 'orbace_theme.dart';
 
@@ -18,6 +19,12 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   int? _lastWidth;
 
   @override
+  void initState() {
+    super.initState();
+    AdConsentService.state.addListener(_handleConsentStateChanged);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _loadAdForCurrentWidth();
@@ -25,13 +32,17 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
 
   @override
   void dispose() {
+    AdConsentService.state.removeListener(_handleConsentStateChanged);
     _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!AdMobConfig.shouldShowAds || !_isLoaded || _bannerAd == null) {
+    if (!AdMobConfig.shouldShowAds ||
+        !AdConsentService.state.value.canRequestAds ||
+        !_isLoaded ||
+        _bannerAd == null) {
       return const SizedBox.shrink();
     }
 
@@ -40,15 +51,20 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
       return const SizedBox.shrink();
     }
 
-    return SafeArea(
-      top: false,
-      child: ColoredBox(
-        color: OrbaceTheme.paper,
-        child: Center(
-          child: SizedBox(
-            width: adSize.width.toDouble(),
-            height: adSize.height.toDouble(),
-            child: AdWidget(ad: _bannerAd!),
+    final bottomPadding = MediaQuery.viewPaddingOf(context).bottom;
+
+    return ColoredBox(
+      color: OrbaceTheme.paper,
+      child: SizedBox(
+        height: adSize.height.toDouble() + bottomPadding,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: bottomPadding),
+          child: Center(
+            child: SizedBox(
+              width: adSize.width.toDouble(),
+              height: adSize.height.toDouble(),
+              child: AdWidget(ad: _bannerAd!),
+            ),
           ),
         ),
       ),
@@ -56,7 +72,8 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   }
 
   Future<void> _loadAdForCurrentWidth() async {
-    if (!AdMobConfig.shouldShowAds) {
+    if (!AdMobConfig.shouldShowAds ||
+        !AdConsentService.state.value.canRequestAds) {
       return;
     }
 
@@ -102,5 +119,21 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
         ),
       )..load();
     });
+  }
+
+  void _handleConsentStateChanged() {
+    if (!mounted) {
+      return;
+    }
+    if (!AdConsentService.state.value.canRequestAds) {
+      _bannerAd?.dispose();
+      setState(() {
+        _bannerAd = null;
+        _isLoaded = false;
+      });
+      return;
+    }
+    _lastWidth = null;
+    _loadAdForCurrentWidth();
   }
 }

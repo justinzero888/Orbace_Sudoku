@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../features/home/home_screen.dart';
 import '../features/sudoku/data/app_database.dart';
+import '../features/sudoku/data/puzzle_pack_loader.dart';
 import '../features/sudoku/data/sudoku_repository.dart';
+import '../features/sudoku/presentation/level_pack_screen.dart';
+import '../features/sudoku/presentation/record_hall_screen.dart';
+import '../features/sudoku/presentation/import_puzzle_screen.dart';
+import '../features/settings/settings_screen.dart';
 import 'orbace_theme.dart';
 
 class OrbaceSudokuApp extends StatefulWidget {
@@ -17,6 +22,10 @@ class OrbaceSudokuApp extends StatefulWidget {
 }
 
 class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
+  static const String _screenshotScreen = String.fromEnvironment(
+    'ORBACE_SCREENSHOT_SCREEN',
+  );
+
   late final AppDatabase _database;
   late final SudokuRepository _repository;
 
@@ -41,8 +50,43 @@ class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
       title: 'Orbace Sudoku',
       debugShowCheckedModeBanner: false,
       theme: OrbaceTheme.light(),
-      darkTheme: OrbaceTheme.dark(),
-      home: HomeScreen(repository: _repository),
+      themeMode: ThemeMode.light,
+      home: _buildInitialScreen(),
+    );
+  }
+
+  Widget _buildInitialScreen() {
+    return switch (_screenshotScreen) {
+      'import_puzzle' => ImportPuzzleScreen(repository: _repository),
+      'level_packs' => LevelPackScreen(repository: _repository),
+      'record_hall' => _RecordHallScreenshotScreen(repository: _repository),
+      'settings' => const SettingsScreen(),
+      _ => HomeScreen(repository: _repository),
+    };
+  }
+}
+
+class _RecordHallScreenshotScreen extends StatelessWidget {
+  const _RecordHallScreenshotScreen({required this.repository});
+
+  final SudokuRepository repository;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PuzzlePackCatalog>(
+      future: PuzzlePackLoader(repository: repository).load(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Record Hall')),
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        }
+        return RecordHallScreen(
+          repository: repository,
+          catalog: snapshot.requireData,
+        );
+      },
     );
   }
 }

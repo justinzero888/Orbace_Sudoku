@@ -294,29 +294,21 @@ Current limitation:
 - Compare is table-based in the current build.
 - Synchronized side-by-side replay is planned for a later phase after UAT validates the basic comparison experience.
 
-## 12. Scholar's Path Retry Improvement
+## 12. Scholar's Path Retry Improvement (Removed)
 
-Scholar's Path includes a requirement currently worded in the app as:
+Insight previously included a fourth requirement worded in the app as:
 
 ```text
 Complete 5 retry solves with a higher score than your previous best for that puzzle
 ```
 
-How it works:
+This requirement was removed per UAT feedback (see UAT log) because the wording was confusing to testers. Extreme Challenge unlock now only checks the remaining three Insight requirements:
 
-1. Complete a puzzle once.
-2. Retry the same puzzle from a retry action.
-3. Finish the retry.
-4. The retry counts as an improvement only if its final score is higher than the best completed score previously recorded for that same puzzle.
+1. Complete 15 mastery puzzles.
+2. Complete 5 puzzles with 70%+ accuracy.
+3. Complete 3 puzzles with zero errors and zero hints.
 
-Important notes:
-
-- Simply replaying a solve does not count. Replay is only review.
-- Retrying creates a new completed Su-Pu attempt.
-- The retry must improve the score, not just the time.
-- The requirement needs 5 improved retry solves.
-- These improved retries can be across different puzzles.
-- Retry solves are used for personal improvement tracking and are not official/ranked records.
+The app still tracks retry-improvement count for informational display on the Scholar's Path summary card, but it no longer gates the Extreme Challenge unlock.
 
 ## 13. AdMob Home Banner
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 
 import '../domain/sudoku_board.dart';
 import '../domain/sudoku_difficulty.dart';
@@ -39,41 +40,49 @@ class ImportedPuzzlePreview {
 }
 
 class ImportedPuzzleService {
-  ImportedPuzzleService({
-    required this.repository,
-    SudokuSolver? solver,
-    SudokuValidator? validator,
-    HumanRankedSolver? humanSolver,
-    SudokuDifficultyRater? rater,
-  }) : _solver = solver ?? const SudokuSolver(),
-       _validator = validator ?? const SudokuValidator(),
-       _humanSolver = humanSolver ?? HumanRankedSolver(),
-       _rater = rater ?? const SudokuDifficultyRater();
+  ImportedPuzzleService({required this.repository, HumanRankedSolver? humanSolver})
+    : _humanSolver = humanSolver ?? HumanRankedSolver();
 
   final SudokuRepository repository;
-  final SudokuSolver _solver;
-  final SudokuValidator _validator;
   final HumanRankedSolver _humanSolver;
-  final SudokuDifficultyRater _rater;
 
-  ImportedPuzzlePreview previewFromString(
+  /// Runs the puzzle solve/rating pipeline on a background isolate. A
+  /// hand-entered grid can be far less constrained than a curated puzzle, and
+  /// the brute-force solver's runtime is exponential in the worst case, so
+  /// this must never run on the UI isolate — doing so previously froze input
+  /// dispatch long enough for Android to treat the app as unresponsive.
+  Future<ImportedPuzzlePreview> previewFromString(
     String input, {
     String? title,
     String? sourceLabel,
     DateTime? now,
   }) {
-    final givens = _parsePuzzleString(input);
-    return _preview(givens, title: title, sourceLabel: sourceLabel, now: now);
+    return compute(
+      _buildPreviewFromString,
+      _StringPreviewRequest(
+        input: input,
+        title: title,
+        sourceLabel: sourceLabel,
+        now: now,
+      ),
+    );
   }
 
-  ImportedPuzzlePreview previewFromCells(
+  Future<ImportedPuzzlePreview> previewFromCells(
     List<int?> cells, {
     String? title,
     String? sourceLabel,
     DateTime? now,
   }) {
-    final givens = SudokuBoard.fromCells(cells);
-    return _preview(givens, title: title, sourceLabel: sourceLabel, now: now);
+    return compute(
+      _buildPreviewFromCells,
+      _CellsPreviewRequest(
+        cells: cells,
+        title: title,
+        sourceLabel: sourceLabel,
+        now: now,
+      ),
+    );
   }
 
   Future<void> save(ImportedPuzzlePreview preview) {
@@ -91,121 +100,183 @@ class ImportedPuzzleService {
       solvePath: _humanSolver.solve(preview.givens).steps,
     );
   }
+}
 
-  ImportedPuzzlePreview _preview(
-    SudokuBoard givens, {
-    required String? title,
-    required String? sourceLabel,
-    required DateTime? now,
-  }) {
-    if (!_validator.isValidPartial(givens)) {
-      throw const ImportedPuzzleException(
-        'This puzzle has conflicting givens. Check rows, columns, and boxes.',
-      );
-    }
+const int _minimumUniquePuzzleGivens = 17;
+const SudokuSolver _solver = SudokuSolver();
+const SudokuValidator _validator = SudokuValidator();
+const SudokuDifficultyRater _rater = SudokuDifficultyRater();
 
-    final solutionCount = _solver.countSolutions(givens, limit: 2);
-    if (solutionCount == 0) {
-      throw const ImportedPuzzleException('This puzzle has no valid solution.');
-    }
-    if (solutionCount > 1) {
-      throw const ImportedPuzzleException(
-        'This puzzle has more than one solution.',
-      );
-    }
+class _StringPreviewRequest {
+  const _StringPreviewRequest({
+    required this.input,
+    required this.title,
+    required this.sourceLabel,
+    required this.now,
+  });
 
-    final solution = _solver.solve(givens);
-    if (solution == null) {
-      throw const ImportedPuzzleException('This puzzle could not be solved.');
-    }
+  final String input;
+  final String? title;
+  final String? sourceLabel;
+  final DateTime? now;
+}
 
-    final humanResult = _humanSolver.solve(givens);
-    final rating = humanResult.solved
-        ? _rater.rate(humanResult.steps)
-        : const DifficultyRating(
-            difficulty: SudokuDifficulty.extreme,
-            score: 320,
-            requiredTechniques: <String>['advanced'],
-          );
-    final checksum = _checksum(givens, solution);
-    final normalizedTitle = title?.trim();
-    final createdAt = now ?? DateTime.now();
+class _CellsPreviewRequest {
+  const _CellsPreviewRequest({
+    required this.cells,
+    required this.title,
+    required this.sourceLabel,
+    required this.now,
+  });
 
-    return ImportedPuzzlePreview(
-      id: 'imported_${_dateToken(createdAt)}_${checksum.substring(0, 8)}',
-      title: normalizedTitle == null || normalizedTitle.isEmpty
-          ? 'Imported ${checksum.substring(0, 6).toUpperCase()}'
-          : normalizedTitle,
-      sourceLabel: _normalizedNullable(sourceLabel),
-      givens: givens,
-      solution: solution,
-      difficulty: rating.difficulty,
-      difficultyScore: rating.score,
-      targetTimeSeconds: _targetTimeFor(rating.difficulty),
-      medianTimeSeconds: (_targetTimeFor(rating.difficulty) * 1.3).round(),
-      requiredTechniques: rating.requiredTechniques,
-      humanSolvable: humanResult.solved,
+  final List<int?> cells;
+  final String? title;
+  final String? sourceLabel;
+  final DateTime? now;
+}
+
+ImportedPuzzlePreview _buildPreviewFromString(_StringPreviewRequest request) {
+  final givens = _parsePuzzleString(request.input);
+  return _preview(
+    givens,
+    title: request.title,
+    sourceLabel: request.sourceLabel,
+    now: request.now,
+  );
+}
+
+ImportedPuzzlePreview _buildPreviewFromCells(_CellsPreviewRequest request) {
+  final givens = SudokuBoard.fromCells(request.cells);
+  return _preview(
+    givens,
+    title: request.title,
+    sourceLabel: request.sourceLabel,
+    now: request.now,
+  );
+}
+
+ImportedPuzzlePreview _preview(
+  SudokuBoard givens, {
+  required String? title,
+  required String? sourceLabel,
+  required DateTime? now,
+}) {
+  final givenCount = givens.cells.whereType<int>().length;
+  if (givenCount < _minimumUniquePuzzleGivens) {
+    throw ImportedPuzzleException(
+      'Enter at least $_minimumUniquePuzzleGivens givens before validation. '
+      'A standard Sudoku needs 17 or more clues to have a unique solution.',
     );
   }
 
-  SudokuBoard _parsePuzzleString(String input) {
-    final normalized = input
-        .replaceAll(RegExp(r'\s'), '')
-        .replaceAll(RegExp(r'[-.]'), '0');
-    if (normalized.length != SudokuBoard.cellCount) {
-      throw ImportedPuzzleException(
-        'Please enter exactly 81 cells. Current entry has ${normalized.length}.',
-      );
-    }
-    if (!RegExp(r'^[0-9]+$').hasMatch(normalized)) {
-      throw const ImportedPuzzleException(
-        'Use digits 1-9 for givens and 0, dot, or dash for blanks.',
-      );
-    }
-
-    return SudokuBoard.fromCells(<int?>[
-      for (final char in normalized.split(''))
-        char == '0' ? null : int.parse(char),
-    ]);
+  if (!_validator.isValidPartial(givens)) {
+    throw const ImportedPuzzleException(
+      'This puzzle has conflicting givens. Check rows, columns, and boxes.',
+    );
   }
 
-  String _checksum(SudokuBoard givens, SudokuBoard solution) {
-    return sha256
-        .convert(
-          utf8.encode(
-            jsonEncode(<String, Object?>{
-              'givens': givens.cells,
-              'solution': solution.cells,
-            }),
-          ),
-        )
-        .toString();
+  final solutionCount = _solver.countSolutions(givens, limit: 2);
+  if (solutionCount == 0) {
+    throw const ImportedPuzzleException('This puzzle has no valid solution.');
+  }
+  if (solutionCount > 1) {
+    throw const ImportedPuzzleException(
+      'This puzzle has more than one solution.',
+    );
   }
 
-  String _dateToken(DateTime value) {
-    String two(int part) => part.toString().padLeft(2, '0');
-    return '${value.year}${two(value.month)}${two(value.day)}_'
-        '${two(value.hour)}${two(value.minute)}${two(value.second)}';
+  final solution = _solver.solve(givens);
+  if (solution == null) {
+    throw const ImportedPuzzleException('This puzzle could not be solved.');
   }
 
-  int _targetTimeFor(SudokuDifficulty difficulty) {
-    return switch (difficulty) {
-      SudokuDifficulty.beginner => 360,
-      SudokuDifficulty.easy => 480,
-      SudokuDifficulty.medium => 720,
-      SudokuDifficulty.hard => 960,
-      SudokuDifficulty.expert => 1200,
-      SudokuDifficulty.extreme => 1800,
-    };
+  final humanSolver = HumanRankedSolver();
+  final humanResult = humanSolver.solve(givens);
+  final rating = humanResult.solved
+      ? _rater.rate(humanResult.steps)
+      : const DifficultyRating(
+          difficulty: SudokuDifficulty.extreme,
+          score: 320,
+          requiredTechniques: <String>['advanced'],
+        );
+  final checksum = _checksum(givens, solution);
+  final normalizedTitle = title?.trim();
+  final createdAt = now ?? DateTime.now();
+
+  return ImportedPuzzlePreview(
+    id: 'imported_${_dateToken(createdAt)}_${checksum.substring(0, 8)}',
+    title: normalizedTitle == null || normalizedTitle.isEmpty
+        ? 'Imported ${checksum.substring(0, 6).toUpperCase()}'
+        : normalizedTitle,
+    sourceLabel: _normalizedNullable(sourceLabel),
+    givens: givens,
+    solution: solution,
+    difficulty: rating.difficulty,
+    difficultyScore: rating.score,
+    targetTimeSeconds: _targetTimeFor(rating.difficulty),
+    medianTimeSeconds: (_targetTimeFor(rating.difficulty) * 1.3).round(),
+    requiredTechniques: rating.requiredTechniques,
+    humanSolvable: humanResult.solved,
+  );
+}
+
+SudokuBoard _parsePuzzleString(String input) {
+  final normalized = input
+      .replaceAll(RegExp(r'\s'), '')
+      .replaceAll(RegExp(r'[-.]'), '0');
+  if (normalized.length != SudokuBoard.cellCount) {
+    throw ImportedPuzzleException(
+      'Please enter exactly 81 cells. Current entry has ${normalized.length}.',
+    );
+  }
+  if (!RegExp(r'^[0-9]+$').hasMatch(normalized)) {
+    throw const ImportedPuzzleException(
+      'Use digits 1-9 for givens and 0, dot, or dash for blanks.',
+    );
   }
 
-  String? _normalizedNullable(String? value) {
-    final normalized = value?.trim();
-    if (normalized == null || normalized.isEmpty) {
-      return null;
-    }
-    return normalized;
+  return SudokuBoard.fromCells(<int?>[
+    for (final char in normalized.split(''))
+      char == '0' ? null : int.parse(char),
+  ]);
+}
+
+String _checksum(SudokuBoard givens, SudokuBoard solution) {
+  return sha256
+      .convert(
+        utf8.encode(
+          jsonEncode(<String, Object?>{
+            'givens': givens.cells,
+            'solution': solution.cells,
+          }),
+        ),
+      )
+      .toString();
+}
+
+String _dateToken(DateTime value) {
+  String two(int part) => part.toString().padLeft(2, '0');
+  return '${value.year}${two(value.month)}${two(value.day)}_'
+      '${two(value.hour)}${two(value.minute)}${two(value.second)}';
+}
+
+int _targetTimeFor(SudokuDifficulty difficulty) {
+  return switch (difficulty) {
+    SudokuDifficulty.beginner => 360,
+    SudokuDifficulty.easy => 480,
+    SudokuDifficulty.medium => 720,
+    SudokuDifficulty.hard => 960,
+    SudokuDifficulty.expert => 1200,
+    SudokuDifficulty.extreme => 1800,
+  };
+}
+
+String? _normalizedNullable(String? value) {
+  final normalized = value?.trim();
+  if (normalized == null || normalized.isEmpty) {
+    return null;
   }
+  return normalized;
 }
 
 class ImportedPuzzleException implements Exception {

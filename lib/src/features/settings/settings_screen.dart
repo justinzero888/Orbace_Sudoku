@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app/ad_consent_service.dart';
 import '../../app/ad_mob_bottom_banner.dart';
 import '../../app/orbace_theme.dart';
 
@@ -19,35 +20,58 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 12),
             _SettingsTile(
               icon: Icons.privacy_tip_outlined,
-              title: 'Privacy',
+              title: 'Privacy Policy',
               subtitle: 'Data, ads, and local records',
               onTap: () => _showPolicy(
                 context,
-                title: 'Privacy',
-                body:
-                    'Orbace Sudoku stores gameplay progress, imported puzzles, Su-Pu records, replays, score cards, ratings, and notes locally on this device. Home and non-game screens may show AdMob banners. Active Sudoku gameplay remains ad-free. Future account and global ranking features will require a separate privacy update before launch.',
+                title: 'Privacy Policy',
+                body: '''Privacy Policy for Orbace Sudoku
+Effective Date: June 2026
+
+At Orbace Sudoku, we value your privacy. This Privacy Policy explains how data is handled within our application.
+
+1. Personal Data and Cloud Storage
+Orbace Sudoku does not collect, store, or transmit any personal data (such as your name, email address, or contact information) to any external servers. Your data is stored locally on your device.
+
+2. Third-Party Advertising (Google AdMob)
+To keep this application free to play, we use Google AdMob to display advertisements. To serve relevant ads and comply with global regulations, Google AdMob utilizes SDKs that may automatically collect and process certain device data, including:
+
+Your device's Advertising Identifier (such as Apple's IDFA or Google's GAID).
+IP address (used to infer general location for localized ads).
+App interaction data (to track ad views and clicks).
+
+3. User Consent (EEA, UK, and California)
+We utilize Google's User Messaging Platform (UMP) to present a consent dialog to users in relevant jurisdictions (such as the European Economic Area, UK, and California). You have the right to grant, deny, or revoke your ad personalization consent at any time via the in-app settings panel.
+
+4. Changes to This Policy
+We may update our Privacy Policy from time to time. Any changes will be posted directly to this web page.
+
+Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
               ),
+            ),
+            ValueListenableBuilder<AdConsentState>(
+              valueListenable: AdConsentService.state,
+              builder: (context, consentState, _) {
+                if (!consentState.privacyOptionsRequired) {
+                  return const SizedBox.shrink();
+                }
+                return _SettingsTile(
+                  icon: Icons.tune_outlined,
+                  title: 'Privacy Choices',
+                  subtitle: 'Manage ad personalization consent',
+                  onTap: () => AdConsentService.showPrivacyOptionsForm(),
+                );
+              },
             ),
             _SettingsTile(
               icon: Icons.description_outlined,
               title: 'Terms of Use',
-              subtitle: 'Current beta use and future competition rules',
+              subtitle: 'Use, content, and conduct',
               onTap: () => _showPolicy(
                 context,
                 title: 'Terms of Use',
                 body:
-                    'This beta build is for testing Orbace Sudoku gameplay and release readiness. Imported puzzles are for personal use and are not official ranking content. Future daily/global ranking games will require account registration, official event rules, server validation, and updated terms before they are enabled.',
-              ),
-            ),
-            _SettingsTile(
-              icon: Icons.block_outlined,
-              title: 'Remove Ads IPA',
-              subtitle: 'Planned paid/ad-free build option',
-              onTap: () => _showPolicy(
-                context,
-                title: 'Remove Ads IPA',
-                body:
-                    'A remove-ads version is planned as a separate release option. This beta keeps banner ads visible on non-game screens so UAT can validate placement. Active puzzle play remains ad-free.',
+                    'By using Orbace Sudoku you agree to these terms. Orbace Sudoku is published by Orbace Technologies LLC.\n\nAll puzzle content, game logic, scoring systems, and design are the intellectual property of Orbace Technologies LLC. Imported puzzles are for personal, non-commercial use only.\n\nThe app is provided as-is without warranty. Orbace Technologies LLC is not liable for data loss or device issues arising from use of the app.\n\nFor questions, contact: legal@orbace.com',
               ),
             ),
           ],
@@ -99,7 +123,7 @@ class _SettingsHeader extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Release settings, policy notes, and upcoming ad-free options.',
+              'App policies and legal information.',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),

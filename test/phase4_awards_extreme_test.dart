@@ -18,13 +18,7 @@ void main() {
     test('unlocks Extreme when Insight requirements are complete', () {
       final attempts = <SudokuAttempt>[
         for (var i = 0; i < 20; i++)
-          _attempt(
-            id: 'attempt_$i',
-            puzzleId: 'puzzle_${i % 3}',
-            isRetry: i >= 15,
-            cleanSolve: i < 6,
-            scoreTotal: i >= 15 ? 2000 + i : 1000 + i,
-          ),
+          _attempt(id: 'attempt_$i', puzzleId: 'puzzle_${i % 3}', cleanSolve: i < 6),
       ];
 
       final summary = const AwardEngine().evaluate(attempts);
@@ -32,6 +26,29 @@ void main() {
       expect(summary.extremeUnlocked, isTrue);
       expect(summary.stages.last.isComplete, isTrue);
     });
+
+    test(
+      'Insight stage only checks 3 requirements; retry-improvement count '
+      'no longer gates the Extreme unlock',
+      () {
+        // No retries at all, so replayImprovementCount is 0 - the removed
+        // "5 retry improvements" rule would have blocked the unlock, but the
+        // remaining 3 requirements (15 completed, 5 with 70%+ accuracy, 3
+        // clean solves) are enough on their own.
+        final attempts = <SudokuAttempt>[
+          for (var i = 0; i < 15; i++)
+            _attempt(id: 'attempt_$i', puzzleId: 'puzzle_$i', cleanSolve: i < 3),
+        ];
+
+        final summary = const AwardEngine().evaluate(attempts);
+        final insight = summary.stages.last;
+
+        expect(insight.requirements, hasLength(3));
+        expect(insight.requirements.map((r) => r.id), isNot(contains('five_replay_improvements')));
+        expect(summary.replayImprovements, 0);
+        expect(summary.extremeUnlocked, isTrue);
+      },
+    );
   });
 
   group('DailyTeaMomentSelector', () {

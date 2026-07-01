@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdMobConfig {
   const AdMobConfig._();
@@ -12,29 +11,32 @@ class AdMobConfig {
       'ca-app-pub-7497527413129091/8812517487';
   static const String _testBannerUnitId =
       'ca-app-pub-3940256099942544/2435281174';
+  static const bool _forceTestAds = bool.fromEnvironment(
+    'ORBACE_FORCE_TEST_ADS',
+  );
+  static const bool _hideAdsForScreenshots = bool.fromEnvironment(
+    'ORBACE_HIDE_ADS_FOR_SCREENSHOTS',
+  );
 
   static bool get isSupportedPlatform {
     return !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   }
 
   static bool get shouldShowAds {
-    return isSupportedPlatform;
+    return isSupportedPlatform && !_hideAdsForScreenshots;
+  }
+
+  static bool get usesTestAds {
+    return kDebugMode || _forceTestAds;
   }
 
   static String get bottomBannerUnitId {
-    if (kDebugMode) {
+    if (usesTestAds) {
       return _testBannerUnitId;
     }
     if (Platform.isAndroid) {
       return _androidProductionBannerUnitId;
     }
     return _iOSProductionBannerUnitId;
-  }
-
-  static Future<InitializationStatus>? initialize() {
-    if (!isSupportedPlatform) {
-      return null;
-    }
-    return MobileAds.instance.initialize();
   }
 }

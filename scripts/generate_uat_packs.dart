@@ -285,7 +285,7 @@ final List<PackPlan> _uatPacks = <PackPlan>[
   ),
   PackPlan(
     id: 'extreme',
-    title: 'Extreme Challenge',
+    title: 'Expert Challenge',
     subtitle: 'Ranked challenge seeds',
     seal: '榜',
     description: 'Candidate ranked puzzles for future leaderboard validation.',
@@ -363,7 +363,7 @@ final List<PackPlan> _productionPacks = <PackPlan>[
   ),
   PackPlan(
     id: 'extreme',
-    title: 'Extreme Challenge',
+    title: 'Expert Challenge',
     subtitle: 'Ranked challenge seeds',
     seal: '榜',
     description: 'Expert challenge candidates for no-assist ranked play.',
