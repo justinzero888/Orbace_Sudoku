@@ -5,6 +5,7 @@ import 'package:orbace_sudoku/src/app/orbace_sudoku_app.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/app_database.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/puzzle_pack_loader.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/sudoku_repository.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/daily_random_puzzle.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_attempt.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_move.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_score.dart';
@@ -74,26 +75,31 @@ void main() {
         reason: 'should have navigated away from the hub screen',
       );
 
-      // Confirm a real game board loaded: mistakes counter + a puzzle title
-      // that actually belongs to the extreme pack, not the silent
+      // Confirm a real game board loaded: mistakes counter + today's
+      // deterministic daily-transformed title, not the silent
       // teaMomentPuzzles.first fallback ('Morning Steam').
       expect(find.textContaining('Mistakes 0'), findsOneWidget);
       expect(find.text('Morning Steam'), findsNothing);
 
-      final extremePackTitles = catalog.packs
-          .firstWhere((p) => p.id == 'true_extreme')
-          .puzzles
-          .where((p) => p.id != 'true_extreme_059')
-          .map((p) => p.title)
-          .toSet();
-      final matched = find.byWidgetPredicate(
-        (widget) => widget is Text && extremePackTitles.contains(widget.data),
+      final todaysDaily = DailyRandomPuzzle.extremeDaily.forDate(
+        DateTime.now(),
+        catalog.trueExtremePool,
       );
       expect(
-        matched,
-        findsWidgets,
+        find.text(todaysDaily.title),
+        findsOneWidget,
         reason:
-            'expected the loaded game screen to show a title from the extreme pack',
+            'expected the loaded game screen to show today\'s Daily Extreme title',
+      );
+
+      // No-assist mode: hints and auto-check are hidden during play.
+      expect(find.text('Lantern Hint'), findsNothing);
+      expect(find.textContaining('Check On'), findsNothing);
+      expect(find.textContaining('Check Off'), findsNothing);
+      expect(
+        find.textContaining('No-assist mode'),
+        findsOneWidget,
+        reason: 'should show the no-assist notice instead of hint/check controls',
       );
     },
   );

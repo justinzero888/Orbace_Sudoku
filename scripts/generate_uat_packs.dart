@@ -672,11 +672,11 @@ final List<PackPlan> _productionPacks = <PackPlan>[
     subtitle: 'Ranked challenge seeds',
     seal: '榜',
     description: 'Expert challenge candidates for no-assist ranked play.',
-    // First batch toward the eventual 270-puzzle target (Production Game
-    // Pack Alignment Plan §2): 90 now, top up to 270 in a later batch once
-    // this run's real yield is known. See notes below on why 270 in one
-    // shot was an open-ended, likely multi-hour-to-multi-day commitment.
-    count: 90,
+    // 2026-07-04: raised to the full 270-puzzle target (Production Game
+    // Pack Alignment Plan §2) now that the first 90-puzzle batch confirmed
+    // real yield at minimumScore 245 (~1-in-16,500 attempts, ~150-170
+    // attempts/sec measured) -- full run estimated at ~8-9 hours.
+    count: 270,
     // Ship floor per Production Game Pack Alignment Plan §3 (Expert band is
     // 241+; raised from 220 -- which was below the band entirely -- to the
     // recommended 260 cushion).

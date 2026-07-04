@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import '../domain/daily_random_puzzle.dart';
 import '../presentation/fixture_puzzles.dart';
 import 'sudoku_repository.dart';
 
@@ -33,7 +34,32 @@ class PuzzlePackCatalog {
     return teaPack?.puzzles ?? puzzles;
   }
 
+  /// True Extreme puzzles eligible for the Daily Extreme Challenge pool.
+  /// Excludes true_extreme_059, which the 2026-07-02 alignment audit found
+  /// is solvable by the teaching hint solver -- disqualifying it from a
+  /// pack whose whole point is being beyond that solver.
+  List<FixturePuzzleDefinition> get trueExtremePool {
+    final pack = packs.where((pack) => pack.id == 'true_extreme').firstOrNull;
+    return (pack?.puzzles ?? const <FixturePuzzleDefinition>[])
+        .where((puzzle) => puzzle.id != 'true_extreme_059')
+        .toList(growable: false);
+  }
+
+  /// Resolves a puzzle by id. Daily Extreme Challenge and Daily Tea Moment
+  /// ids (e.g. 'extreme_daily_2026-07-04') are not stored anywhere -- they
+  /// are reconstructed on demand from the date encoded in the id plus the
+  /// current pool, so Record Hall/Replay/Su-Pu Detail can look up any past
+  /// day's daily puzzle exactly as it was without persisting the
+  /// transformed grid separately. See DailyRandomPuzzle.
   FixturePuzzleDefinition byId(String id) {
+    final extremeDate = DailyRandomPuzzle.extremeDaily.parseDate(id);
+    if (extremeDate != null && trueExtremePool.isNotEmpty) {
+      return DailyRandomPuzzle.extremeDaily.forDate(extremeDate, trueExtremePool);
+    }
+    final teaDate = DailyRandomPuzzle.teaDaily.parseDate(id);
+    if (teaDate != null && teaMomentPuzzles.isNotEmpty) {
+      return DailyRandomPuzzle.teaDaily.forDate(teaDate, teaMomentPuzzles);
+    }
     return puzzles.firstWhere(
       (puzzle) => puzzle.id == id,
       orElse: () => teaMomentPuzzles.first,

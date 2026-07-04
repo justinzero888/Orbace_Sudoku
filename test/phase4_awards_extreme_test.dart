@@ -1,10 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:orbace_sudoku/src/features/sudoku/domain/daily_tea_moment.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/daily_random_puzzle.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/extreme_challenge.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_attempt.dart';
+import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_difficulty.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_move.dart';
 import 'package:orbace_sudoku/src/features/sudoku/domain/sudoku_score.dart';
 import 'package:orbace_sudoku/src/features/sudoku/engine/award_engine.dart';
+import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 
 void main() {
   group('AwardEngine', () {
@@ -51,22 +53,65 @@ void main() {
     );
   });
 
-  group('DailyTeaMomentSelector', () {
-    test('selects stable puzzle for same day', () {
-      const selector = DailyTeaMomentSelector();
-      final first = selector.forDate(DateTime(2026, 6, 20, 9), const <String>[
-        'a',
-        'b',
-        'c',
-      ]);
-      final second = selector.forDate(DateTime(2026, 6, 20, 21), const <String>[
-        'a',
-        'b',
-        'c',
-      ]);
+  group('DailyRandomPuzzle', () {
+    const selector = DailyRandomPuzzle.extremeDaily;
+    final pool = List<FixturePuzzleDefinition>.generate(
+      5,
+      (i) => FixturePuzzleDefinition(
+        id: 'pool_$i',
+        title: 'Pool $i',
+        seal: '榜',
+        packId: 'true_extreme',
+        difficulty: SudokuDifficulty.extreme,
+        difficultyScore: 900,
+        targetTimeSeconds: 1800,
+        medianTimeSeconds: 2400,
+        rankedEligible: true,
+        givensRows: FixturePuzzles.catalog.first.givensRows,
+        solutionRows: FixturePuzzles.catalog.first.solutionRows,
+      ),
+    );
 
-      expect(first.dayKey, '2026-06-20');
-      expect(first.puzzleId, second.puzzleId);
+    test('selects a stable puzzle for the same calendar day', () {
+      final first = selector.forDate(DateTime(2026, 6, 20, 9), pool);
+      final second = selector.forDate(DateTime(2026, 6, 20, 21), pool);
+
+      expect(first.id, 'extreme_daily_2026-06-20');
+      expect(first.id, second.id);
+      expect(first.givensRows, second.givensRows);
+      expect(first.solutionRows, second.solutionRows);
+    });
+
+    test('produces a different transformed grid on a different day', () {
+      final day1 = selector.forDate(DateTime(2026, 6, 20), pool);
+      final day2 = selector.forDate(DateTime(2026, 6, 21), pool);
+
+      expect(day1.id, isNot(day2.id));
+      expect(day1.givensRows, isNot(day2.givensRows));
+    });
+
+    test('idFor/parseDate round-trip', () {
+      final date = DateTime(2026, 7, 4);
+      final id = selector.idFor(date);
+
+      expect(id, 'extreme_daily_2026-07-04');
+      expect(selector.matches(id), isTrue);
+      expect(selector.parseDate(id), date);
+      expect(selector.matches('true_extreme_042'), isFalse);
+    });
+
+    test('transformed puzzle is still a valid, unique-solution board', () {
+      final daily = selector.forDate(DateTime(2026, 7, 4), pool);
+      final givens = daily.givens;
+      final solution = daily.solution;
+
+      for (var i = 0; i < 81; i++) {
+        final value = givens.valueAtIndex(i);
+        if (value != null) {
+          expect(value, solution.valueAtIndex(i));
+        }
+      }
+      expect(solution.isComplete, isTrue);
     });
   });
 

@@ -32,6 +32,7 @@ class SudokuGameScreen extends StatefulWidget {
     this.catalog,
     this.isRetry = false,
     this.initialProgress,
+    this.noAssistMode = false,
   });
 
   final SudokuRepository? repository;
@@ -39,6 +40,13 @@ class SudokuGameScreen extends StatefulWidget {
   final PuzzlePackCatalog? catalog;
   final bool isRetry;
   final SudokuCurrentProgress? initialProgress;
+  /// Extreme Challenge's no-hint/no-auto-check rule: hides the Lantern Hint
+  /// and Check On/Off controls and forces mistake-checking off for the
+  /// whole session. Ranked eligibility already disqualifies hint/auto-check
+  /// usage server-side (AttemptEligibilityEngine); this keeps the play
+  /// experience from silently offering assists that would disqualify the
+  /// attempt without the player realizing it.
+  final bool noAssistMode;
 
   @override
   State<SudokuGameScreen> createState() => _SudokuGameScreenState();
@@ -76,6 +84,9 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
       contentVersion: widget.catalog?.contentVersion,
       initialProgress: widget.initialProgress,
     )..addListener(_handleControllerChanged);
+    if (widget.noAssistMode) {
+      _controller.setMistakeChecking(false);
+    }
     unawaited(_seedPuzzle());
     _timer = Timer.periodic(
       const Duration(seconds: 1),
@@ -162,38 +173,41 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
                               const SizedBox(height: 18),
                               SudokuNumberPad(controller: _controller),
                               const SizedBox(height: 16),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: OutlinedButton.icon(
-                                      onPressed: _showHint,
-                                      icon: const Icon(
-                                        Icons.light_mode_outlined,
-                                      ),
-                                      label: const Text('Lantern Hint'),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: OutlinedButton.icon(
-                                      onPressed: () =>
-                                          _controller.setMistakeChecking(
-                                            !_controller.mistakeChecking,
-                                          ),
-                                      icon: Icon(
-                                        _controller.mistakeChecking
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                      label: Text(
-                                        _controller.mistakeChecking
-                                            ? 'Check On'
-                                            : 'Check Off',
+                              if (widget.noAssistMode)
+                                const _NoAssistNotice()
+                              else
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton.icon(
+                                        onPressed: _showHint,
+                                        icon: const Icon(
+                                          Icons.light_mode_outlined,
+                                        ),
+                                        label: const Text('Lantern Hint'),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: OutlinedButton.icon(
+                                        onPressed: () =>
+                                            _controller.setMistakeChecking(
+                                              !_controller.mistakeChecking,
+                                            ),
+                                        icon: Icon(
+                                          _controller.mistakeChecking
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                        ),
+                                        label: Text(
+                                          _controller.mistakeChecking
+                                              ? 'Check On'
+                                              : 'Check Off',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                             ],
                           ),
                         ),
@@ -1310,6 +1324,35 @@ class _PauseOverlay extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _NoAssistNotice extends StatelessWidget {
+  const _NoAssistNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: OrbaceTheme.celadon.withValues(alpha: 0.35),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.block, size: 18, color: OrbaceTheme.mutedInk),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'No-assist mode: hints and auto-check are disabled for this challenge.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: OrbaceTheme.mutedInk,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

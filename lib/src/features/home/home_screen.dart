@@ -5,7 +5,7 @@ import '../../app/orbace_theme.dart';
 import '../settings/settings_screen.dart';
 import '../sudoku/data/puzzle_pack_loader.dart';
 import '../sudoku/data/sudoku_repository.dart';
-import '../sudoku/domain/daily_tea_moment.dart';
+import '../sudoku/domain/daily_random_puzzle.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
 import '../sudoku/presentation/import_puzzle_screen.dart';
 import '../sudoku/presentation/level_pack_screen.dart';
@@ -70,14 +70,10 @@ class _HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final puzzleIds = catalog.teaMomentPuzzles
-        .map((puzzle) => puzzle.id)
-        .toList(growable: false);
-    final daily = const DailyTeaMomentSelector().forDate(
+    final dailyPuzzle = DailyRandomPuzzle.teaDaily.forDate(
       DateTime.now(),
-      puzzleIds,
+      catalog.teaMomentPuzzles,
     );
-    final dailyPuzzle = catalog.byId(daily.puzzleId);
 
     return Scaffold(
       appBar: AppBar(
@@ -102,7 +98,7 @@ class _HomeContent extends StatelessWidget {
             Text('一局一茶 · One Puzzle, One Tea', style: textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
-              'Today\'s Tea Moment is ${dailyPuzzle.title} (${daily.dayKey}). Solve calmly, use notes, undo moves, and ask the lantern for help.',
+              'Today\'s Tea Moment is ${dailyPuzzle.title}. Solve calmly, use notes, undo moves, and ask the lantern for help.',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),

@@ -225,7 +225,7 @@ class GameSessionController extends ChangeNotifier {
       ),
     );
 
-    if (value != solution.valueAtIndex(selected)) {
+    if (_mistakeChecking && value != solution.valueAtIndex(selected)) {
       _mistakeCount++;
     }
 
