@@ -817,7 +817,7 @@ class _ScoreCertificateCard extends StatelessWidget {
             const SizedBox(height: 8),
             Center(
               child: Text(
-                'Download Orbace Sudoku · Play free at www.orbacesudoku.com',
+                'Download Orbace Sudoku · Play free at orbacesudoku.com',
                 textAlign: TextAlign.center,
                 style: textTheme.bodySmall?.copyWith(
                   color: OrbaceTheme.mutedInk,

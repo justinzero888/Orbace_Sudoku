@@ -692,13 +692,12 @@ final List<PackPlan> _productionPacks = <PackPlan>[
     // ~7.5ms -> ~5.6ms), measured throughput for the Hard>=195 proxy target
     // improved from 0.45 hits/sec to 0.71 hits/sec (~1.6x).
     //
-    // At 90 puzzles (99 with reserve), score>=260 yield is still unmeasured
-    // at the actual floor (0 confirmed hits in ~51,000 samples this
-    // session), so the attempt budget below assumes a rate as rare as
-    // 1-in-100,000 (99 * 120,000 ~= 11.9M attempts, ~18.4 hours ceiling at
-    // 5.57ms/attempt) -- run this as a monitored background job, not
-    // inline, and expect it may finish well before that ceiling.
-    minimumScore: 260,
+    // 2026-07-04: lowered from 260 to 245 after the 260 floor was never
+    // once observed in ~51,000 sampled attempts (only 2 hits total ever
+    // cleared 241/242 at any floor). 245 keeps a real cushion above the
+    // Expert band minimum (>240) while staying within a tractable
+    // generation window given this solver's current technique ceiling.
+    minimumScore: 245,
     cellsToRemove: 58,
     cellsToRemoveMin: 57,
     cellsToRemoveMax: 59,

@@ -33,7 +33,7 @@ class _AboutScreenState extends State<AboutScreen> {
               const SizedBox(height: 12),
               Text(
                 'A free light version of Orbace Sudoku. Also play on web at '
-                'www.orbacesudoku.com',
+                'orbacesudoku.com',
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),
