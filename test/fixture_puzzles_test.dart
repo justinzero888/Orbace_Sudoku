@@ -48,7 +48,12 @@ void main() {
     final catalog = await PuzzlePackLoader().load();
     final humanSolver = HumanRankedSolver();
 
-    for (final puzzle in catalog.puzzles) {
+    // true_extreme puzzles are deliberately beyond the teaching hint solver
+    // (that's the whole point of the pack) -- excluded here the same way
+    // validate_puzzle_packs.dart exempts them.
+    for (final puzzle in catalog.puzzles.where(
+      (puzzle) => puzzle.packId != 'true_extreme',
+    )) {
       final result = humanSolver.solve(puzzle.givens);
       expect(
         result.solved,

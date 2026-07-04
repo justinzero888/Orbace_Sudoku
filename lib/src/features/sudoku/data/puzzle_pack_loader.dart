@@ -54,6 +54,7 @@ class PuzzlePackDefinition {
     required this.curationStrategy,
     required this.milestoneEvery,
     required this.puzzles,
+    this.hidden = false,
   });
 
   factory PuzzlePackDefinition.fromJson(
@@ -72,6 +73,7 @@ class PuzzlePackDefinition {
       curationStrategy: json['curationStrategy']! as String,
       milestoneEvery: json['milestoneEvery']! as int,
       puzzles: puzzles,
+      hidden: json['hidden'] as bool? ?? false,
     );
   }
 
@@ -86,6 +88,11 @@ class PuzzlePackDefinition {
   final String curationStrategy;
   final int milestoneEvery;
   final List<FixturePuzzleDefinition> puzzles;
+  /// True for packs that are loaded (and available to code like the daily
+  /// Extreme Challenge source resolver) but must not be shown as a
+  /// browsable entry in Level Packs -- e.g. true_extreme, which is reserved
+  /// for the daily no-hint challenge and final production validation.
+  final bool hidden;
 
   String get asset => assets.first;
 

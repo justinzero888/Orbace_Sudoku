@@ -201,6 +201,14 @@ int _searchScore(int nodes, int clues) {
   return max(320, nodes ~/ 8 + (24 - clues) * 45);
 }
 
+// Batches keep each asset file comfortably under Flutter's 50KB
+// loadString() threshold, above which decoding is dispatched to a
+// background isolate via compute() -- that isolate hop never resolves
+// inside a testWidgets fake-async clock, hanging any widget test that
+// loads the full catalog. A single 100-puzzle file was ~80KB and
+// triggered exactly that hang.
+const int _batchSize = 20;
+
 void _writePack(
   List<FixturePuzzleDefinition> puzzles,
   List<Map<String, Object?>> audits,
@@ -208,27 +216,41 @@ void _writePack(
 ) {
   final outputDir = Directory('assets/puzzles/true_extreme')
     ..createSync(recursive: true);
-  final asset = File('${outputDir.path}/true_extreme_01.json');
-  final payload = <String, Object?>{
-    'schemaVersion': 1,
-    'contentVersion': _contentVersion,
-    'generatedAt': _generatedAt,
-    'generatorVersion': _generatorVersion,
-    'validatorVersion': _validatorVersion,
-    'solverVersion': _solverVersion,
-    'contentSource':
-        'deterministic true-extreme generator seed $_seed; unique low-clue '
-        'puzzles beyond current Orbace teaching hint solver',
-    'curationStrategy':
-        'true extreme: unique solution, 24 or fewer clues, current human '
-        'hint solver cannot complete, search score >= 900',
-    'milestoneEvery': 10,
-    'id': 'true_extreme',
-    'puzzles': puzzles.map((puzzle) => puzzle.toJson()).toList(),
-  };
-  asset.writeAsStringSync(
-    '${const JsonEncoder.withIndent('  ').convert(payload)}\n',
-  );
+  final contentSource =
+      'deterministic true-extreme generator seed $_seed; unique low-clue '
+      'puzzles beyond current Orbace teaching hint solver';
+  const curationStrategy =
+      'true extreme: unique solution, 24 or fewer clues, current human '
+      'hint solver cannot complete, search score >= 900';
+  final batchCount = (puzzles.length / _batchSize).ceil();
+  for (var batchIndex = 0; batchIndex < batchCount; batchIndex++) {
+    final start = batchIndex * _batchSize;
+    final end = min(start + _batchSize, puzzles.length);
+    final asset = File(
+      '${outputDir.path}/true_extreme_${(batchIndex + 1).toString().padLeft(2, '0')}.json',
+    );
+    final payload = <String, Object?>{
+      'schemaVersion': 1,
+      'contentVersion': _contentVersion,
+      'generatedAt': _generatedAt,
+      'generatorVersion': _generatorVersion,
+      'validatorVersion': _validatorVersion,
+      'solverVersion': _solverVersion,
+      'contentSource': contentSource,
+      'curationStrategy': curationStrategy,
+      'milestoneEvery': 10,
+      'id': 'true_extreme',
+      'batchIndex': batchIndex + 1,
+      'batchCount': batchCount,
+      'puzzles': puzzles
+          .sublist(start, end)
+          .map((puzzle) => puzzle.toJson())
+          .toList(),
+    };
+    asset.writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(payload)}\n',
+    );
+  }
 
   final reportDir = Directory('Docs/exports')..createSync(recursive: true);
   File(
@@ -240,7 +262,7 @@ void _writePack(
     '${reportDir.path}/true_extreme_pack_2026-07-02.csv',
   ).writeAsStringSync(_csv(audits));
 
-  stdout.writeln('Wrote ${asset.path}');
+  stdout.writeln('Wrote $batchCount true_extreme batch file(s)');
   stdout.writeln('Wrote Docs/exports/true_extreme_pack_audit_2026-07-02.json');
   stdout.writeln('Wrote Docs/exports/true_extreme_pack_2026-07-02.csv');
 }

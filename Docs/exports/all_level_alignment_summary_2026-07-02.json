@@ -4,7 +4,7 @@
   "manifestPuzzleCount": 1800,
   "trueExtremeCount": 100,
   "integrityFailureCount": 1,
-  "teachingAlignedCount": 963,
+  "teachingAlignedCount": 1530,
   "teachingPuzzleCount": 1800,
   "trueExtremeAlignedCount": 99,
   "packs": [
@@ -65,16 +65,15 @@
       "title": "Insight",
       "difficultyBand": "medium",
       "count": 360,
-      "alignedCount": 62,
+      "alignedCount": 360,
       "storedDifficultyCounts": {
         "medium": 360
       },
       "reratedDifficultyCounts": {
-        "easy": 298,
-        "medium": 62
+        "medium": 360
       },
-      "scoreRange": "145-168",
-      "clueRange": "31-37",
+      "scoreRange": "145-180",
+      "clueRange": "29-34",
       "integrityFailureCount": 0
     },
     {
@@ -82,17 +81,15 @@
       "title": "Mastery",
       "difficultyBand": "hard",
       "count": 270,
-      "alignedCount": 1,
+      "alignedCount": 270,
       "storedDifficultyCounts": {
         "hard": 270
       },
       "reratedDifficultyCounts": {
-        "medium": 123,
-        "easy": 146,
-        "hard": 1
+        "hard": 270
       },
-      "scoreRange": "185-185",
-      "clueRange": "28-34",
+      "scoreRange": "196-240",
+      "clueRange": "25-30",
       "integrityFailureCount": 0
     },
     {

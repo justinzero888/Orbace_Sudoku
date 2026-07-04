@@ -1,0 +1,736 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.07.true-extreme.001",
+  "generatedAt": "2026-07-02",
+  "generatorVersion": "true-extreme-generator-1.0.0",
+  "validatorVersion": "true-extreme-validator-1.0.0",
+  "solverVersion": "search-complexity-solver-1.0.0",
+  "contentSource": "deterministic true-extreme generator seed 20260702; unique low-clue puzzles beyond current Orbace teaching hint solver",
+  "curationStrategy": "true extreme: unique solution, 24 or fewer clues, current human hint solver cannot complete, search score >= 900",
+  "milestoneEvery": 10,
+  "id": "true_extreme",
+  "batchIndex": 3,
+  "batchCount": 5,
+  "puzzles": [
+    {
+      "id": "true_extreme_041",
+      "title": "True Extreme 41",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1128,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "360000720",
+        "007000000",
+        "200000040",
+        "700504001",
+        "010820906",
+        "006000000",
+        "000409000",
+        "802000400",
+        "000030090"
+      ],
+      "solutionRows": [
+        "361945728",
+        "947682513",
+        "258713649",
+        "729564381",
+        "413827956",
+        "586391274",
+        "135479862",
+        "892156437",
+        "674238195"
+      ]
+    },
+    {
+      "id": "true_extreme_042",
+      "title": "True Extreme 42",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1071,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "009008000",
+        "000700000",
+        "400600003",
+        "020009040",
+        "978000005",
+        "500000010",
+        "000370000",
+        "032500800",
+        "000001004"
+      ],
+      "solutionRows": [
+        "369418752",
+        "215793486",
+        "487625193",
+        "621859347",
+        "978134625",
+        "543267918",
+        "894372561",
+        "132546879",
+        "756981234"
+      ]
+    },
+    {
+      "id": "true_extreme_043",
+      "title": "True Extreme 43",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1784,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000009040",
+        "080000000",
+        "500020000",
+        "090000325",
+        "003004000",
+        "000000800",
+        "700000010",
+        "410750900",
+        "006090000"
+      ],
+      "solutionRows": [
+        "632819547",
+        "987645231",
+        "541327689",
+        "894176325",
+        "273584196",
+        "165932874",
+        "759268413",
+        "418753962",
+        "326491758"
+      ]
+    },
+    {
+      "id": "true_extreme_044",
+      "title": "True Extreme 44",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1071,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "007000008",
+        "000007090",
+        "000502001",
+        "050000006",
+        "100020000",
+        "300608070",
+        "040200065",
+        "006405020",
+        "000000900"
+      ],
+      "solutionRows": [
+        "437169258",
+        "521847693",
+        "689532741",
+        "752913486",
+        "168724539",
+        "394658172",
+        "943271865",
+        "816495327",
+        "275386914"
+      ]
+    },
+    {
+      "id": "true_extreme_045",
+      "title": "True Extreme 45",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1272,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000009800",
+        "952030000",
+        "006001000",
+        "000003100",
+        "000060300",
+        "007000008",
+        "204007000",
+        "370008004",
+        "000014050"
+      ],
+      "solutionRows": [
+        "143579862",
+        "952836471",
+        "786421539",
+        "469783125",
+        "821965347",
+        "537142698",
+        "214357986",
+        "375698214",
+        "698214753"
+      ]
+    },
+    {
+      "id": "true_extreme_046",
+      "title": "True Extreme 46",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 967,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "800000000",
+        "204000050",
+        "010070000",
+        "009860020",
+        "000090801",
+        "005001006",
+        "400200000",
+        "060080090",
+        "008004300"
+      ],
+      "solutionRows": [
+        "857942163",
+        "294136758",
+        "316578249",
+        "139867524",
+        "642395871",
+        "785421936",
+        "473219685",
+        "561783492",
+        "928654317"
+      ]
+    },
+    {
+      "id": "true_extreme_047",
+      "title": "True Extreme 47",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1379,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "100000620",
+        "000004000",
+        "008203000",
+        "870000000",
+        "006070801",
+        "000005000",
+        "000090700",
+        "400050008",
+        "095000040"
+      ],
+      "solutionRows": [
+        "134789625",
+        "267514389",
+        "958263417",
+        "872136594",
+        "546972831",
+        "319845276",
+        "683491752",
+        "421357968",
+        "795628143"
+      ]
+    },
+    {
+      "id": "true_extreme_048",
+      "title": "True Extreme 48",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 936,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "190008000",
+        "000010070",
+        "570000004",
+        "405000100",
+        "000004200",
+        "000690000",
+        "000050320",
+        "800000400",
+        "040000000"
+      ],
+      "solutionRows": [
+        "196748532",
+        "324519876",
+        "578326914",
+        "435872169",
+        "967134285",
+        "281695743",
+        "619457328",
+        "853261497",
+        "742983651"
+      ]
+    },
+    {
+      "id": "true_extreme_049",
+      "title": "True Extreme 49",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1302,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "005000000",
+        "020080930",
+        "300200040",
+        "001004000",
+        "000000000",
+        "500003280",
+        "000790100",
+        "700000000",
+        "030016709"
+      ],
+      "solutionRows": [
+        "675349812",
+        "124685937",
+        "398271546",
+        "961824375",
+        "283157694",
+        "547963281",
+        "456798123",
+        "719532468",
+        "832416759"
+      ]
+    },
+    {
+      "id": "true_extreme_050",
+      "title": "True Extreme 50",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 2295,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000050001",
+        "000001560",
+        "100304000",
+        "209000005",
+        "000005080",
+        "000030920",
+        "604000000",
+        "080093200",
+        "900000030"
+      ],
+      "solutionRows": [
+        "326859471",
+        "498271563",
+        "175364892",
+        "269718345",
+        "743925186",
+        "851436927",
+        "634182759",
+        "587693214",
+        "912547638"
+      ]
+    },
+    {
+      "id": "true_extreme_051",
+      "title": "True Extreme 51",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1274,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "086000002",
+        "000000800",
+        "002060530",
+        "000000000",
+        "009006008",
+        "000270051",
+        "040000005",
+        "800504600",
+        "000019020"
+      ],
+      "solutionRows": [
+        "586391742",
+        "394752816",
+        "712468539",
+        "137985264",
+        "259146378",
+        "468273951",
+        "943627185",
+        "821534697",
+        "675819423"
+      ]
+    },
+    {
+      "id": "true_extreme_052",
+      "title": "True Extreme 52",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1029,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "003004000",
+        "042100500",
+        "000030010",
+        "014000760",
+        "000200009",
+        "790000000",
+        "007028040",
+        "800000090",
+        "000000602"
+      ],
+      "solutionRows": [
+        "163594278",
+        "942187536",
+        "578632914",
+        "214859763",
+        "386271459",
+        "795346821",
+        "637928145",
+        "821465397",
+        "459713682"
+      ]
+    },
+    {
+      "id": "true_extreme_053",
+      "title": "True Extreme 53",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1022,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000000030",
+        "000020007",
+        "080306900",
+        "305000006",
+        "072001040",
+        "000000000",
+        "000070400",
+        "100045008",
+        "560030000"
+      ],
+      "solutionRows": [
+        "429817635",
+        "653924187",
+        "781356924",
+        "315482796",
+        "972561843",
+        "846793512",
+        "238679451",
+        "197245368",
+        "564138279"
+      ]
+    },
+    {
+      "id": "true_extreme_054",
+      "title": "True Extreme 54",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1012,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000000013",
+        "507000002",
+        "002000900",
+        "090005020",
+        "008600100",
+        "000070600",
+        "000002030",
+        "906000000",
+        "800350009"
+      ],
+      "solutionRows": [
+        "469728513",
+        "587931462",
+        "312564978",
+        "694815327",
+        "278643195",
+        "153279684",
+        "745192836",
+        "936487251",
+        "821356749"
+      ]
+    },
+    {
+      "id": "true_extreme_055",
+      "title": "True Extreme 55",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1430,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "002500840",
+        "080300000",
+        "049000020",
+        "100003080",
+        "000000005",
+        "060002000",
+        "700000100",
+        "030001400",
+        "090070000"
+      ],
+      "solutionRows": [
+        "312597846",
+        "687324519",
+        "549618723",
+        "125763984",
+        "873149265",
+        "964852371",
+        "758436192",
+        "236981457",
+        "491275638"
+      ]
+    },
+    {
+      "id": "true_extreme_056",
+      "title": "True Extreme 56",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1122,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000430019",
+        "050800000",
+        "400000800",
+        "063000020",
+        "000090060",
+        "000370090",
+        "005200000",
+        "080000000",
+        "100000635"
+      ],
+      "solutionRows": [
+        "876435219",
+        "351829476",
+        "492761853",
+        "963548721",
+        "547192368",
+        "218376594",
+        "635214987",
+        "789653142",
+        "124987635"
+      ]
+    },
+    {
+      "id": "true_extreme_057",
+      "title": "True Extreme 57",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1606,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000000100",
+        "000040032",
+        "290006000",
+        "040000000",
+        "000020070",
+        "100068009",
+        "009000045",
+        "400300800",
+        "030009000"
+      ],
+      "solutionRows": [
+        "384297156",
+        "675841932",
+        "291536784",
+        "742953618",
+        "968124573",
+        "153768429",
+        "819672345",
+        "426315897",
+        "537489261"
+      ]
+    },
+    {
+      "id": "true_extreme_058",
+      "title": "True Extreme 58",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1240,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "004070100",
+        "190080000",
+        "700000508",
+        "000910600",
+        "000000000",
+        "300400090",
+        "005000000",
+        "800000002",
+        "000765800"
+      ],
+      "solutionRows": [
+        "584673129",
+        "192584376",
+        "736192548",
+        "247918635",
+        "659237481",
+        "318456297",
+        "475821963",
+        "861349752",
+        "923765814"
+      ]
+    },
+    {
+      "id": "true_extreme_059",
+      "title": "True Extreme 59",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1124,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "001004700",
+        "000902380",
+        "000000000",
+        "580000200",
+        "000060004",
+        "406003000",
+        "012005900",
+        "000000060",
+        "800090500"
+      ],
+      "solutionRows": [
+        "351684729",
+        "764912385",
+        "298537641",
+        "589471236",
+        "137269854",
+        "426853197",
+        "612345978",
+        "975128463",
+        "843796512"
+      ]
+    },
+    {
+      "id": "true_extreme_060",
+      "title": "True Extreme 60",
+      "seal": "\u6975",
+      "difficulty": "extreme",
+      "difficultyScore": 1760,
+      "targetTimeSeconds": 1800,
+      "medianTimeSeconds": 2400,
+      "requiredTechniques": [
+        "advanced_search",
+        "beyond_current_hint_solver"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "006208000",
+        "480010032",
+        "000000070",
+        "070000000",
+        "200000400",
+        "003000197",
+        "604090200",
+        "000004000",
+        "000031060"
+      ],
+      "solutionRows": [
+        "736258941",
+        "485917632",
+        "192346875",
+        "571489326",
+        "269173458",
+        "843562197",
+        "614795283",
+        "358624719",
+        "927831564"
+      ]
+    }
+  ]
+}

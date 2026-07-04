@@ -165,7 +165,7 @@ class _PackBrowserState extends State<_PackBrowser> {
               ),
             ),
             const SizedBox(height: 6),
-            for (final pack in widget.catalog.packs) ...[
+            for (final pack in widget.catalog.packs.where((p) => !p.hidden)) ...[
               _PackSection(
                 key: ValueKey('${pack.id}-$_collapseGeneration'),
                 repository: widget.repository,

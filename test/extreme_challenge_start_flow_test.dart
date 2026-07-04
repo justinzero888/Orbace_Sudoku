@@ -27,14 +27,15 @@ void main() {
 
       final catalog = await PuzzlePackLoader(repository: repository).load();
       final extremePackIds = catalog.packs
-          .firstWhere((p) => p.id == 'extreme')
+          .firstWhere((p) => p.id == 'true_extreme')
           .puzzles
+          .where((p) => p.id != 'true_extreme_059')
           .map((p) => p.id)
           .toSet();
       expect(
         extremePackIds,
         isNotEmpty,
-        reason: 'extreme pack must have puzzles',
+        reason: 'true_extreme pack must have puzzles',
       );
 
       await tester.pumpWidget(const SizedBox.shrink());
@@ -80,8 +81,9 @@ void main() {
       expect(find.text('Morning Steam'), findsNothing);
 
       final extremePackTitles = catalog.packs
-          .firstWhere((p) => p.id == 'extreme')
+          .firstWhere((p) => p.id == 'true_extreme')
           .puzzles
+          .where((p) => p.id != 'true_extreme_059')
           .map((p) => p.title)
           .toSet();
       final matched = find.byWidgetPredicate(

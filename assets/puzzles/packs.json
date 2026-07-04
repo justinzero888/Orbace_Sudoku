@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "2026.06.003",
+  "contentVersion": "2026.07.001",
   "generatedAt": "2026-06-21",
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621; duplicate-solution repair seed 20260622",
+  "contentSource": "deterministic production generator seed 20260621; single-pack batch for mastery",
   "packs": [
     {
       "id": "tea_moments",
       "title": "Tea Moments",
       "subtitle": "Daily calm practice",
-      "seal": "茶",
+      "seal": "\u8336",
       "description": "Daily warmups and low-friction calm solves.",
       "asset": "assets/puzzles/tea_moments/tea_moments_01.json",
       "order": 0,
@@ -28,7 +28,7 @@
       "id": "foundation",
       "title": "Foundation",
       "subtitle": "Build scanning confidence",
-      "seal": "基",
+      "seal": "\u57fa",
       "description": "Core beginner puzzles focused on singles and clean solves.",
       "asset": "assets/puzzles/foundation/foundation_01.json",
       "order": 1,
@@ -48,7 +48,7 @@
       "id": "discipline",
       "title": "Discipline",
       "subtitle": "Steady note discipline",
-      "seal": "習",
+      "seal": "\u7fd2",
       "description": "Easy puzzles that train consistency and light candidates.",
       "asset": "assets/puzzles/discipline/discipline_01.json",
       "order": 2,
@@ -68,13 +68,9 @@
       "id": "insight",
       "title": "Insight",
       "subtitle": "Pattern recognition",
-      "seal": "悟",
+      "seal": "\u609f",
       "description": "Medium puzzles focused on pairs and pointing eliminations.",
       "asset": "assets/puzzles/insight/insight_01.json",
-      "order": 3,
-      "difficultyBand": "medium",
-      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10,
       "assets": [
         "assets/puzzles/insight/insight_01.json",
         "assets/puzzles/insight/insight_02.json",
@@ -82,32 +78,36 @@
         "assets/puzzles/insight/insight_04.json",
         "assets/puzzles/insight/insight_05.json",
         "assets/puzzles/insight/insight_06.json"
-      ]
+      ],
+      "order": 3,
+      "difficultyBand": "medium",
+      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+      "milestoneEvery": 10
     },
     {
       "id": "mastery",
       "title": "Mastery",
       "subtitle": "Hard technique practice",
-      "seal": "熟",
+      "seal": "\u6975",
       "description": "Hard puzzles for advanced human-logic practice.",
       "asset": "assets/puzzles/mastery/mastery_01.json",
-      "order": 4,
-      "difficultyBand": "hard",
-      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10,
       "assets": [
         "assets/puzzles/mastery/mastery_01.json",
         "assets/puzzles/mastery/mastery_02.json",
         "assets/puzzles/mastery/mastery_03.json",
         "assets/puzzles/mastery/mastery_04.json",
         "assets/puzzles/mastery/mastery_05.json"
-      ]
+      ],
+      "order": 4,
+      "difficultyBand": "hard",
+      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+      "milestoneEvery": 10
     },
     {
       "id": "extreme",
       "title": "Expert Challenge",
       "subtitle": "Ranked challenge seeds",
-      "seal": "榜",
+      "seal": "\u699c",
       "description": "Expert challenge candidates for no-assist ranked play.",
       "asset": "assets/puzzles/extreme/extreme_01.json",
       "order": 5,
@@ -120,6 +120,26 @@
         "assets/puzzles/extreme/extreme_03.json",
         "assets/puzzles/extreme/extreme_04.json",
         "assets/puzzles/extreme/extreme_05.json"
+      ]
+    },
+    {
+      "id": "true_extreme",
+      "title": "True Extreme",
+      "subtitle": "Daily expert source",
+      "seal": "\u6975",
+      "description": "Reserved no-hint puzzle pool for Daily Extreme Challenge and final production validation. Not browsable as a Level Pack.",
+      "asset": "assets/puzzles/true_extreme/true_extreme_01.json",
+      "order": 6,
+      "difficultyBand": "extreme",
+      "curationStrategy": "true extreme: unique solution, 24 or fewer clues, current human hint solver cannot complete, search score >= 900",
+      "milestoneEvery": 10,
+      "hidden": true,
+      "assets": [
+        "assets/puzzles/true_extreme/true_extreme_01.json",
+        "assets/puzzles/true_extreme/true_extreme_02.json",
+        "assets/puzzles/true_extreme/true_extreme_03.json",
+        "assets/puzzles/true_extreme/true_extreme_04.json",
+        "assets/puzzles/true_extreme/true_extreme_05.json"
       ]
     }
   ]
