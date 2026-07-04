@@ -4,11 +4,11 @@ Date: 2026-07-02
 
 ## Executive Summary
 
-- Total current puzzle assets audited: 1900.
-- Manifest/catalog puzzles: 1800.
+- Total current puzzle assets audited: 1720.
+- Manifest/catalog puzzles: 1620.
 - Standalone true extreme puzzles: 100.
 - Sudoku integrity failures: 1.
-- Teaching-pack exact level alignment: 1530/1800.
+- Teaching-pack exact level alignment: 1620/1620.
 - True-extreme alignment: 99/100.
 
 ## Pack Summary
@@ -20,7 +20,7 @@ Date: 2026-07-02
 | Discipline (`discipline`) | easy | 360 | easy: 346, medium: 14 | easy: 346, medium: 14 | 110-159 | 34-38 | 360/360 | 0 |
 | Insight (`insight`) | medium | 360 | medium: 360 | medium: 360 | 145-180 | 29-34 | 360/360 | 0 |
 | Mastery (`mastery`) | hard | 270 | hard: 270 | hard: 270 | 196-240 | 25-30 | 270/270 | 0 |
-| Expert Challenge (`extreme`) | expert | 270 | expert: 270 | easy: 97, medium: 168, hard: 5 | 220-220 | 26-38 | 0/270 | 0 |
+| Expert Challenge (`extreme`) | expert | 90 | expert: 90 | expert: 90 | 246-296 | 22-27 | 90/90 | 0 |
 | True Extreme (`true_extreme`) | extreme | 100 | extreme: 100 | beyond_hint_solver: 99, hard: 1 | 903-4338 | 20-24 | 99/100 | 1 |
 
 ## Interpretation

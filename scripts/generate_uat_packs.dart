@@ -15,7 +15,14 @@ const String _generatedAt = '2026-06-21';
 const String _generatorVersion = 'sudoku-pack-generator-1.2.0';
 const String _validatorVersion = 'sudoku-pack-validator-1.1.0';
 const String _solverVersion = 'human-solver-1.0.0';
-const int _productionBatchSize = 60;
+// Keeps each batch file safely under Flutter's 50KB loadString() threshold
+// (see lib/src/features/sudoku/data/puzzle_pack_loader.dart) -- above that
+// size, decoding is dispatched to a background isolate via compute(),
+// which never resolves inside a testWidgets fake-async clock and hangs
+// widget tests indefinitely. 60 was previously fine for insight/mastery's
+// per-puzzle byte size but was too tight for extreme's slightly larger
+// entries (60 puzzles landed at ~52KB); 40 keeps real margin for any pack.
+const int _productionBatchSize = 40;
 
 void main(List<String> args) {
   final productionMode = args.contains('--production');

@@ -5,7 +5,7 @@
   "generatorVersion": "sudoku-pack-generator-1.2.0",
   "validatorVersion": "sudoku-pack-validator-1.1.0",
   "solverVersion": "human-solver-1.0.0",
-  "contentSource": "deterministic production generator seed 20260621; single-pack batch for mastery",
+  "contentSource": "deterministic production generator seed 20260621; single-pack batch for extreme",
   "packs": [
     {
       "id": "tea_moments",
@@ -110,17 +110,15 @@
       "seal": "\u699c",
       "description": "Expert challenge candidates for no-assist ranked play.",
       "asset": "assets/puzzles/extreme/extreme_01.json",
-      "order": 5,
-      "difficultyBand": "expert",
-      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
-      "milestoneEvery": 10,
       "assets": [
         "assets/puzzles/extreme/extreme_01.json",
         "assets/puzzles/extreme/extreme_02.json",
-        "assets/puzzles/extreme/extreme_03.json",
-        "assets/puzzles/extreme/extreme_04.json",
-        "assets/puzzles/extreme/extreme_05.json"
-      ]
+        "assets/puzzles/extreme/extreme_03.json"
+      ],
+      "order": 5,
+      "difficultyBand": "expert",
+      "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
+      "milestoneEvery": 10
     },
     {
       "id": "true_extreme",
