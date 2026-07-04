@@ -28,6 +28,7 @@ class SudokuDifficultyRater {
         'naked_pair' => 6,
         'hidden_pair' => 8,
         'pointing_pair' => 8,
+        'x_wing' => 16,
         _ => 10,
       };
     }

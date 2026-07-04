@@ -86,6 +86,8 @@ class _PackBrowser extends StatefulWidget {
 
 class _PackBrowserState extends State<_PackBrowser> {
   late Future<_PackProgressSummary> _progressFuture = _loadProgressSummary();
+  bool? _forcedExpanded;
+  int _collapseGeneration = 0;
 
   Future<_PackProgressSummary> _loadProgressSummary() async {
     final repository = widget.repository;
@@ -100,6 +102,13 @@ class _PackBrowserState extends State<_PackBrowser> {
   void _refreshProgress() {
     setState(() {
       _progressFuture = _loadProgressSummary();
+    });
+  }
+
+  void _toggleCollapseAll() {
+    setState(() {
+      _forcedExpanded = _forcedExpanded == false;
+      _collapseGeneration++;
     });
   }
 
@@ -140,14 +149,33 @@ class _PackBrowserState extends State<_PackBrowser> {
                 color: OrbaceTheme.mutedInk,
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: _toggleCollapseAll,
+                icon: Icon(
+                  _forcedExpanded == false
+                      ? Icons.unfold_more
+                      : Icons.unfold_less,
+                ),
+                label: Text(
+                  _forcedExpanded == false ? 'Expand All' : 'Collapse All',
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
             for (final pack in widget.catalog.packs) ...[
               _PackSection(
+                key: ValueKey('${pack.id}-$_collapseGeneration'),
                 repository: widget.repository,
                 catalog: widget.catalog,
                 pack: pack,
                 progress: progress,
                 onProgressChanged: _refreshProgress,
+                initiallyExpanded:
+                    _forcedExpanded ??
+                    (pack.id == 'tea_moments' || pack.id == 'mastery'),
               ),
               const SizedBox(height: 12),
             ],
@@ -160,11 +188,13 @@ class _PackBrowserState extends State<_PackBrowser> {
 
 class _PackSection extends StatelessWidget {
   const _PackSection({
+    super.key,
     required this.repository,
     required this.catalog,
     required this.pack,
     required this.progress,
     required this.onProgressChanged,
+    required this.initiallyExpanded,
   });
 
   final SudokuRepository? repository;
@@ -172,6 +202,7 @@ class _PackSection extends StatelessWidget {
   final PuzzlePackDefinition pack;
   final _PackProgressSummary progress;
   final VoidCallback onProgressChanged;
+  final bool initiallyExpanded;
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +215,7 @@ class _PackSection extends StatelessWidget {
 
     return Card(
       child: ExpansionTile(
-        initiallyExpanded: pack.id == 'tea_moments' || pack.id == 'mastery',
+        initiallyExpanded: initiallyExpanded,
         tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
         leading: Container(
@@ -460,7 +491,8 @@ bool _hasAdvancedTechnique(FixturePuzzleDefinition puzzle) {
     (technique) =>
         technique == 'naked_pair' ||
         technique == 'hidden_pair' ||
-        technique == 'pointing_pair',
+        technique == 'pointing_pair' ||
+        technique == 'x_wing',
   );
 }
 

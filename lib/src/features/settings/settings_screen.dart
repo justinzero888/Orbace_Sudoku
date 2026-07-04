@@ -3,14 +3,24 @@ import 'package:flutter/material.dart';
 import '../../app/ad_consent_service.dart';
 import '../../app/ad_mob_bottom_banner.dart';
 import '../../app/orbace_theme.dart';
+import 'about_screen.dart';
+import 'help_screen.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        leading: const BackButton(),
+        title: const Text('Settings'),
+      ),
       bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
         child: ListView(
@@ -25,13 +35,13 @@ class SettingsScreen extends StatelessWidget {
               onTap: () => _showPolicy(
                 context,
                 title: 'Privacy Policy',
-                body: '''Privacy Policy for Orbace Sudoku
+                body: '''Privacy Policy for Orbace Sudocoo
 Effective Date: June 2026
 
-At Orbace Sudoku, we value your privacy. This Privacy Policy explains how data is handled within our application.
+At Orbace Sudocoo, we value your privacy. This Privacy Policy explains how data is handled within our application.
 
 1. Personal Data and Cloud Storage
-Orbace Sudoku does not collect, store, or transmit any personal data (such as your name, email address, or contact information) to any external servers. Your data is stored locally on your device.
+Orbace Sudocoo does not collect, store, or transmit any personal data (such as your name, email address, or contact information) to any external servers. Your data is stored locally on your device.
 
 2. Third-Party Advertising (Google AdMob)
 To keep this application free to play, we use Google AdMob to display advertisements. To serve relevant ads and comply with global regulations, Google AdMob utilizes SDKs that may automatically collect and process certain device data, including:
@@ -71,7 +81,23 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
                 context,
                 title: 'Terms of Use',
                 body:
-                    'By using Orbace Sudoku you agree to these terms. Orbace Sudoku is published by Orbace Technologies LLC.\n\nAll puzzle content, game logic, scoring systems, and design are the intellectual property of Orbace Technologies LLC. Imported puzzles are for personal, non-commercial use only.\n\nThe app is provided as-is without warranty. Orbace Technologies LLC is not liable for data loss or device issues arising from use of the app.\n\nFor questions, contact: legal@orbace.com',
+                    'By using Orbace Sudocoo you agree to these terms. Orbace Sudocoo is published by Orbace Technologies LLC.\n\nAll puzzle content, game logic, scoring systems, and design are the intellectual property of Orbace Technologies LLC. Imported puzzles are for personal, non-commercial use only.\n\nThe app is provided as-is without warranty. Orbace Technologies LLC is not liable for data loss or device issues arising from use of the app.\n\nFor questions, contact: legal@orbace.com',
+              ),
+            ),
+            _SettingsTile(
+              icon: Icons.info_outline,
+              title: 'About',
+              subtitle: 'Version and copyright information',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const AboutScreen()),
+              ),
+            ),
+            _SettingsTile(
+              icon: Icons.help_outline,
+              title: 'Help',
+              subtitle: 'User guide and support',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const HelpScreen()),
               ),
             ),
           ],
@@ -90,7 +116,13 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
       builder: (context) {
         return AlertDialog(
           title: Text(title),
-          content: Text(body),
+          content: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(context).height * 0.62,
+              maxWidth: 520,
+            ),
+            child: SingleChildScrollView(child: Text(body)),
+          ),
           actions: [
             TextButton(
               onPressed: Navigator.of(context).pop,
@@ -118,7 +150,7 @@ class _SettingsHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Orbace Sudoku',
+              'Orbace Sudocoo',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 6),

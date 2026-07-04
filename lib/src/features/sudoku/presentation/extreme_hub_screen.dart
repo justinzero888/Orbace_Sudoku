@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
 import '../data/app_database.dart';
+import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
+import '../domain/daily_tea_moment.dart';
 import '../domain/extreme_challenge.dart';
 import '../engine/award_engine.dart';
+import 'fixture_puzzles.dart';
+import 'sudoku_game_screen.dart';
 
 class ExtremeHubScreen extends StatefulWidget {
-  const ExtremeHubScreen({super.key, this.repository});
+  const ExtremeHubScreen({super.key, this.repository, this.catalog});
 
   final SudokuRepository? repository;
+  final PuzzlePackCatalog? catalog;
 
   @override
   State<ExtremeHubScreen> createState() => _ExtremeHubScreenState();
@@ -59,7 +64,12 @@ class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
               children: [
                 _LockCard(unlocked: state.unlocked),
                 const SizedBox(height: 12),
-                _ChallengeCard(unlocked: state.unlocked),
+                _ChallengeCard(
+                  unlocked: state.unlocked,
+                  repository: widget.repository,
+                  catalog: state.catalog,
+                  puzzle: state.puzzle,
+                ),
                 const SizedBox(height: 12),
                 _LocalBestsCard(state: state),
               ],
@@ -74,11 +84,39 @@ class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
     final attempts = await _repository.allAttempts();
     final summary = const AwardEngine().evaluate(attempts);
     final ranked = await _repository.rankedAttempts();
+    final catalog =
+        widget.catalog ??
+        await PuzzlePackLoader(repository: widget.repository).load();
     return _ExtremeHubState(
       unlocked: summary.extremeUnlocked,
       rankedAttemptCount: ranked.length,
       bestScore: ranked.isEmpty ? null : ranked.first.score?.total,
+      catalog: catalog,
+      puzzle: _resolveDailyExtremePuzzle(catalog),
     );
+  }
+
+  FixturePuzzleDefinition _resolveDailyExtremePuzzle(
+    PuzzlePackCatalog catalog,
+  ) {
+    final trueExtremePack = catalog.packs
+        .where((pack) => pack.id == 'true_extreme')
+        .firstOrNull;
+    final expertPack = catalog.packs
+        .where((pack) => pack.id == 'extreme')
+        .firstOrNull;
+    final puzzles =
+        trueExtremePack?.puzzles
+            .where((puzzle) => puzzle.id != 'true_extreme_059')
+            .toList(growable: false) ??
+        expertPack?.puzzles ??
+        catalog.puzzles;
+    final puzzleIds = puzzles.map((puzzle) => puzzle.id).toList();
+    final daily = const DailyTeaMomentSelector().forDate(
+      DateTime.now(),
+      puzzleIds,
+    );
+    return catalog.byId(daily.puzzleId);
   }
 }
 
@@ -87,11 +125,15 @@ class _ExtremeHubState {
     required this.unlocked,
     required this.rankedAttemptCount,
     required this.bestScore,
+    required this.catalog,
+    required this.puzzle,
   });
 
   final bool unlocked;
   final int rankedAttemptCount;
   final int? bestScore;
+  final PuzzlePackCatalog catalog;
+  final FixturePuzzleDefinition puzzle;
 }
 
 class _LockCard extends StatelessWidget {
@@ -114,8 +156,8 @@ class _LockCard extends StatelessWidget {
             Expanded(
               child: Text(
                 unlocked
-                    ? 'Extreme is unlocked for local no-assist challenges.'
-                    : 'Complete Scholar\'s Path Stage 3: Insight to unlock Extreme.',
+                    ? 'Extreme Challenge is unlocked for local no-assist play.'
+                    : 'Complete Scholar\'s Path Stage 3: Insight to unlock Extreme Challenge.',
               ),
             ),
           ],
@@ -126,9 +168,17 @@ class _LockCard extends StatelessWidget {
 }
 
 class _ChallengeCard extends StatelessWidget {
-  const _ChallengeCard({required this.unlocked});
+  const _ChallengeCard({
+    required this.unlocked,
+    required this.repository,
+    required this.catalog,
+    required this.puzzle,
+  });
 
   final bool unlocked;
+  final SudokuRepository? repository;
+  final PuzzlePackCatalog catalog;
+  final FixturePuzzleDefinition puzzle;
 
   @override
   Widget build(BuildContext context) {
@@ -149,9 +199,21 @@ class _ChallengeCard extends StatelessWidget {
             Text('Rules: no hints, no auto-check, no retries for ranking.'),
             const SizedBox(height: 12),
             FilledButton.icon(
-              onPressed: unlocked ? () {} : null,
+              onPressed: unlocked
+                  ? () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => SudokuGameScreen(
+                            repository: repository,
+                            puzzle: puzzle,
+                            catalog: catalog,
+                          ),
+                        ),
+                      );
+                    }
+                  : null,
               icon: const Icon(Icons.bolt),
-              label: Text(unlocked ? 'Start Local Extreme' : 'Locked'),
+              label: Text(unlocked ? 'Start Extreme Challenge' : 'Locked'),
             ),
           ],
         ),

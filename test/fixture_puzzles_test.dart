@@ -44,7 +44,7 @@ void main() {
     }
   });
 
-  test('asset catalog is compatible with hint solve path', () async {
+  test('teaching asset catalog is compatible with hint solve path', () async {
     final catalog = await PuzzlePackLoader().load();
     final humanSolver = HumanRankedSolver();
 

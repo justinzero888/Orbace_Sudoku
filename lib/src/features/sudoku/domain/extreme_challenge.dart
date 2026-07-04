@@ -5,14 +5,12 @@ class ExtremeChallenge {
     required this.id,
     required this.title,
     required this.description,
-    required this.puzzleId,
     required this.unlockRequirement,
   });
 
   final String id;
   final String title;
   final String description;
-  final String puzzleId;
   final String unlockRequirement;
 }
 
@@ -28,9 +26,8 @@ class ExtremeChallengeService {
 
   static const ExtremeChallenge dailyExtreme = ExtremeChallenge(
     id: 'daily_extreme_local',
-    title: 'Daily Extreme',
-    description: 'A local no-assist challenge for qualified players.',
-    puzzleId: 'extreme_local_fixture',
+    title: 'Daily Extreme Challenge',
+    description: 'A local no-assist challenge using true extreme puzzles.',
     unlockRequirement: 'Complete Scholar\'s Path Stage 3: Insight',
   );
 

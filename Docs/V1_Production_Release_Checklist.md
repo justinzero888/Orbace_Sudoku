@@ -167,6 +167,16 @@ Orbace Sudoku V1 — official launch.
 ### Both Platforms
 - [ ] Run `flutter analyze` — zero issues
 - [ ] Run `flutter test` — all passing
+- [ ] Run `dart run scripts/validate_puzzle_packs.dart` — zero integrity failures
+- [ ] Run `dart run scripts/audit_level_alignment.dart` — production catalog aligns to approved level plan
+- [ ] Confirm production content target is 2,000 games: Tea Moments 200, Foundation 360, Discipline 360, Insight 360, Mastery 270, Expert Challenge 270, True Extreme 180
+- [ ] Confirm Insight, Mastery, and Expert Challenge were generated from 110% candidate pools and ship only 100% aligned puzzles
+- [ ] Confirm True Extreme uses the no-hint/no-assist validation path before it appears in app navigation
+- [ ] Confirm final production game-level audit and catalog sync: generated assets, `packs.json`, `pubspec.yaml`, Daily Expert Challenge source, Level Packs counts, and app UI all point to the same approved catalog
+- [ ] Confirm visible app naming uses Orbace Sudocoo while bundle IDs/package IDs remain unchanged
+- [ ] Confirm Home shows `一局一茶 · One Puzzle, One Tea`
+- [ ] Confirm Privacy Policy and Terms of Use dialogs scroll to the full text on iPhone and iPad
+- [ ] Confirm Score Card image includes the unsolved givens grid below the score and status tags fit at smaller font size
 - [ ] Smoke test on physical iOS device (Release mode)
 - [ ] Smoke test on physical Android device (Release mode)
 - [ ] Verify AdMob production unit IDs load real ads (not test ads) in release build

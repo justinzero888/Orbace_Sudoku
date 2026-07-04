@@ -11,6 +11,7 @@ import '../domain/sudoku_score_class.dart';
 import '../engine/local_ranking_engine.dart';
 import '../engine/score_calculator.dart';
 import 'fixture_puzzles.dart';
+import 'solution_comments_dialog.dart';
 import 'su_pu_compare_screen.dart';
 import 'sudoku_game_screen.dart';
 import 'sudoku_replay_screen.dart';
@@ -248,8 +249,8 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
                           await SharePlus.instance.share(
                             ShareParams(
                               files: [XFile(imageFile.path)],
-                              text: 'My Orbace Sudoku Su-Pu',
-                              subject: 'Orbace Sudoku Solve Record',
+                              text: 'My Orbace Sudocoo Su-Pu',
+                              subject: 'Orbace Sudocoo Solve Record',
                               sharePositionOrigin: _shareOrigin(),
                             ),
                           );
@@ -269,37 +270,10 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
   }
 
   Future<void> _editNotes(SudokuAttempt attempt) async {
-    final controller = TextEditingController(text: attempt.replayNotes ?? '');
-    final notes = await showDialog<String>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Ranking Notes · 谱评'),
-          content: TextField(
-            controller: controller,
-            autofocus: true,
-            minLines: 3,
-            maxLines: 6,
-            textInputAction: TextInputAction.newline,
-            decoration: const InputDecoration(
-              hintText: 'Add notes about difficulty, technique, or ranking.',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: Navigator.of(context).pop,
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(controller.text),
-              child: const Text('Save Notes'),
-            ),
-          ],
-        );
-      },
+    final notes = await showSolutionCommentsDialog(
+      context,
+      initialText: attempt.replayNotes ?? '',
     );
-    controller.dispose();
     if (notes == null) {
       return;
     }

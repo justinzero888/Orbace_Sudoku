@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Orbace Sudoku')),
+            appBar: AppBar(title: const Text('Orbace Sudocoo')),
             body: const Center(child: CircularProgressIndicator()),
           );
         }
@@ -81,7 +81,7 @@ class _HomeContent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orbace Sudoku'),
+        title: const Text('Orbace Sudocoo'),
         actions: [
           IconButton(
             tooltip: 'Settings',
@@ -99,7 +99,7 @@ class _HomeContent extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
           children: [
-            Text('一局一茶', style: textTheme.titleLarge),
+            Text('一局一茶 · One Puzzle, One Tea', style: textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
               'Today\'s Tea Moment is ${dailyPuzzle.title} (${daily.dayKey}). Solve calmly, use notes, undo moves, and ask the lantern for help.',
@@ -126,7 +126,7 @@ class _HomeContent extends StatelessWidget {
             if (repository != null) ...[
               _PhaseCard(
                 title: 'Import Puzzle',
-                subtitle: 'Paste or enter a personal Sudoku',
+                subtitle: 'Paste or enter a personal Sudocoo',
                 seal: '入',
                 onTap: () async {
                   await Navigator.of(context).push(
@@ -171,7 +171,7 @@ class _HomeContent extends StatelessWidget {
             const SizedBox(height: 12),
             _PhaseCard(
               title: 'Scholar\'s Path',
-              subtitle: 'Awards, replay, and local Extreme unlocks',
+              subtitle: 'Awards, replay, and local Expert unlocks',
               seal: '學',
               onTap: () {
                 Navigator.of(context).push(
@@ -189,7 +189,10 @@ class _HomeContent extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (_) => ExtremeHubScreen(repository: repository),
+                    builder: (_) => ExtremeHubScreen(
+                      repository: repository,
+                      catalog: catalog,
+                    ),
                   ),
                 );
               },
@@ -199,7 +202,6 @@ class _HomeContent extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _PhaseCard extends StatelessWidget {

@@ -9,6 +9,8 @@ import '../features/sudoku/data/sudoku_repository.dart';
 import '../features/sudoku/presentation/level_pack_screen.dart';
 import '../features/sudoku/presentation/record_hall_screen.dart';
 import '../features/sudoku/presentation/import_puzzle_screen.dart';
+import '../features/settings/about_screen.dart';
+import '../features/settings/help_screen.dart';
 import '../features/settings/settings_screen.dart';
 import 'orbace_theme.dart';
 
@@ -47,7 +49,7 @@ class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Orbace Sudoku',
+      title: 'Orbace Sudocoo',
       debugShowCheckedModeBanner: false,
       theme: OrbaceTheme.light(),
       themeMode: ThemeMode.light,
@@ -61,6 +63,8 @@ class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
       'level_packs' => LevelPackScreen(repository: _repository),
       'record_hall' => _RecordHallScreenshotScreen(repository: _repository),
       'settings' => const SettingsScreen(),
+      'about' => const AboutScreen(),
+      'help' => const HelpScreen(),
       _ => HomeScreen(repository: _repository),
     };
   }

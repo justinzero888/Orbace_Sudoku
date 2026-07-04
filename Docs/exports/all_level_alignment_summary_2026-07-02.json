@@ -1,0 +1,134 @@
+{
+  "date": "2026-07-02",
+  "totalPuzzles": 1900,
+  "manifestPuzzleCount": 1800,
+  "trueExtremeCount": 100,
+  "integrityFailureCount": 1,
+  "teachingAlignedCount": 963,
+  "teachingPuzzleCount": 1800,
+  "trueExtremeAlignedCount": 99,
+  "packs": [
+    {
+      "id": "tea_moments",
+      "title": "Tea Moments",
+      "difficultyBand": "beginner",
+      "count": 180,
+      "alignedCount": 180,
+      "storedDifficultyCounts": {
+        "beginner": 180
+      },
+      "reratedDifficultyCounts": {
+        "beginner": 180
+      },
+      "scoreRange": "78-86",
+      "clueRange": "40-42",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "difficultyBand": "beginner",
+      "count": 360,
+      "alignedCount": 360,
+      "storedDifficultyCounts": {
+        "beginner": 353,
+        "easy": 7
+      },
+      "reratedDifficultyCounts": {
+        "beginner": 353,
+        "easy": 7
+      },
+      "scoreRange": "82-97",
+      "clueRange": "37-40",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "discipline",
+      "title": "Discipline",
+      "difficultyBand": "easy",
+      "count": 360,
+      "alignedCount": 360,
+      "storedDifficultyCounts": {
+        "easy": 346,
+        "medium": 14
+      },
+      "reratedDifficultyCounts": {
+        "easy": 346,
+        "medium": 14
+      },
+      "scoreRange": "110-159",
+      "clueRange": "34-38",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "insight",
+      "title": "Insight",
+      "difficultyBand": "medium",
+      "count": 360,
+      "alignedCount": 62,
+      "storedDifficultyCounts": {
+        "medium": 360
+      },
+      "reratedDifficultyCounts": {
+        "easy": 298,
+        "medium": 62
+      },
+      "scoreRange": "145-168",
+      "clueRange": "31-37",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "mastery",
+      "title": "Mastery",
+      "difficultyBand": "hard",
+      "count": 270,
+      "alignedCount": 1,
+      "storedDifficultyCounts": {
+        "hard": 270
+      },
+      "reratedDifficultyCounts": {
+        "medium": 123,
+        "easy": 146,
+        "hard": 1
+      },
+      "scoreRange": "185-185",
+      "clueRange": "28-34",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "extreme",
+      "title": "Expert Challenge",
+      "difficultyBand": "expert",
+      "count": 270,
+      "alignedCount": 0,
+      "storedDifficultyCounts": {
+        "expert": 270
+      },
+      "reratedDifficultyCounts": {
+        "easy": 97,
+        "medium": 168,
+        "hard": 5
+      },
+      "scoreRange": "220-220",
+      "clueRange": "26-38",
+      "integrityFailureCount": 0
+    },
+    {
+      "id": "true_extreme",
+      "title": "True Extreme",
+      "difficultyBand": "extreme",
+      "count": 100,
+      "alignedCount": 99,
+      "storedDifficultyCounts": {
+        "extreme": 100
+      },
+      "reratedDifficultyCounts": {
+        "beyond_hint_solver": 99,
+        "hard": 1
+      },
+      "scoreRange": "903-4338",
+      "clueRange": "20-24",
+      "integrityFailureCount": 1
+    }
+  ]
+}

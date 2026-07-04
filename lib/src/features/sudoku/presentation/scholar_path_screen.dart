@@ -94,7 +94,6 @@ class _SummaryCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text('Completed puzzles: ${summary.totalCompleted}'),
             Text('Clean solves: ${summary.cleanSolves}'),
-            Text('Replay improvements: ${summary.replayImprovements}'),
             const SizedBox(height: 8),
             Text(
               summary.extremeUnlocked

@@ -381,6 +381,7 @@ class GameSessionController extends ChangeNotifier {
       'naked_pair' => 'Naked Pair',
       'hidden_pair' => 'Hidden Pair',
       'pointing_pair' => 'Pointing Pair',
+      'x_wing' => 'X-Wing',
       _ => 'Technique',
     };
   }

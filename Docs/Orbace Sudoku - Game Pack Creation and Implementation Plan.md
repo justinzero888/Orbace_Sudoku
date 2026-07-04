@@ -16,7 +16,7 @@ Current implemented content state:
 | Launch catalog puzzle count | Complete for UAT | 1,800 bundled puzzles are loaded from 31 batch files referenced by `assets/puzzles/packs.json`. |
 | Content version metadata | Complete | Current launch catalog content version: `2026.06.003`. |
 | Validation and duplicate scan | Complete | Correctness, stored solution, unique-solution, human-solver, ID uniqueness, and duplicate/isomorphic scan pass with 0 warnings. |
-| Advanced coverage | Complete for UAT | Harder packs include pair/pointing logic and expert-level content for advanced-player testing. |
+| Advanced coverage | Superseded by 2026-07-02 audit | Insight/Mastery/Expert Challenge stored difficulty labels do not match actual solver-rated difficulty (62/360, 1/270, 0/270 aligned respectively). See Production Game Pack Alignment Plan for the correction plan. |
 | Local ranking certification | Complete for bundled catalog | Bundled catalog puzzles are marked rankable for local ranking; imported puzzles remain personal/non-ranked. |
 | Pack progress and resume UX | Started | Completion markers, best-score surfacing, clean/official markers, Continue/Next Unsolved, and in-progress resume are implemented for local validation. Simulator smoke and UAT build are still needed before Gate 2 is complete. |
 | Remote content readiness | Future phase | Planned after bundled production content and launch store flows are stable. |
@@ -49,6 +49,7 @@ Duplicate-warning root cause and resolution:
 Related reference:
 
 - `Docs/Orbace Sudoku - Level Assignment Validation and Scoring Logic.md` defines launch-level assignment, validation criteria, and score parameters.
+- `Docs/Orbace Sudoku - Production Game Pack Alignment Plan.md` defines the 2026-07-02 alignment audit findings and the correction plan for Insight, Mastery, Expert Challenge, and True Extreme content.
 
 ## 1. Goals
 
@@ -67,21 +68,22 @@ The pack system should make puzzle content feel curated, not dumped. Players sho
 
 ### Initial Content Target
 
-The first production content milestone is **1,800 validated puzzles**.
+The original production content milestone was **1,800 validated puzzles**. After the 2026-07-02 level-alignment audit, the recommended production target is now **2,000 validated and level-aligned puzzles**.
 
 Recommended distribution:
 
 | Pack Family | Difficulty | Count | Purpose |
 | --- | --- | ---: | --- |
-| Tea Moments | Beginner/Easy | 180 | Daily, low-friction warmups |
+| Tea Moments | Beginner/Easy | 200 | Daily, low-friction warmups |
 | Foundation | Beginner | 360 | Basic scanning, singles, confidence building |
 | Discipline | Easy | 360 | Consistency, note discipline, low error rate |
-| Insight | Medium | 360 | Technique learning and replay review |
-| Mastery | Hard | 270 | Advanced human-logic practice |
-| Extreme | Expert/Extreme | 270 | No-assist ranked challenge content |
-| Total | Mixed | 1,800 | Launch-scale content library |
+| Insight | Medium | 360 | Technique learning and replay review; must be 100% Medium-aligned |
+| Mastery | Hard | 270 | Advanced human-logic practice; must be 100% Hard-aligned |
+| Expert Challenge | Expert | 270 | Expert-level no-assist candidate content; must be 100% Expert-aligned |
+| True Extreme | Extreme | 180 | No-hint/no-assist extreme content with separate validator |
+| Total | Mixed | 2,000 | Launch-scale content library |
 
-This mix gives enough beginner content for onboarding while reserving meaningful volume for advanced players and future competitive modes.
+This mix gives enough beginner content for onboarding while reserving meaningful volume for advanced players and future competitive modes. Insight, Mastery, and Expert Challenge should be built from 110% candidate pools: generate 396 Medium, 297 Hard, and 297 Expert candidates, then ship the best aligned 360/270/270 and keep the remaining 10% as replacement reserve.
 
 ### Beyond 1,800
 
@@ -546,7 +548,7 @@ Validation checkpoint:
 
 ### GP-5: Production Content Readiness for 1,800 Puzzles
 
-Status: **Complete for current UAT baseline**
+Status: **Complete for structural/integrity validation of the 1,800-puzzle UAT baseline. Difficulty-label alignment is superseded by the 2026-07-02 audit — see Production Game Pack Alignment Plan.**
 
 Important clarification:
 
@@ -591,7 +593,7 @@ Current baseline status:
   - Extreme: 270
 - Validator status: PASS for schema, stored solution, unique solution, human-solver compatibility, ID uniqueness, and duplicate/isomorphic scan.
 - Duplicate-scan status: 0 warnings after replacing the 38 duplicate-pattern candidates from `2026.06.002`.
-- Production approval status: approved for UAT and local ranking certification; still subject to ongoing expert UAT difficulty calibration.
+- Production approval status: approved for UAT and local ranking certification on Sudoku-integrity grounds only (0 integrity failures). Difficulty labels for Insight, Mastery, and Expert Challenge are not production-honest per the 2026-07-02 alignment audit (62/360, 1/270, 0/270 aligned) and must be regenerated before final production shipment — see Production Game Pack Alignment Plan.
 
 Validation checkpoint:
 
@@ -757,16 +759,19 @@ The Markdown report should be human-readable for content review.
 
 ## 9. Difficulty Bands
 
-Initial numeric score bands:
+Actual numeric score bands, as implemented in `SudokuDifficultyRater` (`lib/src/features/sudoku/engine/sudoku_difficulty_rater.dart`):
 
 | Difficulty | Score Range | Notes |
 | --- | ---: | --- |
-| Beginner | 0-119 | Singles only |
-| Easy | 120-199 | Singles + light pair usage |
-| Medium | 200-319 | Pairs/pointing patterns |
-| Hard | 320-499 | Multi-step pressure |
-| Expert | 500-799 | Future advanced logic |
-| Extreme | 800+ | Challenge curation |
+| Beginner | 0-90 | Singles only |
+| Easy | 91-130 | Singles + light pair usage |
+| Medium | 131-180 | Pairs/pointing patterns |
+| Hard | 181-240 | Multi-step pressure |
+| Expert | 241+ | Advanced logic |
+
+These are the bands teaching-pack content (Tea Moments through Expert Challenge) must be validated against. An earlier draft of this table (200-319 / 320-499 / 500-799 / 800+) did not match the shipped rater; that documentation drift is one contributor to the mislabeled-difficulty findings in the 2026-07-02 alignment audit — see Production Game Pack Alignment Plan.
+
+Extreme is not a higher bucket on this same score scale. `SudokuDifficultyRater` has no Extreme output. A puzzle only qualifies as True Extreme when `HumanRankedSolver` fails to solve it at all (reported as `beyond_hint_solver`), combined with a separate high-clue-count/search-complexity score used only by the True Extreme generator (current True Extreme score range: 903-4338 — a different scale than the teaching-pack scores above). Do not compare True Extreme `difficultyScore` values against this table.
 
 These bands should be tuned after UAT data.
 
@@ -1055,7 +1060,7 @@ Validation:
 | Decision | Recommendation |
 | --- | --- |
 | Initial delivery | Bundled JSON assets |
-| First production target | 1,800 puzzles |
+| First production target | 1,800 puzzles (superseded 2026-07-02: 2,000 level-aligned puzzles — see Production Game Pack Alignment Plan) |
 | Beyond 1,800 | Remote seasonal/event packs with local cache |
 | Hint compatibility | Required for all non-Extreme launch puzzles |
 | Extreme content | Stricter validation, ranked eligibility, no-assist rules |

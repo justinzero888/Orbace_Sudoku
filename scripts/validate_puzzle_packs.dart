@@ -104,7 +104,21 @@ void main() {
         failures.add('${puzzle.id} stored solution mismatch');
       }
       final humanResult = humanSolver.solve(puzzle.givens);
-      if (!humanResult.solved) {
+      if (packId == 'true_extreme') {
+        if (humanResult.solved) {
+          warnings.add(
+            '${puzzle.id} is true_extreme but the teaching hint solver solved it',
+          );
+        }
+        if (puzzle.difficulty.name != 'extreme') {
+          failures.add('${puzzle.id} must be stored as extreme difficulty');
+        }
+        if (!puzzle.rankedEligible) {
+          failures.add(
+            '${puzzle.id} must be rankedEligible for no-assist play',
+          );
+        }
+      } else if (!humanResult.solved) {
         failures.add('${puzzle.id} is not compatible with hint solver');
       }
       if (_hasAdvancedTechnique(puzzle.requiredTechniques)) {
@@ -198,7 +212,8 @@ bool _hasAdvancedTechnique(List<String> techniques) {
     (technique) =>
         technique == 'naked_pair' ||
         technique == 'hidden_pair' ||
-        technique == 'pointing_pair',
+        technique == 'pointing_pair' ||
+        technique == 'x_wing',
   );
 }
 

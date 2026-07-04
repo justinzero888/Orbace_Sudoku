@@ -88,7 +88,7 @@
       "id": "mastery",
       "title": "Mastery",
       "subtitle": "Hard technique practice",
-      "seal": "極",
+      "seal": "熟",
       "description": "Hard puzzles for advanced human-logic practice.",
       "asset": "assets/puzzles/mastery/mastery_01.json",
       "order": 4,

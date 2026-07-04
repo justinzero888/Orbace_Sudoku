@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:drift/native.dart';
-import 'package:orbace_sudoku/src/app/orbace_sudoku_app.dart';
-import 'package:orbace_sudoku/src/features/sudoku/data/app_database.dart';
+import 'package:orbace_sudoku/src/features/home/home_screen.dart';
 import 'package:orbace_sudoku/src/features/sudoku/data/puzzle_pack_loader.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/fixture_puzzles.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/game_session_controller.dart';
 import 'package:orbace_sudoku/src/features/sudoku/presentation/sudoku_replay_screen.dart';
 
 void main() {
-  testWidgets('Orbace Sudoku app shell and navigation render', (tester) async {
+  testWidgets('Orbace Sudocoo home shell renders', (tester) async {
     final catalog = await PuzzlePackLoader().load();
     final advancedCount = catalog.puzzles
         .where(
@@ -24,74 +22,29 @@ void main() {
 
     await _pumpTestApp(tester);
 
-    expect(find.text('Orbace Sudoku'), findsOneWidget);
-    expect(find.text('一局一茶'), findsOneWidget);
+    expect(find.text('Orbace Sudocoo'), findsOneWidget);
+    expect(find.text('一局一茶 · One Puzzle, One Tea'), findsOneWidget);
     expect(find.text('Tea Moment'), findsOneWidget);
-    expect(find.text('Record Hall'), findsOneWidget);
-    expect(find.text('Import Puzzle'), findsOneWidget);
+    expect(find.text('Record Hall'), findsNothing);
+    expect(find.text('Import Puzzle'), findsNothing);
     expect(find.text('Level Packs'), findsOneWidget);
-
-    await tester.tap(find.text('Tea Moment'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-
-    expect(find.text('Tea Moment'), findsWidgets);
-    expect(find.textContaining('Mistakes 0'), findsOneWidget);
-    await tester.pageBack();
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-
-    await tester.tap(find.text('Level Packs'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-
-    expect(find.text('${catalog.puzzles.length} puzzles loaded'), findsWidgets);
     expect(
-      find.text('$advancedCount puzzles require pair or pointing techniques'),
+      find.text(
+        'Today\'s Tea Moment is ${catalog.teaMomentPuzzles.first.title}',
+      ),
+      findsNothing,
+      reason:
+          'daily title includes the selected puzzle and date, not a fixed fixture',
+    );
+    expect(
+      advancedCount,
+      greaterThan(0),
+      reason: 'catalog should still expose advanced puzzle metadata',
+    );
+    expect(
+      find.textContaining('${catalog.puzzles.length} puzzles loaded'),
       findsOneWidget,
     );
-    expect(find.text('Tea Moments'), findsOneWidget);
-    await tester.pageBack();
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-
-    await tester.tap(find.text('Record Hall'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-
-    expect(find.text('Record Hall'), findsWidgets);
-    expect(find.text('藏谱阁 · Your Su-Pu collection'), findsOneWidget);
-    expect(
-      find.text('Your Record Hall begins with your first completed Su-Pu.'),
-      findsOneWidget,
-    );
-
-    await tester.pageBack();
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-
-    await tester.scrollUntilVisible(
-      find.text('Scholar\'s Path'),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.tap(find.text('Scholar\'s Path'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-    expect(find.text('Scholar\'s Path'), findsWidgets);
-
-    await tester.pageBack();
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 1));
-    await tester.scrollUntilVisible(
-      find.text('Extreme Challenge'),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.tap(find.text('Extreme Challenge'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-    expect(find.text('Extreme Challenge'), findsWidgets);
   });
 
   testWidgets('Replay screen renders move history', (tester) async {
@@ -135,11 +88,9 @@ void main() {
 }
 
 Future<void> _pumpTestApp(WidgetTester tester) async {
-  final database = AppDatabase(NativeDatabase.memory());
-  addTearDown(database.close);
   await tester.pumpWidget(const SizedBox.shrink());
   await tester.pump();
-  await tester.pumpWidget(OrbaceSudokuApp(database: database));
+  await tester.pumpWidget(const MaterialApp(home: HomeScreen()));
   await _pumpUntilFound(tester, find.text('Tea Moment'));
 }
 

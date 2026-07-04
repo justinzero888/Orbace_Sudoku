@@ -103,7 +103,10 @@ void main() {
       if (_hasAdvancedTechnique(original.requiredTechniques) && !advanced) {
         continue;
       }
-      if (!advanced && rating.score < plan.minimumScore) {
+      // Band acceptance is the actual re-rated difficulty, never the target
+      // label -- matches the generator fix in generate_uat_packs.dart.
+      if (rating.difficulty != plan.targetDifficulty ||
+          rating.score < plan.minimumScore) {
         continue;
       }
 
@@ -114,8 +117,8 @@ void main() {
         title: original.title,
         seal: original.seal,
         packId: original.packId,
-        difficulty: _bestDifficulty(plan.targetDifficulty, rating.difficulty),
-        difficultyScore: max(rating.score, plan.minimumScore),
+        difficulty: rating.difficulty,
+        difficultyScore: rating.score,
         targetTimeSeconds: _targetTimeFor(plan.targetDifficulty),
         medianTimeSeconds: _targetTimeFor(plan.targetDifficulty) + 180,
         requiredTechniques: rating.requiredTechniques,
@@ -208,7 +211,8 @@ bool _hasAdvancedTechnique(List<String> techniques) {
     (technique) =>
         technique == 'naked_pair' ||
         technique == 'hidden_pair' ||
-        technique == 'pointing_pair',
+        technique == 'pointing_pair' ||
+        technique == 'x_wing',
   );
 }
 
@@ -223,16 +227,6 @@ String _normalizedDigitKey(List<String> rows) {
     }
   }
   return buffer.toString();
-}
-
-SudokuDifficulty _bestDifficulty(
-  SudokuDifficulty target,
-  SudokuDifficulty generated,
-) {
-  if (generated.index > target.index) {
-    return generated;
-  }
-  return target;
 }
 
 int _targetTimeFor(SudokuDifficulty difficulty) {
@@ -264,21 +258,25 @@ final Map<String, _RepairPlan> _productionPlanById = <String, _RepairPlan>{
     minimumScore: 110,
     targetDifficulty: SudokuDifficulty.easy,
   ),
+  // cellsToRemove values match the tuned production plans in
+  // generate_uat_packs.dart (2026-07-02 empirical yield probes).
   'insight': _RepairPlan(
-    cellsToRemove: 49,
+    cellsToRemove: 51,
     minimumScore: 145,
     targetDifficulty: SudokuDifficulty.medium,
+    maxRepairAttempts: 8000,
   ),
   'mastery': _RepairPlan(
-    cellsToRemove: 52,
-    minimumScore: 185,
+    cellsToRemove: 55,
+    minimumScore: 195,
     targetDifficulty: SudokuDifficulty.hard,
+    maxRepairAttempts: 20000,
   ),
   'extreme': _RepairPlan(
-    cellsToRemove: 54,
-    minimumScore: 220,
+    cellsToRemove: 58,
+    minimumScore: 260,
     targetDifficulty: SudokuDifficulty.expert,
-    maxRepairAttempts: 6000,
+    maxRepairAttempts: 40000,
   ),
 };
 

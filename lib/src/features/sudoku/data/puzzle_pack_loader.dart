@@ -96,7 +96,8 @@ class PuzzlePackDefinition {
             (technique) =>
                 technique == 'naked_pair' ||
                 technique == 'hidden_pair' ||
-                technique == 'pointing_pair',
+                technique == 'pointing_pair' ||
+                technique == 'x_wing',
           ),
         )
         .length;

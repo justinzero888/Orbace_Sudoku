@@ -7,6 +7,7 @@ import 'techniques/naked_pair.dart';
 import 'techniques/naked_single.dart';
 import 'techniques/pointing_pair.dart';
 import 'techniques/solving_action.dart';
+import 'techniques/x_wing.dart';
 
 class HumanSolveResult {
   const HumanSolveResult({
@@ -30,6 +31,7 @@ class HumanRankedSolver {
             NakedPairTechnique(),
             HiddenPairTechnique(),
             PointingPairTechnique(),
+            XWingTechnique(),
           ];
 
   static const SudokuValidator _validator = SudokuValidator();

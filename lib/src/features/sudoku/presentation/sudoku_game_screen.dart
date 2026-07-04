@@ -11,7 +11,9 @@ import '../data/app_database.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/score_card_store.dart';
 import '../data/sudoku_repository.dart';
+import '../domain/solving_step.dart';
 import '../domain/sudoku_attempt.dart';
+import '../domain/sudoku_board.dart';
 import '../domain/sudoku_current_progress.dart';
 import '../domain/sudoku_score_class.dart';
 import '../engine/human_ranked_solver.dart';
@@ -220,7 +222,10 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
   }
 
   Future<void> _seedPuzzle() async {
-    final solvePath = HumanRankedSolver().solve(_puzzle.givens).steps;
+    final solvePath =
+        _puzzle.requiredTechniques.contains('beyond_current_hint_solver')
+        ? const <StoredSolvingStep>[]
+        : HumanRankedSolver().solve(_puzzle.givens).steps;
     await _repository.upsertPuzzle(
       fixturePuzzleRecord(
         id: _controller.puzzleId,
@@ -423,14 +428,13 @@ class _CompletionCertificateDialogState
                   child: _ScoreCertificateCard(
                     attempt: widget.attempt,
                     puzzle: widget.puzzle,
-                    rating: _rating,
                     hintCount: _hintCount,
                     isClean: _isClean,
                   ),
                 ),
                 const SizedBox(height: 12),
                 _CertificateSection(
-                  title: 'Player Difficulty',
+                  title: 'Game Level by Player',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -483,7 +487,7 @@ class _CompletionCertificateDialogState
                 ),
                 const SizedBox(height: 12),
                 _CertificateSection(
-                  title: 'Ranking Notes · 谱评',
+                  title: 'Solution Comments',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -637,7 +641,11 @@ class _CompletionCertificateDialogState
       setState(() {
         _scoreCardPath = path;
       });
-      _showMessage('Score card saved inside Orbace Sudoku.');
+      _showMessage('Score card saved inside Orbace Sudocoo.');
+    } catch (error) {
+      if (mounted) {
+        _showMessage('Could not save score card: $error');
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -667,11 +675,15 @@ class _CompletionCertificateDialogState
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
-          text: 'My Orbace Sudoku Su-Pu · ${widget.puzzle.title}',
-          subject: 'Orbace Sudoku Solve Record',
+          text: 'My Orbace Sudocoo Su-Pu · ${widget.puzzle.title}',
+          subject: 'Orbace Sudocoo Solve Record',
           sharePositionOrigin: _shareOrigin(),
         ),
       );
+    } catch (error) {
+      if (mounted) {
+        _showMessage('Could not share score card: $error');
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -729,14 +741,12 @@ class _ScoreCertificateCard extends StatelessWidget {
   const _ScoreCertificateCard({
     required this.attempt,
     required this.puzzle,
-    required this.rating,
     required this.hintCount,
     required this.isClean,
   });
 
   final SudokuAttempt attempt;
   final FixturePuzzleDefinition puzzle;
-  final double rating;
   final int hintCount;
   final bool isClean;
 
@@ -764,7 +774,7 @@ class _ScoreCertificateCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Orbace Sudoku', style: textTheme.titleLarge),
+                      Text('Orbace Sudocoo', style: textTheme.titleLarge),
                       const SizedBox(height: 2),
                       Text(
                         'Solve Record · 一局成績',
@@ -798,6 +808,24 @@ class _ScoreCertificateCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+            Center(
+              child: SizedBox(
+                width: 190,
+                child: _CertificatePuzzleGrid(board: puzzle.givens),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Center(
+              child: Text(
+                'Download Orbace Sudoku · Play free at www.orbacesudoku.com',
+                textAlign: TextAlign.center,
+                style: textTheme.bodySmall?.copyWith(
+                  color: OrbaceTheme.mutedInk,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             Wrap(
               alignment: WrapAlignment.center,
               spacing: 8,
@@ -817,6 +845,7 @@ class _ScoreCertificateCard extends StatelessWidget {
                   label:
                       '${puzzle.difficulty.label} · ${puzzle.difficulty.chineseLabel}',
                   color: OrbaceTheme.vermilion,
+                  compact: true,
                 ),
                 if (isImported)
                   const _CertificateChip(
@@ -887,14 +916,6 @@ class _ScoreCertificateCard extends StatelessWidget {
               title: 'How Score Was Calculated',
               child: _ScoreExplanationNote(attempt: attempt),
             ),
-            const SizedBox(height: 12),
-            _CertificateSection(
-              title: 'Player Rating',
-              child: _BreakdownRow(
-                label: _difficultyRatingLabel(rating),
-                value: '${rating.toStringAsFixed(1)} / 5.0',
-              ),
-            ),
             const SizedBox(height: 14),
             Text(
               'Su-Pu ID: ${attempt.id}\n'
@@ -943,10 +964,15 @@ class _CertificateSeal extends StatelessWidget {
 }
 
 class _CertificateChip extends StatelessWidget {
-  const _CertificateChip({required this.label, required this.color});
+  const _CertificateChip({
+    required this.label,
+    required this.color,
+    this.compact = false,
+  });
 
   final String label;
   final Color color;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -957,13 +983,74 @@ class _CertificateChip extends StatelessWidget {
         border: Border.all(color: color.withValues(alpha: 0.55)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        padding: EdgeInsets.symmetric(
+          horizontal: compact ? 6 : 8,
+          vertical: compact ? 2 : 4,
+        ),
         child: Text(
           label,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: OrbaceTheme.ink,
             fontWeight: FontWeight.w700,
+            fontSize: compact ? 9 : 11,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CertificatePuzzleGrid extends StatelessWidget {
+  const _CertificatePuzzleGrid({required this.board});
+
+  final SudokuBoard board;
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: OrbaceTheme.ink,
+          border: Border.all(color: OrbaceTheme.ink, width: 2.4),
+        ),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemCount: SudokuBoard.cellCount,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: SudokuBoard.size,
+          ),
+          itemBuilder: (context, index) {
+            final value = board.valueAtIndex(index);
+            final row = SudokuBoard.rowOf(index);
+            final col = SudokuBoard.colOf(index);
+            final rightBorder = col == 2 || col == 5 ? 1.7 : 0.45;
+            final bottomBorder = row == 2 || row == 5 ? 1.7 : 0.45;
+
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFFCF5),
+                border: Border(
+                  right: BorderSide(color: OrbaceTheme.ink, width: rightBorder),
+                  bottom: BorderSide(
+                    color: OrbaceTheme.ink,
+                    width: bottomBorder,
+                  ),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  value?.toString() ?? '',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: OrbaceTheme.ink,
+                    fontWeight: FontWeight.w800,
+                    height: 1,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
