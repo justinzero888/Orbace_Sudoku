@@ -1,11 +1,11 @@
 {
   "date": "2026-07-02",
-  "totalPuzzles": 1720,
-  "manifestPuzzleCount": 1620,
+  "totalPuzzles": 1900,
+  "manifestPuzzleCount": 1800,
   "trueExtremeCount": 100,
   "integrityFailureCount": 1,
-  "teachingAlignedCount": 1620,
-  "teachingPuzzleCount": 1620,
+  "teachingAlignedCount": 1800,
+  "teachingPuzzleCount": 1800,
   "trueExtremeAlignedCount": 99,
   "packs": [
     {
@@ -96,16 +96,16 @@
       "id": "extreme",
       "title": "Expert Challenge",
       "difficultyBand": "expert",
-      "count": 90,
-      "alignedCount": 90,
+      "count": 270,
+      "alignedCount": 270,
       "storedDifficultyCounts": {
-        "expert": 90
+        "expert": 270
       },
       "reratedDifficultyCounts": {
-        "expert": 90
+        "expert": 270
       },
       "scoreRange": "246-296",
-      "clueRange": "22-27",
+      "clueRange": "22-29",
       "integrityFailureCount": 0
     },
     {

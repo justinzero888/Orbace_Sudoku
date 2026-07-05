@@ -9,849 +9,51 @@
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "extreme",
-  "batchIndex": 3,
-  "batchCount": 3,
   "puzzles": [
-    {
-      "id": "extreme_061",
-      "title": "Expert Challenge 61",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 258,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000000200",
-        "800471006",
-        "000038000",
-        "350040000",
-        "004000002",
-        "000000870",
-        "000000620",
-        "065000001",
-        "970050000"
-      ],
-      "solutionRows": [
-        "147965283",
-        "823471956",
-        "596238417",
-        "352847169",
-        "784196532",
-        "619523874",
-        "438719625",
-        "265384791",
-        "971652348"
-      ]
-    },
-    {
-      "id": "extreme_062",
-      "title": "Expert Challenge 62",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 258,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000080206",
-        "006970000",
-        "080000901",
-        "500739000",
-        "000000012",
-        "000500000",
-        "020005000",
-        "300000100",
-        "000340008"
-      ],
-      "solutionRows": [
-        "971483256",
-        "256971483",
-        "483256971",
-        "512739864",
-        "739864512",
-        "864512739",
-        "628195347",
-        "347628195",
-        "195347628"
-      ]
-    },
-    {
-      "id": "extreme_063",
-      "title": "Expert Challenge 63",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 258,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000100060",
-        "008000009",
-        "060003040",
-        "000000000",
-        "257000000",
-        "009681000",
-        "000370000",
-        "000000270",
-        "002090605"
-      ],
-      "solutionRows": [
-        "923148567",
-        "148765329",
-        "765923841",
-        "681257934",
-        "257439186",
-        "439681752",
-        "516372498",
-        "894516273",
-        "372894615"
-      ]
-    },
-    {
-      "id": "extreme_064",
-      "title": "Expert Challenge 64",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 259,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "070010000",
-        "018600000",
-        "000002040",
-        "020106900",
-        "590700000",
-        "000500004",
-        "200005007",
-        "000030000",
-        "030000685"
-      ],
-      "solutionRows": [
-        "372418569",
-        "418659732",
-        "659372148",
-        "724186953",
-        "593724816",
-        "186593274",
-        "241865397",
-        "865937421",
-        "937241685"
-      ]
-    },
-    {
-      "id": "extreme_065",
-      "title": "Expert Challenge 65",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 259,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000007196",
-        "000000000",
-        "001340000",
-        "403005000",
-        "000000007",
-        "000070581",
-        "750000000",
-        "000050800",
-        "190006070"
-      ],
-      "solutionRows": [
-        "342587196",
-        "587961234",
-        "961342758",
-        "473815962",
-        "815629347",
-        "629473581",
-        "754198623",
-        "236754819",
-        "198236475"
-      ]
-    },
-    {
-      "id": "extreme_066",
-      "title": "Expert Challenge 66",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 259,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "680000005",
-        "000000100",
-        "307680000",
-        "500800307",
-        "000006000",
-        "024900000",
-        "000000020",
-        "009000014",
-        "000230500"
-      ],
-      "solutionRows": [
-        "681492735",
-        "492357168",
-        "357681249",
-        "516824397",
-        "973516482",
-        "824973651",
-        "765148923",
-        "239765814",
-        "148239576"
-      ]
-    },
-    {
-      "id": "extreme_067",
-      "title": "Expert Challenge 67",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 260,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000000000",
-        "000016250",
-        "005807006",
-        "000000741",
-        "100600309",
-        "008000000",
-        "000970000",
-        "210030070",
-        "400000008"
-      ],
-      "solutionRows": [
-        "641253897",
-        "789416253",
-        "325897416",
-        "562389741",
-        "174625389",
-        "938741625",
-        "853974162",
-        "216538974",
-        "497162538"
-      ]
-    },
-    {
-      "id": "extreme_068",
-      "title": "Expert Challenge 68",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 260,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "709006000",
-        "000040000",
-        "080000653",
-        "100003200",
-        "630580000",
-        "000000007",
-        "000090001",
-        "908007000",
-        "001020400"
-      ],
-      "solutionRows": [
-        "719356842",
-        "563248179",
-        "482971653",
-        "194763285",
-        "637582914",
-        "825419367",
-        "256894731",
-        "948137526",
-        "371625498"
-      ]
-    },
-    {
-      "id": "extreme_069",
-      "title": "Expert Challenge 69",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 261,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000780504",
-        "080000201",
-        "460000000",
-        "010802007",
-        "000000900",
-        "040015000",
-        "000000000",
-        "003008156",
-        "000320008"
-      ],
-      "solutionRows": [
-        "192783564",
-        "387564291",
-        "465291783",
-        "519832647",
-        "238647915",
-        "746915832",
-        "874156329",
-        "923478156",
-        "651329478"
-      ]
-    },
-    {
-      "id": "extreme_070",
-      "title": "Expert Challenge 70",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 261,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "017000000",
-        "506007000",
-        "040000013",
-        "000500400",
-        "000060000",
-        "001080026",
-        "000090561",
-        "080010000",
-        "000043200"
-      ],
-      "solutionRows": [
-        "317428695",
-        "596137842",
-        "248956713",
-        "629571438",
-        "834269157",
-        "751384926",
-        "473892561",
-        "982615374",
-        "165743289"
-      ]
-    },
-    {
-      "id": "extreme_071",
-      "title": "Expert Challenge 71",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 262,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "018000000",
-        "706000043",
-        "400970800",
-        "080004000",
-        "007000090",
-        "900610038",
-        "500000107",
-        "000003004",
-        "000780002"
-      ],
-      "solutionRows": [
-        "218345679",
-        "796128543",
-        "435976821",
-        "382594716",
-        "167832495",
-        "954617238",
-        "523469187",
-        "871253964",
-        "649781352"
-      ]
-    },
-    {
-      "id": "extreme_072",
-      "title": "Expert Challenge 72",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 262,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "704310000",
-        "000500306",
-        "001000000",
-        "000000060",
-        "000020978",
-        "000405000",
-        "000759600",
-        "403000759",
-        "000000000"
-      ],
-      "solutionRows": [
-        "754316892",
-        "289547316",
-        "631892547",
-        "312978465",
-        "546123978",
-        "897465123",
-        "128759634",
-        "463281759",
-        "975634281"
-      ]
-    },
-    {
-      "id": "extreme_073",
-      "title": "Expert Challenge 73",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 263,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "004000165",
-        "000009000",
-        "032000000",
-        "000860000",
-        "200000390",
-        "000004082",
-        "000000000",
-        "719480000",
-        "600097040"
-      ],
-      "solutionRows": [
-        "974328165",
-        "561749238",
-        "832615479",
-        "493862751",
-        "286571394",
-        "157934682",
-        "348256917",
-        "719483526",
-        "625197843"
-      ]
-    },
-    {
-      "id": "extreme_074",
-      "title": "Expert Challenge 74",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 263,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000000208",
-        "019080000",
-        "800503006",
-        "400700000",
-        "000005003",
-        "001090800",
-        "000000060",
-        "106000470",
-        "000310002"
-      ],
-      "solutionRows": [
-        "753169248",
-        "619284537",
-        "824573196",
-        "485731629",
-        "962845713",
-        "371692854",
-        "298457361",
-        "136928475",
-        "547316982"
-      ]
-    },
-    {
-      "id": "extreme_075",
-      "title": "Expert Challenge 75",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 264,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "050728000",
-        "000056000",
-        "000000360",
-        "802030000",
-        "000070020",
-        "000000913",
-        "000004036",
-        "090060570",
-        "100000000"
-      ],
-      "solutionRows": [
-        "356728491",
-        "419356782",
-        "728419365",
-        "842931657",
-        "931675824",
-        "675842913",
-        "587294136",
-        "294163578",
-        "163587249"
-      ]
-    },
-    {
-      "id": "extreme_076",
-      "title": "Expert Challenge 76",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 264,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "043000000",
-        "000950000",
-        "000000186",
-        "005800009",
-        "810006300",
-        "000000000",
-        "002000000",
-        "670000400",
-        "000080617"
-      ],
-      "solutionRows": [
-        "243168975",
-        "168957234",
-        "957243186",
-        "325814769",
-        "814796352",
-        "796325841",
-        "482671593",
-        "671539428",
-        "539482617"
-      ]
-    },
-    {
-      "id": "extreme_077",
-      "title": "Expert Challenge 77",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 266,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "760000000",
-        "004003000",
-        "000900580",
-        "008000007",
-        "007030260",
-        "000059000",
-        "000308190",
-        "910000000",
-        "003600040"
-      ],
-      "solutionRows": [
-        "769485312",
-        "854213679",
-        "132976584",
-        "348162957",
-        "597834261",
-        "621759438",
-        "475328196",
-        "916547823",
-        "283691745"
-      ]
-    },
-    {
-      "id": "extreme_078",
-      "title": "Expert Challenge 78",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 266,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "300060970",
-        "010009020",
-        "004000010",
-        "000400005",
-        "180000000",
-        "200050709",
-        "002300000",
-        "030070490",
-        "600000000"
-      ],
-      "solutionRows": [
-        "328165974",
-        "516749328",
-        "974283516",
-        "769432185",
-        "185697243",
-        "243851769",
-        "492318657",
-        "831576492",
-        "657924831"
-      ]
-    },
-    {
-      "id": "extreme_079",
-      "title": "Expert Challenge 79",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 267,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "000000004",
-        "027000000",
-        "100000859",
-        "006000000",
-        "500980160",
-        "008107000",
-        "000000000",
-        "050390002",
-        "000702048"
-      ],
-      "solutionRows": [
-        "985631274",
-        "427859631",
-        "163274859",
-        "716425983",
-        "542983167",
-        "398167425",
-        "271548396",
-        "854396712",
-        "639712548"
-      ]
-    },
-    {
-      "id": "extreme_080",
-      "title": "Expert Challenge 80",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 267,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair",
-        "x_wing"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "003000058",
-        "700930000",
-        "000000600",
-        "200140005",
-        "070000800",
-        "004000060",
-        "080009000",
-        "000204001",
-        "026000900"
-      ],
-      "solutionRows": [
-        "693421758",
-        "758936142",
-        "142587693",
-        "269148375",
-        "375692814",
-        "814753269",
-        "581379426",
-        "937264581",
-        "426815937"
-      ]
-    },
     {
       "id": "extreme_081",
       "title": "Expert Challenge 81",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 271,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
         "hidden_pair",
         "hidden_single",
-        "naked_pair",
         "naked_single",
-        "pointing_pair",
-        "x_wing"
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "100000800",
-        "000604000",
-        "040073000",
-        "200000108",
-        "000007040",
-        "000010900",
-        "800701000",
-        "500006201",
-        "002000300"
+        "000000950",
+        "000300802",
+        "400060000",
+        "000000197",
+        "065000000",
+        "007003000",
+        "050000000",
+        "000431008",
+        "103082000"
       ],
       "solutionRows": [
-        "137952864",
-        "925684713",
-        "648173592",
-        "279465138",
-        "381297645",
-        "456318927",
-        "863721459",
-        "594836271",
-        "712549386"
+        "731824956",
+        "596317842",
+        "482965371",
+        "324658197",
+        "865179234",
+        "917243685",
+        "258796413",
+        "679431528",
+        "143582769"
       ]
     },
     {
       "id": "extreme_082",
       "title": "Expert Challenge 82",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 272,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -859,39 +61,38 @@
         "hidden_single",
         "naked_pair",
         "naked_single",
-        "pointing_pair",
-        "x_wing"
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000000000",
-        "380700010",
-        "007451000",
-        "050020700",
-        "009000000",
-        "000800230",
-        "006010040",
-        "170380000",
-        "000000075"
+        "063000502",
+        "004009010",
+        "000000600",
+        "000094000",
+        "306000000",
+        "090080071",
+        "000010007",
+        "600200390",
+        "002000000"
       ],
       "solutionRows": [
-        "514238697",
-        "382769514",
-        "697451382",
-        "458923761",
-        "239176458",
-        "761845239",
-        "926517843",
-        "175384926",
-        "843692175"
+        "963178542",
+        "254369718",
+        "871452639",
+        "127594863",
+        "386721954",
+        "495683271",
+        "539816427",
+        "618247395",
+        "742935186"
       ]
     },
     {
       "id": "extreme_083",
       "title": "Expert Challenge 83",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 273,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -904,34 +105,34 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "060704000",
-        "008030000",
-        "072000500",
-        "000000894",
-        "200000000",
-        "009100070",
-        "920000000",
-        "005209008",
-        "600007040"
+        "003007090",
+        "247000000",
+        "006500000",
+        "000008206",
+        "000002050",
+        "100309000",
+        "080260000",
+        "004000070",
+        "000805000"
       ],
       "solutionRows": [
-        "563724189",
-        "198635427",
-        "472981536",
-        "316572894",
-        "257498361",
-        "849163275",
-        "924816753",
-        "735249618",
-        "681357942"
+        "853427691",
+        "247196385",
+        "916583724",
+        "539748216",
+        "478612953",
+        "162359847",
+        "785264139",
+        "624931578",
+        "391875462"
       ]
     },
     {
       "id": "extreme_084",
       "title": "Expert Challenge 84",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 273,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -944,34 +145,34 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "090001007",
-        "000360000",
-        "300090841",
-        "200009000",
-        "000000509",
-        "000740006",
-        "600020080",
-        "010004000",
-        "903000000"
+        "010000002",
+        "000560000",
+        "500307000",
+        "690105000",
+        "000000020",
+        "100000098",
+        "006750034",
+        "000000000",
+        "934000000"
       ],
       "solutionRows": [
-        "592481637",
-        "481367952",
-        "367592841",
-        "236159478",
-        "748236519",
-        "159748326",
-        "674923185",
-        "815674293",
-        "923815764"
+        "317849562",
+        "849562317",
+        "562317849",
+        "698125473",
+        "473698125",
+        "125473698",
+        "286751934",
+        "751934286",
+        "934286751"
       ]
     },
     {
       "id": "extreme_085",
       "title": "Expert Challenge 85",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 278,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -984,34 +185,34 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "705920003",
-        "906000000",
-        "080700000",
-        "000004130",
-        "800007209",
-        "030000060",
-        "000098300",
-        "600040000",
-        "001070090"
+        "006070000",
+        "000000574",
+        "050930200",
+        "000009083",
+        "500000000",
+        "060104000",
+        "900060002",
+        "000090100",
+        "008007000"
       ],
       "solutionRows": [
-        "715926483",
-        "926483715",
-        "483715926",
-        "259864137",
-        "864137259",
-        "137259864",
-        "572698341",
-        "698341572",
-        "341572698"
+        "126475839",
+        "389612574",
+        "754938216",
+        "241759683",
+        "597386421",
+        "863124957",
+        "935861742",
+        "472593168",
+        "618247395"
       ]
     },
     {
       "id": "extreme_086",
       "title": "Expert Challenge 86",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 278,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -1024,34 +225,34 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000060010",
-        "083000002",
-        "570000000",
-        "000500409",
-        "100900020",
-        "407000000",
-        "800400000",
-        "005000001",
-        "000086700"
+        "056040000",
+        "100900030",
+        "200070000",
+        "000620140",
+        "000004900",
+        "300000050",
+        "000009000",
+        "000500800",
+        "002080607"
       ],
       "solutionRows": [
-        "924863517",
-        "683751942",
-        "571294638",
-        "362518479",
-        "158947326",
-        "497632185",
-        "816475293",
-        "745329861",
-        "239186754"
+        "956243781",
+        "178956432",
+        "243178569",
+        "897625143",
+        "625314978",
+        "314897256",
+        "481769325",
+        "769532814",
+        "532481697"
       ]
     },
     {
       "id": "extreme_087",
       "title": "Expert Challenge 87",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 285,
+      "difficultyScore": 249,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -1059,39 +260,77 @@
         "hidden_single",
         "naked_pair",
         "naked_single",
-        "pointing_pair",
-        "x_wing"
+        "pointing_pair"
       ],
       "rankedEligible": true,
       "givensRows": [
-        "090050007",
-        "840000001",
-        "000007090",
-        "000070620",
-        "000009700",
-        "083000100",
-        "070040000",
-        "000002000",
-        "010730408"
+        "000047000",
+        "190000800",
+        "000200000",
+        "020000089",
+        "000000700",
+        "450100000",
+        "560900000",
+        "800000460",
+        "000060078"
       ],
       "solutionRows": [
-        "296351847",
-        "847926531",
-        "531487296",
-        "159873624",
-        "624519783",
-        "783264159",
-        "375648912",
-        "468192375",
-        "912735468"
+        "635847291",
+        "192536847",
+        "748291536",
+        "326754189",
+        "981623754",
+        "457189623",
+        "564978312",
+        "879312465",
+        "213465978"
       ]
     },
     {
       "id": "extreme_088",
       "title": "Expert Challenge 88",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 287,
+      "difficultyScore": 249,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "057030040",
+        "010009000",
+        "200000060",
+        "000016000",
+        "908000000",
+        "062804000",
+        "400000000",
+        "000902000",
+        "000000713"
+      ],
+      "solutionRows": [
+        "857631249",
+        "316429875",
+        "294785361",
+        "573216984",
+        "948357126",
+        "162894537",
+        "485173692",
+        "731962458",
+        "629548713"
+      ]
+    },
+    {
+      "id": "extreme_089",
+      "title": "Expert Challenge 89",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -1104,73 +343,313 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000000800",
-        "000945700",
-        "020001045",
-        "000300000",
-        "764000000",
-        "000060018",
-        "000000093",
-        "286000000",
-        "001500000"
+        "501000009",
+        "080504000",
+        "000070040",
+        "020000450",
+        "198000000",
+        "000702000",
+        "000306208",
+        "300820010",
+        "002090060"
       ],
       "solutionRows": [
-        "549726831",
-        "138945726",
-        "627831945",
-        "812359467",
-        "764218359",
-        "953467218",
-        "475682193",
-        "286193574",
-        "391574682"
-      ]
-    },
-    {
-      "id": "extreme_089",
-      "title": "Expert Challenge 89",
-      "seal": "\u699c",
-      "difficulty": "expert",
-      "difficultyScore": 290,
-      "targetTimeSeconds": 1200,
-      "medianTimeSeconds": 1380,
-      "requiredTechniques": [
-        "hidden_pair",
-        "hidden_single",
-        "naked_pair",
-        "naked_single",
-        "pointing_pair"
-      ],
-      "rankedEligible": true,
-      "givensRows": [
-        "001006008",
-        "500020000",
-        "000300900",
-        "000001086",
-        "197000300",
-        "000000100",
-        "800000061",
-        "000010854",
-        "700500000"
-      ],
-      "solutionRows": [
-        "921476538",
-        "583129647",
-        "674385912",
-        "352791486",
-        "197864325",
-        "468253179",
-        "845932761",
-        "239617854",
-        "716548293"
+        "541263789",
+        "987514632",
+        "236978145",
+        "723189456",
+        "198645327",
+        "654732891",
+        "419356278",
+        "365827914",
+        "872491563"
       ]
     },
     {
       "id": "extreme_090",
       "title": "Expert Challenge 90",
-      "seal": "\u699c",
+      "seal": "榜",
       "difficulty": "expert",
-      "difficultyScore": 296,
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "600090035",
+        "000000006",
+        "008001900",
+        "306070000",
+        "007408003",
+        "000002090",
+        "070000000",
+        "863000050",
+        "000800102"
+      ],
+      "solutionRows": [
+        "612794835",
+        "749583216",
+        "538621947",
+        "326179584",
+        "197458623",
+        "485362791",
+        "271945368",
+        "863217459",
+        "954836172"
+      ]
+    },
+    {
+      "id": "extreme_091",
+      "title": "Expert Challenge 91",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "006000812",
+        "000100000",
+        "082400300",
+        "000000030",
+        "000000987",
+        "064800000",
+        "070005090",
+        "600000000",
+        "943078000"
+      ],
+      "solutionRows": [
+        "456739812",
+        "739182546",
+        "182456379",
+        "897521634",
+        "521364987",
+        "364897251",
+        "278615493",
+        "615943728",
+        "943278165"
+      ]
+    },
+    {
+      "id": "extreme_092",
+      "title": "Expert Challenge 92",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000490052",
+        "080050100",
+        "000100000",
+        "072040030",
+        "000005017",
+        "000000600",
+        "830020064",
+        "000060900",
+        "047000000"
+      ],
+      "solutionRows": [
+        "761498352",
+        "984352176",
+        "523176498",
+        "172649835",
+        "496835217",
+        "358217649",
+        "839521764",
+        "215764983",
+        "647983521"
+      ]
+    },
+    {
+      "id": "extreme_093",
+      "title": "Expert Challenge 93",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "090000003",
+        "006500010",
+        "100000209",
+        "940700800",
+        "000050000",
+        "001302000",
+        "007200040",
+        "050090708",
+        "000008020"
+      ],
+      "solutionRows": [
+        "592147683",
+        "836529417",
+        "174863259",
+        "945716832",
+        "328954176",
+        "761382594",
+        "687235941",
+        "253491768",
+        "419678325"
+      ]
+    },
+    {
+      "id": "extreme_094",
+      "title": "Expert Challenge 94",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000030920",
+        "007000000",
+        "460900001",
+        "000000030",
+        "140000005",
+        "009800400",
+        "030700050",
+        "004006700",
+        "000000362"
+      ],
+      "solutionRows": [
+        "851634927",
+        "297518643",
+        "463972581",
+        "785461239",
+        "146293875",
+        "329857416",
+        "632789154",
+        "514326798",
+        "978145362"
+      ]
+    },
+    {
+      "id": "extreme_095",
+      "title": "Expert Challenge 95",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "100905040",
+        "000070080",
+        "590600000",
+        "430000000",
+        "000090007",
+        "006500004",
+        "000000009",
+        "940030002",
+        "081000700"
+      ],
+      "solutionRows": [
+        "127985643",
+        "364271985",
+        "598643271",
+        "439167528",
+        "852394167",
+        "716528394",
+        "673812459",
+        "945736812",
+        "281459736"
+      ]
+    },
+    {
+      "id": "extreme_096",
+      "title": "Expert Challenge 96",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "400000302",
+        "300006090",
+        "100800000",
+        "004001860",
+        "020003004",
+        "000050000",
+        "200400705",
+        "000000200",
+        "015009000"
+      ],
+      "solutionRows": [
+        "456917382",
+        "382546197",
+        "197832456",
+        "574291863",
+        "921683574",
+        "863754921",
+        "239468715",
+        "648175239",
+        "715329648"
+      ]
+    },
+    {
+      "id": "extreme_097",
+      "title": "Expert Challenge 97",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
       "targetTimeSeconds": 1200,
       "medianTimeSeconds": 1380,
       "requiredTechniques": [
@@ -1182,27 +661,937 @@
       ],
       "rankedEligible": true,
       "givensRows": [
-        "000050310",
-        "790000000",
-        "006002000",
-        "000000000",
-        "000497000",
-        "001628470",
-        "953000200",
-        "000000008",
-        "000204900"
+        "000000600",
+        "006084001",
+        "500730000",
+        "630040000",
+        "007060000",
+        "080000203",
+        "093600010",
+        "000900000",
+        "208005000"
       ],
       "solutionRows": [
-        "824759316",
-        "795361824",
-        "316842795",
-        "479513682",
-        "682497531",
-        "531628479",
-        "953186247",
-        "247935168",
-        "168274953"
+        "824159637",
+        "376284951",
+        "519736482",
+        "632841795",
+        "957362148",
+        "481597263",
+        "793628514",
+        "145973826",
+        "268415379"
+      ]
+    },
+    {
+      "id": "extreme_098",
+      "title": "Expert Challenge 98",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "090000570",
+        "001430000",
+        "006005900",
+        "000000309",
+        "000010008",
+        "000802060",
+        "003000000",
+        "000051000",
+        "940700050"
+      ],
+      "solutionRows": [
+        "394628571",
+        "751439826",
+        "286175934",
+        "428567319",
+        "675913248",
+        "139842765",
+        "513294687",
+        "867351492",
+        "942786153"
+      ]
+    },
+    {
+      "id": "extreme_099",
+      "title": "Expert Challenge 99",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000200006",
+        "000070900",
+        "809040050",
+        "098000070",
+        "000003600",
+        "540000000",
+        "000600009",
+        "012000000",
+        "700120300"
+      ],
+      "solutionRows": [
+        "157298436",
+        "634571928",
+        "829346751",
+        "398465172",
+        "271983645",
+        "546712893",
+        "483657219",
+        "912834567",
+        "765129384"
+      ]
+    },
+    {
+      "id": "extreme_100",
+      "title": "Expert Challenge 100",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000002008",
+        "207006000",
+        "000340000",
+        "350090000",
+        "000708065",
+        "000000190",
+        "091000030",
+        "500030000",
+        "000007002"
+      ],
+      "solutionRows": [
+        "934172658",
+        "217856943",
+        "685349271",
+        "356491827",
+        "149728365",
+        "872563194",
+        "791285436",
+        "528634719",
+        "463917582"
+      ]
+    },
+    {
+      "id": "extreme_101",
+      "title": "Expert Challenge 101",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000960000",
+        "130000008",
+        "090005000",
+        "004700900",
+        "980000000",
+        "070001300",
+        "002000010",
+        "010050009",
+        "700000042"
+      ],
+      "solutionRows": [
+        "427968135",
+        "135247698",
+        "698315427",
+        "354726981",
+        "981534276",
+        "276891354",
+        "542679813",
+        "813452769",
+        "769183542"
+      ]
+    },
+    {
+      "id": "extreme_102",
+      "title": "Expert Challenge 102",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "580000070",
+        "000002300",
+        "406000000",
+        "009000000",
+        "000500010",
+        "000010728",
+        "000007030",
+        "320004080",
+        "000200604"
+      ],
+      "solutionRows": [
+        "582346971",
+        "791852346",
+        "436971852",
+        "149728563",
+        "278563419",
+        "653419728",
+        "964187235",
+        "325694187",
+        "817235694"
+      ]
+    },
+    {
+      "id": "extreme_103",
+      "title": "Expert Challenge 103",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000923000",
+        "000000002",
+        "000000451",
+        "020000006",
+        "010254000",
+        "903000000",
+        "000070004",
+        "007302600",
+        "030000010"
+      ],
+      "solutionRows": [
+        "541923768",
+        "678415932",
+        "392786451",
+        "425839176",
+        "716254893",
+        "983167245",
+        "869571324",
+        "157342689",
+        "234698517"
+      ]
+    },
+    {
+      "id": "extreme_104",
+      "title": "Expert Challenge 104",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "420001500",
+        "000000000",
+        "900600840",
+        "200000000",
+        "000809370",
+        "010000908",
+        "000400709",
+        "002080000",
+        "000300050"
+      ],
+      "solutionRows": [
+        "428791536",
+        "365248197",
+        "971635842",
+        "289173465",
+        "654829371",
+        "713564928",
+        "136452789",
+        "542987613",
+        "897316254"
+      ]
+    },
+    {
+      "id": "extreme_105",
+      "title": "Expert Challenge 105",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "896000210",
+        "000000980",
+        "000000003",
+        "070086090",
+        "200000701",
+        "000000000",
+        "050340002",
+        "004700060",
+        "000000100"
+      ],
+      "solutionRows": [
+        "896534217",
+        "543172986",
+        "127869453",
+        "471286395",
+        "268953741",
+        "935417628",
+        "659341872",
+        "314728569",
+        "782695134"
+      ]
+    },
+    {
+      "id": "extreme_106",
+      "title": "Expert Challenge 106",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000000060",
+        "908000270",
+        "030001000",
+        "006030109",
+        "209800000",
+        "007000000",
+        "000000700",
+        "400915000",
+        "003040005"
+      ],
+      "solutionRows": [
+        "721598364",
+        "958364271",
+        "634271598",
+        "586437129",
+        "219856437",
+        "347129856",
+        "195683742",
+        "472915683",
+        "863742915"
+      ]
+    },
+    {
+      "id": "extreme_107",
+      "title": "Expert Challenge 107",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000700003",
+        "000060000",
+        "005002781",
+        "071050000",
+        "000290004",
+        "000004008",
+        "000005000",
+        "000400030",
+        "914800000"
+      ],
+      "solutionRows": [
+        "249781563",
+        "187563942",
+        "365942781",
+        "471358296",
+        "853296174",
+        "692174358",
+        "738625419",
+        "526419837",
+        "914837625"
+      ]
+    },
+    {
+      "id": "extreme_108",
+      "title": "Expert Challenge 108",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "820000000",
+        "900000165",
+        "100003000",
+        "000106400",
+        "000000500",
+        "097050010",
+        "001400000",
+        "050000209",
+        "000068000"
+      ],
+      "solutionRows": [
+        "824615973",
+        "973284165",
+        "165793824",
+        "582136497",
+        "316947582",
+        "497852316",
+        "731429658",
+        "658371249",
+        "249568731"
+      ]
+    },
+    {
+      "id": "extreme_109",
+      "title": "Expert Challenge 109",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 250,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000800300",
+        "670000005",
+        "100002800",
+        "800000059",
+        "900000200",
+        "000705060",
+        "205000080",
+        "000003000",
+        "000140000"
+      ],
+      "solutionRows": [
+        "529867341",
+        "678314925",
+        "143952876",
+        "864231759",
+        "957486213",
+        "312795468",
+        "235679184",
+        "481523697",
+        "796148532"
+      ]
+    },
+    {
+      "id": "extreme_110",
+      "title": "Expert Challenge 110",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "130000020",
+        "002000876",
+        "000000000",
+        "890050000",
+        "300800700",
+        "000000960",
+        "008706000",
+        "004200080",
+        "000001607"
+      ],
+      "solutionRows": [
+        "139678425",
+        "542193876",
+        "687524391",
+        "896457213",
+        "321869754",
+        "475312968",
+        "918746532",
+        "764235189",
+        "253981647"
+      ]
+    },
+    {
+      "id": "extreme_111",
+      "title": "Expert Challenge 111",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000054000",
+        "612000000",
+        "000200090",
+        "196070000",
+        "004000700",
+        "000405000",
+        "000007002",
+        "000060310",
+        "065009080"
+      ],
+      "solutionRows": [
+        "389754126",
+        "612983574",
+        "457216893",
+        "196378245",
+        "524691738",
+        "873425961",
+        "931847652",
+        "748562319",
+        "265139487"
+      ]
+    },
+    {
+      "id": "extreme_112",
+      "title": "Expert Challenge 112",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "600000000",
+        "008050030",
+        "000632001",
+        "401089600",
+        "089000000",
+        "070000005",
+        "000010000",
+        "000703002",
+        "790000500"
+      ],
+      "solutionRows": [
+        "632148759",
+        "148957236",
+        "957632841",
+        "421589673",
+        "589376124",
+        "376421985",
+        "264815397",
+        "815793462",
+        "793264518"
+      ]
+    },
+    {
+      "id": "extreme_113",
+      "title": "Expert Challenge 113",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "050003000",
+        "400000900",
+        "007000410",
+        "000008700",
+        "000020001",
+        "020691000",
+        "500000002",
+        "060830009",
+        "030009100"
+      ],
+      "solutionRows": [
+        "956413287",
+        "413287956",
+        "287956413",
+        "691348725",
+        "348725691",
+        "725691348",
+        "579164832",
+        "164832579",
+        "832579164"
+      ]
+    },
+    {
+      "id": "extreme_114",
+      "title": "Expert Challenge 114",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "031000000",
+        "000005000",
+        "687000103",
+        "300020500",
+        "015000900",
+        "000004000",
+        "054301800",
+        "000000000",
+        "700400006"
+      ],
+      "solutionRows": [
+        "531786294",
+        "942135768",
+        "687249153",
+        "376928541",
+        "415673982",
+        "829514637",
+        "254361879",
+        "163897425",
+        "798452316"
+      ]
+    },
+    {
+      "id": "extreme_115",
+      "title": "Expert Challenge 115",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "100002043",
+        "040000009",
+        "000360000",
+        "000000800",
+        "002097000",
+        "060000074",
+        "000000501",
+        "000028400",
+        "496000000"
+      ],
+      "solutionRows": [
+        "158972643",
+        "643815729",
+        "729364158",
+        "974536812",
+        "812497365",
+        "365281974",
+        "287649531",
+        "531728496",
+        "496153287"
+      ]
+    },
+    {
+      "id": "extreme_116",
+      "title": "Expert Challenge 116",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "034000000",
+        "500210000",
+        "020006000",
+        "000090000",
+        "200850009",
+        "010000300",
+        "000034007",
+        "000000160",
+        "897000400"
+      ],
+      "solutionRows": [
+        "634785921",
+        "578219634",
+        "921346578",
+        "385197246",
+        "246853719",
+        "719462385",
+        "162534897",
+        "453978162",
+        "897621453"
+      ]
+    },
+    {
+      "id": "extreme_117",
+      "title": "Expert Challenge 117",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair",
+        "x_wing"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "007043000",
+        "610000000",
+        "000900000",
+        "002060017",
+        "000200009",
+        "900100300",
+        "070000000",
+        "005000061",
+        "403600800"
+      ],
+      "solutionRows": [
+        "527843196",
+        "619725483",
+        "348916275",
+        "832469517",
+        "751238649",
+        "964157328",
+        "176582934",
+        "285394761",
+        "493671852"
+      ]
+    },
+    {
+      "id": "extreme_118",
+      "title": "Expert Challenge 118",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000641000",
+        "725000000",
+        "100020000",
+        "000800600",
+        "078006502",
+        "000010000",
+        "200000093",
+        "800000000",
+        "000162000"
+      ],
+      "solutionRows": [
+        "389641725",
+        "725983146",
+        "146527389",
+        "512879634",
+        "978436512",
+        "634215978",
+        "261758493",
+        "857394261",
+        "493162857"
+      ]
+    },
+    {
+      "id": "extreme_119",
+      "title": "Expert Challenge 119",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000070900",
+        "000900210",
+        "408000000",
+        "600809304",
+        "000010890",
+        "005000000",
+        "000508000",
+        "000090170",
+        "000000006"
+      ],
+      "solutionRows": [
+        "123675948",
+        "567984213",
+        "498231657",
+        "671859324",
+        "234716895",
+        "985342761",
+        "712568439",
+        "856493172",
+        "349127586"
+      ]
+    },
+    {
+      "id": "extreme_120",
+      "title": "Expert Challenge 120",
+      "seal": "榜",
+      "difficulty": "expert",
+      "difficultyScore": 251,
+      "targetTimeSeconds": 1200,
+      "medianTimeSeconds": 1380,
+      "requiredTechniques": [
+        "hidden_pair",
+        "hidden_single",
+        "naked_pair",
+        "naked_single",
+        "pointing_pair"
+      ],
+      "rankedEligible": true,
+      "givensRows": [
+        "000000000",
+        "053001000",
+        "400000708",
+        "000060301",
+        "500000200",
+        "920010070",
+        "000000030",
+        "000498000",
+        "065003000"
+      ],
+      "solutionRows": [
+        "178924563",
+        "653781942",
+        "492536718",
+        "784269351",
+        "531847296",
+        "926315874",
+        "849652137",
+        "317498625",
+        "265173489"
       ]
     }
-  ]
+  ],
+  "batchIndex": 3,
+  "batchCount": 7
 }

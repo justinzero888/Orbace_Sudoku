@@ -9,10 +9,15 @@
   "curationStrategy": "ascending difficulty with stronger milestone puzzles every 10 levels",
   "milestoneEvery": 10,
   "id": "extreme",
-  "batchCount": 2,
+  "batchCount": 7,
   "assets": [
     "assets/puzzles/extreme/extreme_01.json",
-    "assets/puzzles/extreme/extreme_02.json"
+    "assets/puzzles/extreme/extreme_02.json",
+    "assets/puzzles/extreme/extreme_03.json",
+    "assets/puzzles/extreme/extreme_04.json",
+    "assets/puzzles/extreme/extreme_05.json",
+    "assets/puzzles/extreme/extreme_06.json",
+    "assets/puzzles/extreme/extreme_07.json"
   ],
   "puzzles": []
 }
