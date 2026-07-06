@@ -50,4 +50,14 @@ class AdMobConfig {
     }
     return _iOSProductionBannerUnitId;
   }
+
+  /// Google's own sample test banner unit -- used as an explicit no-fill
+  /// fallback for the *production* ad unit (see [AdMobBottomBanner]), not
+  /// as the primary id. Before an app is live on the App Store/Play Store,
+  /// the production unit commonly has no fill since Google can't yet
+  /// validate app-ads.txt/store ownership; falling back to a real test
+  /// creative keeps the banner slot showing something for layout QA. Once
+  /// the production unit starts filling for real, this is never reached
+  /// again -- no rebuild required.
+  static String get fallbackTestBannerUnitId => _testBannerUnitId;
 }

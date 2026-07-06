@@ -65,8 +65,12 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
       return;
     }
     _requested = true;
+    _loadBanner(AdMobConfig.bottomBannerUnitId, isFallback: false);
+  }
+
+  void _loadBanner(String unitId, {required bool isFallback}) {
     _bannerAd = BannerAd(
-      adUnitId: AdMobConfig.bottomBannerUnitId,
+      adUnitId: unitId,
       size: _adSize,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -83,9 +87,24 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
           ad.dispose();
           debugPrint(
             'AdMob banner failed to load (code ${error.code}, '
-            '${error.domain}): ${error.message}',
+            '${error.domain}): ${error.message}'
+            '${isFallback ? ' [fallback test ad]' : ''}',
           );
           if (!mounted) {
+            return;
+          }
+          // The real production ad had no fill (common before the app is
+          // live/approved on the store) -- fall back to a real test
+          // creative once, so the slot still shows something for layout
+          // QA instead of going blank. The next fresh instance of this
+          // widget (e.g. navigating to a different screen) tries the
+          // production ad again first, so once real fill starts this
+          // fallback naturally stops being used, with no rebuild required.
+          if (!isFallback && !AdMobConfig.usesTestAds) {
+            _loadBanner(
+              AdMobConfig.fallbackTestBannerUnitId,
+              isFallback: true,
+            );
             return;
           }
           setState(() {
