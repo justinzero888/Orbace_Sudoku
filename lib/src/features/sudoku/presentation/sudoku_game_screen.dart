@@ -689,7 +689,10 @@ class _CompletionCertificateDialogState
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
-          text: 'My Orbace Sudocoo Su-Pu · ${widget.puzzle.title}',
+          text:
+              'My Orbace Sudocoo Su-Pu · ${widget.puzzle.title}\n'
+              'Download Orbace Sudocoo App free - a light version of '
+              'Orbace Sudoku. Also play free at www.orbacesudoku.com',
           subject: 'Orbace Sudocoo Solve Record',
           sharePositionOrigin: _shareOrigin(),
         ),
@@ -830,12 +833,35 @@ class _ScoreCertificateCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Center(
-              child: Text(
-                'Download Orbace Sudoku · Play free at orbacesudoku.com',
+              child: RichText(
                 textAlign: TextAlign.center,
-                style: textTheme.bodySmall?.copyWith(
-                  color: OrbaceTheme.mutedInk,
-                  fontWeight: FontWeight.w600,
+                text: TextSpan(
+                  style: textTheme.bodySmall?.copyWith(
+                    color: OrbaceTheme.mutedInk,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  children: [
+                    const TextSpan(text: 'Download '),
+                    TextSpan(
+                      text: 'Orbace Sudocoo App',
+                      style: const TextStyle(
+                        color: OrbaceTheme.vermilion,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const TextSpan(
+                      text:
+                          ' free - A light version of Orbace Sudoku\n'
+                          'Also play free at ',
+                    ),
+                    TextSpan(
+                      text: 'www.orbacesudoku.com',
+                      style: const TextStyle(
+                        color: OrbaceTheme.vermilion,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

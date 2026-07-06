@@ -59,12 +59,19 @@ class AdConsentService {
     if (_resetConsentForTesting) {
       await ConsentInformation.instance.reset();
     }
-    final didUpdateConsentInfo = await _requestConsentInfoUpdate();
+    var didUpdateConsentInfo = await _requestConsentInfoUpdate();
+    if (!didUpdateConsentInfo) {
+      // A transient network hiccup on first launch shouldn't permanently
+      // disable ads for the rest of the session -- one retry covers the
+      // common case (e.g. consent servers unreachable for a moment).
+      await Future<void>.delayed(const Duration(seconds: 2));
+      didUpdateConsentInfo = await _requestConsentInfoUpdate();
+    }
     if (didUpdateConsentInfo) {
       await _loadConsentFormIfRequired();
     }
     await _refreshState();
-    _allowTestAdsAfterConsentRequestFailure();
+    _allowAdsAfterConsentRequestFailure();
   }
 
   static Future<void> showPrivacyOptionsForm() async {
@@ -177,10 +184,14 @@ class AdConsentService {
     );
   }
 
-  static void _allowTestAdsAfterConsentRequestFailure() {
-    if (!AdMobConfig.usesTestAds ||
-        state.value.canRequestAds ||
-        state.value.lastError == null) {
+  /// If the UMP consent SDK itself failed (network error, consent servers
+  /// unreachable, etc.) rather than the user having a real pending consent
+  /// decision, don't leave ads permanently disabled for the rest of the
+  /// session -- that used to only apply under test ads, which meant a single
+  /// bad network moment on a real user's first launch could silently turn
+  /// ads off in production with no recovery until the next app restart.
+  static void _allowAdsAfterConsentRequestFailure() {
+    if (state.value.canRequestAds || state.value.lastError == null) {
       return;
     }
     state.value = AdConsentState(

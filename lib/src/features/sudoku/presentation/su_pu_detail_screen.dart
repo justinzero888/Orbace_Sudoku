@@ -249,7 +249,11 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
                           await SharePlus.instance.share(
                             ShareParams(
                               files: [XFile(imageFile.path)],
-                              text: 'My Orbace Sudocoo Su-Pu',
+                              text:
+                                  'My Orbace Sudocoo Su-Pu\n'
+                                  'Download Orbace Sudocoo App free - a light '
+                                  'version of Orbace Sudoku. Also play free '
+                                  'at www.orbacesudoku.com',
                               subject: 'Orbace Sudocoo Solve Record',
                               sharePositionOrigin: _shareOrigin(),
                             ),

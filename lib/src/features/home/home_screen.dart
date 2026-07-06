@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../app/ad_mob_bottom_banner.dart';
@@ -5,8 +7,8 @@ import '../../app/orbace_theme.dart';
 import '../settings/settings_screen.dart';
 import '../sudoku/data/puzzle_pack_loader.dart';
 import '../sudoku/data/sudoku_repository.dart';
-import '../sudoku/domain/daily_random_puzzle.dart';
 import '../sudoku/presentation/extreme_hub_screen.dart';
+import '../sudoku/presentation/fixture_puzzles.dart';
 import '../sudoku/presentation/import_puzzle_screen.dart';
 import '../sudoku/presentation/level_pack_screen.dart';
 import '../sudoku/presentation/record_hall_screen.dart';
@@ -24,6 +26,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<PuzzlePackCatalog> _catalogFuture = _loadCatalog();
+  final Random _random = Random();
+  String? _lastTeaMomentId;
 
   Future<PuzzlePackCatalog> _loadCatalog() {
     return PuzzlePackLoader(repository: widget.repository).load();
@@ -33,6 +37,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _catalogFuture = _loadCatalog();
     });
+  }
+
+  /// Picks a fresh random Tea Moment puzzle, avoiding an immediate repeat of
+  /// the last one served -- Tea Moment is meant to feel different every time
+  /// it's opened, even multiple times in the same day.
+  FixturePuzzleDefinition _pickTeaMoment(PuzzlePackCatalog catalog) {
+    final pool = catalog.teaMomentPuzzles;
+    var candidates = pool;
+    if (pool.length > 1 && _lastTeaMomentId != null) {
+      candidates = pool
+          .where((puzzle) => puzzle.id != _lastTeaMomentId)
+          .toList(growable: false);
+    }
+    final picked = candidates[_random.nextInt(candidates.length)];
+    _lastTeaMomentId = picked.id;
+    return picked;
   }
 
   @override
@@ -50,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           repository: widget.repository,
           catalog: snapshot.requireData,
           onRefreshCatalog: _refreshCatalog,
+          onPickTeaMoment: _pickTeaMoment,
         );
       },
     );
@@ -61,19 +82,17 @@ class _HomeContent extends StatelessWidget {
     required this.repository,
     required this.catalog,
     required this.onRefreshCatalog,
+    required this.onPickTeaMoment,
   });
 
   final SudokuRepository? repository;
   final PuzzlePackCatalog catalog;
   final VoidCallback onRefreshCatalog;
+  final FixturePuzzleDefinition Function(PuzzlePackCatalog) onPickTeaMoment;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final dailyPuzzle = DailyRandomPuzzle.teaDaily.forDate(
-      DateTime.now(),
-      catalog.teaMomentPuzzles,
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -98,20 +117,22 @@ class _HomeContent extends StatelessWidget {
             Text('一局一茶 · One Puzzle, One Tea', style: textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
-              'Today\'s Tea Moment is ${dailyPuzzle.title}. Solve calmly, use notes, undo moves, and ask the lantern for help.',
+              'A calm puzzle from Beginner, Easy, or Medium, picked fresh each time. '
+              'Solve calmly, use notes, undo moves, and ask the lantern for help.',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
             _PhaseCard(
               title: 'Tea Moment',
-              subtitle: 'Start today\'s calm puzzle',
+              subtitle: 'Start a calm puzzle',
               seal: '茶',
               onTap: () {
+                final puzzle = onPickTeaMoment(catalog);
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (_) => SudokuGameScreen(
                       repository: repository,
-                      puzzle: dailyPuzzle,
+                      puzzle: puzzle,
                       catalog: catalog,
                     ),
                   ),
@@ -120,21 +141,6 @@ class _HomeContent extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             if (repository != null) ...[
-              _PhaseCard(
-                title: 'Import Puzzle',
-                subtitle: 'Paste or enter a personal Sudocoo',
-                seal: '入',
-                onTap: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) =>
-                          ImportPuzzleScreen(repository: repository!),
-                    ),
-                  );
-                  onRefreshCatalog();
-                },
-              ),
-              const SizedBox(height: 12),
               _PhaseCard(
                 title: 'Record Hall',
                 subtitle: '藏谱阁 · replay saved Su-Pu',
@@ -165,6 +171,23 @@ class _HomeContent extends StatelessWidget {
               },
             ),
             const SizedBox(height: 12),
+            if (repository != null) ...[
+              _PhaseCard(
+                title: 'Import Puzzle',
+                subtitle: 'Paste or enter a personal Sudocoo',
+                seal: '入',
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) =>
+                          ImportPuzzleScreen(repository: repository!),
+                    ),
+                  );
+                  onRefreshCatalog();
+                },
+              ),
+              const SizedBox(height: 12),
+            ],
             _PhaseCard(
               title: 'Scholar\'s Path',
               subtitle: 'Awards, replay, and local Expert unlocks',

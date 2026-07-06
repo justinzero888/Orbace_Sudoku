@@ -29,9 +29,22 @@ class PuzzlePackCatalog {
     return <FixturePuzzleDefinition>[for (final pack in packs) ...pack.puzzles];
   }
 
+  /// Tea Moment is a calm, low-pressure mode, so it only draws from the
+  /// easier packs (Foundation/Discipline/Insight) -- Hard and Expert puzzles
+  /// are excluded to keep it approachable. See UAT feedback that folded the
+  /// old standalone Tea Moments pack into Foundation.
+  static const _teaMomentSourcePackIds = <String>{
+    'foundation',
+    'discipline',
+    'insight',
+  };
+
   List<FixturePuzzleDefinition> get teaMomentPuzzles {
-    final teaPack = packs.where((pack) => pack.id == 'tea_moments').firstOrNull;
-    return teaPack?.puzzles ?? puzzles;
+    final pool = <FixturePuzzleDefinition>[
+      for (final pack in packs)
+        if (_teaMomentSourcePackIds.contains(pack.id)) ...pack.puzzles,
+    ];
+    return pool.isEmpty ? puzzles : pool;
   }
 
   /// True Extreme puzzles eligible for the Daily Extreme Challenge pool.
@@ -121,20 +134,6 @@ class PuzzlePackDefinition {
   final bool hidden;
 
   String get asset => assets.first;
-
-  int get advancedPuzzleCount {
-    return puzzles
-        .where(
-          (puzzle) => puzzle.requiredTechniques.any(
-            (technique) =>
-                technique == 'naked_pair' ||
-                technique == 'hidden_pair' ||
-                technique == 'pointing_pair' ||
-                technique == 'x_wing',
-          ),
-        )
-        .length;
-  }
 }
 
 class PuzzlePackLoader {

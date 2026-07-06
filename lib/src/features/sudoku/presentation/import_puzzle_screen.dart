@@ -19,10 +19,13 @@ class ImportPuzzleScreen extends StatefulWidget {
 
 class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     with SingleTickerProviderStateMixin {
+  static const double _pasteTabHeight = 380;
+  static const double _gridTabHeight = 560;
+
   late final TabController _tabController = TabController(
     length: 2,
     vsync: this,
-  );
+  )..addListener(_onTabChanged);
   late final ImportedPuzzleService _service = ImportedPuzzleService(
     repository: widget.repository,
   );
@@ -39,8 +42,18 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
   bool _saving = false;
   bool _validating = false;
 
+  void _onTabChanged() {
+    // TabController fires this listener during the drag/settle animation
+    // too, not just on a completed switch -- only rebuild once it settles
+    // on a new tab so the pane height doesn't jitter mid-swipe.
+    if (!_tabController.indexIsChanging) {
+      setState(() {});
+    }
+  }
+
   @override
   void dispose() {
+    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _titleController.dispose();
     _sourceController.dispose();
@@ -95,7 +108,9 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
             ),
             const SizedBox(height: 14),
             SizedBox(
-              height: 560,
+              height: _tabController.index == 0
+                  ? _pasteTabHeight
+                  : _gridTabHeight,
               child: TabBarView(
                 controller: _tabController,
                 children: [
@@ -162,6 +177,7 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
         return;
       }
       setState(() => _preview = preview);
+      _showSavePrompt(preview);
     } on ImportedPuzzleException catch (error) {
       if (!mounted) {
         return;
@@ -177,6 +193,34 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
         setState(() => _validating = false);
       }
     }
+  }
+
+  /// Surfaces the "Save & Play" CTA immediately as a bottom sheet instead of
+  /// leaving the user to scroll down and find it -- see UAT feedback that it
+  /// wasn't obvious the puzzle had validated successfully.
+  Future<void> _showSavePrompt(ImportedPuzzlePreview preview) {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) {
+        return Padding(
+          padding: EdgeInsets.fromLTRB(
+            16,
+            16,
+            16,
+            16 + MediaQuery.of(sheetContext).viewInsets.bottom,
+          ),
+          child: _PreviewCard(
+            preview: preview,
+            saving: false,
+            onSaveAndPlay: () {
+              Navigator.of(sheetContext).pop();
+              _saveAndPlay();
+            },
+          ),
+        );
+      },
+    );
   }
 
   List<int?> _manualCells() {

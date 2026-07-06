@@ -175,7 +175,7 @@ class _PackBrowserState extends State<_PackBrowser> {
                 onProgressChanged: _refreshProgress,
                 initiallyExpanded:
                     _forcedExpanded ??
-                    (pack.id == 'tea_moments' || pack.id == 'mastery'),
+                    (pack.id == 'foundation' || pack.id == 'mastery'),
               ),
               const SizedBox(height: 12),
             ],
@@ -236,8 +236,8 @@ class _PackSection extends StatelessWidget {
         ),
         title: Text(pack.title, style: textTheme.titleLarge),
         subtitle: Text(
-          '$completedCount/${pack.puzzles.length} completed  |  '
-          '${pack.advancedPuzzleCount} advanced',
+          '${pack.subtitle}  |  '
+          '$completedCount/${pack.puzzles.length} complete',
         ),
         children: [
           Align(

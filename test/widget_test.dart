@@ -29,12 +29,12 @@ void main() {
     expect(find.text('Import Puzzle'), findsNothing);
     expect(find.text('Level Packs'), findsOneWidget);
     expect(
-      find.text(
-        'Today\'s Tea Moment is ${catalog.teaMomentPuzzles.first.title}',
+      find.textContaining(
+        'A calm puzzle from Beginner, Easy, or Medium, picked fresh each time.',
       ),
-      findsNothing,
-      reason:
-          'daily title includes the selected puzzle and date, not a fixed fixture',
+      findsOneWidget,
+      reason: 'Tea Moment no longer names a fixed puzzle up front -- it is '
+          'picked fresh at tap time',
     );
     expect(
       advancedCount,
