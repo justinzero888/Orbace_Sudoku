@@ -43,7 +43,7 @@ Current saved baseline for production-readiness planning:
 
 | Area | Baseline |
 | --- | --- |
-| App-code baseline | Version `1.1.0+44` (uncommitted at time of writing; see git log for the commit this lands in) |
+| App-code baseline | `0eb89d8` - `Build 1.1.0+44: Level Packs true-tier rename, Tea Moment scope/randomization, Import Puzzle CTA fix, ads consent-fallback fix` |
 | Current beta version (both stores) | `1.1.0 (43)`, prior checkpoint uploaded |
 | Next beta version (this pass) | `1.1.0 (44)` — IPA and AAB built and verified; not yet uploaded |
 | Latest iOS IPA | `build/ios/ipa/orbace_sudoku.ipa`, signed `Apple Distribution: Orbace Technologies LLC (4Q4LMBRDM3)`, bundle ID `com.orbace.orbaceSudoku`, version 1.1.0 (44) |
