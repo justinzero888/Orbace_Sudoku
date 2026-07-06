@@ -37,6 +37,30 @@ class ImportedPuzzlePreview {
   final List<String> requiredTechniques;
   final bool humanSolvable;
   final String? sourceLabel;
+
+  /// Applies an edited title/source note (e.g. from the Save & Play sheet)
+  /// without re-running validation -- neither affects the puzzle's id or
+  /// checksum. A blank title falls back to the existing (system-generated)
+  /// one rather than saving an empty title; a blank source note clears it.
+  ImportedPuzzlePreview copyWith({String? title, String? sourceLabel}) {
+    final trimmedTitle = title?.trim();
+    final resolvedTitle = (trimmedTitle == null || trimmedTitle.isEmpty)
+        ? this.title
+        : trimmedTitle;
+    return ImportedPuzzlePreview(
+      id: id,
+      title: resolvedTitle,
+      givens: givens,
+      solution: solution,
+      difficulty: difficulty,
+      difficultyScore: difficultyScore,
+      targetTimeSeconds: targetTimeSeconds,
+      medianTimeSeconds: medianTimeSeconds,
+      requiredTechniques: requiredTechniques,
+      humanSolvable: humanSolvable,
+      sourceLabel: _normalizedNullable(sourceLabel),
+    );
+  }
 }
 
 class ImportedPuzzleService {

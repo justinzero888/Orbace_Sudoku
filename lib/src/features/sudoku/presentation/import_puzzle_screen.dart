@@ -19,9 +19,6 @@ class ImportPuzzleScreen extends StatefulWidget {
 
 class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     with SingleTickerProviderStateMixin {
-  static const double _pasteTabHeight = 380;
-  static const double _gridTabHeight = 560;
-
   late final TabController _tabController = TabController(
     length: 2,
     vsync: this,
@@ -29,23 +26,19 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
   late final ImportedPuzzleService _service = ImportedPuzzleService(
     repository: widget.repository,
   );
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _sourceController = TextEditingController();
   final TextEditingController _pasteController = TextEditingController();
   final List<TextEditingController> _cellControllers =
       List<TextEditingController>.generate(
         SudokuBoard.cellCount,
         (_) => TextEditingController(),
       );
-  ImportedPuzzlePreview? _preview;
   String? _error;
-  bool _saving = false;
   bool _validating = false;
 
   void _onTabChanged() {
     // TabController fires this listener during the drag/settle animation
     // too, not just on a completed switch -- only rebuild once it settles
-    // on a new tab so the pane height doesn't jitter mid-swipe.
+    // on a new tab so the active pane doesn't flicker mid-swipe.
     if (!_tabController.indexIsChanging) {
       setState(() {});
     }
@@ -55,8 +48,6 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
   void dispose() {
     _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
-    _titleController.dispose();
-    _sourceController.dispose();
     _pasteController.dispose();
     for (final controller in _cellControllers) {
       controller.dispose();
@@ -81,6 +72,11 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
       ),
       bottomNavigationBar: const AdMobBottomBanner(),
       body: SafeArea(
+        // Renders only the active tab's pane directly in this scrollable
+        // list -- no shared fixed-height box (previously a TabBarView sized
+        // to a single guessed pixel height for both tabs, which either
+        // clipped the taller Paste content or left dead space under the
+        // shorter one, depending on the guess).
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
           children: [
@@ -89,39 +85,12 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                hintText: 'Imported challenge',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _sourceController,
-              decoration: const InputDecoration(
-                labelText: 'Source note',
-                hintText: 'Optional, for your own reference',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 14),
-            SizedBox(
-              height: _tabController.index == 0
-                  ? _pasteTabHeight
-                  : _gridTabHeight,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  _PasteImportPane(controller: _pasteController),
-                  _ManualGridPane(controllers: _cellControllers),
-                ],
-              ),
-            ),
+            _tabController.index == 0
+                ? _PasteImportPane(controller: _pasteController)
+                : _ManualGridPane(controllers: _cellControllers),
             const SizedBox(height: 12),
             FilledButton.icon(
-              onPressed: _saving || _validating ? null : _validate,
+              onPressed: _validating ? null : _validate,
               icon: _validating
                   ? const SizedBox.square(
                       dimension: 18,
@@ -140,14 +109,6 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
                 ),
               ),
             ],
-            if (_preview case final preview?) ...[
-              const SizedBox(height: 14),
-              _PreviewCard(
-                preview: preview,
-                saving: _saving,
-                onSaveAndPlay: _saveAndPlay,
-              ),
-            ],
           ],
         ),
       ),
@@ -157,26 +118,16 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
   Future<void> _validate() async {
     setState(() {
       _error = null;
-      _preview = null;
       _validating = true;
     });
 
     try {
       final preview = _tabController.index == 0
-          ? await _service.previewFromString(
-              _pasteController.text,
-              title: _titleController.text,
-              sourceLabel: _sourceController.text,
-            )
-          : await _service.previewFromCells(
-              _manualCells(),
-              title: _titleController.text,
-              sourceLabel: _sourceController.text,
-            );
+          ? await _service.previewFromString(_pasteController.text)
+          : await _service.previewFromCells(_manualCells());
       if (!mounted) {
         return;
       }
-      setState(() => _preview = preview);
       _showSavePrompt(preview);
     } on ImportedPuzzleException catch (error) {
       if (!mounted) {
@@ -195,9 +146,11 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     }
   }
 
-  /// Surfaces the "Save & Play" CTA immediately as a bottom sheet instead of
-  /// leaving the user to scroll down and find it -- see UAT feedback that it
-  /// wasn't obvious the puzzle had validated successfully.
+  /// Surfaces the "Save & Play" step immediately as a bottom sheet instead of
+  /// leaving the user to scroll down and find it. Title/source note live
+  /// here (pre-filled with the system-generated default) rather than on the
+  /// main screen, since they're optional and belong to the save step, not
+  /// the fill step.
   Future<void> _showSavePrompt(ImportedPuzzlePreview preview) {
     return showModalBottomSheet<void>(
       context: context,
@@ -210,12 +163,11 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
             16,
             16 + MediaQuery.of(sheetContext).viewInsets.bottom,
           ),
-          child: _PreviewCard(
+          child: _SavePromptSheet(
             preview: preview,
-            saving: false,
-            onSaveAndPlay: () {
+            onSaveAndPlay: (updatedPreview) {
               Navigator.of(sheetContext).pop();
-              _saveAndPlay();
+              _saveAndPlay(updatedPreview);
             },
           ),
         );
@@ -238,35 +190,24 @@ class _ImportPuzzleScreenState extends State<ImportPuzzleScreen>
     ];
   }
 
-  Future<void> _saveAndPlay() async {
-    final preview = _preview;
-    if (preview == null) {
+  Future<void> _saveAndPlay(ImportedPuzzlePreview preview) async {
+    await _service.save(preview);
+    final catalog = await PuzzlePackLoader(
+      repository: widget.repository,
+    ).load();
+    final puzzle = catalog.byId(preview.id);
+    if (!mounted) {
       return;
     }
-    setState(() => _saving = true);
-    try {
-      await _service.save(preview);
-      final catalog = await PuzzlePackLoader(
-        repository: widget.repository,
-      ).load();
-      final puzzle = catalog.byId(preview.id);
-      if (!mounted) {
-        return;
-      }
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute<void>(
-          builder: (_) => SudokuGameScreen(
-            repository: widget.repository,
-            puzzle: puzzle,
-            catalog: catalog,
-          ),
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (_) => SudokuGameScreen(
+          repository: widget.repository,
+          puzzle: puzzle,
+          catalog: catalog,
         ),
-      );
-    } finally {
-      if (mounted) {
-        setState(() => _saving = false);
-      }
-    }
+      ),
+    );
   }
 }
 
@@ -491,28 +432,75 @@ class _ManualGridPaneState extends State<_ManualGridPane> {
   }
 }
 
-class _PreviewCard extends StatelessWidget {
-  const _PreviewCard({
-    required this.preview,
-    required this.saving,
-    required this.onSaveAndPlay,
-  });
+class _SavePromptSheet extends StatefulWidget {
+  const _SavePromptSheet({required this.preview, required this.onSaveAndPlay});
 
   final ImportedPuzzlePreview preview;
-  final bool saving;
-  final VoidCallback onSaveAndPlay;
+  final ValueChanged<ImportedPuzzlePreview> onSaveAndPlay;
+
+  @override
+  State<_SavePromptSheet> createState() => _SavePromptSheetState();
+}
+
+class _SavePromptSheetState extends State<_SavePromptSheet> {
+  late final TextEditingController _titleController = TextEditingController(
+    text: widget.preview.title,
+  );
+  late final TextEditingController _sourceController = TextEditingController(
+    text: widget.preview.sourceLabel ?? '',
+  );
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _sourceController.dispose();
+    super.dispose();
+  }
+
+  void _handleSaveAndPlay() {
+    widget.onSaveAndPlay(
+      widget.preview.copyWith(
+        title: _titleController.text,
+        sourceLabel: _sourceController.text,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final preview = widget.preview;
     final textTheme = Theme.of(context).textTheme;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(14),
+        // Shrink-wrap to content -- without this, the sheet route's
+        // isScrollControlled loose constraint (up to full screen height)
+        // combined with Column's default MainAxisSize.max made this sheet
+        // cover the entire device height with mostly blank space below the
+        // button.
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(preview.title, style: textTheme.titleLarge),
-            const SizedBox(height: 6),
+            Text('Puzzle validated', style: textTheme.titleLarge),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _sourceController,
+              decoration: const InputDecoration(
+                labelText: 'Source note',
+                hintText: 'Optional, for your own reference',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 12),
             Text(
               '${preview.difficulty.label} · ${preview.givens.cells.where((value) => value != null).length} givens',
             ),
@@ -523,15 +511,10 @@ class _PreviewCard extends StatelessWidget {
                   : 'Unique solution found. Advanced techniques may be required.',
               style: textTheme.bodyMedium?.copyWith(color: OrbaceTheme.ink),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 14),
             FilledButton.icon(
-              onPressed: saving ? null : onSaveAndPlay,
-              icon: saving
-                  ? const SizedBox.square(
-                      dimension: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.play_arrow),
+              onPressed: _handleSaveAndPlay,
+              icon: const Icon(Icons.play_arrow),
               label: const Text('Save & Play'),
             ),
           ],
