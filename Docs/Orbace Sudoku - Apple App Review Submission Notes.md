@@ -8,8 +8,8 @@
 **Apple Team ID:** `4Q4LMBRDM3`  
 **Bundle ID:** `com.orbace.orbaceSudoku`  
 **SKU:** `orbace-sudoku-ios`  
-**Current beta build:** `1.0.0 (35)`  
-**Target release:** V1.0.0
+**Current beta build:** `1.1.0 (48)`  
+**Target release:** V1.1.0
 
 ---
 
@@ -19,7 +19,7 @@ Orbace Sudoku is a calm, teaching-first Sudoku game for iPhone and iPad. It incl
 
 There is no account login, no social network, no server-side user profile, no user-generated public content, no in-app purchase, no subscription, and no gambling. All gameplay records are stored locally on the user's device.
 
-Active Sudoku gameplay is ad-free. Banner ads appear only on non-gameplay screens such as Home, Level Packs, Record Hall, Import Puzzle, replay/detail screens, Scholar's Path, Extreme Challenge hub, and Settings.
+Banner ads appear at the bottom of app screens, including gameplay. On gameplay screens, the banner slot is reserved below the number keypad and above the home-indicator safe area so it does not cover puzzle controls.
 
 ---
 
@@ -78,13 +78,14 @@ Core review path:
 5. Open Import Puzzle to paste or manually enter a personal Sudoku. Example paste string:
    530070000600195000098000060800060003400803001700020006060000280000419005000080079
 6. Open Record Hall after completing a puzzle to view saved local Su-Pu records, replay, score card, and local ranking details.
-7. Open Settings to view Privacy Policy, Terms of Use, and Ad Privacy Status.
+7. Open Settings to view Privacy Policy, Terms of Use, Privacy Choices when required, and Ad Tracking Permission status on iOS.
 
 Ads:
-- Banner ads appear only on non-gameplay screens.
-- Active Sudoku gameplay is ad-free.
+- Banner ads appear at the bottom of app screens, including gameplay.
+- Gameplay controls remain above the reserved banner slot and are not covered by ads.
 - This beta/review build may use Google test banner ads for validation.
 - Production ads use Google AdMob and are gated by Google's User Messaging Platform consent flow when required.
+- On iOS, the App Tracking Transparency prompt is requested before Google Mobile Ads initializes.
 
 Privacy:
 - Orbace Sudoku does not require an account and does not send gameplay records to Orbace servers.
@@ -119,7 +120,7 @@ Production ads use the configured Orbace Sudoku Google AdMob banner unit.
 | Local Ranking | Su-Pu Detail | Local-only ranking for same built-in puzzle on same device. |
 | Scholar's Path | Home > Scholar's Path | Local awards/progression. |
 | Extreme Challenge | Home > Extreme Challenge | Local locked/no-assist challenge hub. |
-| Settings | Gear icon on Home | Privacy, Terms, Ad Privacy Status. |
+| Settings | Gear icon on Home | Privacy, Terms, Privacy Choices when required, and iOS Ad Tracking Permission status. |
 
 ---
 
@@ -159,6 +160,12 @@ Third-party advertising:
 ```text
 Orbace Sudoku uses this identifier to support personalized ads where you allow ad personalization.
 ```
+
+- Native ATT request is implemented in build `1.1.0 (48)`:
+  - iOS bridge: `ios/Runner/AppDelegate.swift`
+  - Dart gate: `lib/src/app/app_tracking_transparency_service.dart`
+  - Ad startup order: `AdConsentService.initialize()` requests ATT before `MobileAds.instance.initialize()`
+  - Launch timing: `main.dart` starts Flutter UI first, then initializes ad consent after the first frame so the iOS prompt can present over an active UI.
 
 Encryption:
 
@@ -254,10 +261,10 @@ Those features are planned/deferred and should not appear in V1 App Store metada
 | Risk | Status / Mitigation |
 | --- | --- |
 | App crashes or blank screen | Run smoke test on physical iPhone and iPad before submission. |
-| Ads in gameplay | Gameplay screen intentionally has no banner. Verify before submission. |
+| Ads in gameplay | Gameplay screen intentionally reserves a bottom banner slot below the keypad. Verify the banner does not cover controls before submission. |
 | UMP form not showing | Expected unless consent required and AdMob Privacy & messaging form configured. Configure AdMob forms before production. |
 | App privacy mismatch | Ensure App Store privacy answers disclose AdMob/IDFA behavior. |
-| ATT missing | `NSUserTrackingUsageDescription` is present. |
+| ATT missing | Fixed and hardened in build `1.1.0 (48)`: native `ATTrackingManager.requestTrackingAuthorization` prompt appears before Mobile Ads initialization and waits until the app is active. Simulator evidence: `Docs/exports/v48_iphone17e_launch.png` and `Docs/exports/att_prompt_ipad_sim_2026-07-07.png`. Apple still requests a physical-device screen recording in App Review notes. |
 | Metadata mentions unavailable features | Do not mention global ranking, official events, photo import, IAP, or paid packs for V1. |
 | iPad orientation | App currently supports portrait/full-screen iPad behavior for V1. Confirm App Store validation passes. |
 | Support/privacy URLs | Must be live and corporate-owned before release. |
@@ -271,18 +278,40 @@ Run this before submitting a build to App Review:
 
 1. Install App Store/TestFlight candidate on iPhone.
 2. Install App Store/TestFlight candidate on iPad.
-3. Launch app; Home appears.
-4. Open Settings; Privacy Policy, Terms, and Ad Privacy Status open.
-5. Confirm banner ad appears on Home or other non-gameplay screen.
-6. Start Tea Moment; confirm no banner appears on active game board.
-7. Enter notes and numbers.
-8. Use undo/redo/erase/hint.
-9. Complete a puzzle, or use a nearly solved imported puzzle to validate completion.
-10. Confirm completion certificate appears.
-11. Save/share score card.
-12. Open Record Hall.
-13. Open Replay and Su-Pu Detail.
-14. Relaunch app; confirm local data still opens.
+3. Before launch, reset tracking permission if reusing a device: Settings > Privacy & Security > Tracking, or uninstall/reinstall the app.
+4. Launch app; confirm the ATT prompt appears before any banner ad appears.
+5. Record this first-launch flow on a physical iPhone/iPad and attach it in App Review Information notes.
+6. After choosing an ATT option, Home appears.
+7. Open Settings; Privacy Policy and Terms open.
+8. Confirm banner ad appears on Home or other screen.
+9. Start Tea Moment; confirm the gameplay banner slot stays below the keypad and does not cover controls.
+10. Enter notes and numbers.
+11. Use undo/redo/erase/hint.
+12. Complete a puzzle, or use a nearly solved imported puzzle to validate completion.
+13. Confirm completion certificate appears.
+14. Save/share score card.
+15. Open Record Hall.
+16. Open Replay and Su-Pu Detail.
+17. Relaunch app; confirm local data still opens.
+
+---
+
+## 12. App Review ATT Response Template
+
+Use this response when resubmitting the ATT fix build:
+
+```text
+We have updated the app to explicitly present Apple's App Tracking Transparency permission request before Google Mobile Ads initialization.
+
+Implementation details:
+- Build: 1.1.0 (48)
+- iOS native request: ATTrackingManager.requestTrackingAuthorization
+- The request is called from the app's ad-consent startup path before MobileAds.instance.initialize().
+- The ad-consent startup now runs after the first Flutter frame and waits for the app to be active so the system prompt can present over an active UI.
+- NSUserTrackingUsageDescription is included in Info.plist.
+
+We verified the prompt on a fresh install / reset tracking state. The attached recording shows launch, the ATT prompt, and the user flow after the prompt.
+```
 
 ---
 

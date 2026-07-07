@@ -1,10 +1,17 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/ad_consent_service.dart';
 import '../../app/ad_mob_bottom_banner.dart';
+import '../../app/app_tracking_transparency_service.dart';
 import '../../app/orbace_theme.dart';
 import 'about_screen.dart';
 import 'help_screen.dart';
+
+const supportEmail = 'support@orbacesudoku.com';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -35,13 +42,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () => _showPolicy(
                 context,
                 title: 'Privacy Policy',
-                body: '''Privacy Policy for Orbace Sudocoo
+                body: '''Privacy Policy for Orbace Sudoku
 Effective Date: June 2026
 
-At Orbace Sudocoo, we value your privacy. This Privacy Policy explains how data is handled within our application.
+At Orbace Sudoku, we value your privacy. This Privacy Policy explains how data is handled within our application.
 
 1. Personal Data and Cloud Storage
-Orbace Sudocoo does not collect, store, or transmit any personal data (such as your name, email address, or contact information) to any external servers. Your data is stored locally on your device.
+Orbace Sudoku does not collect, store, or transmit any personal data (such as your name, email address, or contact information) to any external servers. Your data is stored locally on your device.
 
 2. Third-Party Advertising (Google AdMob)
 To keep this application free to play, we use Google AdMob to display advertisements. To serve relevant ads and comply with global regulations, Google AdMob utilizes SDKs that may automatically collect and process certain device data, including:
@@ -56,7 +63,7 @@ We utilize Google's User Messaging Platform (UMP) to present a consent dialog to
 4. Changes to This Policy
 We may update our Privacy Policy from time to time. Any changes will be posted directly to this web page.
 
-Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
+Contact Us: If you have any questions, contact us at $supportEmail.''',
               ),
             ),
             ValueListenableBuilder<AdConsentState>(
@@ -73,6 +80,7 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
                 );
               },
             ),
+            if (!kIsWeb && Platform.isIOS) const _TrackingPermissionTile(),
             _SettingsTile(
               icon: Icons.description_outlined,
               title: 'Terms of Use',
@@ -81,7 +89,7 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
                 context,
                 title: 'Terms of Use',
                 body:
-                    'By using Orbace Sudocoo you agree to these terms. Orbace Sudocoo is published by Orbace Technologies LLC.\n\nAll puzzle content, game logic, scoring systems, and design are the intellectual property of Orbace Technologies LLC. Imported puzzles are for personal, non-commercial use only.\n\nThe app is provided as-is without warranty. Orbace Technologies LLC is not liable for data loss or device issues arising from use of the app.\n\nFor questions, contact: legal@orbace.com',
+                    'By using Orbace Sudoku you agree to these terms. Orbace Sudoku is published by Orbace Technologies LLC.\n\nAll puzzle content, game logic, scoring systems, and design are the intellectual property of Orbace Technologies LLC. Imported puzzles are for personal, non-commercial use only.\n\nThe app is provided as-is without warranty. Orbace Technologies LLC is not liable for data loss or device issues arising from use of the app.\n\nFor questions, contact: $supportEmail',
               ),
             ),
             _SettingsTile(
@@ -100,10 +108,30 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
                 MaterialPageRoute<void>(builder: (_) => const HelpScreen()),
               ),
             ),
+            _SettingsTile(
+              icon: Icons.mail_outline,
+              title: 'Contact Support',
+              subtitle: supportEmail,
+              onTap: () => _contactSupport(context),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _contactSupport(BuildContext context) async {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: supportEmail,
+      query: 'subject=${Uri.encodeComponent('Orbace Sudoku Support')}',
+    );
+    final launched = await launchUrl(uri);
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Email us at $supportEmail')));
+    }
   }
 
   void _showPolicy(
@@ -135,6 +163,57 @@ Contact Us: If you have any questions, contact us at support@orbacetech.com.''',
   }
 }
 
+class _TrackingPermissionTile extends StatefulWidget {
+  const _TrackingPermissionTile();
+
+  @override
+  State<_TrackingPermissionTile> createState() =>
+      _TrackingPermissionTileState();
+}
+
+class _TrackingPermissionTileState extends State<_TrackingPermissionTile> {
+  late Future<String> _statusFuture =
+      AppTrackingTransparencyService.authorizationStatus();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String>(
+      future: _statusFuture,
+      builder: (context, snapshot) {
+        final status = snapshot.data ?? 'checking';
+        return _SettingsTile(
+          icon: Icons.ads_click_outlined,
+          title: 'Ad Tracking Permission',
+          subtitle: _subtitleFor(status),
+          onTap: () async {
+            await AppTrackingTransparencyService.requestAuthorizationIfNeeded();
+            if (!mounted) {
+              return;
+            }
+            setState(() {
+              _statusFuture =
+                  AppTrackingTransparencyService.authorizationStatus();
+            });
+          },
+        );
+      },
+    );
+  }
+
+  String _subtitleFor(String status) {
+    return switch (status) {
+      'notDetermined' => 'Not requested yet. Tap to request.',
+      'authorized' => 'Authorized',
+      'denied' => 'Denied or tracking requests are disabled',
+      'restricted' => 'Restricted by device settings',
+      'notSupported' => 'Not required on this device',
+      'missingPlugin' => 'Native ATT bridge unavailable',
+      'error' => 'Could not read status',
+      _ => 'Status: $status',
+    };
+  }
+}
+
 class _SettingsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -150,7 +229,7 @@ class _SettingsHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Orbace Sudocoo',
+              'Orbace Sudoku',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 6),

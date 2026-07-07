@@ -8,11 +8,13 @@ import '../features/sudoku/data/puzzle_pack_loader.dart';
 import '../features/sudoku/data/sudoku_repository.dart';
 import '../features/sudoku/presentation/level_pack_screen.dart';
 import '../features/sudoku/presentation/record_hall_screen.dart';
+import '../features/sudoku/presentation/sudoku_game_screen.dart';
 import '../features/sudoku/presentation/import_puzzle_screen.dart';
 import '../features/settings/about_screen.dart';
 import '../features/settings/help_screen.dart';
 import '../features/settings/settings_screen.dart';
 import 'orbace_theme.dart';
+import 'route_observer.dart';
 
 class OrbaceSudokuApp extends StatefulWidget {
   const OrbaceSudokuApp({super.key, this.database});
@@ -49,10 +51,11 @@ class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Orbace Sudocoo',
+      title: 'Orbace Sudoku',
       debugShowCheckedModeBanner: false,
       theme: OrbaceTheme.light(),
       themeMode: ThemeMode.light,
+      navigatorObservers: [appRouteObserver],
       home: _buildInitialScreen(),
     );
   }
@@ -61,6 +64,7 @@ class _OrbaceSudokuAppState extends State<OrbaceSudokuApp> {
     return switch (_screenshotScreen) {
       'import_puzzle' => ImportPuzzleScreen(repository: _repository),
       'level_packs' => LevelPackScreen(repository: _repository),
+      'game' => SudokuGameScreen(repository: _repository),
       'record_hall' => _RecordHallScreenshotScreen(repository: _repository),
       'settings' => const SettingsScreen(),
       'about' => const AboutScreen(),

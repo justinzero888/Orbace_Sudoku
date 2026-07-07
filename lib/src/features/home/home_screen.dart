@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Scaffold(
-            appBar: AppBar(title: const Text('Orbace Sudocoo')),
+            appBar: AppBar(title: const Text('Orbace Sudoku')),
             body: const Center(child: CircularProgressIndicator()),
           );
         }
@@ -96,7 +96,7 @@ class _HomeContent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orbace Sudocoo'),
+        title: const Text('Orbace Sudoku'),
         actions: [
           IconButton(
             tooltip: 'Settings',
@@ -174,7 +174,7 @@ class _HomeContent extends StatelessWidget {
             if (repository != null) ...[
               _PhaseCard(
                 title: 'Import Puzzle',
-                subtitle: 'Paste or enter a personal Sudocoo',
+                subtitle: 'Paste or enter a personal Sudoku',
                 seal: '入',
                 onTap: () async {
                   await Navigator.of(context).push(

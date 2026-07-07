@@ -27,13 +27,12 @@ class _AboutScreenState extends State<AboutScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Orbace Sudocoo',
+                'Orbace Sudoku',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12),
               Text(
-                'A free light version of Orbace Sudoku. Also play on web at '
-                'orbacesudoku.com',
+                'A free Sudoku game. Also play on web at orbacesudoku.com',
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),

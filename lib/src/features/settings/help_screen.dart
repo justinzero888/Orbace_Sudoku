@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../app/ad_mob_bottom_banner.dart';
 import '../../app/orbace_theme.dart';
+import 'settings_screen.dart' show supportEmail;
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -34,7 +35,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ..._parseGuide(context, snapshot.requireData),
                 const SizedBox(height: 20),
                 Text(
-                  'Need more help? Contact support@orbacetech.com',
+                  'Need more help? Contact $supportEmail',
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(color: OrbaceTheme.mutedInk),

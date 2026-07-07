@@ -1,8 +1,8 @@
-# Orbace Sudocoo - User Help Guide
+# Orbace Sudoku - User Help Guide
 
 ## 1. Home Screen
 
-When you open Orbace Sudocoo, you land on the Home screen — your starting point for everything.
+When you open Orbace Sudoku, you land on the Home screen — your starting point for everything.
 
 From here you can:
 
@@ -16,7 +16,7 @@ You may also see a small ad banner here to help keep the app free. Home is meant
 
 ## 2. Tea Moment
 
-Tea Moment is your daily puzzle — one calm, unhurried Sudocoo each day.
+Tea Moment is your daily puzzle — one calm, unhurried Sudoku each day.
 
 一局一茶 means One Puzzle, One Tea: one calm puzzle session, one quiet tea moment.
 
@@ -26,7 +26,7 @@ To play:
 2. Tap Tea Moment.
 3. Solve today's puzzle at your own pace.
 
-Everything you'd expect from a Sudocoo board is here: enter numbers, jot notes, erase, undo and redo, ask for a hint, pause, and check for mistakes. Your progress saves automatically, so you can step away and pick up right where you left off. When you finish, it's saved as a Su-Pu — Orbace's name for a completed, saved solve record you can revisit anytime.
+Everything you'd expect from a Sudoku board is here: enter numbers, jot notes, erase, undo and redo, ask for a hint, pause, and check for mistakes. Your progress saves automatically, so you can step away and pick up right where you left off. When you finish, it's saved as a Su-Pu — Orbace's name for a completed, saved solve record you can revisit anytime.
 
 Tea Moment is great for a quick daily habit or a relaxed warm-up before something harder.
 
@@ -57,7 +57,7 @@ To import:
 4. Preview it to make sure it looks right.
 5. Tap Save & Play.
 
-A couple of things to know: it needs to be a valid 9x9 Sudocoo with exactly one solution, and you can leave empty cells blank, enter them as zero, or mark them with a dot.
+A couple of things to know: it needs to be a valid 9x9 Sudoku with exactly one solution, and you can leave empty cells blank, enter them as zero, or mark them with a dot.
 
 Here's an example string you can try:
 
@@ -104,7 +104,7 @@ To browse:
 
 Want to clear one out? You can delete a record — this removes that attempt's replay, score, and notes, but leaves the puzzle itself and your other attempts at it untouched.
 
-Record Hall is where your Sudocoo history lives — come back anytime to relive a solve or see how far you've come.
+Record Hall is where your Sudoku history lives — come back anytime to relive a solve or see how far you've come.
 
 ## 8. Replay
 
@@ -157,13 +157,13 @@ You'll see the difference in score, time, steps, mistakes, hints, accuracy, scor
 
 ## 12. Scholar's Path and Extreme Challenge
 
-Scholar's Path tracks your progress through three stages — Foundation, Discipline, and Insight — as you build up your Sudocoo skills.
+Scholar's Path tracks your progress through three stages — Foundation, Discipline, and Insight — as you build up your Sudoku skills.
 
 Complete Insight, and you'll unlock Extreme Challenge: a tougher, no-assist puzzle for players who are ready for it. Daily Extreme Challenge draws from the Expert Challenge pack's puzzles. To have an Extreme Challenge attempt count toward ranking, solve it without hints, auto-check, or retries.
 
 ## 13. About the Ads
 
-Orbace Sudocoo is free to play, and a small ad banner may appear on Home and other screens — including during gameplay — to help keep it that way.
+Orbace Sudoku is free to play, and a small ad banner may appear on Home and other screens — including during gameplay — to help keep it that way.
 
 ## 14. Settings
 

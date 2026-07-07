@@ -256,8 +256,8 @@ class _RecordHallScreenState extends State<RecordHallScreen> {
                           await SharePlus.instance.share(
                             ShareParams(
                               files: [XFile(imageFile.path)],
-                              text: 'My Orbace Sudocoo Su-Pu',
-                              subject: 'Orbace Sudocoo Solve Record',
+                              text: 'My Orbace Sudoku Su-Pu',
+                              subject: 'Orbace Sudoku Solve Record',
                               sharePositionOrigin: _shareOrigin(),
                             ),
                           );

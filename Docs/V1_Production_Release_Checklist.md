@@ -185,6 +185,8 @@ Orbace Sudoku V1 — official launch.
 - [ ] Verify Official Ranking card is absent from Home screen
 - [ ] Verify Remove Ads option is absent from Settings
 - [ ] Verify Privacy Policy and Terms of Use open correctly in Settings
+- [ ] Verify ATT prompt appears on fresh iOS install or after reset tracking permissions before any AdMob ad request
+- [ ] Attach ATT physical-device screen recording in App Store Connect App Review Information notes when resubmitting
 
 ### iOS Specific
 - [ ] Archive builds successfully with "Apple Distribution: Orbace Technologies LLC (4Q4LMBRDM3)"

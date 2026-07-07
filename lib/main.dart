@@ -34,13 +34,11 @@ Future<void> main() async {
         );
       }
 
-      try {
-        await AdConsentService.initialize();
-      } catch (error, stack) {
-        debugPrint('Ad consent initialization failed: $error\n$stack');
-      }
-
       runApp(const OrbaceSudokuApp());
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        unawaited(_initializeAdConsent());
+      });
     },
     (error, stack) {
       if (firebaseReady) {
@@ -52,4 +50,13 @@ Future<void> main() async {
       }
     },
   );
+}
+
+Future<void> _initializeAdConsent() async {
+  try {
+    await Future<void>.delayed(const Duration(milliseconds: 900));
+    await AdConsentService.initialize();
+  } catch (error, stack) {
+    debugPrint('Ad consent initialization failed: $error\n$stack');
+  }
 }

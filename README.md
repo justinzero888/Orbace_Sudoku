@@ -2,6 +2,14 @@
 
 Flutter implementation of Orbace Sudoku, a calm, teaching-first Sudoku game for iOS and Android.
 
+## Current Release Status
+
+- Current beta/review candidate: `1.1.0 (48)`.
+- iOS IPA: `build/ios/ipa/orbace_sudoku.ipa`, signed for Orbace Technologies LLC team `4Q4LMBRDM3`.
+- Android AAB: `build/app/outputs/bundle/release/app-release.aab`, built with the release upload-keystore path.
+- Latest validation: `flutter analyze` passes; `flutter test test/sudoku_number_pad_test.dart` passes; iPhone 17e simulator evidence confirms first-launch ATT prompt and compact gameplay/ad-slot layout.
+- Next release step: upload v48 to TestFlight / Google Play beta, then capture the physical-device ATT screen recording requested by Apple App Review.
+
 ## Phase 0 Status
 
 Established:

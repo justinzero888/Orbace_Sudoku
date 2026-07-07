@@ -15,9 +15,10 @@ class AdMobBottomBanner extends StatefulWidget {
 class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   // Fixed, standard banner size (smaller than the previous adaptive banner,
   // which could grow to ~15% of screen height on larger phones/tablets).
-  static const AdSize _adSize = AdSize.banner;
+  static const AdSize _defaultAdSize = AdSize.banner;
 
   BannerAd? _bannerAd;
+  AdSize _reservedAdSize = _defaultAdSize;
   bool _isLoaded = false;
   bool _requested = false;
 
@@ -48,14 +49,17 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
     }
 
     if (_isLoaded && _bannerAd != null) {
-      return _AdSlot(adSize: _adSize, child: AdWidget(ad: _bannerAd!));
+      return _AdSlot(
+        adSize: _reservedAdSize,
+        child: AdWidget(ad: _bannerAd!),
+      );
     }
 
     if (AdMobConfig.showAdLayoutPreview) {
-      return _AdSlot(adSize: _adSize, child: const _AdSpacePreview());
+      return _AdSlot(adSize: _reservedAdSize, child: const _AdSpacePreview());
     }
 
-    return const SizedBox.shrink();
+    return _AdSlot(adSize: _reservedAdSize, child: const SizedBox.shrink());
   }
 
   void _loadAdIfNeeded() {
@@ -69,9 +73,10 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
   }
 
   void _loadBanner(String unitId, {required bool isFallback}) {
+    _reservedAdSize = _defaultAdSize;
     _bannerAd = BannerAd(
       adUnitId: unitId,
-      size: _adSize,
+      size: _defaultAdSize,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -80,6 +85,9 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
             return;
           }
           setState(() {
+            if (ad is BannerAd) {
+              _reservedAdSize = ad.size;
+            }
             _isLoaded = true;
           });
         },
@@ -101,15 +109,13 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
           // production ad again first, so once real fill starts this
           // fallback naturally stops being used, with no rebuild required.
           if (!isFallback && !AdMobConfig.usesTestAds) {
-            _loadBanner(
-              AdMobConfig.fallbackTestBannerUnitId,
-              isFallback: true,
-            );
+            _loadBanner(AdMobConfig.fallbackTestBannerUnitId, isFallback: true);
             return;
           }
           setState(() {
             _isLoaded = false;
             _bannerAd = null;
+            _reservedAdSize = _defaultAdSize;
           });
         },
       ),
@@ -126,6 +132,7 @@ class _AdMobBottomBannerState extends State<AdMobBottomBanner> {
         _bannerAd = null;
         _isLoaded = false;
         _requested = false;
+        _reservedAdSize = _defaultAdSize;
       });
       return;
     }
@@ -143,19 +150,21 @@ class _AdSlot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomPadding = MediaQuery.viewPaddingOf(context).bottom;
+    final bannerHeight = adSize.height.toDouble();
     return ColoredBox(
       color: OrbaceTheme.paper,
       child: SizedBox(
-        height: adSize.height.toDouble() + bottomPadding,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: bottomPadding),
-          child: Center(
-            child: SizedBox(
+        height: bannerHeight + bottomPadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
               width: adSize.width.toDouble(),
-              height: adSize.height.toDouble(),
-              child: child,
+              height: bannerHeight,
+              child: Center(child: child),
             ),
-          ),
+            SizedBox(height: bottomPadding),
+          ],
         ),
       ),
     );

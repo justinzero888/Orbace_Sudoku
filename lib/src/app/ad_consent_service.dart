@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'ad_mob_config.dart';
+import 'app_tracking_transparency_service.dart';
 
 class AdConsentState {
   const AdConsentState({
@@ -40,6 +41,9 @@ class AdConsentService {
   static const bool _resetConsentForTesting = bool.fromEnvironment(
     'ORBACE_UMP_RESET',
   );
+  static const bool _skipConsentForScreenshots = bool.fromEnvironment(
+    'ORBACE_SKIP_AD_CONSENT_FOR_SCREENSHOTS',
+  );
 
   static final ValueNotifier<AdConsentState> state =
       ValueNotifier<AdConsentState>(const AdConsentState.initial());
@@ -55,6 +59,17 @@ class AdConsentService {
       return;
     }
 
+    if (!kReleaseMode && _skipConsentForScreenshots) {
+      state.value = const AdConsentState(
+        canRequestAds: true,
+        privacyOptionsRequired: false,
+        isReady: true,
+        status: ConsentStatus.notRequired,
+      );
+      return;
+    }
+
+    await AppTrackingTransparencyService.requestAuthorizationIfNeeded();
     await MobileAds.instance.initialize();
     if (_resetConsentForTesting) {
       await ConsentInformation.instance.reset();

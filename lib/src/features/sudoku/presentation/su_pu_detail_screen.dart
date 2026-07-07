@@ -250,11 +250,9 @@ class _SuPuDetailScreenState extends State<SuPuDetailScreen> {
                             ShareParams(
                               files: [XFile(imageFile.path)],
                               text:
-                                  'My Orbace Sudocoo Su-Pu\n'
-                                  'Download Orbace Sudocoo App free - a light '
-                                  'version of Orbace Sudoku. Also play free '
-                                  'at www.orbacesudoku.com',
-                              subject: 'Orbace Sudocoo Solve Record',
+                                  'My Orbace Sudoku Su-Pu\n'
+                                  'Download Orbace Sudoku free at www.orbacesudoku.com',
+                              subject: 'Orbace Sudoku Solve Record',
                               sharePositionOrigin: _shareOrigin(),
                             ),
                           );

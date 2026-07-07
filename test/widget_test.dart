@@ -7,7 +7,7 @@ import 'package:orbace_sudoku/src/features/sudoku/presentation/game_session_cont
 import 'package:orbace_sudoku/src/features/sudoku/presentation/sudoku_replay_screen.dart';
 
 void main() {
-  testWidgets('Orbace Sudocoo home shell renders', (tester) async {
+  testWidgets('Orbace Sudoku home shell renders', (tester) async {
     final catalog = await PuzzlePackLoader().load();
     final advancedCount = catalog.puzzles
         .where(
@@ -22,7 +22,7 @@ void main() {
 
     await _pumpTestApp(tester);
 
-    expect(find.text('Orbace Sudocoo'), findsOneWidget);
+    expect(find.text('Orbace Sudoku'), findsOneWidget);
     expect(find.text('一局一茶 · One Puzzle, One Tea'), findsOneWidget);
     expect(find.text('Tea Moment'), findsOneWidget);
     expect(find.text('Record Hall'), findsNothing);

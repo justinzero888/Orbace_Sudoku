@@ -171,43 +171,15 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
                                 ),
                               ),
                               const SizedBox(height: 18),
-                              SudokuNumberPad(controller: _controller),
-                              const SizedBox(height: 16),
-                              if (widget.noAssistMode)
-                                const _NoAssistNotice()
-                              else
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: OutlinedButton.icon(
-                                        onPressed: _showHint,
-                                        icon: const Icon(
-                                          Icons.light_mode_outlined,
-                                        ),
-                                        label: const Text('Lantern Hint'),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: OutlinedButton.icon(
-                                        onPressed: () =>
-                                            _controller.setMistakeChecking(
-                                              !_controller.mistakeChecking,
-                                            ),
-                                        icon: Icon(
-                                          _controller.mistakeChecking
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
-                                        ),
-                                        label: Text(
-                                          _controller.mistakeChecking
-                                              ? 'Check On'
-                                              : 'Check Off',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              SudokuNumberPad(
+                                controller: _controller,
+                                showAssistControls: !widget.noAssistMode,
+                                onHint: _showHint,
+                              ),
+                              if (widget.noAssistMode) ...[
+                                const SizedBox(height: 16),
+                                const _NoAssistNotice(),
+                              ],
                             ],
                           ),
                         ),
@@ -655,7 +627,7 @@ class _CompletionCertificateDialogState
       setState(() {
         _scoreCardPath = path;
       });
-      _showMessage('Score card saved inside Orbace Sudocoo.');
+      _showMessage('Score card saved inside Orbace Sudoku.');
     } catch (error) {
       if (mounted) {
         _showMessage('Could not save score card: $error');
@@ -690,10 +662,9 @@ class _CompletionCertificateDialogState
         ShareParams(
           files: [XFile(file.path)],
           text:
-              'My Orbace Sudocoo Su-Pu · ${widget.puzzle.title}\n'
-              'Download Orbace Sudocoo App free - a light version of '
-              'Orbace Sudoku. Also play free at www.orbacesudoku.com',
-          subject: 'Orbace Sudocoo Solve Record',
+              'My Orbace Sudoku Su-Pu · ${widget.puzzle.title}\n'
+              'Download Orbace Sudoku free at www.orbacesudoku.com',
+          subject: 'Orbace Sudoku Solve Record',
           sharePositionOrigin: _shareOrigin(),
         ),
       );
@@ -791,7 +762,7 @@ class _ScoreCertificateCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Orbace Sudocoo', style: textTheme.titleLarge),
+                      Text('Orbace Sudoku', style: textTheme.titleLarge),
                       const SizedBox(height: 2),
                       Text(
                         'Solve Record · 一局成績',
@@ -843,17 +814,13 @@ class _ScoreCertificateCard extends StatelessWidget {
                   children: [
                     const TextSpan(text: 'Download '),
                     TextSpan(
-                      text: 'Orbace Sudocoo App',
+                      text: 'Orbace Sudoku App',
                       style: const TextStyle(
                         color: OrbaceTheme.vermilion,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const TextSpan(
-                      text:
-                          ' free - A light version of Orbace Sudoku\n'
-                          'Also play free at ',
-                    ),
+                    const TextSpan(text: ' free - Also play free at '),
                     TextSpan(
                       text: 'www.orbacesudoku.com',
                       style: const TextStyle(

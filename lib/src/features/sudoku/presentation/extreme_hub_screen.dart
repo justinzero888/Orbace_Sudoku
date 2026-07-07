@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/ad_mob_bottom_banner.dart';
 import '../../../app/orbace_theme.dart';
+import '../../../app/route_observer.dart';
 import '../data/app_database.dart';
 import '../data/puzzle_pack_loader.dart';
 import '../data/sudoku_repository.dart';
@@ -22,10 +23,10 @@ class ExtremeHubScreen extends StatefulWidget {
   State<ExtremeHubScreen> createState() => _ExtremeHubScreenState();
 }
 
-class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
+class _ExtremeHubScreenState extends State<ExtremeHubScreen> with RouteAware {
   late final AppDatabase _database;
   late final SudokuRepository _repository;
-  late final Future<_ExtremeHubState> _stateFuture;
+  late Future<_ExtremeHubState> _stateFuture;
 
   @override
   void initState() {
@@ -40,12 +41,27 @@ class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute<void>) {
+      appRouteObserver.subscribe(this, route);
+    }
+  }
+
+  @override
   void dispose() {
+    appRouteObserver.unsubscribe(this);
     if (widget.repository == null) {
       _database.close();
     }
     super.dispose();
   }
+
+  // Refresh Local Bests whenever a pushed route (the game screen, replay,
+  // or Record Hall) is popped back to this hub, however the user exited.
+  @override
+  void didPopNext() => _refreshState();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +87,6 @@ class _ExtremeHubScreenState extends State<ExtremeHubScreen> {
                   catalog: state.catalog,
                   puzzle: state.puzzle,
                   completedToday: state.completedToday,
-                  onReturnFromGame: _refreshState,
                 ),
                 const SizedBox(height: 12),
                 _LocalBestsCard(dailyBests: state.dailyBests),
@@ -217,7 +232,6 @@ class _ChallengeCard extends StatelessWidget {
     required this.catalog,
     required this.puzzle,
     required this.completedToday,
-    required this.onReturnFromGame,
   });
 
   final bool unlocked;
@@ -225,7 +239,6 @@ class _ChallengeCard extends StatelessWidget {
   final PuzzlePackCatalog catalog;
   final FixturePuzzleDefinition puzzle;
   final bool completedToday;
-  final VoidCallback onReturnFromGame;
 
   @override
   Widget build(BuildContext context) {
@@ -277,8 +290,8 @@ class _ChallengeCard extends StatelessWidget {
             const SizedBox(height: 12),
             FilledButton.icon(
               onPressed: unlocked
-                  ? () async {
-                      await Navigator.of(context).push(
+                  ? () {
+                      Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (_) => SudokuGameScreen(
                             repository: repository,
@@ -289,7 +302,6 @@ class _ChallengeCard extends StatelessWidget {
                           ),
                         ),
                       );
-                      onReturnFromGame();
                     }
                   : null,
               icon: const Icon(Icons.bolt),
